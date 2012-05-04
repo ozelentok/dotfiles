@@ -1,0 +1,15 @@
+#!/bin/bash
+#
+# ========================================
+# Base packages
+sudo apt-get update
+sudo apt-get install vim-gnome \
+  ctags keepass2 htop samba \
+  libpam-smbpass pysdm unrar \
+  network-manager-gnome \
+  krusader vlc
+
+# ========================================
+# Modules
+sudo ./modules/google.sh
+./modules/i3/install.sh
