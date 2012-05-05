@@ -12,10 +12,10 @@
   
   sudo apt-get install git
 
-  bitbucket_root="git@bitbucket.org:Colozus"
-  if [ "`whoami`" != "oz" ]; then
+#  bitbucket_root="git@bitbucket.org:Colozus"
+#  if [ "`whoami`" != "oz" ]; then
     bitbucket_root="https://bitbucket.org/Colozus"
-  fi
+#  fi
 
   echo ""
   echo "========================================"
