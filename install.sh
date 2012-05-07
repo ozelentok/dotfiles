@@ -7,7 +7,7 @@ sudo apt-get install vim-gnome \
   ctags keepass2 htop samba \
   libpam-smbpass pysdm unrar \
   network-manager-gnome \
-  krusader vlc
+  krusader vlc smplayer
 
 # ========================================
 # Modules
