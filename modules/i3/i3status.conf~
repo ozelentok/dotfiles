@@ -1,6 +1,6 @@
 general {
         colors = true
-        interval = 1
+        interval = 3
 }
 
 order = "cpu_usage"
@@ -29,7 +29,7 @@ ethernet eth0 {
 		format_down = "Net: down"
 }
 time {
-	format = "%d/%m/%Y %H:%M:%S"
+	format = "%H:%M:%S - %d/%m/%Y"
 }
 
 #load {
