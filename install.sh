@@ -3,7 +3,7 @@
 # ========================================
 # Base packages
 sudo apt-get update
-sudo apt-get install vim-gnome \
+sudo apt-get install -y vim-gnome \
   ctags keepass2 htop samba \
   libpam-smbpass pysdm unrar \
   network-manager-gnome \
