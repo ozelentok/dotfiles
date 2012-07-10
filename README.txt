@@ -5,13 +5,16 @@ This is a slimmed down, basic version of David Elentok Linux-Config
 
 To install run(install curl beforehand):
 	
-  $ curl -L https://bitbucket.org/Colozus/dotfiles/raw/master/online_install.sh | bash
+  $ curl -L https://bitbucket.org/colozus/dotfiles/raw/master/online_install.sh | bash
 
 
 Wallpaper
-===========
-1. rename the image you want to be set as your wallpaper
+=========
+1. rename the image you want to use as a wallpaper to 'wallpaper.png'
+(if your image isn't a PNG, convert it to PNG using GIMP)
+
 2. copy it to ~/.config
+
 3. reboot
 
 
@@ -34,7 +37,7 @@ Create special user for file sharing
 NOTE: when mounting partitions use the "users" group as the mountpoint's group.
 
 Auto-mount partitions
-====================
+=====================
 
 1. Install the "Storage Device Manager":
 
