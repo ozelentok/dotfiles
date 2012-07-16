@@ -13,3 +13,7 @@ sudo apt-get install -y vim-gnome \
 # Modules
 sudo ./modules/google.sh
 ./modules/i3/install.sh
+
+#=========================================
+# Configure bash tab-completion case insensitive
+echo "set completion-ignore-case on" | sudo tee -a /etc/inputrc
