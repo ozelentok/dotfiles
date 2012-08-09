@@ -5,7 +5,7 @@ This is a slimmed down, basic version of David Elentok Linux-Config
 
 To install run(install curl beforehand):
 	
-  $ curl -L https://bitbucket.org/colozus/dotfiles/raw/master/online_install.sh | bash
+  $ curl -L https://bitbucket.org/ozelentok/dotfiles/raw/master/online_install.sh | bash
 
 
 Wallpaper

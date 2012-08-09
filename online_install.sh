@@ -4,7 +4,7 @@
 # install curl using the following command:
 # sudo apt-get install curl
 # now run the following command:
-# curl -L https://bitbucket.org/Colozus/dotfiles/raw/master/online_install.sh | bash
+# curl -L https://bitbucket.org/ozelentok/dotfiles/raw/master/online_install.sh | bash
 #
 (
   mkdir -p ~/.config
@@ -12,9 +12,9 @@
   
   sudo apt-get install git
 
-#  bitbucket_root="git@bitbucket.org:Colozus"
+#  bitbucket_root="git@bitbucket.org:ozelentok"
 #  if [ "`whoami`" != "oz" ]; then
-    bitbucket_root="https://bitbucket.org/Colozus"
+    bitbucket_root="https://bitbucket.org/ozelentok"
 #  fi
 
   echo ""
