@@ -10,7 +10,7 @@
   mkdir -p ~/.config
   cd ~/.config
   
-  sudo apt-get install git
+  sudo apt-get install -y git
 
 #  bitbucket_root="git@bitbucket.org:ozelentok"
 #  if [ "`whoami`" != "oz" ]; then
