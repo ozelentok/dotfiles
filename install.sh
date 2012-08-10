@@ -8,7 +8,7 @@ sudo apt-get install -y vim-gnome \
   libpam-smbpass pysdm unrar \
   network-manager-gnome \
   krusader vlc smplayr \
-	deluge
+	deluge gimp qt4-config
 
 # ========================================
 # Modules
