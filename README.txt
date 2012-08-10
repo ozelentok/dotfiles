@@ -3,13 +3,22 @@ Oz Elentok's Linux-Config
 This is a slimmed down, basic version of David Elentok Linux-Config
 (https://bitbucket.org/3david/dotfiles)
 
-To install run(install curl beforehand):
+
+Installation Procedures
+======================
+
+1. install 'curl' (if you already have it installed, skip to the next setp):
+
+	$ sudo apt-get install curl
+
+2. run the following command:
 	
   $ curl -L https://bitbucket.org/ozelentok/dotfiles/raw/master/online_install.sh | bash
 
 
 Wallpaper
 =========
+
 1. rename the image you want to use as a wallpaper to 'wallpaper.png'
 (if your image isn't a PNG, convert it to PNG using GIMP)
 
@@ -17,6 +26,20 @@ Wallpaper
 
 3. reboot
 
+Qt-Config
+=========
+
+Programs which use Qt will look horrible unless configured with qtconfig
+NOTE: qtconfig should be installed already by the script, if not installed run
+the following command:
+
+	$ sudo apt-get install qt4-config
+
+1. run qtconfig and the window 'Qt Configuration' will appear
+	
+	$ qtconfig
+
+2. under the 'Appearance' tab, at GUI Style, select 'GTK+'
 
 Create special user for file sharing
 ====================================
