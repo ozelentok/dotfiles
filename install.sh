@@ -22,7 +22,7 @@ sudo apt-get install -y vim-gnome \
   libpam-smbpass pysdm unrar \
   network-manager-gnome \
   krusader vlc smplayer \
-	deluge qt4-config
+  deluge qt4-config
 
 # Extra packaes(optional)
 

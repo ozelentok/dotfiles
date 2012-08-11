@@ -16,8 +16,8 @@ Installation Procedures
   $ curl -L https://bitbucket.org/ozelentok/dotfiles/raw/master/online_install.sh | bash
 
 
-Wallpaper
-=========
+Set Up a Wallpaper
+==================
 
 1. rename the image you want to use as a wallpaper to 'wallpaper.png'
 (if your image isn't a PNG, convert it to PNG using GIMP)
@@ -40,6 +40,21 @@ the following command:
   $ qtconfig
 
 2. under the 'Appearance' tab, at GUI Style, select 'GTK+'
+
+View CPU Temperatures
+=====================
+
+1. install lm_sensors
+
+  $ sudo apt-get install lm_sensors
+
+2. configure the sensors (follow the prompt instructions)
+
+  $ sudo sensors-detect
+
+3. to view your CPU temperatures, type the following command
+
+	$ sensors
 
 Create special user for file sharing
 ====================================
