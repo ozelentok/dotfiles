@@ -9,7 +9,7 @@ Installation Procedures
 
 1. install 'curl' (if you already have it installed, skip to the next setp):
 
-	$ sudo apt-get install curl
+  $ sudo apt-get install curl
 
 2. run the following command:
 	
@@ -33,11 +33,11 @@ Programs which use Qt will look horrible unless configured with qtconfig
 NOTE: qtconfig should be installed already by the script, if not installed run
 the following command:
 
-	$ sudo apt-get install qt4-config
+  $ sudo apt-get install qt4-config
 
 1. run qtconfig and the window 'Qt Configuration' will appear
 	
-	$ qtconfig
+  $ qtconfig
 
 2. under the 'Appearance' tab, at GUI Style, select 'GTK+'
 

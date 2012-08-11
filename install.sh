@@ -21,7 +21,8 @@ sudo apt-get install -y vim-gnome \
   ctags keepass2 htop samba \
   libpam-smbpass pysdm unrar \
   network-manager-gnome \
-  krusader vlc smplayer
+  krusader vlc smplayer \
+	deluge qt4-config
 
 # Extra packaes(optional)
 
