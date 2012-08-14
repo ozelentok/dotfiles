@@ -2,10 +2,10 @@
 
 # =======================================
 # Installation Flags for extra packages
-gimpFlag="y"
-audacityFlag="y"
-virtBoxFlag="y"
-lampFlag="y"
+gimpFlag="n"
+audacityFlag="n"
+virtBoxFlag="n"
+lampFlag="n"
 
 # =======================================
 # Extra packages prompt
