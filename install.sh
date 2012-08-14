@@ -26,26 +26,26 @@ sudo apt-get install -y vim-gnome \
 
 # Extra packaes(optional)
 
-if [[ $gimpFlag == [Yy]* ]]
+if [[ $gimpFlag == [Yy]* ]]; then
 	echo ""
 	echo "====================="
 	echo "Installing Gimp"
 	sudo apt-get install -y gimp
 fi
-if [[ $audacityFlag == [Yy]* ]]
+if [[ $audacityFlag == [Yy]* ]]; then
 	echo ""
 	echo "====================="
 	echo "Installing Audacity"
 	sudo apt-get install -y audacity
 
 fi
-if [[ $virtBoxFlag == [Yy]* ]]
+if [[ $virtBoxFlag == [Yy]* ]]; then
 	echo ""
 	echo "====================="
 	echo "Installing VirtualBox"
 	sudo apt-get install -y virtualbox
 fi
-if [[ $lampFlag == [Yy]* ]]
+if [[ $lampFlag == [Yy]* ]]; then
 	echo ""
 	echo "====================="
 	echo "Installing LAMP"
