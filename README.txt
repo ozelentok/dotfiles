@@ -33,7 +33,7 @@ Programs which use Qt will look horrible unless configured with qtconfig
 NOTE: qtconfig should be installed already by the script, if not installed run
 the following command:
 
-  $ sudo apt-get install qt4-config
+  $ sudo apt-get install qt4-qtconfig
 
 1. run qtconfig and the window 'Qt Configuration' will appear
 	
@@ -54,7 +54,7 @@ View CPU Temperatures
 
 3. to view your CPU temperatures, type the following command
 
-	$ sensors
+  $ sensors
 
 Create special user for file sharing
 ====================================
