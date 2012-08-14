@@ -61,5 +61,5 @@ sudo ./modules/google.sh
 # Configure bash tab-completion case insensitive
 echo ""
 echo "=============================="
-echo "Enabling case-insensitve auto-completion
+echo "Enabling case-insensitve auto-completion"
 echo "set completion-ignore-case on" | sudo tee -a /etc/inputrc
