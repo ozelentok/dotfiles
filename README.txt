@@ -7,14 +7,17 @@ This is a slimmed down, basic version of David Elentok Linux-Config
 Installation Procedures
 ======================
 
-1. install 'curl' (if you already have it installed, skip to the next setp):
+1. install 'curl' (if you already have it installed, skip to the next step):
 
   $ sudo apt-get install curl
 
 2. run the following command:
 	
-  $ curl -L https://bitbucket.org/ozelentok/dotfiles/raw/master/online_install.sh | bash
+  $ curl -oL ~/tempInstall.sh https://bitbucket.org/ozelentok/dotfiles/raw/master/online_install.sh && bash ~/tempInstall.sh
 
+3. after installion is complete, you can delete the temporary install script:
+
+  $ rm ~/tempInstall.sh
 
 Set Up a Wallpaper
 ==================

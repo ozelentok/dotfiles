@@ -4,7 +4,7 @@
 # install curl using the following command:
 # sudo apt-get install curl
 # now run the following command:
-# curl -oL ~/tempInstall.sh https://bitbucket.org/ozelentok/dotfiles/raw/master/online_install.sh && bash ~/tempInstall.sh && rm ~/tempInstall.sh
+# curl -oL ~/tempInstall.sh https://bitbucket.org/ozelentok/dotfiles/raw/master/online_install.sh && bash ~/tempInstall.sh
 (
   mkdir -p ~/.config
   cd ~/.config
