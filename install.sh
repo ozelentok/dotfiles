@@ -18,7 +18,7 @@ read -p "Do you want to Install LAMP - Web Server software [Y/n]?" lampFlag
 # Base packages
 sudo apt-get update
 sudo apt-get install -y vim-gnome \
-  ctags keepass2 htop samba \
+  ctags keepassx htop samba \
   libpam-smbpass pysdm unrar \
   network-manager-gnome \
   krusader vlc smplayer \
