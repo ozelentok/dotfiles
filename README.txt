@@ -13,7 +13,7 @@ Installation Procedures
 
 2. run the following command:
 	
-  $ curl -oL ~/tempInstall.sh https://bitbucket.org/ozelentok/dotfiles/raw/master/online_install.sh && bash ~/tempInstall.sh
+  $ curl -oL ~/tempInstall.sh https://github.com/ozelentok/dotfiles/raw/master/online_install.sh && bash ~/tempInstall.sh
 
 3. after installion is complete, you can delete the temporary install script:
 
