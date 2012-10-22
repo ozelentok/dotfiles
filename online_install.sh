@@ -11,9 +11,9 @@
   
   sudo apt-get install -y git
 
-#  bitbucket_root="git@github.com:ozelentok"
+#  github_root="git@github.com:ozelentok"
 #  if [ "`whoami`" != "oz" ]; then
-    bitbucket_root="https://github.com/ozelentok"
+    github_root="https://github.com/ozelentok"
 #  fi
 
   echo ""
