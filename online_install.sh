@@ -4,7 +4,7 @@
 # install curl using the following command:
 # sudo apt-get install curl
 # now run the following command:
-# curl -oL ~/tempInstall.sh https://github.com/ozelentok/dotfiles/raw/master/online_install.sh && bash ~/tempInstall.sh
+# curl -oL ~/tempInstall.sh https://raw.github.com/ozelentok/dotfiles/master/online_install.sh && bash ~/tempInstall.sh
 (
   mkdir -p ~/.config
   cd ~/.config
@@ -19,7 +19,7 @@
   echo ""
   echo "========================================"
   echo "Cloning dotfiles"
-  git clone $bitbucket_root/dotfiles
+  git clone $github_root/dotfiles
 
   echo "========================================"
   echo "setting up linux"

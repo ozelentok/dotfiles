@@ -5,7 +5,7 @@ echo "========================================"
 echo "Installing i3wm"
 echo "========================================"
 
-sudo sh -c "echo 'deb http://debian.sur5r.net/i3/ oneiric universe' >> /etc/apt/sources.list"
+sudo sh -c "echo 'deb http://debian.sur5r.net/i3/ quantal universe' >> /etc/apt/sources.list"
 sudo apt-get update
 sudo apt-get --allow-unauthenticated install -y sur5r-keyring
 sudo apt-get update
