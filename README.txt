@@ -13,11 +13,7 @@ Installation Procedures
 
 2. run the following command:
 	
-  $ curl -o ~/tempInstall.sh https://raw.github.com/ozelentok/dotfiles/master/online_install.sh && bash ~/tempInstall.sh
-
-3. after installion is complete, you can delete the temporary install script:
-
-  $ rm ~/tempInstall.sh
+  $ curl -o /tmp/tempInstall.sh https://raw.github.com/ozelentok/dotfiles/master/online_install.sh && bash /tmp/tempInstall.sh
 
 Set Up a Wallpaper
 ==================
@@ -64,7 +60,7 @@ Create special user for file sharing
 
 1. create the system user: 
 
-  $ sudo useradd <username> -p <password> -g users
+  $ sudo useradd <username> -p <password> -g sambashare
 
 2. create the samba user:
 
