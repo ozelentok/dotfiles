@@ -29,7 +29,7 @@ Qt-Config
 =========
 
 Programs which use Qt will look horrible unless configured with qtconfig
-NOTE: qtconfig should be installed already by the script, if not installed run
+Notes: qtconfig should be installed already by the script, if not installed run
 the following command:
 
   $ sudo apt-get install qt4-qtconfig
@@ -71,7 +71,7 @@ Create special user for file sharing
   $ sudo su
   $ echo '<username> = "<username>"' > /etc/samba/smbusers
 
-NOTE: when mounting partitions use the "sambashare" group as the mountpoint's group.
+Note: when mounting partitions use the "sambashare" group as the mountpoint's group.
 
 Auto-mount partitions
 =====================
@@ -82,15 +82,16 @@ Auto-mount partitions
 
 2. Open the file /etc/fstab with any text editor (root privileges are required)
 
-3. For each partition, add the following line to the file:
+3. For each partition, add the following (single) line to the file:
 
 UUID=<uuid> /media/<mountname> <filesytem> rw,uid=<username>,gid=sambashare,umask=023 0 0
 
-NOTES:
-  <uuid> = The UUID of the partition
-  <mountname> = The name of the mount point
-	<filesystem> = The filesystem of the partiton
-  by setting the gid to "sambashare", the special samba user defined in the previous section
-  can access shares on these partitions.
+Notes:
+<uuid> = The UUID of the partition
+<mountname> = The name of the mount point
+<filesystem> = The filesystem of the partiton
+
+by setting the gid to "sambashare", the special samba user defined in the previous section can access shares on these partitions.
+
 Example:
-  UUID=0001111100001100  /media/data ntfs, rw,uid=bob,gid=sambashare,umask=023 0 0
+UUID=0001111100001100  /media/data ntfs, rw,uid=bob,gid=sambashare,umask=023 0 0
