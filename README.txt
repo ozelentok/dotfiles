@@ -71,23 +71,26 @@ Create special user for file sharing
   $ sudo su
   $ echo '<username> = "<username>"' > /etc/samba/smbusers
 
-NOTE: when mounting partitions use the "users" group as the mountpoint's group.
+NOTE: when mounting partitions use the "sambashare" group as the mountpoint's group.
 
 Auto-mount partitions
 =====================
 
-1. Install the "Storage Device Manager":
+1. Run the following command to get the UUID of the partitions:
 
-  $ sudo apt-get install pysdm
+  $ sudo blkid
 
-2. Open it, and for each partition use these settings:
+2. Open the file /etc/fstab with any text editor (root privileges are required)
 
-  nls=iso8859-8,umask=027,utf8,gid=users,uid=<username>
-  
-  uid will hold the user name:
-  eg. uid=oz
+3. For each partition, add the following line to the file:
 
-  by setting the gid to "users", the special samba user defined in the previous section
-  can access shares on these partitions. Also, by setting the "umask" to 027 that user
-  will only have read-access.
+UUID=<uuid> /media/<mountname> <filesytem> rw,uid=<username>,gid=sambashare,umask=023 0 0
 
+NOTES:
+  <uuid> = The UUID of the partition
+  <mountname> = The name of the mount point
+	<filesystem> = The filesystem of the partiton
+  by setting the gid to "sambashare", the special samba user defined in the previous section
+  can access shares on these partitions.
+Example:
+  UUID=0001111100001100  /media/data ntfs, rw,uid=bob,gid=sambashare,umask=023 0 0
