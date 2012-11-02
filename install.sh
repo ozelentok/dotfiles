@@ -56,6 +56,7 @@ fi
 # Modules
 sudo ./modules/google.sh
 ./modules/i3/install.sh
+cp ./modules/vim/.vimrc ~/.vimrc
 
 #=========================================
 # Configure bash tab-completion case insensitive
