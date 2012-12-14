@@ -190,11 +190,11 @@ bar {
 # Chrome: assign to workspace #1
 #assign [class="firefox"] 2: www
 
-#for_window [title="Copying.*"] floating enable
+for_window [title="Copying.*"] floating enable
 
-#for_window [title="Open Database -.*"] floating enable
-#for_window [title=".* KeePass Password Safe"] floating enable
-#for_window [title="Unlock Login .*"] floating enable
+for_window [title="Open Database -.*"] floating enable
+for_window [title=".* KeePass Password Safe"] floating enable
+for_window [title="Unlock Login .*"] floating enable
 
 # Empathy
 #assign [class="empathy"] 3: chat
@@ -207,7 +207,7 @@ bar {
 # Launcher keybidings
 
 #bindsym $mod+n exec nautilus --no-desktop
-bindsym $mod+n exec gnome-commander 
+bindsym $mod+n exec krusader 
 bindsym $mod+m exec rhythmbox
 bindsym $mod+c exec firefox
 
