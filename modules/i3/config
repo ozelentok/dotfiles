@@ -206,7 +206,8 @@ bar {
 # =============================================
 # Launcher keybidings
 
-bindsym $mod+n exec nautilus --no-desktop
+#bindsym $mod+n exec nautilus --no-desktop
+bindsym $mod+n exec gnome-commander 
 bindsym $mod+m exec rhythmbox
 bindsym $mod+c exec firefox
 
