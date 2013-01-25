@@ -1,8 +1,8 @@
 Oz Elentok's Linux-Config
 ======================
-This is a slimmed down, basic version of David Elentok Linux-Config
-(https://bitbucket.org/3david/dotfiles)
-
+Made For Ubuntu (12.10)
+Window Manager: i3wm
+Program Launcher: Kupfer/dmenu
 
 Installation Procedures
 ======================
@@ -21,7 +21,7 @@ Set Up a Wallpaper
 1. rename the image you want to use as a wallpaper to 'wallpaper.png'
 (if your image isn't a PNG, convert it to PNG using GIMP)
 
-2. copy it to ~/.config
+2. copy it to ~/Pictures/
 
 3. reboot
 
