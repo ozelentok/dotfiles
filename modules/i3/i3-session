@@ -5,5 +5,5 @@ setxkbmap -option 'grp:alt_shift_toggle'
 gnome-settings-daemon &
 nm-applet &
 x-terminal-emulator &
+kupfer --no-splash &
 i3 &
-kupfer --no-splash
