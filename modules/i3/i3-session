@@ -6,4 +6,4 @@ gnome-settings-daemon &
 nm-applet &
 x-terminal-emulator &
 kupfer --no-splash &
-i3 &
+i3
