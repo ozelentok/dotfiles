@@ -54,13 +54,7 @@ if [[ $lampFlag == [Yy]* ]]; then
 fi
 # ========================================
 # Modules
-sudo ./modules/google.sh
+sudo ./modules/bash/config.sh
 ./modules/i3/install.sh
+sudo ./modules/google.sh
 cp ./modules/vim/.vimrc ~/.vimrc
-
-#=========================================
-# Configure bash tab-completion case insensitive
-echo ""
-echo "=============================="
-echo "Enabling case-insensitve auto-completion"
-echo "set completion-ignore-case on" | sudo tee -a /etc/inputrc
