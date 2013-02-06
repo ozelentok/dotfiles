@@ -57,4 +57,4 @@ fi
 sudo ./modules/bash/config.sh
 ./modules/i3/install.sh
 sudo ./modules/google.sh
-cp ./modules/vim/.vimrc ~/.vimrc
+./modules/vim/vim.sh
