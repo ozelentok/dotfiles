@@ -54,6 +54,7 @@ if [[ $lampFlag == [Yy]* ]]; then
 fi
 # ========================================
 # Modules
+./modules/git/install.sh
 sudo ./modules/bash/config.sh
 ./modules/i3/install.sh
 sudo ./modules/google.sh
