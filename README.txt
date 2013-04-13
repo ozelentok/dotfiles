@@ -45,7 +45,7 @@ View CPU Temperatures
 
 1. install lm_sensors
 
-  $ sudo apt-get install lm_sensors
+  $ sudo apt-get install lm-sensors
 
 2. configure the sensors (follow the prompt instructions)
 
