@@ -10,7 +10,7 @@ echo "Bash Settings Configuration"
 echo "set completion-ignore-case on" | sudo tee -a /etc/inputrc
 
 # set terminal colors to 256
-echo "export TERM=xterm-256color" | sudo tee -a ~/.bashrc
+echo "export TERM=screen-256color" | sudo tee -a ~/.bashrc
 
 # script dir
 DIR=$(dirname "${BASH_SOURCE[0]}")
