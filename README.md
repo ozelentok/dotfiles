@@ -6,13 +6,9 @@
 
 ##Installation Procedures
 
-1. Install 'curl' (if you already have it installed, skip to the next step):
-
-  $ sudo apt-get install curl
-
-2. Run the following command:
+1. Run the following command:
 	
-  $ curl -o /tmp/tempInstall.sh https://raw.github.com/ozelentok/dotfiles/master/online_install.sh && bash /tmp/tempInstall.sh
+  $ wget https://raw.github.com/ozelentok/dotfiles/master/online_install.sh -O /tmp/tempInstall.sh && bash /tmp/tempInstall.sh
 
 ##Set Up a Wallpaper
 
