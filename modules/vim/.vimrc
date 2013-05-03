@@ -3,8 +3,8 @@ filetype plugin indent on
 
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
-Bundle 'gmarkik/vundle'
-Bundle 'scroloose/nerdtree'
+Bundle 'gmarik/vundle'
+Bundle 'scrooloose/nerdtree'
 Bundle 'Lokaltog/vim-powerline'
 Bundle 'kien/ctrlp.vim'
 Bundle 'sickill/vim-monokai'
