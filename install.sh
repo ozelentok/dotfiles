@@ -20,7 +20,8 @@ sudo apt-get install -y vim-gnome \
   libpam-smbpass unrar zsh \
   network-manager-gnome \
   krusader vlc smplayer \
-  deluge qt4-qtconfig kupfer
+  deluge qt4-qtconfig kupfer \
+	chromium-browser
 
 # Extra packaes(optional)
 
@@ -48,5 +49,4 @@ fi
 ./modules/git/install.sh
 sudo ./modules/zsh/install.sh
 ./modules/i3/install.sh
-sudo ./modules/google.sh
 ./modules/vim/install.sh

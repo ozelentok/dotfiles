@@ -11,12 +11,12 @@
   echo ""
   echo "========================================"
   echo "Cloning dotfiles"
-  git clone $github_root/dotfiles
+  git clone $HOME/$github_root/.dotfiles
 
   echo "========================================"
   echo "setting up linux"
   (
-    cd dotfiles
+    cd $HOME/.dotfiles
     ./install.sh
   )
 )
