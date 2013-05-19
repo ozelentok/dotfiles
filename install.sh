@@ -5,21 +5,19 @@
 gimpFlag="n"
 audacityFlag="n"
 virtBoxFlag="n"
-lampFlag="n"
 
 # =======================================
 # Extra packages prompt
 read -p "Do you want to install GIMP - Image Editor [Y/n]?" gimpFlag
 read -p "Do you want to install Audacity - Audio Editor [Y/n]?" audacityFlag
 read -p "Do you want to install VirtualBox - Virtualizion software [Y/n]?" virtBoxFlag
-read -p "Do you want to Install LAMP - Web Server software [Y/n]?" lampFlag
 
 # ========================================
 # Base packages
 sudo apt-get update
 sudo apt-get install -y vim-gnome \
   ctags keepassx htop samba \
-  libpam-smbpass unrar \
+  libpam-smbpass unrar zsh \
   network-manager-gnome \
   krusader vlc smplayer \
   deluge qt4-qtconfig kupfer
@@ -45,17 +43,10 @@ if [[ $virtBoxFlag == [Yy]* ]]; then
 	echo "Installing VirtualBox"
 	sudo apt-get install -y virtualbox
 fi
-if [[ $lampFlag == [Yy]* ]]; then
-	echo ""
-	echo "====================="
-	echo "Installing LAMP"
-	sudo apt-get install -y taskel
-	sudo taskel install lamp-server
-fi
 # ========================================
 # Modules
 ./modules/git/install.sh
-sudo ./modules/bash/config.sh
+sudo ./modules/zsh/install.sh
 ./modules/i3/install.sh
 sudo ./modules/google.sh
-./modules/vim/vim.sh
+./modules/vim/install.sh

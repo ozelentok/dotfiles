@@ -13,7 +13,7 @@ set $mod Mod4
 #set $mod Mod1
 
 #window borders
-new_window 1pixel
+new_window normal 1
 
 # font for window titles. ISO 10646 = Unicode
 #font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
@@ -171,6 +171,12 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
+#color settings
+client.focused          #000000 #252525 #ffffff #111111
+client.focused_inactive #000000 #111111 #ffffff #111111
+client.unfocused        #000000 #111111 #888888 #111111
+client.urgent           #000000 #900000 #ffffff #111111
+
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
@@ -209,8 +215,8 @@ for_window [title="Unlock Login .*"] floating enable
 # =============================================
 # Launcher keybidings
 
-bindsym $mod+n exec nautilus --no-desktop
-bindsym $mod+m exec krusader 
+bindsym $mod+n exec krusader 
+bindsym $mod+m exec nautilus --no-desktop
 bindsym $mod+b exec rhythmbox
 bindsym $mod+c exec firefox
 

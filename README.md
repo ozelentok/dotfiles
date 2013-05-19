@@ -1,6 +1,6 @@
 #Oz Elentok's Linux-Config
 
-- Made For Ubuntu (12.10)
+- Made For Ubuntu (13.04)
 - Window Manager: i3wm
 - Program Launcher: Kupfer/dmenu
 

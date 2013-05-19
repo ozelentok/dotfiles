@@ -1,0 +1,73 @@
+set nocompatible
+filetype plugin indent on
+
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+Bundle 'gmarik/vundle'
+Bundle 'scrooloose/nerdtree'
+Bundle 'scrooloose/syntastic'
+Bundle 'Lokaltog/vim-powerline'
+Bundle 'kien/ctrlp.vim'
+Bundle 'sickill/vim-monokai'
+Bundle 'elentok/plaintasks.vim'
+Bundle 'kchmck/vim-coffee-script'
+Bundle 'Shougo/neocomplcache'
+
+set directory=./tmp
+set backupdir=./tmp
+syntax on
+set showcmd
+set hlsearch
+set wildmenu
+set autoindent
+set number
+set shiftwidth=2
+set tabstop=2
+set guifont=Ubuntu\ Mono\ 14
+set wildignorecase
+colors obsidian 
+set laststatus=2   " Always show the statusline
+set encoding=utf-8
+set spellsuggest=best,10
+set dictionary=/usr/share/dict/words
+set textwidth=0
+let g:Powerline_symbols = 'unicode'
+let g:syntastic_check_on_open=1
+let g:syntastic_enable_signs=1
+let g:neocomplcache_enable_at_startup=1
+imap <f2> <c-o> ToggleHebrew() <cr>
+map <f2> :call ToggleHebrew() <cr>
+func! ToggleHebrew()
+	if &rl
+		set norl
+		set keymap=
+	else
+		set rl
+		set keymap=hebrew
+	end
+endfunc
+
+" map c-h/j/k/l to move between windows
+nmap <c-h> <c-w>h
+nmap <c-j> <c-w>j
+nmap <c-k> <c-w>k
+nmap <c-l> <c-w>l
+
+nmap <space> <pagedown>
+nmap - <pageup>
+nmap <backspace> <pageup>
+
+" so :W will also save
+command! W w
+
+" Javascript
+autocmd BufRead,BufEnter *.js setlocal nocindent smartindent
+autocmd BufRead,BufEnter *.json setlocal filetype=javascript
+autocmd BufRead,BufEnter *.coffee setlocal filetype=coffee
+au BufWritePost *.coffee silent CoffeeMake!
+
+" Autocomplete
+autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType html setlocal autoindent omnifunc=htmlcomplete#CompleteTags
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
