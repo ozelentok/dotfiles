@@ -28,15 +28,15 @@ set autoindent
 set number
 set shiftwidth=2
 set tabstop=2
-set guifont=Ubuntu\ Mono\ 15
+set guifont=Ubuntu\ Mono\ for\ Powerline\ 15
 set mouse=a
 colors obsidian 
-set laststatus=2   " Always show the statusline
+set laststatus=2
 set encoding=utf-8
 set spellsuggest=best,10
 set dictionary=/usr/share/dict/words
 set textwidth=0
-let g:Powerline_symbols = 'unicode'
+let g:Powerline_symbols = 'fancy'
 let g:syntastic_check_on_open=1
 let g:syntastic_enable_signs=1
 let g:neocomplcache_enable_at_startup=1
