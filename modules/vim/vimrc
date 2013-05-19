@@ -87,7 +87,8 @@ noremap ,ep "+p
 " whatever is in your paste buffer.
 vnoremap p "_dP
 map ," ysiw"
-noremap ,tn :NERDTreeToogle<cr>
+
+noremap ,nt :NERDTreeToggle<cr>
 
 " so :W will also save
 command! W w
@@ -103,5 +104,5 @@ autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType html setlocal autoindent omnifunc=htmlcomplete#CompleteTags
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
 
-autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd ctermbg=black
-autocmd VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=darkgrey
+"autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd ctermbg=black
+"autocmd VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=darkgrey

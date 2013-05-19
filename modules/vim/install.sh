@@ -2,6 +2,7 @@
 
 DIR=$(dirname "${BASH_SOURCE[0]}")
 DIR=$(cd -P $DIR && pwd)
+
 ln -sf $DIR/vimrc $HOME/.vimrc
 mkdir $HOME/.vim/colors
 cp $DIR/obsidian.vim $HOME/.vim/colors/obsidian.vim
