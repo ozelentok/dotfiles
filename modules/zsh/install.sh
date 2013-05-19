@@ -17,4 +17,4 @@ git clone git://github.com/zsh-users/zsh-syntax-highlighting.git $HOME/.zsh/synt
 ln -s $DIR/zshrc $HOME/.zshrc
 ln -s $DIR/aliases.zsh $HOME/.zsh/aliases.zsh
 ln -s $DIR/zspower.py $HOME/.zsh/zspower.py
-chsh -s $(which zsh)
+sudo chsh -s $(which zsh)
