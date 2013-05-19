@@ -13,18 +13,23 @@ Bundle 'elentok/plaintasks.vim'
 Bundle 'kchmck/vim-coffee-script'
 Bundle 'Shougo/neocomplcache'
 
-set directory=./tmp
-set backupdir=./tmp
+set directory=/tmp
+set backupdir=/tmp
 syntax on
 set showcmd
 set hlsearch
+set incsearch
+set ignorecase
 set wildmenu
+set wildmode=full
+set wildignore=*.swp,.bak,*.pyc,*.class,*.o,*.obj
+set wildignorecase
 set autoindent
 set number
 set shiftwidth=2
 set tabstop=2
-set guifont=Ubuntu\ Mono\ 14
-set wildignorecase
+set guifont=Ubuntu\ Mono\ 15
+set mouse=a
 colors obsidian 
 set laststatus=2   " Always show the statusline
 set encoding=utf-8
@@ -53,13 +58,39 @@ nmap <c-j> <c-w>j
 nmap <c-k> <c-w>k
 nmap <c-l> <c-w>l
 
-nmap <space> <pagedown>
-nmap - <pageup>
-nmap <backspace> <pageup>
+" Navigation
+noremap <space> 20j
+vnoremap <space> 20j
+noremap - 20k
+vnoremap - 20k
+" Navigation in Insert mode
+inoremap <c-l> <right>
+inoremap <c-k> <up>
+inoremap <c-j> <down>
+inoremap <c-e> <c-o>$
+" Resize
+nnoremap _ <c-w>-
+nnoremap + <c-w>+
+nnoremap > <c-w>>
+nnoremap < <c-w><
+" Yank and paste using + register (works on X11 clipboard)
+" Switch to * register in windows
+noremap ,ey "+Y
+vnoremap ,ey "+y
+noremap ,ep "+p
+" From https://github.com/skwp/dotfiles/blob/master/vim/plugin/settings/stop-visual-paste-insanity.vim:
+" If you visually select something and hit paste
+" that thing gets yanked into your buffer. This
+" generally is annoying when you're copying one item
+" and repeatedly pasting it. This changes the paste
+" command in visual mode so that it doesn't overwrite
+" whatever is in your paste buffer.
+vnoremap p "_dP
+map ," ysiw"
+noremap ,tn :NERDTreeToogle<cr>
 
 " so :W will also save
 command! W w
-
 " Javascript
 autocmd BufRead,BufEnter *.js setlocal nocindent smartindent
 autocmd BufRead,BufEnter *.json setlocal filetype=javascript
@@ -71,3 +102,6 @@ autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType html setlocal autoindent omnifunc=htmlcomplete#CompleteTags
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+
+autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd ctermbg=black
+autocmd VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=darkgrey
