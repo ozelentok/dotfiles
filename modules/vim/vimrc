@@ -106,3 +106,4 @@ autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
 
 "autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd ctermbg=black
 "autocmd VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=darkgrey
+hi Normal ctermbg=none
