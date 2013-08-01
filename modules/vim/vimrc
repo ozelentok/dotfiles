@@ -1,6 +1,6 @@
 set nocompatible
-filetype plugin indent on
-
+" vundle requires filetype to be off
+filetype off
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 Bundle 'gmarik/vundle'
@@ -12,7 +12,10 @@ Bundle 'sickill/vim-monokai'
 Bundle 'elentok/plaintasks.vim'
 Bundle 'kchmck/vim-coffee-script'
 Bundle 'Shougo/neocomplcache'
+Bundle 'SirVer/ultisnips'
+Bundle 'JazzCore/neocomplcache-ultisnips'
 
+filetype plugin indent on
 set directory=/tmp
 set backupdir=/tmp
 syntax on
@@ -72,7 +75,7 @@ inoremap <c-e> <c-o>$
 nnoremap _ <c-w>-
 nnoremap + <c-w>+
 nnoremap > <c-w>>
-nnoremap < <c-w><
+nnoremap > <c-w><
 " Yank and paste using + register (works on X11 clipboard)
 " Switch to * register in windows
 noremap ,ey "+Y
