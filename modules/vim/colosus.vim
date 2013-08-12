@@ -1,95 +1,82 @@
 " Vim color file
-" Maintainer:    Daniel Bolton <danielbarrettbolton@gmail.com>
-" Last Modified: 2010-07-04
-" Version: 0.1
-"
-" This scheme is based on the excellent lucius scheme. The cfterm colors are
-" in fact exactly the same, and exist simply because I was too lazy to remove
-" them yet.
+" Maintainer:Oz Elentok <oz.elen@gmail.com>
+" Last Modified: 12 August 2013
+" Version: 1.0
 
 set background=dark
 hi clear
 if exists("syntax_on")
     syntax reset
 endif
-let colors_name="obsidian"
-
-" Some other colors to save
-" blue: 3eb8e5
-" green: 92d400
-" c green: d5f876, cae682
-" new blue: 002D62
-" new gray: CCCCCC
-
+let colors_name="colosus"
 
 " Base color
 " ----------
-hi Normal           guifg=#D4D2CF           guibg=#151515
-hi Normal           ctermfg=253             ctermbg=235
+hi Normal           guifg=#ffffff           guibg=#151515
+hi Normal           ctermfg=15             ctermbg=233
 
 
 " Comment Group
 " -------------
-" any comment
-hi Comment          guifg=#787775                                  gui=italic
-hi Comment          ctermfg=240                                     cterm=none
+hi Comment          guifg=#a8a8a8                                  gui=italic
+hi Comment          ctermfg=248                                     cterm=none
 
 
 " Constant Group
 " --------------
 " any constant
-hi Constant         guifg=#ff0000                                  gui=none
+hi Constant         guifg=#87d7d7                                  gui=none
 hi Constant         ctermfg=116                                     cterm=none
 " strings
-hi String           guifg=#E85848                                   gui=none
-hi String           ctermfg=110                                     cterm=none
+hi String           guifg=#ffaf00                                   gui=none
+hi String           ctermfg=214                                     cterm=none
 " character constant
-hi Character        guifg=#96BFF0                                   gui=none
-hi Character        ctermfg=110                                     cterm=none
+hi Character        guifg=#ff8700                                   gui=none
+hi Character        ctermfg=208                                     cterm=none
 " numbers decimal/hex
-hi Number           guifg=#C0A25F                                   gui=none
-hi Number           ctermfg=116                                     cterm=none
+hi Number           guifg=#afd7ff                                   gui=none
+hi Number           ctermfg=153                                     cterm=none
 " true, false
-hi Boolean          guifg=#C0A25F                                   gui=none
-hi Boolean          ctermfg=116                                     cterm=none
+hi Boolean          guifg=#d7d787                                   gui=bold
+hi Boolean          ctermfg=186                                     cterm=none
 " float
-hi Float            guifg=#C0A25F                                  gui=none
-hi Float            ctermfg=116                                     cterm=none
+hi Float            guifg=#afd7ff                                  gui=none
+hi Float            ctermfg=153                                     cterm=none
 
 
 " Identifier Group
 " ----------------
 " any variable name
-hi Identifier       guifg=#508ED8                                   gui=none
-hi Identifier       ctermfg=216                                     cterm=none
+hi Identifier       guifg=#00d7ff                                  gui=bold
+hi Identifier       ctermfg=45                                     cterm=none
 " function, method, class
-hi Function         guifg=#8E79A5                                   gui=none
-hi Function         ctermfg=216                                     cterm=none
+hi Function         guifg=#00d7ff                                   gui=bold
+hi Function         ctermfg=45                                     cterm=none
 
 
 " Statement Group
 " ---------------
 " any statement
-hi Statement        guifg=#8E79A5                                   gui=none
+hi Statement        guifg=#afd787                                   gui=bold
 hi Statement        ctermfg=150                                     cterm=none
 " if, then, else
-hi Conditional      guifg=#00A000                                   gui=none
-hi Conditional      ctermfg=150                                     cterm=none
+hi Conditional      guifg=#afd75f                                   gui=bold
+hi Conditional      ctermfg=149                                     cterm=none
 " try, catch, throw, raise
-hi Exception        guifg=#4A5704                                   gui=none
-hi Exception        ctermfg=150                                     cterm=none
+hi Exception        guifg=#afd75f                                   gui=bold
+hi Exception        ctermfg=149                                     cterm=none
 " for, while, do
-hi Repeat           guifg=#DBA716                                 gui=none
-hi Repeat           ctermfg=150                                     cterm=none
+hi Repeat           guifg=#afd75f                                 gui=bold
+hi Repeat           ctermfg=149                                     cterm=none
 " case, default
-hi Label            guifg=#8E79A5                                   gui=none
-hi Label            ctermfg=150                                     cterm=none
+hi Label            guifg=#afd75f                                   gui=bold
+hi Label            ctermfg=149                                     cterm=none
 " sizeof, +, *
-hi Operator         guifg=#FF9FEC                                   gui=none
-hi Operator         ctermfg=150                                     cterm=none
+hi Operator         guifg=#87ffff                                   gui=none
+hi Operator         ctermfg=123                                     cterm=none
 " any other keyword, e.g. 'sub'
-hi Keyword          guifg=#AA3000                                   gui=none
-hi Keyword          ctermfg=150                                     cterm=none
+hi Keyword          guifg=#afd75f                                   gui=bold
+hi Keyword          ctermfg=149                                     cterm=none
 
 
 " Preprocessor Group
@@ -114,38 +101,38 @@ hi PreCondit        ctermfg=223                                     cterm=none
 " Type Group
 " ----------
 " int, long, char
-hi Type             guifg=#508ED8                                   gui=none
-hi Type             ctermfg=115                                     cterm=none
+hi Type             guifg=#87d7ff                                   gui=bold
+hi Type             ctermfg=117                                     cterm=none
 " static, register, volative
-hi StorageClass     guifg=#508ED8                                   gui=none
-hi StorageClass     ctermfg=115                                     cterm=none
+hi StorageClass     guifg=#87d7ff                                   gui=bold
+hi StorageClass     ctermfg=117                                     cterm=none
 " struct, union, enum
-hi Structure        guifg=#508ED8                                   gui=none
-hi Structure        ctermfg=115                                     cterm=none
+hi Structure        guifg=#87d7ff                                   gui=bold
+hi Structure        ctermfg=117                                     cterm=none
 " typedef
-hi Typedef          guifg=#508ED8                                   gui=none
-hi Typedef          ctermfg=115                                     cterm=none
+hi Typedef          guifg=#87d7ff                                   gui=bold
+hi Typedef          ctermfg=117                                     cterm=none
 
 
 " Special Group
 " -------------
 " any special symbol
-hi Special          guifg=#C00000                                   gui=none
+hi Special          guifg=#d7afaf                                   gui=bold
 hi Special          ctermfg=181                                     cterm=none
 " special character in a constant
-hi SpecialChar      guifg=#C00000                                   gui=none
+hi SpecialChar      guifg=#d7afaf                                   gui=bold
 hi SpecialChar      ctermfg=181                                     cterm=none
 " things you can CTRL-]
-hi Tag              guifg=#C00000                                   gui=none
+hi Tag              guifg=#d7afaf                                  gui=none
 hi Tag              ctermfg=181                                     cterm=none
 " character that needs attention
-hi Delimiter        guifg=#C00000                                   gui=none
+hi Delimiter        guifg=#d7afaf                                  gui=none
 hi Delimiter        ctermfg=181                                     cterm=none
 " special things inside a comment
-hi SpecialComment   guifg=#C00000                                   gui=none
+hi SpecialComment   guifg=#d7afaf                                   gui=none
 hi SpecialComment   ctermfg=181                                     cterm=none
 " debugging statements
-hi Debug            guifg=#C00000           guibg=NONE              gui=none
+hi Debug            guifg=#d7afaf           guibg=NONE              gui=bold
 hi Debug            ctermfg=181             ctermbg=NONE            cterm=none
 
 
@@ -166,7 +153,7 @@ hi Ignore           ctermfg=bg
 " Error Group
 " -----------
 " any erroneous construct
-hi Error            guifg=#E85848           guibg=#451E1A           gui=none
+hi Error            guifg=#E85848           guibg=#451E1A           gui=bold
 hi Error            ctermfg=167             ctermbg=52            cterm=none
 
 
@@ -285,8 +272,8 @@ hi FoldColumn       ctermfg=117             ctermbg=238             cterm=none
 " Search
 " ------
 " highlight incremental search text; also highlight text replaced with :s///c
-hi IncSearch        guifg=#302F2F guibg=#C0A25F                   gui=none
-hi IncSearch        ctermfg=87                                      cterm=reverse
+hi IncSearch        guifg=#000000           guibg=#C0A25F          gui=none
+hi IncSearch        ctermfg=0               ctermbg=214            cterm=none
 " hlsearch (last search pattern), also used for quickfix
 hi Search                                    guibg=#C0A25F          gui=none
 hi Search                                    ctermbg=214            cterm=none
@@ -340,3 +327,6 @@ hi Visual           ctermfg=NONE            ctermbg=24
 hi VisualNOS        guifg=fg                                        gui=underline
 hi VisualNOS        ctermfg=fg                                      cterm=underline
 
+" Line Number
+hi LineNr           guifg=#c4a000           guibg=#1c1c1c    gui=bold
+hi LineNr           ctermfg=3               ctermbg=234

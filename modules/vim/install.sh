@@ -11,5 +11,5 @@ echo "========================================"
 ln -sf $DIR/vimrc $HOME/.vimrc
 git clone https://github.com/gmarik/vundle.git $HOME/.vim/bundle/vundle
 mkdir $HOME/.vim/colors
-cp $DIR/obsidian.vim $HOME/.vim/colors/obsidian.vim
+cp $DIR/colosus.vim $HOME/.vim/colors/colosus.vim
 vim +BundleInstall +qall

@@ -6,7 +6,7 @@ call vundle#rc()
 Bundle 'gmarik/vundle'
 Bundle 'scrooloose/nerdtree'
 Bundle 'scrooloose/syntastic'
-Bundle 'Lokaltog/vim-powerline'
+Bundle 'bling/vim-airline'
 Bundle 'kien/ctrlp.vim'
 Bundle 'sickill/vim-monokai'
 Bundle 'elentok/plaintasks.vim'
@@ -33,54 +33,48 @@ set shiftwidth=2
 set tabstop=2
 set guifont=Ubuntu\ Mono\ for\ Powerline\ 15
 set mouse=a
-colors obsidian 
 set laststatus=2
 set encoding=utf-8
 set spellsuggest=best,10
 set dictionary=/usr/share/dict/words
 set textwidth=0
-let g:Powerline_symbols = 'fancy'
 let g:syntastic_check_on_open=1
 let g:syntastic_enable_signs=1
 let g:neocomplcache_enable_at_startup=1
-imap <f2> <c-o> ToggleHebrew() <cr>
-map <f2> :call ToggleHebrew() <cr>
-func! ToggleHebrew()
-	if &rl
-		set norl
-		set keymap=
-	else
-		set rl
-		set keymap=hebrew
-	end
-endfunc
-
+" Airline
+let g:airline_left_sep = '⮀'
+let g:airline_left_alt_sep = '⮁'
+let g:airline_right_sep = '⮂'
+let g:airline_right_alt_sep = '⮃'
+let g:airline_branch_prefix = '⭠'
+let g:airline_readonly_symbol = '⭤'
+let g:airline_linecolumn_prefix = '⭡'
+let g:airline_theme='powerlineish'
+let g:airline_detect_whitespace=1
+" Colorscheme
+colors colosus
+hi Normal ctermbg=none
 " map c-h/j/k/l to move between windows
 nmap <c-h> <c-w>h
 nmap <c-j> <c-w>j
 nmap <c-k> <c-w>k
 nmap <c-l> <c-w>l
-
 " Navigation
 noremap <space> 20j
 vnoremap <space> 20j
 noremap - 20k
 vnoremap - 20k
-" Navigation in Insert mode
-inoremap <c-l> <right>
-inoremap <c-k> <up>
-inoremap <c-j> <down>
-inoremap <c-e> <c-o>$
-" Resize
+"Resize
 nnoremap _ <c-w>-
 nnoremap + <c-w>+
 nnoremap > <c-w>>
-nnoremap > <c-w><
+nnoremap < <c-w><
 " Yank and paste using + register (works on X11 clipboard)
 " Switch to * register in windows
 noremap ,ey "+Y
 vnoremap ,ey "+y
 noremap ,ep "+p
+noremap tp :tabp<cr>
 " From https://github.com/skwp/dotfiles/blob/master/vim/plugin/settings/stop-visual-paste-insanity.vim:
 " If you visually select something and hit paste
 " that thing gets yanked into your buffer. This
@@ -90,16 +84,17 @@ noremap ,ep "+p
 " whatever is in your paste buffer.
 vnoremap p "_dP
 map ," ysiw"
-
+"NERDTree Window Toogle
 noremap ,nt :NERDTreeToggle<cr>
-
 " so :W will also save
 command! W w
+" toggles hebrew and right to left
+imap <f2> <c-o> ToggleHebrew() <cr>
+map <f2> :call ToggleHebrew() <cr>
 " Javascript
 autocmd BufRead,BufEnter *.js setlocal nocindent smartindent
 autocmd BufRead,BufEnter *.json setlocal filetype=javascript
-autocmd BufRead,BufEnter *.coffee setlocal filetype=coffee
-au BufWritePost *.coffee silent CoffeeMake!
+au BufWritePost *.coffee silent call CoffeeMake()
 
 " Autocomplete
 autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
@@ -107,6 +102,20 @@ autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType html setlocal autoindent omnifunc=htmlcomplete#CompleteTags
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
 
-"autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd ctermbg=black
-"autocmd VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=darkgrey
-hi Normal ctermbg=none
+func! CoffeeMake()
+	if getline(1) =~ 'autocompile'
+		silent make
+		redraw!
+		cw
+	endif
+endfunc
+
+func! ToggleHebrew()
+	if &rl
+		set norl
+		set keymap=
+	else
+		set rl
+		set keymap=hebrew
+	end
+endfunc
