@@ -14,13 +14,15 @@ if [ ! -d "$HOME/.zsh" ]; then
 fi
 git clone git://github.com/zsh-users/zsh-syntax-highlighting.git $HOME/.zsh/syntaxhl
 
+echo "Zsh Settings Configuration"
 ln -s $DIR/zshrc $HOME/.zshrc
 ln -s $DIR/aliases.zsh $HOME/.zsh/aliases.zsh
 ln -s $DIR/zspower.py $HOME/.zsh/zspower.py
-echo "Zsh Settings Configuration"
 sudo usermod -s $(which zsh) $USER
 echo ""
 echo "=============================="
-echo "Installing patched ubuntu mono fonts"
-git clone https://github.com/pdf/ubuntu-mono-powerline-ttf.git ~/.fonts/ubuntu-mono-powerline-ttf
+echo "Installing patched Ubuntu Mono Fonts"
+echo "Font Family Name: Ubuntu Mono ZPower"
+mkdir -p $HOME/.fonts
+cp $DIR/PatchedFonts/*.otf $HOME/.fonts/
 fc-cache -vf
