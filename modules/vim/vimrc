@@ -31,7 +31,7 @@ set autoindent
 set number
 set shiftwidth=2
 set tabstop=2
-set guifont=Ubuntu\ Mono\ for\ Powerline\ 15
+set guifont=Ubuntu\ Mono\ ZPower\ 15
 set mouse=a
 set laststatus=2
 set encoding=utf-8
