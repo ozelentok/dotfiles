@@ -12,4 +12,6 @@ ln -sf $DIR/vimrc $HOME/.vimrc
 git clone https://github.com/gmarik/vundle.git $HOME/.vim/bundle/vundle
 mkdir $HOME/.vim/colors
 cp $DIR/colosus.vim $HOME/.vim/colors/colosus.vim
+cp -r $DIR/mySnips $HOME/.vim/mySnips
+
 vim +BundleInstall +qall

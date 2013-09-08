@@ -50,3 +50,4 @@ fi
 sudo ./modules/zsh/install.sh
 ./modules/i3/install.sh
 ./modules/vim/install.sh
+./modules/krusader/install.sh
