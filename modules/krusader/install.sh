@@ -2,11 +2,10 @@
 
 echo ""
 echo "========================================"
-echo "Configuring Git"
+echo "Configuring Krusader"
 echo "========================================"
 
 DIR=$(dirname "${BASH_SOURCE[0]}")
 DIR=$(cd -P $DIR && pwd)
 
-ln -sf "$DIR/gitconfig" $HOME/.gitconfig
-ln -sf "$DIR/gitignore_global" $HOME/.gitignore_global
+ln -sf "$DIR/krusaderrc" $HOME/.kde/share/config/krusaderrc

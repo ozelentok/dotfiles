@@ -91,6 +91,9 @@ command! W w
 " toggles hebrew and right to left
 imap <f2> <c-o> ToggleHebrew() <cr>
 map <f2> :call ToggleHebrew() <cr>
+" UltiSnips
+let g:UltiSnipsDontReverseSearchPath="1"
+let g:UltiSnipsSnippetDirectories=["UltiSnips", "mySnips"]
 " Javascript
 autocmd BufRead,BufEnter *.js setlocal nocindent smartindent
 autocmd BufRead,BufEnter *.json setlocal filetype=javascript
