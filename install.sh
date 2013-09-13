@@ -16,11 +16,11 @@ read -p "Do you want to install VirtualBox - Virtualizion software [Y/n]?" virtB
 # Base packages
 sudo apt-get update
 sudo apt-get install -y vim-gnome \
-  ctags keepassx htop samba \
-  libpam-smbpass unrar zsh \
-  network-manager-gnome \
-  krusader vlc smplayer \
-  deluge qt4-qtconfig kupfer \
+	ctags keepassx htop samba \
+	libpam-smbpass unrar zsh \
+	network-manager-gnome \
+	krusader vlc smplayer \
+	deluge qt4-qtconfig kupfer \
 	chromium-browser
 
 # Extra packaes(optional)
