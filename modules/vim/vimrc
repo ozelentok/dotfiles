@@ -8,16 +8,19 @@ Bundle 'scrooloose/nerdtree'
 Bundle 'scrooloose/syntastic'
 Bundle 'bling/vim-airline'
 Bundle 'kien/ctrlp.vim'
-Bundle 'sickill/vim-monokai'
-Bundle 'elentok/plaintasks.vim'
+Bundle 'elentok/markdown-preview.vim'
+Bundle 'elentok/todo.vim'
 Bundle 'kchmck/vim-coffee-script'
 Bundle 'Shougo/neocomplcache'
 Bundle 'SirVer/ultisnips'
 Bundle 'JazzCore/neocomplcache-ultisnips'
+Bundle 'digitaltoad/vim-jade'
+Bundle 'tpope/vim-fugitive'
 
 filetype plugin indent on
 set directory=/tmp
 set backupdir=/tmp
+set backup
 syntax on
 set showcmd
 set hlsearch
@@ -31,6 +34,7 @@ set autoindent
 set number
 set shiftwidth=2
 set tabstop=2
+set noexpandtab
 set guifont=Ubuntu\ Mono\ ZPower\ 15
 set mouse=a
 set laststatus=2
@@ -71,9 +75,9 @@ nnoremap > <c-w>>
 nnoremap < <c-w><
 " Yank and paste using + register (works on X11 clipboard)
 " Switch to * register in windows
-noremap ,ey "+Y
-vnoremap ,ey "+y
-noremap ,ep "+p
+noremap <Leader>ey "+Y
+vnoremap <Leader>ey "+y
+noremap <Leader>ep "+p
 noremap tp :tabp<cr>
 " From https://github.com/skwp/dotfiles/blob/master/vim/plugin/settings/stop-visual-paste-insanity.vim:
 " If you visually select something and hit paste
@@ -83,9 +87,9 @@ noremap tp :tabp<cr>
 " command in visual mode so that it doesn't overwrite
 " whatever is in your paste buffer.
 vnoremap p "_dP
-map ," ysiw"
+map <Leader>" ysiw"
 "NERDTree Window Toogle
-noremap ,nt :NERDTreeToggle<cr>
+noremap <Leader>nt :NERDTreeToggle<cr>
 " so :W will also save
 command! W w
 " toggles hebrew and right to left
@@ -94,10 +98,15 @@ map <f2> :call ToggleHebrew() <cr>
 " UltiSnips
 let g:UltiSnipsDontReverseSearchPath="1"
 let g:UltiSnipsSnippetDirectories=["UltiSnips", "mySnips"]
-" Javascript
+"todo.vim
+let g:todo_root="~/.todo"
+
+" FileType
 autocmd BufRead,BufEnter *.js setlocal nocindent smartindent
 autocmd BufRead,BufEnter *.json setlocal filetype=javascript
 au BufWritePost *.coffee silent call CoffeeMake()
+autocmd BufEnter,BufEnter *.vs setlocal filetype=c
+autocmd BufEnter,BufEnter *.fs setlocal filetype=c
 
 " Autocomplete
 autocmd FileType python setlocal omnifunc=pythoncomplete#Complete

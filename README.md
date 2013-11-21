@@ -1,8 +1,10 @@
 #Oz Elentok's Linux-Config
 
-- Made For Ubuntu (13.04)
+- Made For Arch Linux (2013-11)
 - Window Manager: i3wm
-- Program Launcher: Kupfer/dmenu
+- Program Launcher: dmenu
+- Music Player: Rhythmbox
+- Video Player: SMPlayer, VLC
 
 ##Installation Procedures
 
@@ -84,4 +86,4 @@ Notes:
 by setting the gid to "sambashare", the special samba user defined in the previous section can access shares on these partitions.
 
 Example:
-UUID=0001111100001100  /media/data ntfs, rw,uid=bob,gid=sambashare,umask=023 0 0
+UUID=0001111100001100 /media/data ntfs-3g rw,uid=bob,gid=sambashare,umask=002 0 0

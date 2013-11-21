@@ -2,12 +2,12 @@
 
 echo ""
 echo "========================================"
-echo "Configuring Krusader"
+echo "Configuring Samba"
 echo "========================================"
 
 DIR=$(dirname "${BASH_SOURCE[0]}")
 DIR=$(cd -P $DIR && pwd)
-TODIR="$HOME/.kde4/share/config"
+TODIR="/etc/samba"
 mkdir -p $TODIR
-cp "$DIR/krusaderrc" $TODIR
+cp "$DIR/smb.conf" $TODIR
 

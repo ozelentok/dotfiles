@@ -9,9 +9,7 @@ echo "Zsh Settings Configuration"
 DIR=$(dirname "${BASH_SOURCE[0]}")
 DIR=$(cd -P $DIR && pwd)
 
-if [ ! -d "$HOME/.zsh" ]; then
-	mkdir $HOME/.zsh
-fi
+mkdir -p "$HOME/.zsh"
 git clone git://github.com/zsh-users/zsh-syntax-highlighting.git $HOME/.zsh/syntaxhl
 
 echo "Zsh Settings Configuration"
