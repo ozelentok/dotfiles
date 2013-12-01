@@ -3,7 +3,7 @@
 # ========================================
 # Base packages
 sudo pacman -Sy
-sudo pacman -S gvim feh ctags keepassx htop samba unrar zsh gimp audacity krusader vlc smplayer deluge chromium ntfs-3g xorg-xkill exfat-utils fuse-exfat
+sudo pacman -S gvim feh ctags keepassx htop samba unrar zsh gimp audacity krusader vlc smplayer deluge chromium ntfs-3g xorg-xinit xorg-xkill exfat-utils fuse-exfat
 
 # Modules
 ./modules/X11/install.sh

@@ -208,6 +208,7 @@ for_window [title="Testing Archive"] floating enable
 for_window [title="Open Database -.*"] floating enable
 for_window [title=".* KeePass Password Safe"] floating enable
 for_window [title="Unlock Login .*"] floating enable
+for_window [title="Zeal"] floating enable
 
 # Empathy
 #assign [class="empathy"] 3: chat

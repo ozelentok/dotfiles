@@ -11,8 +11,8 @@ Bundle 'kien/ctrlp.vim'
 Bundle 'elentok/markdown-preview.vim'
 Bundle 'elentok/todo.vim'
 Bundle 'kchmck/vim-coffee-script'
-Bundle 'Shougo/neocomplcache'
 Bundle 'SirVer/ultisnips'
+Bundle 'Shougo/neocomplcache'
 Bundle 'JazzCore/neocomplcache-ultisnips'
 Bundle 'digitaltoad/vim-jade'
 Bundle 'tpope/vim-fugitive'
@@ -42,8 +42,12 @@ set encoding=utf-8
 set spellsuggest=best,10
 set dictionary=/usr/share/dict/words
 set textwidth=0
+let g:syntastic_mode_map = { "mode": "active",
+                           \ "active_filetypes": [],
+                           \ "passive_filetypes": ['sass', 'scss', 'haml', 'html']}
 let g:syntastic_check_on_open=1
 let g:syntastic_enable_signs=1
+"let g:ycm_register_as_syntastic_checker=0
 let g:neocomplcache_enable_at_startup=1
 " Airline
 let g:airline_left_sep = '⮀'
@@ -58,6 +62,7 @@ let g:airline_detect_whitespace=1
 " Colorscheme
 colors colosus
 hi Normal ctermbg=none
+imap ii <Esc>
 " map c-h/j/k/l to move between windows
 nmap <c-h> <c-w>h
 nmap <c-j> <c-w>j
@@ -105,8 +110,8 @@ let g:todo_root="~/.todo"
 autocmd BufRead,BufEnter *.js setlocal nocindent smartindent
 autocmd BufRead,BufEnter *.json setlocal filetype=javascript
 au BufWritePost *.coffee silent call CoffeeMake()
-autocmd BufEnter,BufEnter *.vs setlocal filetype=c
-autocmd BufEnter,BufEnter *.fs setlocal filetype=c
+autocmd BufRead,BufEnter *.vs setlocal filetype=c
+autocmd BufRead,BufEnter *.fs setlocal filetype=c
 
 " Autocomplete
 autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
@@ -131,3 +136,5 @@ func! ToggleHebrew()
 		set keymap=hebrew
 	end
 endfunc
+let g:UltiSnipsExpandTrigger="<c-j>"
+
