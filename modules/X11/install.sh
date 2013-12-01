@@ -13,4 +13,4 @@ mkdir -p $TODIR
 for confFile in "$DIR"*.conf; do
 	cp $confFile $TODIR
 done
-
+cp xinitrc $HOME/.xinitrc
