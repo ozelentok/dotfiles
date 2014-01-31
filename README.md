@@ -1,6 +1,6 @@
 #Oz Elentok's Linux-Config
 
-- Made For Arch Linux (2013-11)
+- Made For Arch Linux (2014-02)
 - Window Manager: i3wm
 - Program Launcher: dmenu
 - Text Editor: Vim
@@ -26,14 +26,10 @@
 ##Qt-Config
 
 Programs which use Qt will look horrible unless configured with qtconfig
-Notes: qtconfig should be installed already by the script, if not installed run
-the following command:
-
-	$ sudo apt-get install qt4-qtconfig
 
 1. Run qtconfig and the window 'Qt Configuration' will appear
 
-		$ qtconfig
+		$ qtconfig-qt4
 
 2. Under the 'Appearance' tab, at GUI Style, select 'GTK+'
 
