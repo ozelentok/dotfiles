@@ -1,5 +1,5 @@
 #!/bin/bash
 gnome-settings-daemon &
 feh --bg-fill ~/Pictures/wallpaper.png &
-zeal &
+krusader &
 exec i3
