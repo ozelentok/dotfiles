@@ -11,12 +11,13 @@ Bundle 'kien/ctrlp.vim'
 Bundle 'elentok/markdown-preview.vim'
 Bundle 'elentok/todo.vim'
 Bundle 'kchmck/vim-coffee-script'
-Bundle 'SirVer/ultisnips'
-Bundle 'Shougo/neocomplcache'
-Bundle 'JazzCore/neocomplcache-ultisnips'
-Bundle 'digitaltoad/vim-jade'
+Bundle 'Shougo/neocomplete'
+Bundle 'Shougo/neosnippet'
+Bundle 'Shougo/neosnippet-snippets'
+Bundle 'digitalkktoad/vim-jade'
 Bundle 'tpope/vim-fugitive'
 
+"General
 filetype plugin indent on
 set directory=/tmp
 set backupdir=/tmp
@@ -42,27 +43,12 @@ set encoding=utf-8
 set spellsuggest=best,10
 set dictionary=/usr/share/dict/words
 set textwidth=0
-let g:syntastic_mode_map = { "mode": "active",
-                           \ "active_filetypes": [],
-                           \ "passive_filetypes": ['sass', 'scss', 'haml', 'html']}
-let g:syntastic_check_on_open=1
-let g:syntastic_enable_signs=1
-"let g:ycm_register_as_syntastic_checker=0
-let g:neocomplcache_enable_at_startup=1
-" Airline
-let g:airline_left_sep = '⮀'
-let g:airline_left_alt_sep = '⮁'
-let g:airline_right_sep = '⮂'
-let g:airline_right_alt_sep = '⮃'
-let g:airline_branch_prefix = '⭠'
-let g:airline_readonly_symbol = '⭤'
-let g:airline_linecolumn_prefix = '⭡'
-let g:airline_theme='powerlineish'
-let g:airline_detect_whitespace=1
-" Colorscheme
+
+"Colorscheme
 colors colosus
 hi Normal ctermbg=none
 imap ii <Esc>
+command! W w
 " map c-h/j/k/l to move between windows
 nmap <c-h> <c-w>h
 nmap <c-j> <c-w>j
@@ -93,18 +79,60 @@ noremap tp :tabp<cr>
 " whatever is in your paste buffer.
 vnoremap p "_dP
 map <Leader>" ysiw"
+
+"Syntastic
+let g:syntastic_mode_map = { "mode": "active",
+                           \ "active_filetypes": [],
+                           \ "passive_filetypes": ['sass', 'scss', 'haml', 'html']}
+let g:syntastic_check_on_open = 1
+let g:syntastic_enable_signs = 1
+
+"neocomplete
+let g:neocomplete#enable_at_startup = 1
+let g:neocomplete#enable_smart_case = 0
+" Plugin key-mappings.
+inoremap <expr><C-g> neocomplete#undo_completion()
+inoremap <expr><C-l> neocomplete#complete_common_string()
+" Recommended key-mappings.
+" <CR>: close popup and save indent.
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+" <C-h>, <BS>: close popup and delete backword char.
+inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+inoremap <expr><C-y>  neocomplete#close_popup()
+inoremap <expr><C-e>  neocomplete#cancel_popup()
+
+"neosnippet
+" SuperTab like snippets behavior.
+imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+\ "\<Plug>(neosnippet_expand_or_jump)"
+\: pumvisible() ? "\<C-n>" : "\<TAB>"
+smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+\ "\<Plug>(neosnippet_expand_or_jump)"
+\: "\<TAB>"
+
+" For snippet_complete marker.
+if has('conceal')
+  set conceallevel=2 concealcursor=i
+endif
+
+"Airline
+let g:airline_left_sep = '⮀'
+let g:airline_left_alt_sep = '⮁'
+let g:airline_right_sep = '⮂'
+let g:airline_right_alt_sep = '⮃'
+let g:airline_branch_prefix = '⭠'
+let g:airline_readonly_symbol = '⭤'
+let g:airline_linecolumn_prefix = '⭡'
+let g:airline_theme='powerlineish'
+let g:airline_detect_whitespace=1
+
 "NERDTree Window Toogle
 noremap <Leader>nt :NERDTreeToggle<cr>
-" so :W will also save
-command! W w
-" toggles hebrew and right to left
+
+"Toggles hebrew and right to left
 imap <f2> <c-o> ToggleHebrew() <cr>
 map <f2> :call ToggleHebrew() <cr>
-" UltiSnips
-let g:UltiSnipsDontReverseSearchPath="1"
-let g:UltiSnipsSnippetDirectories=["UltiSnips", "mySnips"]
-"todo.vim
-let g:todo_root="~/.todo"
 
 " FileType
 autocmd BufRead,BufEnter *.js setlocal nocindent smartindent
@@ -114,6 +142,7 @@ autocmd BufRead,BufEnter *.vs setlocal filetype=c
 autocmd BufRead,BufEnter *.fs setlocal filetype=c
 
 " Autocomplete
+set omnifunc=syntaxcomplete#Complete
 autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType html setlocal autoindent omnifunc=htmlcomplete#CompleteTags
@@ -136,5 +165,4 @@ func! ToggleHebrew()
 		set keymap=hebrew
 	end
 endfunc
-let g:UltiSnipsExpandTrigger="<c-j>"
 
