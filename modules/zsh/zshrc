@@ -44,13 +44,8 @@ zstyle ':vcs_info:*' formats '%f%u%F{green}[%b]'
 zstyle ':vcs_info:*' actionformats ' %F{blue}%b%f %F{white}%.7i%f +%a%u'
 zstyle ':vcs_info:git*+set-message:*' hooks git-status
 function precmd() {
-	if [ "$?" -eq 0 ]; then
-		pcolor='green'
-	else
-		pcolor='red'
-	fi
 	vcs_info
-	export PS1="$($HOME/.zsh/zspower.py $pcolor)"
+	export PS1="$($HOME/.zsh/zspower)"
 }
 setopt prompt_subst
 RPROMPT='${vcs_info_msg_0_}'

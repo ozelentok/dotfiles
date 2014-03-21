@@ -19,6 +19,14 @@ ln -s $DIR/zspower.py $HOME/.zsh/zspower.py
 sudo usermod -s $(which zsh) $USER
 echo ""
 echo "=============================="
+echo "Installing Zsh Prompt: zspower"
+(
+	cd Prompt
+	make
+)
+ln -s $DIR/Prompt/zspower $HOME/.zsh/zspower
+echo ""
+echo "=============================="
 echo "Installing patched Ubuntu Mono Fonts"
 echo "Font Family Name: Ubuntu Mono ZPower"
 mkdir -p $HOME/.fonts
