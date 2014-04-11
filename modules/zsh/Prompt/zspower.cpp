@@ -60,9 +60,13 @@ void replaceSeperators(string & cwd) {
 }
 
 void replaceHomePath(string & cwd) {
+	char * homeCString = getenv(homeEnvironment);
 	string home;
 	size_t index = 0;
-	home = getenv(homeEnvironment);
+	if (homeCString == NULL) {
+		return;
+	}
+	home = homeCString;
 	index = cwd.find(home, index);
 	if (index == 0) {
 		cwd.replace(index, home.length(), homeStart);
@@ -70,7 +74,12 @@ void replaceHomePath(string & cwd) {
 }
 
 void addCurrentWorkingDirectory(string & shellPrompt) {
-	string cwd = getcwd(NULL, 0);
+	char * cwdCString = getcwd(NULL, 0);
+	string cwd;
+	if (cwdCString == NULL) {
+		return;
+	}
+	cwd = cwdCString;
 	replaceHomePath(cwd);
 	replaceSeperators(cwd);
 	shellPrompt += startColorFG(colors::pathFG);
@@ -80,6 +89,7 @@ void addCurrentWorkingDirectory(string & shellPrompt) {
 	shellPrompt += startColorFG(colors::pathBG);
 	shellPrompt += seperator;
 	shellPrompt += resetColors;
+	free(cwdCString);
 }
 
 void addPrompt(string & shellPrompt) {
