@@ -79,19 +79,18 @@ fi
 source $HOME/.zsh/syntaxhl/zsh-syntax-highlighting.zsh
 source $HOME/.zsh/aliases.zsh
 
-# enable home, end, insert and delete keys
-typeset -A key
-key[Home]=${terminfo[khome]}
-key[End]=${terminfo[kend]}
-key[Insert]=${terminfo[kich1]}
-key[Delete]=${terminfo[kdch1]}
-key[PageUp]=${terminfo[kpp]}
-key[PageDown]=${terminfo[knp]}
-[[ -n "${key[Home]}"     ]]  && bindkey  "${key[Home]}"     beginning-of-line
-[[ -n "${key[End]}"      ]]  && bindkey  "${key[End]}"      end-of-line
-[[ -n "${key[Insert]}"   ]]  && bindkey  "${key[Insert]}"   overwrite-mode
-[[ -n "${key[Delete]}"   ]]  && bindkey  "${key[Delete]}"   delete-char
-[[ -n "${key[PageUp]}"   ]]  && bindkey  "${key[PageUp]}"   beginning-of-buffer-or-history
-[[ -n "${key[PageDown]}" ]]  && bindkey  "${key[PageDown]}" end-of-buffer-or-history
+# Home and End
+bindkey "\eOH" beginning-of-line
+bindkey "\eOF" end-of-line
+# Ctrl-Left and Ctrl-Right
+bindkey "\e[1;5D" backward-word
+bindkey "\e[1;5C" forward-word
+# Insert and Delete
+bindkey "\e[2~" overwrite-mode
+bindkey "\e[3~" delete-char
+# Pageup and Pagedown
+bindkey "\e[5~" beginning-of-buffer-or-history
+bindkey "\e[6~"	end-of-buffer-or-history 
 
 export TERM=screen-256color
+setopt PATH_DIRS
