@@ -78,10 +78,9 @@ fi
 
 source $HOME/.zsh/syntaxhl/zsh-syntax-highlighting.zsh
 source $HOME/.zsh/aliases.zsh
-
 # Home and End
-bindkey "\eOH" beginning-of-line
-bindkey "\eOF" end-of-line
+bindkey "\e[H" beginning-of-line
+bindkey "\e[F" end-of-line
 # Ctrl-Left and Ctrl-Right
 bindkey "\e[1;5D" backward-word
 bindkey "\e[1;5C" forward-word

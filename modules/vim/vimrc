@@ -41,7 +41,7 @@ set mouse=a
 set laststatus=2
 set encoding=utf-8
 set spellsuggest=best,10
-set dictionary=/usr/share/dict/words
+set dictionary=/usr/share/dict/cracklib-small
 set textwidth=0
 
 "Colorscheme
