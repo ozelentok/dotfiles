@@ -14,6 +14,7 @@ Bundle 'Shougo/neosnippet-snippets'
 Bundle 'kchmck/vim-coffee-script'
 Bundle 'digitaltoad/vim-jade'
 Bundle 'tpope/vim-fugitive'
+Bundle 'davidhalter/jedi-vim'
 
 "General
 filetype plugin indent on
