@@ -1,8 +1,8 @@
 set nocompatible
 " vundle requires filetype to be off
 filetype off
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
+set rtp+=$HOME/.vim/bundle/vundle/
+call vundle#begin()
 Bundle 'gmarik/vundle'
 Bundle 'scrooloose/nerdtree'
 Bundle 'scrooloose/syntastic'
@@ -15,6 +15,7 @@ Bundle 'kchmck/vim-coffee-script'
 Bundle 'digitaltoad/vim-jade'
 Bundle 'tpope/vim-fugitive'
 Bundle 'davidhalter/jedi-vim'
+call vundle#end()
 
 "General
 filetype plugin indent on
