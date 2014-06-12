@@ -1,11 +1,31 @@
 set nocompatible
+if has('gui_win32')
+	let os='Windows'
+	let vundlePath=$HOME . '/vimfiles/bundle'
+	set rtp+=$HOME\vimfiles\bundle\vundle
+	set directory=C:\temp
+	set backupdir=C:\temp
+	set guifont=Consolas:h15:cANSI
+else
+	let os='Linux'
+	let vundlePath=$HOME . '/.vim/bundle'
+	set rtp+=$HOME/.vim/bundle/vundle
+	set directory=/tmp
+	set backupdir=/tmp
+	set guifont=Ubuntu\ Mono\ ZPower\ 15
+	set dictionary=/usr/share/dict/cracklib-small
+endif
+
 " vundle requires filetype to be off
 filetype off
-set rtp+=$HOME/.vim/bundle/vundle/
-call vundle#begin()
+call vundle#begin(vundlePath)
 Bundle 'gmarik/vundle'
 Bundle 'scrooloose/nerdtree'
 Bundle 'scrooloose/syntastic'
+Bundle 'scrooloose/nerdcommenter'
+Bundle 'tpope/vim-surround'
+Bundle 'tpope/vim-fugitive'
+Bundle 'Lokaltog/vim-easymotion'
 Bundle 'bling/vim-airline'
 Bundle 'kien/ctrlp.vim'
 Bundle 'Shougo/neocomplete'
@@ -13,16 +33,13 @@ Bundle 'Shougo/neosnippet'
 Bundle 'Shougo/neosnippet-snippets'
 Bundle 'kchmck/vim-coffee-script'
 Bundle 'digitaltoad/vim-jade'
-Bundle 'tpope/vim-fugitive'
 Bundle 'davidhalter/jedi-vim'
 call vundle#end()
 
 "General
 filetype plugin indent on
-set directory=/tmp
-set backupdir=/tmp
-set backup
 syntax on
+set backup
 set showcmd
 set hlsearch
 set incsearch
@@ -36,12 +53,10 @@ set number
 set shiftwidth=2
 set tabstop=2
 set noexpandtab
-set guifont=Ubuntu\ Mono\ ZPower\ 15
 set mouse=a
 set laststatus=2
 set encoding=utf-8
 set spellsuggest=best,10
-set dictionary=/usr/share/dict/cracklib-small
 set textwidth=0
 
 "Colorscheme
@@ -64,12 +79,22 @@ nnoremap _ <c-w>-
 nnoremap + <c-w>+
 nnoremap > <c-w>>
 nnoremap < <c-w><
+
 " Yank and paste using + register (works on X11 clipboard)
 " Switch to * register in windows
-noremap <Leader>ey "+Y
-vnoremap <Leader>ey "+y
-noremap <Leader>ep "+p
+if os == 'Windows'
+	noremap <Leader>ey "*Y
+	vnoremap <Leader>ey "*y
+	noremap <Leader>ep "*p
+else
+	noremap <Leader>ey "+Y
+	vnoremap <Leader>ey "+y
+	noremap <Leader>ep "+p
+endif
+
+" Go Back in tabs
 noremap tp :tabp<cr>
+
 " From https://github.com/skwp/dotfiles/blob/master/vim/plugin/settings/stop-visual-paste-insanity.vim:
 " If you visually select something and hit paste
 " that thing gets yanked into your buffer. This
@@ -130,10 +155,6 @@ let g:airline_detect_whitespace=1
 "NERDTree Window Toogle
 noremap <Leader>nt :NERDTreeToggle<cr>
 
-"Toggles hebrew and right to left
-imap <f2> <c-o> ToggleHebrew() <cr>
-map <f2> :call ToggleHebrew() <cr>
-
 " FileType
 autocmd BufRead,BufEnter *.js setlocal nocindent smartindent
 autocmd BufRead,BufEnter *.json setlocal filetype=javascript
@@ -155,14 +176,3 @@ func! CoffeeMake()
 		cw
 	endif
 endfunc
-
-func! ToggleHebrew()
-	if &rl
-		set norl
-		set keymap=
-	else
-		set rl
-		set keymap=hebrew
-	end
-endfunc
-
