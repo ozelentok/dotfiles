@@ -165,9 +165,15 @@ autocmd BufRead,BufEnter *.fs setlocal filetype=c
 " Autocomplete
 set omnifunc=syntaxcomplete#Complete
 autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+"autocmd FileType python setlocal omnifunc=jedi#complete
 autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType html setlocal autoindent omnifunc=htmlcomplete#CompleteTags
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+
+" Jedi-vim
+" Disable automatic selection of first completion choice in the menu
+let g:jedi#popup_on_dot = 0
+let g:jedi#popup_select_first = 0
 
 func! CoffeeMake()
 	if getline(1) =~ 'autocompile'
