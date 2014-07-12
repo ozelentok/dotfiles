@@ -13,7 +13,7 @@ else
 	set directory=/tmp
 	set backupdir=/tmp
 	set guifont=Ubuntu\ Mono\ ZPower\ 15
-	set dictionary=/usr/share/dict/cracklib-small
+	set dictionary=/usr/share/dict/words
 endif
 
 " vundle requires filetype to be off
