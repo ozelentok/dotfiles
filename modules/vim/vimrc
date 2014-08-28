@@ -34,6 +34,7 @@ Bundle 'Shougo/neosnippet-snippets'
 Bundle 'kchmck/vim-coffee-script'
 Bundle 'digitaltoad/vim-jade'
 Bundle 'davidhalter/jedi-vim'
+Bundle 'octol/vim-cpp-enhanced-highlight'
 call vundle#end()
 
 "General
@@ -62,7 +63,6 @@ set textwidth=0
 "Colorscheme
 colors colosus
 hi Normal ctermbg=none
-imap ii <Esc>
 command! W w
 " map c-h/j/k/l to move between windows
 nmap <c-h> <c-w>h
@@ -111,6 +111,7 @@ let g:syntastic_mode_map = { "mode": "active",
                            \ "passive_filetypes": ['sass', 'scss', 'haml', 'html']}
 let g:syntastic_check_on_open = 1
 let g:syntastic_enable_signs = 1
+let g:syntastic_cpp_compiler_options = '-Wall -std=c++11'
 
 "neocomplete
 let g:neocomplete#enable_at_startup = 1
