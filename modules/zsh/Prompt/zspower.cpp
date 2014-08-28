@@ -24,46 +24,51 @@ static const char * const homeEnvironment = "HOME";
 static const size_t colorInsertionIndex = 9;
 static const size_t averagePromptSize = 150;
 
-namespace colors {
+namespace colors
+{
 	static const string pathFG("255");
 	static const string pathBG("25");
 	static const string promptBG("22");
 }
 
-string startColorFG(const string & fgColor) {
+string startColorFG(const string & fgColor)
+{
 	string fgText(colorTemplateFG);
 	fgText.insert(colorInsertionIndex,fgColor);
 	return fgText;
 }
 
-string startColorBG(const string & bgColor) {
+string startColorBG(const string & bgColor)
+{
 	string bgText(colorTemplateBG);
 	bgText.insert(colorInsertionIndex, bgColor);
 	return bgText;
 }
 
-void replaceSeperators(string & cwd) {
+void replaceSeperators(string & cwd)
+{
 	size_t index = 0;
 	bool is_root = false;
 	is_root = (orgSeperator.length() == cwd.length());
 	while (true) {
-		 index = cwd.find(orgSeperator, index);
-		 if (index == std::string::npos) {
-			 break;
-		 }
-		 cwd.replace(index, orgSeperator.length(), thinSep);
-		 index += thinSep.length();
+		index = cwd.find(orgSeperator, index);
+		if (index == std::string::npos) {
+			break;
+		}
+		cwd.replace(index, orgSeperator.length(), thinSep);
+		index += thinSep.length();
 	}
 	if (!is_root) {
 		cwd.append(" ");
 	}
 }
 
-void replaceHomePath(string & cwd) {
+void replaceHomePath(string & cwd)
+{
 	char * homeCString = getenv(homeEnvironment);
 	string home;
 	size_t index = 0;
-	if (homeCString == NULL) {
+	if (homeCString == nullptr) {
 		return;
 	}
 	home = homeCString;
@@ -73,10 +78,11 @@ void replaceHomePath(string & cwd) {
 	}
 }
 
-void addCurrentWorkingDirectory(string & shellPrompt) {
-	char * cwdCString = getcwd(NULL, 0);
+void addCurrentWorkingDirectory(string & shellPrompt)
+{
+	char * cwdCString = getcwd(nullptr, 0);
 	string cwd;
-	if (cwdCString == NULL) {
+	if (cwdCString == nullptr) {
 		return;
 	}
 	cwd = cwdCString;
@@ -92,7 +98,8 @@ void addCurrentWorkingDirectory(string & shellPrompt) {
 	free(cwdCString);
 }
 
-void addPrompt(string & shellPrompt) {
+void addPrompt(string & shellPrompt)
+{
 	shellPrompt += startColorBG(colors::promptBG);
 	shellPrompt += promptStart;
 	shellPrompt += resetColors;
