@@ -1,6 +1,6 @@
 #Oz Elentok's Linux-Config
 
-- Made For Arch Linux (2014-02)
+- Made For Arch Linux (2014-09)
 - Window Manager: i3wm
 - Program Launcher: dmenu
 - Text Editor: Vim
@@ -35,9 +35,9 @@ Programs which use Qt will look horrible unless configured with qtconfig
 
 ##View CPU Temperatures
 
-1. Install lm-sensors
+1. Install lm sensors
 
-		$ sudo pacman -S lm-sensors
+		$ sudo pacman -S lm_sensors
 
 2. Configure the sensors (follow the prompt instructions)
 

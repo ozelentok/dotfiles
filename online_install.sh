@@ -12,6 +12,6 @@
   echo "setting up linux"
   (
     cd $HOME/.dotfiles
-    ./install.sh
+    sudo ./install.sh
   )
 )

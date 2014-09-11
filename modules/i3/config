@@ -28,7 +28,7 @@ focus_follows_mouse no
 #workspace_auto_back_and_forth yes
 
 # start a terminal
-bindsym $mod+Return exec gnome-terminal
+bindsym $mod+Return exec terminator
 
 # kill focused window
 bindsym $mod+Shift+Q kill
@@ -202,13 +202,13 @@ bar {
 # Chrome: assign to workspace #1
 #assign [class="firefox"] 2: www
 
-for_window [title="Copying.*"] floating enable
+for_window [title=".*Copying.*"] floating enable
+for_window [title=".*Moving.*"] floating enable
 for_window [title="Unpack.*"] floating enable
 for_window [title="Testing Archive"] floating enable
 for_window [title="Open Database -.*"] floating enable
 for_window [title=".* KeePass Password Safe"] floating enable
 for_window [title="Unlock Login .*"] floating enable
-for_window [title="Zeal"] floating enable
 
 # Empathy
 #assign [class="empathy"] 3: chat
@@ -220,7 +220,7 @@ for_window [title="Zeal"] floating enable
 # =============================================
 # Launcher keybidings
 
-bindsym $mod+n exec krusader
+bindsym $mod+n exec doublecmd
 bindsym $mod+m exec nautilus --no-desktop
 bindsym $mod+b exec rhythmbox
 bindsym $mod+c exec firefox

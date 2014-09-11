@@ -2,18 +2,15 @@
 
 echo ""
 echo "========================================"
-echo "Configuring X11"
-echo "Keyboard and Monitors"
+echo "Configuring Gnome"
 echo "========================================"
 
 DIR=$(dirname "${BASH_SOURCE[0]}")
 DIR=$(cd -P $DIR && pwd)
-TODIR="/etc/X11/xorg.conf.d/"
+
 (
 	cd $DIR
-	mkdir -p $TODIR
-	for confFile in *.conf; do
-		cp $confFile $TODIR
-	done
-	cp xinitrc $HOME/.xinitrc
+	sudo pacman -Sy gnome
+	gsettings set org.gnome.settings-daemon.plugins.cursor active false
+	gsettings set org.gnome.settings-daemon.plugins.keyboard active false 
 )
