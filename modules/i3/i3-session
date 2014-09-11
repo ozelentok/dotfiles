@@ -1,5 +1,4 @@
 #!/bin/bash
-gnome-settings-daemon &
+/usr/lib/gnome-settings-daemon/gnome-settings-daemon &
 feh --bg-fill ~/Pictures/wallpaper.png &
-krusader &
 exec i3

@@ -2,13 +2,14 @@
 
 # ========================================
 # Base packages
-sudo pacman -Sy
-sudo pacman -S gvim feh ctags keepassx htop samba unrar zsh gimp audacity krusader vlc smplayer deluge chromium ntfs-3g xorg-xinit xorg-xkill exfat-utils fuse-exfat
+sudo pacman -Syu
+sudo pacman -S i3-wm i3lock i3status dmenu gvim feh ctags keepassx htop samba unrar zsh gimp audacity vlc smplayer deluge chromium ntfs-3g xorg-server xorg-xinit xorg-xkill exfat-utils fuse-exfat alsa-utils gnome-settings-daemon
 
 # Modules
-./modules/X11/install.sh
-./modules/git/install.sh
-./modules/zsh/install.sh
-./modules/i3/install.sh
-./modules/vim/install.sh
-./modules/krusader/install.sh
+sudo ./modules/gnome/install.sh
+sudo ./modules/X11/install.sh
+sudo ./modules/git/install.sh
+sudo ./modules/zsh/install.sh
+sudo ./modules/i3/install.sh
+sudo ./modules/vim/install.sh
+sudo ./modules/samba/install.sh

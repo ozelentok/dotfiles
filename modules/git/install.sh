@@ -7,5 +7,8 @@ echo "========================================"
 
 DIR=$(dirname "${BASH_SOURCE[0]}")
 DIR=$(cd -P $DIR && pwd)
-ln -sf "$DIR/gitconfig" $HOME/.gitconfig
-ln -sf "$DIR/gitignore_global" $HOME/.gitignore_global
+(
+	cd $DIR
+	ln -s $PWD/gitconfig $HOME/.gitconfig
+	ln -s $PWD/gitignore_global $HOME/.gitignore_global
+)
