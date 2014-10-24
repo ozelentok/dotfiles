@@ -16,7 +16,7 @@ DIR=$(cd -P $DIR && pwd)
 	echo "Zsh Settings Configuration"
 	ln -s $PWD/zshrc $HOME/.zshrc
 	ln -s $PWD/aliases.zsh $HOME/.zsh/aliases.zsh
-	sudo usermod -s $(which zsh) $USER
+	usermod -s $(which zsh) $USER
 	echo ""
 	echo "=============================="
 	pwd
