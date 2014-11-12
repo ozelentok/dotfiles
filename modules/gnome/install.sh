@@ -10,7 +10,7 @@ DIR=$(cd -P $DIR && pwd)
 
 (
 	cd $DIR
-	pacman -Sy gnome
-	gsettings set org.gnome.settings-daemon.plugins.cursor active false
-	gsettings set org.gnome.settings-daemon.plugins.keyboard active false 
+	sudo pacman -Sy gnome gnome-tweak-tool
+	sudo gsettings set org.gnome.settings-daemon.plugins.cursor active false
+	sudo gsettings set org.gnome.settings-daemon.plugins.keyboard active false 
 )

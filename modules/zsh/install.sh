@@ -32,5 +32,5 @@ DIR=$(cd -P $DIR && pwd)
 	echo "Font Family Name: Ubuntu Mono ZPower"
 	mkdir -p $HOME/.fonts
 	cp PatchedFonts/*.otf $HOME/.fonts/
-	fc-cache -vf
+	sudo -E fc-cache -vf
 )

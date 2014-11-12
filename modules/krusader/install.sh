@@ -8,6 +8,6 @@ echo "========================================"
 DIR=$(dirname "${BASH_SOURCE[0]}")
 DIR=$(cd -P $DIR && pwd)
 TODIR="$HOME/.kde4/share/config"
-mkdir -p $TODIR
-cp "$DIR/krusaderrc" $TODIR
+sudo mkdir -p $TODIR
+sudo cp "$DIR/krusaderrc" $TODIR
 

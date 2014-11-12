@@ -11,9 +11,9 @@ DIR=$(cd -P $DIR && pwd)
 TODIR="/etc/X11/xorg.conf.d/"
 (
 	cd $DIR
-	mkdir -p $TODIR
+	sudo mkdir -p $TODIR
 	for confFile in *.conf; do
-		cp $confFile $TODIR
+		sudo cp $confFile $TODIR
 	done
 	cp xinitrc $HOME/.xinitrc
 )
