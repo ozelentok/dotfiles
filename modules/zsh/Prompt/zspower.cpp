@@ -80,7 +80,7 @@ void replaceHomePath(string & cwd)
 
 void addCurrentWorkingDirectory(string & shellPrompt)
 {
-	char * cwdCString = getcwd(nullptr, 0);
+	char * cwdCString = getenv("PWD");
 	string cwd;
 	if (cwdCString == nullptr) {
 		return;
@@ -95,7 +95,6 @@ void addCurrentWorkingDirectory(string & shellPrompt)
 	shellPrompt += startColorFG(colors::pathBG);
 	shellPrompt += seperator;
 	shellPrompt += resetColors;
-	free(cwdCString);
 }
 
 void addPrompt(string & shellPrompt)

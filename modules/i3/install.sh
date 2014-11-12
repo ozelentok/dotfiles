@@ -14,6 +14,6 @@ DIR=$(cd -P $DIR && pwd)
 	ln -s $PWD/config $TODIR
 	ln -s $PWD/i3status.conf $TODIR 
 	ln -s $PWD/i3-session $TODIR 
-	mkdir -p "/usr/share/xsessions"
-	ln -s $PWD/i3-session.desktop /usr/share/xsessions/
+	sudo mkdir -p "/usr/share/xsessions"
+	sudo ln -s $PWD/i3-session.desktop /usr/share/xsessions/
 )
