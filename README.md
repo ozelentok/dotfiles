@@ -1,11 +1,12 @@
 #Oz Elentok's Linux-Config
 
-- Made For Arch Linux (2014-09)
+- Made For Arch Linux (2015-04)
 - Window Manager: i3wm
 - Program Launcher: dmenu
 - Text Editor: Vim
 - Music Player: Rhythmbox
 - Video Player: SMPlayer, VLC
+- RSS Reader: Lifera
 
 ##Installation Procedures
 
