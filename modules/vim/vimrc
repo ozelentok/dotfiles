@@ -12,29 +12,29 @@ else
 	set rtp+=$HOME/.vim/bundle/vundle
 	set directory=/tmp
 	set backupdir=/tmp
-	set guifont=Ubuntu\ Mono\ ZPower\ 15
+	set guifont=Ubuntu\ Mono\ ZPower\ 13
 	set dictionary=/usr/share/dict/words
 endif
 
 " vundle requires filetype to be off
 filetype off
 call vundle#begin(vundlePath)
-Bundle 'gmarik/vundle'
-Bundle 'scrooloose/nerdtree'
-Bundle 'scrooloose/syntastic'
-Bundle 'scrooloose/nerdcommenter'
-Bundle 'tpope/vim-surround'
-Bundle 'tpope/vim-fugitive'
-Bundle 'Lokaltog/vim-easymotion'
-Bundle 'bling/vim-airline'
-Bundle 'kien/ctrlp.vim'
-Bundle 'Shougo/neocomplete'
-Bundle 'Shougo/neosnippet'
-Bundle 'Shougo/neosnippet-snippets'
-Bundle 'kchmck/vim-coffee-script'
-Bundle 'digitaltoad/vim-jade'
-Bundle 'davidhalter/jedi-vim'
-Bundle 'octol/vim-cpp-enhanced-highlight'
+Plugin 'gmarik/vundle'
+Plugin 'scrooloose/nerdtree'
+Plugin 'scrooloose/syntastic'
+Plugin 'scrooloose/nerdcommenter'
+Plugin 'tpope/vim-surround'
+Plugin 'tpope/vim-fugitive'
+Plugin 'Lokaltog/vim-easymotion'
+Plugin 'bling/vim-airline'
+Plugin 'kien/ctrlp.vim'
+Plugin 'Shougo/neocomplete'
+Plugin 'Shougo/neosnippet'
+Plugin 'Shougo/neosnippet-snippets'
+Plugin 'kchmck/vim-coffee-script'
+Plugin 'digitaltoad/vim-jade'
+Plugin 'davidhalter/jedi-vim'
+Plugin 'octol/vim-cpp-enhanced-highlight'
 call vundle#end()
 
 "General
@@ -143,15 +143,18 @@ if has('conceal')
 endif
 
 "Airline
+if !exists('g:airline_symbols')
+	let g:airline_symbols = {}
+endif
 let g:airline_left_sep = '⮀'
 let g:airline_left_alt_sep = '⮁'
 let g:airline_right_sep = '⮂'
 let g:airline_right_alt_sep = '⮃'
-let g:airline_branch_prefix = '⭠'
-let g:airline_readonly_symbol = '⭤'
-let g:airline_linecolumn_prefix = '⭡'
+let g:airline_symbols.branch = '⭠'
+let g:airline_symbols.linenr = '⭡'
+let g:airline_symbols.readonly = '⭤'
 let g:airline_theme='powerlineish'
-let g:airline_detect_whitespace=1
+let g:airline#extensions#whitespace#enabled = 1
 
 "NERDTree Window Toogle
 noremap <Leader>nt :NERDTreeToggle<cr>

@@ -67,7 +67,7 @@ if [ -x /usr/bin/dircolors ]; then
 fi
 
 # ls aliases
-alias ll='ls -lFhX'
+alias ll='ls -lFhX --time-style=long-iso'
 alias la='ls -A'
 alias l='ls -CF'
 

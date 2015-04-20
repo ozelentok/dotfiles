@@ -3,7 +3,7 @@
 # ========================================
 # Base packages
 sudo pacman -Syu
-sudo pacman -S i3-wm i3lock i3status dmenu gvim feh ctags keepassx htop unrar zsh gimp audacity vlc smplayer deluge chromium ntfs-3g xorg-server xorg-xinit xorg-xkill exfat-utils fuse-exfat alsa-utils gnome-settings-daemon firefox vsftpd
+sudo pacman -S i3-wm i3lock i3status dmenu gvim feh ctags keepassx htop unrar zsh gimp audacity vlc smplayer deluge chromium ntfs-3g xorg-server xorg-xinit xorg-xkill exfat-utils fuse-exfat alsa-utils gnome-settings-daemon firefox vsftpd lifera
 
 # Modules
 ./modules/gnome/install.sh
