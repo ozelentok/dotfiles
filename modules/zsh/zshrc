@@ -77,7 +77,6 @@ if [[ -s '/etc/zsh_command_not_found' ]]; then
 fi
 
 source $HOME/.zsh/syntaxhl/zsh-syntax-highlighting.zsh
-source $HOME/.zsh/aliases.zsh
 
 # Home and End
 bindkey "\e[H" beginning-of-line
@@ -90,7 +89,7 @@ bindkey "\e[2~" overwrite-mode
 bindkey "\e[3~" delete-char
 # Pageup and Pagedown
 bindkey "\e[5~" beginning-of-buffer-or-history
-bindkey "\e[6~"	end-of-buffer-or-history 
+bindkey "\e[6~"	end-of-buffer-or-history
 
 # Colored man
 man() {
@@ -105,3 +104,6 @@ man() {
 }
 export TERM=xterm-256color
 setopt PATH_DIRS
+setopt APPEND_HISTORY
+
+source $HOME/.zsh/extra.zsh
