@@ -182,7 +182,7 @@ client.urgent				 	  #000000 #900000 #ffffff #111111
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
-	tray_output HDMI-0
+	tray_output HDMI-1
 	status_command i3status -c ~/.i3/i3status.conf
 	colors {
 		background #000000
@@ -227,6 +227,7 @@ bindsym $mod+c exec firefox
 bindsym $mod+control+l exec i3lock -c 000000
 
 # Volume Keyboard
-bindcode 192 exec amixer -q set Master 5%-
-bindcode 193 exec amixer -q set Master 5%+
-bindcode 194 exec amixer -q set Master toggle
+bindsym $mod+KP_1 exec amixer -q set Master 5%-; exec kill -USR1 $(pidof i3status)
+bindsym $mod+KP_2 exec amixer -q set Master 5%+; exec kill -USR1 $(pidof i3status)
+bindsym $mod+KP_3 exec amixer -q set Master toggle; exec kill -USR1 $(pidof i3status)
+
