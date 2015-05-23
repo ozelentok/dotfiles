@@ -15,7 +15,7 @@ DIR=$(cd -P $DIR && pwd)
 
 	echo "Zsh Settings Configuration"
 	ln -s $PWD/zshrc $HOME/.zshrc
-	ln -s $PWD/aliases.zsh $HOME/.zsh/aliases.zsh
+	cp $PWD/extra.zsh $HOME/.zsh/extra.zsh
 	usermod -s $(which zsh) $USER
 	echo ""
 	echo "=============================="
