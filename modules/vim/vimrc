@@ -105,6 +105,9 @@ noremap tp :tabp<cr>
 vnoremap p "_dP
 map <Leader>" ysiw"
 
+"CtrlP
+"CTags keybind
+nnoremap <leader>] :CtrlPTag<cr>
 "Syntastic
 let g:syntastic_mode_map = { "mode": "active",
                            \ "active_filetypes": [],
