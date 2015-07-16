@@ -107,3 +107,4 @@ setopt PATH_DIRS
 setopt APPEND_HISTORY
 
 source $HOME/.zsh/extra.zsh
+source $HOME/.profile
