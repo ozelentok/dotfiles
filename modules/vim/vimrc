@@ -31,8 +31,9 @@ Plugin 'kien/ctrlp.vim'
 Plugin 'Shougo/neocomplete'
 Plugin 'Shougo/neosnippet'
 Plugin 'Shougo/neosnippet-snippets'
-Plugin 'kchmck/vim-coffee-script'
-Plugin 'digitaltoad/vim-jade'
+"Plugin 'kchmck/vim-coffee-script'
+"Plugin 'digitaltoad/vim-jade'
+Plugin 'rstacruz/vim-closer'
 Plugin 'davidhalter/jedi-vim'
 Plugin 'octol/vim-cpp-enhanced-highlight'
 call vundle#end()
@@ -189,3 +190,7 @@ func! CoffeeMake()
 		cw
 	endif
 endfunc
+
+
+" CTags
+set tags=./tags,../tags,/TAGS,../TAGS
