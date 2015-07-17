@@ -4,3 +4,9 @@
 *~
 tags
 *.obj
+*.o
+*.exe
+*.lib
+*.dll
+*.a
+*.so
