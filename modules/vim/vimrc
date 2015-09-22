@@ -12,7 +12,7 @@ else
 	set rtp+=$HOME/.vim/bundle/vundle
 	set directory=/tmp
 	set backupdir=/tmp
-	set guifont=Ubuntu\ Mono\ ZPower\ 13
+	set guifont=Ubuntu\ Mono\ ZPower\ 14
 	set dictionary=/usr/share/dict/words
 endif
 
@@ -36,6 +36,7 @@ Plugin 'Shougo/neosnippet-snippets'
 Plugin 'rstacruz/vim-closer'
 Plugin 'davidhalter/jedi-vim'
 Plugin 'octol/vim-cpp-enhanced-highlight'
+Plugin 'vim-scripts/javacomplete'
 call vundle#end()
 
 "General
@@ -172,16 +173,18 @@ autocmd BufRead,BufEnter *.fs setlocal filetype=c
 
 " Autocomplete
 set omnifunc=syntaxcomplete#Complete
-autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-"autocmd FileType python setlocal omnifunc=jedi#complete
+"autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+autocmd FileType python setlocal omnifunc=jedi#completions
 autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType html setlocal autoindent omnifunc=htmlcomplete#CompleteTags
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType java setlocal omnifunc=javacomplete#Complete
 
 " Jedi-vim
 " Disable automatic selection of first completion choice in the menu
-let g:jedi#popup_on_dot = 0
+"let g:jedi#popup_on_dot = 0
 let g:jedi#popup_select_first = 0
+let g:jedi#show_call_signatures = "2"
 
 func! CoffeeMake()
 	if getline(1) =~ 'autocompile'
@@ -190,7 +193,6 @@ func! CoffeeMake()
 		cw
 	endif
 endfunc
-
 
 " CTags
 set tags=./tags,../tags,/TAGS,../TAGS
