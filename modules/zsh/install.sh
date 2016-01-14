@@ -12,6 +12,7 @@ DIR=$(cd -P $DIR && pwd)
 	cd $DIR
 	mkdir -p "$HOME/.zsh"
 	git clone git://github.com/zsh-users/zsh-syntax-highlighting.git $HOME/.zsh/syntaxhl
+	git clone git://github.com/ozelentok/ZPrompt.git /tmp/ZPrompt
 
 	echo "Zsh Settings Configuration"
 	ln -s $PWD/zshrc $HOME/.zshrc
@@ -19,18 +20,16 @@ DIR=$(cd -P $DIR && pwd)
 	usermod -s $(which zsh) $USER
 	echo ""
 	echo "=============================="
-	pwd
-	echo "Installing Zsh Prompt: zspower"
+	echo "Installing ZPrompt for zsh"
 	(
-		cd Prompt
-		make
-		ln -s $PWD/zspower $HOME/.zsh/zspower
+		cd /tmp/ZPrompt
+		make TARGET_SHELL=zsh
+		make install
+		echo "=============================="
+		echo "Installing patched Ubuntu Mono Fonts for ZPrompt"
+		echo "Font Family Name: Ubuntu Mono ZPower"
+		mkdir -p $HOME/.fonts
+		cp PatchedFonts/*.otf $HOME/.fonts/
+		sudo -E fc-cache -vf
 	)
-	echo ""
-	echo "=============================="
-	echo "Installing patched Ubuntu Mono Fonts"
-	echo "Font Family Name: Ubuntu Mono ZPower"
-	mkdir -p $HOME/.fonts
-	cp PatchedFonts/*.otf $HOME/.fonts/
-	sudo -E fc-cache -vf
 )
