@@ -52,7 +52,7 @@ Programs which use Qt will look horrible unless configured with qtconfig
 
 1. Create the system user:
 
-		$ sudo useradd {username} -p {password} -g sambashare
+		$ sudo useradd {username} -g users -s /bin/nologin
 
 2. Create the samba user:
 
@@ -62,8 +62,6 @@ Programs which use Qt will look horrible unless configured with qtconfig
 
 		$ sudo su
 		$ echo '{username} = "{username}"' > /etc/samba/smbusers
-
-Note: when mounting partitions use the "sambashare" group as the mountpoint's group.
 
 ##Auto-mount partitions
 
@@ -75,7 +73,7 @@ Note: when mounting partitions use the "sambashare" group as the mountpoint's gr
 
 3. For each partition, add the following (single) line to the file:
 
-UUID={uuid} /media/{mountname} {filesytem} rw,uid={username},gid=sambashare,umask=023 0 0
+UUID={uuid} /media/{mountname} {filesytem} rw,uid={username},gid=users,umask=013 0 0
 
 Notes:
 {uuid} = The UUID of the partition
@@ -85,4 +83,4 @@ Notes:
 by setting the gid to "sambashare", the special samba user defined in the previous section can access shares on these partitions.
 
 Example:
-UUID=0001111100001100 /media/data ntfs-3g rw,uid=bob,gid=sambashare,umask=002 0 0
+UUID=0001111100001100 /media/data ntfs-3g rw,uid=bob,gid=users,umask=013 0 0
