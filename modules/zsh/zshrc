@@ -45,7 +45,7 @@ zstyle ':vcs_info:*' actionformats ' %F{blue}%b%f %F{white}%.7i%f +%a%u'
 zstyle ':vcs_info:git*+set-message:*' hooks git-status
 function precmd() {
 	vcs_info
-	export PS1="$($HOME/.zsh/zspower)"
+	export PS1="$($HOME/.config/zprompt)"
 }
 setopt prompt_subst
 RPROMPT='${vcs_info_msg_0_}'
