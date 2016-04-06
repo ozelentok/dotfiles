@@ -27,17 +27,18 @@ Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-fugitive'
 Plugin 'Lokaltog/vim-easymotion'
 Plugin 'bling/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
 Plugin 'kien/ctrlp.vim'
 Plugin 'Shougo/neocomplete'
 Plugin 'Shougo/neosnippet'
 Plugin 'Shougo/neosnippet-snippets'
 Plugin 'jistr/vim-nerdtree-tabs'
-"Plugin 'kchmck/vim-coffee-script'
-"Plugin 'digitaltoad/vim-jade'
+Plugin 'kchmck/vim-coffee-script'
 Plugin 'rstacruz/vim-closer'
 Plugin 'davidhalter/jedi-vim'
 Plugin 'octol/vim-cpp-enhanced-highlight'
-Plugin 'vim-scripts/javacomplete'
+"Plugin 'digitaltoad/vim-jade'
+"Plugin 'vim-scripts/javacomplete'
 call vundle#end()
 
 "General
@@ -62,6 +63,7 @@ set laststatus=2
 set encoding=utf-8
 set spellsuggest=best,10
 set textwidth=0
+set autochdir
 
 "Colorscheme
 colors colosus

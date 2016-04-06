@@ -1,6 +1,6 @@
 #Oz Elentok's Linux-Config
 
-- Made For Arch Linux (2015-04)
+- Made For Arch Linux (2016-04)
 - Window Manager: i3wm
 - Program Launcher: dmenu
 - Text Editor: Vim
@@ -73,7 +73,7 @@ Programs which use Qt will look horrible unless configured with qtconfig
 
 3. For each partition, add the following (single) line to the file:
 
-UUID={uuid} /media/{mountname} {filesytem} rw,uid={username},gid=users,umask=013 0 0
+UUID={uuid} /media/{mountname} {filesytem} rw,uid={username},gid=users,umask=003 0 0
 
 Notes:
 {uuid} = The UUID of the partition
@@ -83,4 +83,4 @@ Notes:
 by setting the gid to "sambashare", the special samba user defined in the previous section can access shares on these partitions.
 
 Example:
-UUID=0001111100001100 /media/data ntfs-3g rw,uid=bob,gid=users,umask=013 0 0
+UUID=0001111100001100 /media/data ntfs-3g rw,uid=bob,gid=users,umask=003 0 0
