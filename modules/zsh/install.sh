@@ -17,7 +17,7 @@ DIR=$(cd -P $DIR && pwd)
 	echo "Zsh Settings Configuration"
 	ln -s $PWD/zshrc $HOME/.zshrc
 	cp $PWD/extra.zsh $HOME/.zsh/extra.zsh
-	usermod -s $(which zsh) $USER
+	sudo usermod -s $(which zsh) $USER
 	echo ""
 	echo "=============================="
 	echo "Installing ZPrompt for zsh"

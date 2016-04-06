@@ -1,3 +1,4 @@
+[[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && exec startx
 # Set up the prompt
 
 #setopt histignorealldups sharehistory
