@@ -1,6 +1,6 @@
 #Oz Elentok's Linux-Config
 
-- Made For Arch Linux (2016-04)
+- Made For Arch Linux (2016-05)
 - Window Manager: i3wm
 - Program Launcher: dmenu
 - Text Editor: Vim
@@ -12,8 +12,8 @@
 
 1. Run the following command:
 
-		$ wget https://raw.github.com/ozelentok/dotfiles/master/online_install.sh -O /tmp/tempInstall.sh
-		$ bash /tmp/tempInstall.sh
+		$ wget https://raw.github.com/ozelentok/dotfiles/master/online_install.sh -O /tmp/dotfiles_install.sh
+		$ chmod +x /tmp/dotfiles_install; bash /tmp/dotfiles_install.sh
 
 ##Set Up a Wallpaper
 
