@@ -88,13 +88,21 @@ nnoremap < <c-w><
 " Yank and paste using + register (works on X11 clipboard)
 " Switch to * register in windows
 if os == 'Windows'
-	noremap <Leader>ey "*Y
-	vnoremap <Leader>ey "*y
-	noremap <Leader>ep "*p
+	if has('gui_running')
+		noremap <C-Space> "*
+		vnoremap <C-Space> "*
+	else
+		noremap <C-@> "*
+		vnoremap <C-@> "*
+	endif
 else
-	noremap <Leader>ey "+Y
-	vnoremap <Leader>ey "+y
-	noremap <Leader>ep "+p
+	if has('gui_running')
+		noremap <C-Space> "+
+		vnoremap <C-Space> "+
+	else
+		noremap <C-@> "+
+		vnoremap <C-@> "+
+	endif
 endif
 
 " Go Back in tabs
