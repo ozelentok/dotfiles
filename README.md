@@ -68,15 +68,6 @@ sudo blkid
 UUID={uuid} /media/{mountname} {filesytem} rw,uid={username},gid=users,umask=003 0 0
 ```
 
-Notes:
-```
-{uuid} = The UUID of the partition
-{mountname} = The name of the mount point
-{filesystem} = The filesystem of the partiton
-```
-
-By setting the gid to "sambashare", the samba user can access shares on those partitions.
-
 Example:
 ```
 UUID=0001111100001100 /media/data ntfs-3g rw,uid=bob,gid=users,umask=003 0 0
