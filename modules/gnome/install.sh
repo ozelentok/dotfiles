@@ -8,9 +8,10 @@ echo "========================================"
 DIR=$(dirname "${BASH_SOURCE[0]}")
 DIR=$(cd -P $DIR && pwd)
 
+pacman -S gnome gnome-tweak-tool gnome-settings-daemon
+
 (
 	cd $DIR
-	sudo pacman -Sy gnome gnome-tweak-tool
 	sudo gsettings set org.gnome.settings-daemon.plugins.cursor active false
-	sudo gsettings set org.gnome.settings-daemon.plugins.keyboard active false 
+	sudo gsettings set org.gnome.settings-daemon.plugins.keyboard active false
 )

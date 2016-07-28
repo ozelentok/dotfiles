@@ -8,6 +8,9 @@ echo "========================================"
 DIR=$(dirname "${BASH_SOURCE[0]}")
 DIR=$(cd -P $DIR && pwd)
 TODIR="/etc/vsftpd"
+
+sudo pacman -S vsftpd
+
 echo "Enter FTP Username: "
 read ftp_user
 (

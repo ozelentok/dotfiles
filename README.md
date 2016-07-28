@@ -1,6 +1,7 @@
-#Oz Elentok's Linux-Config
+#Oz Elentok Dotfiles
 
-- Made For Arch Linux (2016-05)
+- Linux Distribution: Arch Linux
+- Date: 2016-07
 - Window Manager: i3wm
 - Program Launcher: dmenu
 - Text Editor: Vim
@@ -8,60 +9,47 @@
 - Video Player: SMPlayer, VLC
 - RSS Reader: Lifera
 
-##Installation Procedures
+##Installation
 
-1. Run the following command:
+1. Install git 
+```
+sudo pacman -S
+```
+2. Clone dotfiles
+```
+git clone https://github.com/ozelentok/dotfiles.git ~/.dotfiles
+```
+3. Run the installer
+```
+cd ~/.dotfiles
+./install.sh
+```
 
-		$ wget https://raw.github.com/ozelentok/dotfiles/master/online_install.sh -O /tmp/dotfiles_install.sh
-		$ chmod +x /tmp/dotfiles_install; bash /tmp/dotfiles_install.sh
 
 ##Set Up a Wallpaper
 
-1. Rename the image you want to use as a wallpaper to 'wallpaper.png'
-(if your image isn't a PNG, convert it to PNG using GIMP)
-
-2. Copy it to ~/Pictures/
-
-3. Reboot
+- Copy/Link the image to ~/Pictures/wallpaper.png
 
 ##Qt-Config
 
 Programs which use Qt will look horrible unless configured with qtconfig
 
 1. Run qtconfig and the window 'Qt Configuration' will appear
-
-		$ qtconfig-qt4
-
+```
+qtconfig-qt4
+```
 2. Under the 'Appearance' tab, at GUI Style, select 'GTK+'
 
 ##View CPU Temperatures
 
-1. Install lm sensors
-
-		$ sudo pacman -S lm_sensors
-
-2. Configure the sensors (follow the prompt instructions)
-
-		$ sudo sensors-detect
-
-3. To view your CPU temperatures, type the following command
-
-		$ sensors
-
-##Create special user for file sharing
-
-1. Create the system user:
-
-		$ sudo useradd {username} -g users -s /bin/nologin
-
-2. Create the samba user:
-
-		$ sudo smbpasswd -a {username}
-
-3. Add the user to the /etc/samba/smbusers file:
-
-		$ sudo su
-		$ echo '{username} = "{username}"' > /etc/samba/smbusers
+1. Configure the sensors (follow the prompt instructions)
+```
+sudo sensors-detect
+```
+2. To view your CPU temperatures, run the following command
+```
+sensors
+```
 
 ##Auto-mount partitions
 

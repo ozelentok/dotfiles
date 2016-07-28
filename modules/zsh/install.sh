@@ -8,6 +8,9 @@ echo "Zsh Settings Configuration"
 
 DIR=$(dirname "${BASH_SOURCE[0]}")
 DIR=$(cd -P $DIR && pwd)
+
+sudo pacman -S zsh
+
 (
 	cd $DIR
 	mkdir -p "$HOME/.zsh"

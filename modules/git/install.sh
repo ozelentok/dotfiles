@@ -7,6 +7,9 @@ echo "========================================"
 
 DIR=$(dirname "${BASH_SOURCE[0]}")
 DIR=$(cd -P $DIR && pwd)
+
+sudo pacman -S git
+
 (
 	cd $DIR
 	cp $PWD/gitconfig $HOME/.gitconfig

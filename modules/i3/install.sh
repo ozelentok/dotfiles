@@ -7,6 +7,9 @@ echo "========================================"
 
 DIR=$(dirname "${BASH_SOURCE[0]}")
 DIR=$(cd -P $DIR && pwd)
+
+sudo pacman -S i3-wm i3lock i3status dmenu feh
+
 (
 	cd $DIR
 	TODIR="$HOME/.i3/"

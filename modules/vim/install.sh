@@ -8,6 +8,8 @@ echo "========================================"
 DIR=$(dirname "${BASH_SOURCE[0]}")
 DIR=$(cd -P $DIR && pwd)
 
+sudo pacman -S gvim
+
 (
 	cd $DIR
 	ln -s $PWD/vimrc $HOME/.vimrc
