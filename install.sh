@@ -3,7 +3,7 @@ set -e
 
 # ========================================
 # Base packages
-sudo pacman -Syu i3-wm i3lock i3status dmenu gvim feh ctags keepassx htop unrar zsh gimp audacity vlc smplayer deluge chromium ntfs-3g xorg-server xorg-xinit xorg-xkill exfat-utils fuse-exfat alsa-utils gnome-settings-daemon firefox samba liferea doublecommander-gtk2 net-tools openssh
+sudo pacman -Syu ctags keepassx htop unrar gimp audacity vlc smplayer deluge chromium ntfs-3g exfat-utils fuse-exfat alsa-utils firefox liferea doublecommander-gtk2 net-tools openssh lm_sensors
 
 # Modules
 ./modules/gnome/install.sh
