@@ -11,17 +11,17 @@
 
 ##Installation
 
-1. Install git
+###Install git
 ```
 sudo pacman -S
 ```
 
-2. Clone dotfiles
+###Clone dotfiles
 ```
 git clone https://github.com/ozelentok/dotfiles.git ~/.dotfiles
 ```
 
-3. Run the installer
+###Run the installer
 ```
 cd ~/.dotfiles
 ./install.sh
@@ -35,35 +35,35 @@ cd ~/.dotfiles
 
 Programs which use Qt will look horrible unless configured with qtconfig
 
-1. Run qtconfig and the window 'Qt Configuration' will appear
+###Run qtconfig and the window 'Qt Configuration' will appear
 ```
 qtconfig-qt4
 ```
 
-2. Under the 'Appearance' tab, at GUI Style, select 'GTK+'
+###Under the 'Appearance' tab, at GUI Style, select 'GTK+'
 
 ##View CPU Temperatures
 
-1. Configure the sensors (follow the prompt instructions)
+###Configure the sensors (follow the prompt instructions)
 ```
 sudo sensors-detect
 ```
 
-2. To view your CPU temperatures, run the following command
+###To view your CPU temperatures, run the following command
 ```
 sensors
 ```
 
 ##Auto-mount partitions
 
-1. Run the following command to get the UUID of the partitions:
+###Run the following command to get the UUID of the partitions:
 ```
 sudo blkid
 ```
 
-2. Open the file /etc/fstab with any text editor (root privileges are required)
+###Open the file /etc/fstab with any text editor (root privileges are required)
 
-3. For each partition, add the following (single) line to the file:
+###For each partition, add the following (single) line to the file:
 
 UUID={uuid} /media/{mountname} {filesytem} rw,uid={username},gid=users,umask=003 0 0
 
