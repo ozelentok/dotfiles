@@ -11,17 +11,17 @@
 
 ##Installation
 
-###Install git
+- Install git
 ```
 sudo pacman -S
 ```
 
-###Clone dotfiles
+- Clone dotfiles
 ```
 git clone https://github.com/ozelentok/dotfiles.git ~/.dotfiles
 ```
 
-###Run the installer
+- Run the installer
 ```
 cd ~/.dotfiles
 ./install.sh
@@ -33,46 +33,51 @@ cd ~/.dotfiles
 
 ##Qt-Config
 
-Programs which use Qt will look horrible unless configured with qtconfig
-
-###Run qtconfig and the window 'Qt Configuration' will appear
+- Programs which use Qt will look horrible unless configured with qtconfig
+- Run qtconfig and the window 'Qt Configuration' will appear
 ```
 qtconfig-qt4
 ```
 
-###Under the 'Appearance' tab, at GUI Style, select 'GTK+'
+- Under the 'Appearance' tab, at GUI Style, select 'GTK+'
 
 ##View CPU Temperatures
 
-###Configure the sensors (follow the prompt instructions)
+- Configure the sensors (follow the prompt instructions)
 ```
 sudo sensors-detect
 ```
 
-###To view your CPU temperatures, run the following command
+- To view your CPU temperatures, run the following command
 ```
 sensors
 ```
 
 ##Auto-mount partitions
 
-###Run the following command to get the UUID of the partitions:
+- Run the following command to get the UUID of the partitions:
 ```
 sudo blkid
 ```
 
-###Open the file /etc/fstab with any text editor (root privileges are required)
+- Open the file /etc/fstab with any text editor (root privileges are required)
 
-###For each partition, add the following (single) line to the file:
+- For each partition, add the following (single) line to the file:
 
+```
 UUID={uuid} /media/{mountname} {filesytem} rw,uid={username},gid=users,umask=003 0 0
+```
 
 Notes:
+```
 {uuid} = The UUID of the partition
 {mountname} = The name of the mount point
 {filesystem} = The filesystem of the partiton
+```
 
-by setting the gid to "sambashare", the special samba user defined in the previous section can access shares on these partitions.
+By setting the gid to "sambashare", the samba user can access shares on those partitions.
 
 Example:
+```
 UUID=0001111100001100 /media/data ntfs-3g rw,uid=bob,gid=users,umask=003 0 0
+```
