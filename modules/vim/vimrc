@@ -33,12 +33,14 @@ Plugin 'Shougo/neocomplete'
 Plugin 'Shougo/neosnippet'
 Plugin 'Shougo/neosnippet-snippets'
 Plugin 'jistr/vim-nerdtree-tabs'
-Plugin 'kchmck/vim-coffee-script'
 Plugin 'rstacruz/vim-closer'
+
 Plugin 'davidhalter/jedi-vim'
 Plugin 'octol/vim-cpp-enhanced-highlight'
 "Plugin 'digitaltoad/vim-jade'
 "Plugin 'vim-scripts/javacomplete'
+Plugin 'pangloss/vim-javascript'
+Plugin 'mxw/vim-jsx'
 call vundle#end()
 
 "General
@@ -209,6 +211,9 @@ func! CoffeeMake()
 		cw
 	endif
 endfunc
+
+" JSX
+let g:jsx_ext_required = 0
 
 " CTags
 set tags=./tags,../tags,/TAGS,../TAGS
