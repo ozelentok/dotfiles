@@ -41,6 +41,8 @@ Plugin 'octol/vim-cpp-enhanced-highlight'
 "Plugin 'vim-scripts/javacomplete'
 Plugin 'pangloss/vim-javascript'
 Plugin 'mxw/vim-jsx'
+Plugin 'godlygeek/tabular'
+Plugin 'plasticboy/vim-markdown'
 call vundle#end()
 
 "General
@@ -66,6 +68,7 @@ set encoding=utf-8
 set spellsuggest=best,10
 set textwidth=0
 set autochdir
+set  backspace=indent,eol,start
 
 "Colorscheme
 colors colosus
@@ -182,6 +185,7 @@ let g:airline#extensions#whitespace#enabled = 1
 
 "NERDTree Window Toogle
 noremap <Leader>nt :NERDTreeTabsToggle<cr>
+let g:nerdtree_tabs_open_on_gui_startup = 0
 
 " FileType
 autocmd BufRead,BufEnter *.js setlocal nocindent smartindent
@@ -212,8 +216,11 @@ func! CoffeeMake()
 	endif
 endfunc
 
-" JSX
+" Javascript & JSX
 let g:jsx_ext_required = 0
+let g:syntastic_javascript_checkers = ['eslint']
+" For syntastic support, install eslint
+" $ npm install -g eslint
 
 " CTags
 set tags=./tags,../tags,/TAGS,../TAGS
