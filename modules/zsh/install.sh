@@ -14,8 +14,8 @@ sudo pacman -S zsh
 (
 	cd $DIR
 	mkdir -p "$HOME/.zsh"
-	git clone git://github.com/zsh-users/zsh-syntax-highlighting.git $HOME/.zsh/syntaxhl
-	git clone git://github.com/ozelentok/ZPrompt.git /tmp/ZPrompt
+	git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $HOME/.zsh/syntaxhl
+	git clone https://github.com/ozelentok/ZPrompt.git /tmp/ZPrompt
 
 	echo "Zsh Settings Configuration"
 	ln -s $PWD/zshrc $HOME/.zshrc
