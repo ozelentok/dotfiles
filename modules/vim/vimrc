@@ -132,6 +132,7 @@ map <Leader>" ysiw"
 "CtrlP
 "CTags keybind
 nnoremap <leader>] :CtrlPTag<cr>
+let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
 "Syntastic
 let g:syntastic_mode_map = { "mode": "active",
                            \ "active_filetypes": [],
@@ -189,7 +190,6 @@ let g:nerdtree_tabs_open_on_gui_startup = 0
 
 " FileType
 autocmd BufRead,BufEnter *.js setlocal nocindent smartindent
-autocmd BufRead,BufEnter *.json setlocal filetype=javascript
 au BufWritePost *.coffee silent call CoffeeMake()
 autocmd BufRead,BufEnter *.vs setlocal filetype=c
 autocmd BufRead,BufEnter *.fs setlocal filetype=c
