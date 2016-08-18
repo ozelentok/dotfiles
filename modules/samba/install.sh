@@ -17,8 +17,8 @@ read smb_user
 	cd $DIR
 	sudo mkdir -p $TODIR
 	sudo sh -c "sed -e \"s/HOST_NAME/$HOST/\" smb.conf > $TODIR/smb.conf"
-	sudo ln -s $PWD/wmount.sh /usr/local/bin/wmount
-	sudo ln -s $PWD/wumount.sh /usr/local/bin/wumount
+	sudo cp $PWD/wmount.sh /usr/local/bin/wmount
+	sudo cp $PWD/wumount.sh /usr/local/bin/wumount
 
 	sudo useradd $smb_user -g users -s /bin/nologin
 	sudo smbpasswd -a $smb_user
