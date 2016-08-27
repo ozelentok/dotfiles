@@ -1,4 +1,4 @@
-[[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && exec startx
+[[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && which startx && exec startx
 # Set up the prompt
 
 #setopt histignorealldups sharehistory
@@ -108,4 +108,4 @@ setopt PATH_DIRS
 setopt APPEND_HISTORY
 
 source $HOME/.zsh/extra.zsh
-source $HOME/.profile
+[[ -f $HOME/.profile ]] && source $HOME/.profile
