@@ -1,11 +1,18 @@
 set nocompatible
-if has('gui_win32')
+if has('win32') || has('win64')
 	let os='Windows'
 	let vundlePath=$HOME . '/vimfiles/bundle'
 	set rtp+=$HOME\vimfiles\bundle\vundle
 	set directory=C:\temp
 	set backupdir=C:\temp
 	set guifont=Consolas:h15:cANSI
+	" Vim with 256 colors inside ConEmu
+	if !has("gui_running")
+		set term=xterm
+		set t_Co=256
+		let &t_AB="\e[48;5;%dm"
+		let &t_AF="\e[38;5;%dm"
+	endif
 else
 	let os='Linux'
 	let vundlePath=$HOME . '/.vim/bundle'
@@ -16,7 +23,7 @@ else
 	set dictionary=/usr/share/dict/words
 endif
 
-" vundle requires filetype to be off
+" Vundle requires filetype to be off
 filetype off
 call vundle#begin(vundlePath)
 Plugin 'gmarik/vundle'
@@ -37,8 +44,8 @@ Plugin 'rstacruz/vim-closer'
 
 Plugin 'davidhalter/jedi-vim'
 Plugin 'octol/vim-cpp-enhanced-highlight'
-"Plugin 'digitaltoad/vim-jade'
-"Plugin 'vim-scripts/javacomplete'
+Plugin 'digitaltoad/vim-jade'
+Plugin 'vim-scripts/javacomplete'
 Plugin 'pangloss/vim-javascript'
 Plugin 'mxw/vim-jsx'
 Plugin 'godlygeek/tabular'
@@ -68,7 +75,7 @@ set encoding=utf-8
 set spellsuggest=best,10
 set textwidth=0
 set autochdir
-set  backspace=indent,eol,start
+set backspace=indent,eol,start
 
 "Colorscheme
 colors colosus
@@ -135,8 +142,8 @@ nnoremap <leader>] :CtrlPTag<cr>
 let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
 "Syntastic
 let g:syntastic_mode_map = { "mode": "active",
-                           \ "active_filetypes": [],
-                           \ "passive_filetypes": ['sass', 'scss', 'haml', 'html']}
+			\ "active_filetypes": [],
+			\ "passive_filetypes": ['sass', 'scss', 'haml', 'html']}
 let g:syntastic_check_on_open = 1
 let g:syntastic_enable_signs = 1
 let g:syntastic_cpp_compiler_options = '-Wall -std=c++11'
@@ -159,15 +166,15 @@ inoremap <expr><C-e>  neocomplete#cancel_popup()
 "neosnippet
 " SuperTab like snippets behavior.
 imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-\ "\<Plug>(neosnippet_expand_or_jump)"
-\: pumvisible() ? "\<C-n>" : "\<TAB>"
+			\ "\<Plug>(neosnippet_expand_or_jump)"
+			\: pumvisible() ? "\<C-n>" : "\<TAB>"
 smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-\ "\<Plug>(neosnippet_expand_or_jump)"
-\: "\<TAB>"
+			\ "\<Plug>(neosnippet_expand_or_jump)"
+			\: "\<TAB>"
 
 " For snippet_complete marker.
 if has('conceal')
-  set conceallevel=2 concealcursor=i
+	set conceallevel=2 concealcursor=i
 endif
 
 "Airline
@@ -190,7 +197,6 @@ let g:nerdtree_tabs_open_on_gui_startup = 0
 
 " FileType
 autocmd BufRead,BufEnter *.js setlocal nocindent smartindent
-au BufWritePost *.coffee silent call CoffeeMake()
 autocmd BufRead,BufEnter *.vs setlocal filetype=c
 autocmd BufRead,BufEnter *.fs setlocal filetype=c
 
@@ -207,14 +213,6 @@ autocmd FileType java setlocal omnifunc=javacomplete#Complete
 " Disable automatic selection of first completion choice in the menu
 let g:jedi#popup_on_dot = 0
 let g:jedi#popup_select_first = 0
-
-func! CoffeeMake()
-	if getline(1) =~ 'autocompile'
-		silent make
-		redraw!
-		cw
-	endif
-endfunc
 
 " Javascript & JSX
 let g:jsx_ext_required = 0
