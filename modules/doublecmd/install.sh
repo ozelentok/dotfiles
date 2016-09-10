@@ -13,6 +13,6 @@ sudo pacman -S doublecmd-gtk2
 
 (
 	cd $DIR
-	sudo mkdir -p $TODIR
+	mkdir -p $TODIR
 	cp $DIR/doublecmd.xml $TODIR/doublecmd.xml
 )
