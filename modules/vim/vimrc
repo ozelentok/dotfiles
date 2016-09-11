@@ -49,7 +49,6 @@ Plugin 'vim-scripts/javacomplete'
 Plugin 'pangloss/vim-javascript'
 Plugin 'mxw/vim-jsx'
 Plugin 'godlygeek/tabular'
-Plugin 'plasticboy/vim-markdown'
 call vundle#end()
 
 "General
@@ -100,13 +99,8 @@ nnoremap < <c-w><
 " Yank and paste using + register (works on X11 clipboard)
 " Switch to * register in windows
 if os == 'Windows'
-	if has('gui_running')
-		noremap <C-Space> "*
-		vnoremap <C-Space> "*
-	else
-		noremap <C-@> "*
-		vnoremap <C-@> "*
-	endif
+	noremap <C-Space> "*
+	vnoremap <C-Space> "*
 else
 	if has('gui_running')
 		noremap <C-Space> "+
