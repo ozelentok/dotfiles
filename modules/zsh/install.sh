@@ -9,7 +9,7 @@ echo "Zsh Settings Configuration"
 DIR=$(dirname "${BASH_SOURCE[0]}")
 DIR=$(cd -P $DIR && pwd)
 
-sudo pacman -S zsh
+sudo pacman -S zsh zsh-completions
 
 (
 	cd $DIR
