@@ -1,7 +1,8 @@
 set nocompatible
 if has('win32') || has('win64')
-	let os='Windows'
-	let vundlePath=$HOME . '/vimfiles/bundle'
+	let b:os='Windows'
+	let b:vimFiles=$HOME . '/vimfiles'
+	let b:vundlePath=$HOME . '/vimfiles/bundle'
 	set rtp+=$HOME\vimfiles\bundle\vundle
 	set directory=C:\temp
 	set backupdir=C:\temp
@@ -14,8 +15,9 @@ if has('win32') || has('win64')
 		let &t_AF="\e[38;5;%dm"
 	endif
 else
-	let os='Linux'
-	let vundlePath=$HOME . '/.vim/bundle'
+	let b:os='Linux'
+	let b:vimfiles=$HOME . '/.vim'
+	let b:vundlePath=$HOME . '/.vim/bundle'
 	set rtp+=$HOME/.vim/bundle/vundle
 	set directory=/tmp
 	set backupdir=/tmp
@@ -25,7 +27,7 @@ endif
 
 " Vundle requires filetype to be off
 filetype off
-call vundle#begin(vundlePath)
+call vundle#begin(b:vundlePath)
 Plugin 'gmarik/vundle'
 Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/syntastic'
@@ -36,9 +38,10 @@ Plugin 'Lokaltog/vim-easymotion'
 Plugin 'bling/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'kien/ctrlp.vim'
-Plugin 'Shougo/neocomplete'
-Plugin 'Shougo/neosnippet'
-Plugin 'Shougo/neosnippet-snippets'
+Plugin 'Valloric/YouCompleteMe'
+"Plugin 'Shougo/neocomplete'
+"Plugin 'Shougo/neosnippet'
+"Plugin 'Shougo/neosnippet-snippets'
 Plugin 'jistr/vim-nerdtree-tabs'
 Plugin 'rstacruz/vim-closer'
 
@@ -98,7 +101,7 @@ nnoremap < <c-w><
 
 " Yank and paste using + register (works on X11 clipboard)
 " Switch to * register in windows
-if os == 'Windows'
+if b:os == 'Windows'
 	noremap <C-Space> "*
 	vnoremap <C-Space> "*
 else
@@ -143,33 +146,33 @@ let g:syntastic_enable_signs = 1
 let g:syntastic_cpp_compiler_options = '-Wall -std=c++11'
 
 "neocomplete
-let g:neocomplete#enable_at_startup = 1
-let g:neocomplete#enable_smart_case = 0
+"let g:neocomplete#enable_at_startup = 1
+"let g:neocomplete#enable_smart_case = 0
 " Plugin key-mappings.
-inoremap <expr><C-g> neocomplete#undo_completion()
-inoremap <expr><C-l> neocomplete#complete_common_string()
-" Recommended key-mappings.
-" <CR>: close popup and save indent.
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-" <C-h>, <BS>: close popup and delete backword char.
-inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
-inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
-inoremap <expr><C-y>  neocomplete#close_popup()
-inoremap <expr><C-e>  neocomplete#cancel_popup()
+"inoremap <expr><C-g> neocomplete#undo_completion()
+"inoremap <expr><C-l> neocomplete#complete_common_string()
+"" Recommended key-mappings.
+"" <CR>: close popup and save indent.
+"inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+"" <C-h>, <BS>: close popup and delete backword char.
+"inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+"inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+"inoremap <expr><C-y>  neocomplete#close_popup()
+"inoremap <expr><C-e>  neocomplete#cancel_popup()
 
 "neosnippet
 " SuperTab like snippets behavior.
-imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-			\ "\<Plug>(neosnippet_expand_or_jump)"
-			\: pumvisible() ? "\<C-n>" : "\<TAB>"
-smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-			\ "\<Plug>(neosnippet_expand_or_jump)"
-			\: "\<TAB>"
-
-" For snippet_complete marker.
-if has('conceal')
-	set conceallevel=2 concealcursor=i
-endif
+"imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+"			\ "\<Plug>(neosnippet_expand_or_jump)"
+"			\: pumvisible() ? "\<C-n>" : "\<TAB>"
+"smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+"			\ "\<Plug>(neosnippet_expand_or_jump)"
+"			\: "\<TAB>"
+"
+"" For snippet_complete marker.
+"if has('conceal')
+"	set conceallevel=2 concealcursor=i
+"endif
 
 "Airline
 if !exists('g:airline_symbols')
@@ -194,19 +197,32 @@ autocmd BufRead,BufEnter *.js setlocal nocindent smartindent
 autocmd BufRead,BufEnter *.vs setlocal filetype=c
 autocmd BufRead,BufEnter *.fs setlocal filetype=c
 
+" YouCompleteMe
+let g:ycm_global_ycm_extra_conf = b:vimfiles . '/ycm_extra_conf.py'
+let g:ycm_autoclose_preview_window_after_completion = 1
+let g:ycm_autoclose_preview_window_after_insertion = 1
+let g:ycm_use_ultisnips_completer = 1
+let g:ycm_seed_identifiers_with_syntax = 1
+
+" Jedi - Python Completion
+let g:jedi#auto_initialization = 1
+let g:jedi#auto_vim_configuration = 0
+let g:jedi#completions_enabled = 0
+let g:jedi#completions_command = ""
+let g:jedi#smart_auto_mappings = 0
+let g:jedi#popup_on_dot = 0
+let g:jedi#popup_select_first = 0
+let g:jedi#show_call_signatures = "1"
+let g:jedi#show_call_signatures_delay = 0
+let g:jedi#documentation_command = "<leader>pk"
+let g:jedi#usages_command = "<leader>pu"
+
 " Autocomplete
 set omnifunc=syntaxcomplete#Complete
-autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-autocmd FileType python setlocal completeopt-=preview
 autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType html setlocal autoindent omnifunc=htmlcomplete#CompleteTags
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
 autocmd FileType java setlocal omnifunc=javacomplete#Complete
-
-" Jedi-vim
-" Disable automatic selection of first completion choice in the menu
-let g:jedi#popup_on_dot = 0
-let g:jedi#popup_select_first = 0
 
 " Javascript & JSX
 let g:jsx_ext_required = 0
