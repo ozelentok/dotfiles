@@ -175,7 +175,20 @@ let g:ycm_use_ultisnips_completer = 1
 let g:ycm_seed_identifiers_with_syntax = 1
 let g:ycm_key_list_select_completion = ['<Down>']
 let g:ycm_key_list_previous_completion = ['<Up>']
-
+let g:ycm_semantic_triggers =  {
+			\   'c' : ['->', '.'],
+			\   'objc' : ['->', '.', 're!\[[_a-zA-Z]+\w*\s', 're!^\s*[^\W\d]\w*\s',
+			\             're!\[.*\]\s'],
+			\   'ocaml' : ['.', '#'],
+			\   'cpp,objcpp' : ['->', '.', '::'],
+			\   'perl' : ['->'],
+			\   'php' : ['->', '::'],
+			\   'cs,java,javascript,typescript,d,python,perl6,scala,vb,elixir,go' : ['.'],
+			\   'ruby' : ['.', '::'],
+			\   'lua' : ['.', ':'],
+			\   'erlang' : [':'],
+			\ }
+<
 " Jedi - Python Completion
 let g:jedi#auto_initialization = 1
 let g:jedi#auto_vim_configuration = 0
