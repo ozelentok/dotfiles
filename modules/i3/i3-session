@@ -1,5 +1,4 @@
 #!/bin/bash
 /usr/lib/gnome-settings-daemon/gnome-settings-daemon &
 feh --bg-fill ~/Pictures/wallpaper.png &
-liferea &
 exec i3
