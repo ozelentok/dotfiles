@@ -41,18 +41,6 @@ qtconfig-qt4
 
 - Under the 'Appearance' tab, at GUI Style, select 'GTK+'
 
-##View CPU Temperatures
-
-- Configure the sensors (follow the prompt instructions)
-```
-sudo sensors-detect
-```
-
-- To view your CPU temperatures, run the following command
-```
-sensors
-```
-
 ##Auto-mount partitions
 
 - Run the following command to get the UUID of the partitions:

@@ -3,7 +3,7 @@ set -e
 
 # ========================================
 # Base packages
-sudo pacman -Syu ctags keepassx htop unrar gimp audacity vlc smplayer deluge chromium ntfs-3g exfat-utils fuse-exfat alsa-utils firefox net-tools openssh lm_sensors
+sudo pacman -Syu ctags keepassx htop unrar gimp audacity vlc smplayer deluge chromium ntfs-3g exfat-utils fuse-exfat alsa-utils firefox net-tools openssh
 
 # Modules
 ./modules/gnome/install.sh
@@ -15,3 +15,4 @@ sudo pacman -Syu ctags keepassx htop unrar gimp audacity vlc smplayer deluge chr
 ./modules/samba/install.sh
 ./modules/doublecmd/install.sh
 ./modules/vsftpd/install.sh
+./modules/sensors/install.sh
