@@ -1,10 +1,8 @@
 #!/bin/bash
 
-#=========================================
-# Zsh Settings Configuration
 echo ""
 echo "=============================="
-echo "Zsh Settings Configuration"
+echo "Configuring ZSH"
 
 DIR=$(dirname "${BASH_SOURCE[0]}")
 DIR=$(cd -P $DIR && pwd)
@@ -18,8 +16,8 @@ sudo pacman -S zsh zsh-completions
 	git clone https://github.com/ozelentok/ZPrompt.git /tmp/ZPrompt
 
 	echo "Zsh Settings Configuration"
-	ln -s $PWD/zshrc $HOME/.zshrc
-	cp $PWD/extra.zsh $HOME/.zsh/extra.zsh
+	ln -s $DIR/zshrc $HOME/.zshrc
+	cp $DIR/extra.zsh $HOME/.zsh/extra.zsh
 	sudo usermod -s $(which zsh) $USER
 	echo ""
 	echo "=============================="
