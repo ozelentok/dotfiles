@@ -1,13 +1,12 @@
 #Oz Elentok Dotfiles
 
 - Linux Distribution: Arch Linux
-- Date: 2016-07
+- Date: 2016-10
 - Window Manager: i3wm
 - Program Launcher: dmenu
 - Text Editor: Vim
 - Music Player: Rhythmbox
 - Video Player: SMPlayer, VLC
-- RSS Reader: Lifera
 
 ##Installation
 
@@ -21,16 +20,6 @@ cd ~/.dotfiles
 ##Set Up a Wallpaper
 
 - Copy/Link an image to ~/Pictures/wallpaper.png
-
-##Qt-Config
-
-- Programs which use Qt will look horrible unless configured with qtconfig
-- Run qtconfig and the window 'Qt Configuration' will appear
-```
-qtconfig-qt4
-```
-
-- Under the 'Appearance' tab, at GUI Style, select 'GTK+'
 
 ##Auto-mount partitions
 
