@@ -12,6 +12,6 @@ sudo pacman -S git
 
 (
 	cd $DIR
-	cp $PWD/gitconfig $HOME/.gitconfig
-	ln -s $PWD/gitignore_global $HOME/.gitignore_global
+	cp $DIR/gitconfig $HOME/.gitconfig
+	ln -s $DIR/gitignore_global $HOME/.gitignore_global
 )
