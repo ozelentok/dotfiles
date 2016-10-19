@@ -11,25 +11,16 @@
 
 ##Installation
 
-- Install git
 ```
-sudo pacman -S
-```
-
-- Clone dotfiles
-```
+sudo pacman -S git
 git clone https://github.com/ozelentok/dotfiles.git ~/.dotfiles
-```
-
-- Run the installer
-```
 cd ~/.dotfiles
 ./install.sh
 ```
 
 ##Set Up a Wallpaper
 
-- Copy/Link the image to ~/Pictures/wallpaper.png
+- Copy/Link an image to ~/Pictures/wallpaper.png
 
 ##Qt-Config
 
