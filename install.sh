@@ -11,7 +11,7 @@ SELECTED_MODULES_FILE_PATH="/tmp/dotfiles_selected_modules"
 sudo pacman -S dialog
 
 dotfiles_packages=(firefox chromium openssh keepassx htop unrar gimp audacity vlc smplayer deluge ntfs-3g exfat-utils fuse-exfat alsa-utils net-tools ctags)
-dotfiles_modules=(zsh vim git X11 i3 gnome samba doublecmd vsftpd sensors)
+dotfiles_modules=$(ls ./modules)
 
 # ========================================
 # Generating dialog arguments
