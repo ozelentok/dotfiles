@@ -51,6 +51,7 @@ Plugin 'vim-scripts/javacomplete'
 Plugin 'pangloss/vim-javascript'
 Plugin 'mxw/vim-jsx'
 Plugin 'godlygeek/tabular'
+Plugin 'leafgarland/typescript-vim'
 call vundle#end()
 
 "General
@@ -82,6 +83,7 @@ set backspace=indent,eol,start
 colors colosus
 hi Normal ctermbg=none
 command! W w
+let mapleader = ","
 " map c-h/j/k/l to move between windows
 nmap <c-h> <c-w>h
 nmap <c-j> <c-w>j
@@ -188,7 +190,9 @@ let g:ycm_semantic_triggers =  {
 			\   'lua' : ['.', ':'],
 			\   'erlang' : [':'],
 			\ }
-<
+nnoremap <leader>jt :YcmCompleter GetType<CR>
+nnoremap <leader>jd :YcmCompleter GetDoc<CR>
+
 " Jedi - Python Completion
 let g:jedi#auto_initialization = 1
 let g:jedi#auto_vim_configuration = 0
@@ -212,8 +216,13 @@ autocmd FileType java setlocal omnifunc=javacomplete#Complete
 " Javascript & JSX
 let g:jsx_ext_required = 0
 let g:syntastic_javascript_checkers = ['eslint']
-" For syntastic support, install eslint
-" $ npm install -g eslint
+let g:syntastic_typescript_checkers = ['tslint']
+" For syntastic support, install the linters
+" $ npm install -g eslint tslint
+"
+" Tab to spaces
+autocmd FileType python setlocal expandtab tabstop=4 shiftwidth=4
+autocmd FileType typescript setlocal expandtab tabstop=4 shiftwidth=4
 
 " CTags
 set tags=./tags,../tags,/TAGS,../TAGS
