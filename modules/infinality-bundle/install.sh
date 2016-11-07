@@ -9,7 +9,7 @@ DIR=$(cd -P $DIR && pwd)
 
 (
 	cd $DIR
-	cat $DIR/pacman-infinality.conf >> /etc/pacman.conf
+	sudo bash -c "cat $DIR/pacman-infinality.conf >> /etc/pacman.conf"
 	sudo pacman-key -r 962DDE58
 	sudo pacman-key --lsign-key 962DDE58
 	sudo pacman -Syu infinality-bundle infinality-bundle-multilib infinality-bundle-fonts
