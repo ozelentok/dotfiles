@@ -222,7 +222,7 @@ for_window [title="Unlock Login .*"] floating enable
 bindsym $mod+n exec doublecmd
 bindsym $mod+m exec nautilus --no-desktop
 bindsym $mod+b exec rhythmbox
-bindsym $mod+c exec firefox
+bindsym $mod+c exec chromium
 bindsym $mod+control+l exec i3lock -c 000000
 
 # Volume Keyboard
