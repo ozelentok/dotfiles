@@ -31,10 +31,12 @@ focus_follows_mouse no
 bindsym $mod+Return exec gnome-terminal
 
 # kill focused window
-bindsym $mod+Shift+Q kill
+bindsym $mod+Shift+q kill
 
 # start dmenu (a program launcher)
 bindsym $mod+d exec dmenu_run -nb black -nf white
+bindsym $mod+Shift+D exec i3-dmenu-desktop --dmenu="dmenu -nb black -nf white"
+
 
 # change focus
 # default - disabled
