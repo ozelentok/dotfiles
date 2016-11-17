@@ -226,7 +226,6 @@ bindsym $mod+c exec chromium
 bindsym $mod+control+l exec i3lock -c 000000
 
 # Volume Keyboard
-bindsym $mod+KP_1 exec amixer -q set Master 5%-; exec kill -USR1 $(pidof i3status)
-bindsym $mod+KP_2 exec amixer -q set Master 5%+; exec kill -USR1 $(pidof i3status)
-bindsym $mod+KP_3 exec amixer -q set Master toggle; exec kill -USR1 $(pidof i3status)
-
+bindcode $mod+87 exec amixer -q set Master 5%-; exec kill -USR1 $(pidof i3status)
+bindcode $mod+88 exec amixer -q set Master 5%+; exec kill -USR1 $(pidof i3status)
+bindcode $mod+89 exec amixer -q set Master toggle; exec kill -USR1 $(pidof i3status)
