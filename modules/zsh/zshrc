@@ -79,6 +79,10 @@ fi
 
 
 # Home and End
+bindkey "\e[1~" beginning-of-line
+bindkey "\e[4~" end-of-line
+bindkey "\e[H" beginning-of-line
+bindkey "\e[F" end-of-line
 bindkey "${terminfo[khome]}" beginning-of-line
 bindkey "${terminfo[kend]}" end-of-line
 # Insert and Delete
@@ -92,15 +96,15 @@ bindkey "\e[1;5D" backward-word
 bindkey "\e[1;5C" forward-word
 
 function zle-line-init () {
-    echoti smkx
+	echoti smkx
 }
 function zle-line-finish () {
-    echoti rmkx
+	echoti rmkx
 }
 
 if [ -n "${DISPLAY:-}" ]; then
-   zle -N zle-line-init
-   zle -N zle-line-finish
+	zle -N zle-line-init
+	zle -N zle-line-finish
 fi
 
 # Edit current command in editor
@@ -110,14 +114,14 @@ bindkey "^X^E" edit-command-line
 
 # Colored man
 man() {
-    env LESS_TERMCAP_mb=$'\E[01;31m' \
-    LESS_TERMCAP_md=$'\E[01;38;5;74m' \
-    LESS_TERMCAP_me=$'\E[0m' \
-    LESS_TERMCAP_se=$'\E[0m' \
-    LESS_TERMCAP_so=$'\E[38;5;246m' \
-    LESS_TERMCAP_ue=$'\E[0m' \
-    LESS_TERMCAP_us=$'\E[04;38;5;146m' \
-    man "$@"
+	env LESS_TERMCAP_mb=$'\E[01;31m' \
+		LESS_TERMCAP_md=$'\E[01;38;5;74m' \
+		LESS_TERMCAP_me=$'\E[0m' \
+		LESS_TERMCAP_se=$'\E[0m' \
+		LESS_TERMCAP_so=$'\E[38;5;246m' \
+		LESS_TERMCAP_ue=$'\E[0m' \
+		LESS_TERMCAP_us=$'\E[04;38;5;146m' \
+		man "$@"
 }
 export TERM=xterm-256color
 setopt PATH_DIRS
