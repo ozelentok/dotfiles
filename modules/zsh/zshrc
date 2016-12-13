@@ -1,7 +1,7 @@
 [[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && which startx && exec startx
 # Set up the prompt
 
-#setopt histignorealldups sharehistory
+setopt histignorealldups sharehistory
 
 # Use emacs keybindings even if our EDITOR is set to vi
 bindkey -e
