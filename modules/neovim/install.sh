@@ -9,9 +9,12 @@ DIR=$(dirname "${BASH_SOURCE[0]}")
 DIR=$(cd -P $DIR && pwd)
 
 sudo pacman -S neovim
+sudo pip install neovim 
+sudo pip2 install neovim
 
 #For Deoplete C/C++ Support
 sudo pacman -S clang
+
 
 (
 	cd $DIR
