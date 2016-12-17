@@ -14,6 +14,8 @@ sudo pip2 install neovim
 
 #For Deoplete C/C++ Support
 sudo pacman -S clang
+#For X Clipboard support 
+sudo pacman -S xsel xclip
 
 
 (
