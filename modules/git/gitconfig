@@ -5,10 +5,13 @@
 #	email = oz.elen@gmail.com
 #[github]
 #	user = ozelentok
-[include]
-	path = .gitconfig.private
+#
 [merge]
-	tool = vimdiff
+	tool = nvimdiff
 [core]
-	editor = /usr/bin/vim
+	editor = /usr/bin/nvim
 	excludesfile = ~/.gitignore_global
+[mergetool]
+	prompt = true
+[mergetool "nvimdiff"]
+	cmd = nvim -d $LOCAL $REMOTE $MERGED -c -'$windcmd w' -c 'wincmd J'
