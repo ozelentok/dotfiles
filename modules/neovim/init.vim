@@ -44,6 +44,7 @@ call dein#add('rstacruz/vim-closer')
 call dein#add('zchee/deoplete-jedi')
 "Requires libclang-py3 - install using pip
 call dein#add('zchee/deoplete-clang')
+call dein#add('Shougo/neoinclude.vim')
 "Requires ternjs - install using npm
 call dein#add('carlitux/deoplete-ternjs')
 "Requires typescript - install using npm 
@@ -173,7 +174,7 @@ autocmd FileType python setlocal expandtab tabstop=4 shiftwidth=4
 autocmd FileType typescript setlocal expandtab tabstop=4 shiftwidth=4
 
 " CTags
-set tags=./tags,../tags,/TAGS,../TAGS
+set tags=./tags,../tags,/TAGS,../TAGS,/usr/include/tags
 
 "Neomake
 autocmd! BufReadPost * Neomake
