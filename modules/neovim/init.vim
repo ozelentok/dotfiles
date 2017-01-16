@@ -45,6 +45,7 @@ call dein#add('zchee/deoplete-jedi')
 "Requires libclang-py3 - install using pip
 call dein#add('zchee/deoplete-clang')
 call dein#add('Shougo/neoinclude.vim')
+call dein#add('Shougo/echodoc.vim')
 "Requires ternjs - install using npm
 call dein#add('carlitux/deoplete-ternjs')
 "Requires typescript - install using npm 
@@ -106,13 +107,10 @@ if b:os == 'Windows'
 	noremap <C-Space> "*
 	vnoremap <C-Space> "*
 else
-	if has('gui_running')
-		noremap <C-Space> "+
-		vnoremap <C-Space> "+
-	else
-		noremap <C-@> "+
-		vnoremap <C-@> "+
-	endif
+	noremap <C-Space> "+
+	vnoremap <C-Space> "+
+	noremap <C-@> "+
+	vnoremap <C-@> "+
 endif
 
 " Go Back in tabs
@@ -187,6 +185,10 @@ autocmd InsertLeave,CompleteDone * pclose!
 "Deoplete clang
 let g:deoplete#sources#clang#libclang_path='/usr/lib/libclang.so'
 let g:deoplete#sources#clang#clang_header='/usr/include/clang'
+
+"Echodoc
+set cmdheight=2
+let g:echodoc_enable_at_startup = 1
 
 "Deoplete jedi
 let g:deoplete#sources#jedi#show_docstring = 1
