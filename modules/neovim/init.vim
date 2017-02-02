@@ -45,6 +45,7 @@ call dein#add('zchee/deoplete-jedi')
 "Requires libclang-py3 - install using pip
 call dein#add('zchee/deoplete-clang')
 call dein#add('Shougo/neoinclude.vim')
+call dein#add('vim-scripts/OmniCppComplete')
 call dein#add('Shougo/echodoc.vim')
 "Requires ternjs - install using npm
 call dein#add('carlitux/deoplete-ternjs')
