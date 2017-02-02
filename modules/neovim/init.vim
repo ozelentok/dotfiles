@@ -101,8 +101,10 @@ nnoremap + <c-w>+
 nnoremap > <c-w>>
 nnoremap < <c-w><
 
-" Yank and paste using + register (works on X11 clipboard)
-" Switch to * register in windows
+" Replicate yank/paste operations to system clipbaord
+set clipboard=unnamedplus
+
+" Yank and paste using to system clipboard
 if b:os == 'Windows'
 	noremap <C-Space> "*
 	vnoremap <C-Space> "*
