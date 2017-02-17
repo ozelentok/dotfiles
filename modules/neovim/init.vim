@@ -37,6 +37,7 @@ call dein#add('ctrlpvim/ctrlp.vim')
 call dein#add('Shougo/deoplete.nvim')
 call dein#add('Shougo/neosnippet')
 call dein#add('Shougo/neosnippet-snippets')
+call dein#add('Shougo/echodoc.vim')
 "Plugin 'Valloric/YouCompleteMe'
 call dein#add('jistr/vim-nerdtree-tabs')
 call dein#add('rstacruz/vim-closer')
@@ -46,8 +47,8 @@ call dein#add('zchee/deoplete-jedi')
 call dein#add('zchee/deoplete-clang')
 call dein#add('Shougo/neoinclude.vim')
 call dein#add('vim-scripts/OmniCppComplete')
+call dein#add('vim-scripts/cscope_macros.vim')
 call dein#add('octol/vim-cpp-enhanced-highlight')
-call dein#add('Shougo/echodoc.vim')
 "Requires ternjs - install using npm
 call dein#add('carlitux/deoplete-ternjs')
 "Requires typescript - install using npm 
@@ -105,17 +106,6 @@ nnoremap < <c-w><
 
 " Replicate yank/paste operations to system clipbaord
 set clipboard=unnamedplus
-
-" Yank and paste using to system clipboard
-if b:os == 'Windows'
-	noremap <C-Space> "*
-	vnoremap <C-Space> "*
-else
-	noremap <C-Space> "+
-	vnoremap <C-Space> "+
-	noremap <C-@> "+
-	vnoremap <C-@> "+
-endif
 
 " Go Back in tabs
 noremap tp :tabp<cr>
@@ -206,3 +196,15 @@ imap <expr><tab> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expan
 let g:jsx_ext_required = 0
 let g:neomake_javascript_enabled_makers = ['eslint']
 let g:neomake_typescript_enabled_makers = ['tslint']
+
+"Cscope.vim
+
+set csre
+nmap <C-space>s :scs find s <C-R>=expand("<cword>")<CR><CR>	
+nmap <C-space>g :scs find g <C-R>=expand("<cword>")<CR><CR>	
+nmap <C-space>c :scs find c <C-R>=expand("<cword>")<CR><CR>	
+nmap <C-space>t :scs find t <C-R>=expand("<cword>")<CR><CR>	
+nmap <C-space>e :scs find e <C-R>=expand("<cword>")<CR><CR>	
+nmap <C-space>f :scs find f <C-R>=expand("<cfile>")<CR><CR>	
+nmap <C-space>i :scs find i <C-R>=expand("<cfile>")<CR><CR>	
+nmap <C-space>d :scs find d <C-R>=expand("<cword>")<CR><CR>	
