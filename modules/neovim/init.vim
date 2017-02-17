@@ -46,6 +46,7 @@ call dein#add('zchee/deoplete-jedi')
 call dein#add('zchee/deoplete-clang')
 call dein#add('Shougo/neoinclude.vim')
 call dein#add('vim-scripts/OmniCppComplete')
+call dein#add('octol/vim-cpp-enhanced-highlight')
 call dein#add('Shougo/echodoc.vim')
 "Requires ternjs - install using npm
 call dein#add('carlitux/deoplete-ternjs')
