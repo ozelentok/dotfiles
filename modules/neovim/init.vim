@@ -46,8 +46,8 @@ call dein#add('zchee/deoplete-jedi')
 "Requires libclang-py3 - install using pip
 call dein#add('zchee/deoplete-clang')
 call dein#add('Shougo/neoinclude.vim')
-call dein#add('vim-scripts/OmniCppComplete')
-call dein#add('vim-scripts/cscope_macros.vim')
+"call dein#add('vim-scripts/OmniCppComplete')
+"call dein#add('vim-scripts/cscope_macros.vim')
 call dein#add('octol/vim-cpp-enhanced-highlight')
 "Requires ternjs - install using npm
 call dein#add('carlitux/deoplete-ternjs')
@@ -105,7 +105,7 @@ nnoremap > <c-w>>
 nnoremap < <c-w><
 
 " Replicate yank/paste operations to system clipbaord
-set clipboard=unnamedplus
+set clipboard=unnamed
 
 " Go Back in tabs
 noremap tp :tabp<cr>
@@ -155,22 +155,23 @@ autocmd BufRead,BufEnter *.vs setlocal filetype=c
 autocmd BufRead,BufEnter *.fs setlocal filetype=c
 
 " Autocomplete
-set omnifunc=syntaxcomplete#Complete
+"set omnifunc=syntaxcomplete#Complete
 autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType html setlocal autoindent omnifunc=htmlcomplete#CompleteTags
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
 autocmd FileType java setlocal omnifunc=javacomplete#Complete
 
-" Tab to spaces
+"Tabs to spaces
 autocmd FileType python setlocal expandtab tabstop=4 shiftwidth=4
 autocmd FileType typescript setlocal expandtab tabstop=4 shiftwidth=4
 
-" CTags
-set tags=./tags,../tags,/TAGS,../TAGS,/usr/include/tags
-
 "Neomake
-autocmd! BufReadPost * Neomake
-autocmd! BufWritePost * Neomake
+autocmd BufReadPost * silent GtagsCscope
+autocmd BufWritePost * GtagsUpdate
+autocmd BufEnter,BufWritePost * silent Neomake
+
+"Tags
+set tags=tags;,/usr/include/tags
 
 "Deoplete
 let g:deoplete#enable_at_startup = 1
@@ -189,6 +190,8 @@ let g:deoplete#sources#jedi#show_docstring = 1
 
 "Neosnippets
 imap <expr><tab> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<tab>"
+smap <expr><tab> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<tab>"
+
 
 "Neomake Javascript & JSX
 " For neomake support, install the linters
@@ -197,14 +200,24 @@ let g:jsx_ext_required = 0
 let g:neomake_javascript_enabled_makers = ['eslint']
 let g:neomake_typescript_enabled_makers = ['tslint']
 
-"Cscope.vim
+"Gtags
 
-set csre
-nmap <C-space>s :scs find s <C-R>=expand("<cword>")<CR><CR>	
-nmap <C-space>g :scs find g <C-R>=expand("<cword>")<CR><CR>	
-nmap <C-space>c :scs find c <C-R>=expand("<cword>")<CR><CR>	
-nmap <C-space>t :scs find t <C-R>=expand("<cword>")<CR><CR>	
-nmap <C-space>e :scs find e <C-R>=expand("<cword>")<CR><CR>	
-nmap <C-space>f :scs find f <C-R>=expand("<cfile>")<CR><CR>	
-nmap <C-space>i :scs find i <C-R>=expand("<cfile>")<CR><CR>	
-nmap <C-space>d :scs find d <C-R>=expand("<cword>")<CR><CR>	
+set cscopetag
+let GtagsCscope_Ignore_Case = 1
+let GtagsCscope_Absolute_Path = 1
+
+nmap <C-space>s :cs find s <C-R>=expand("<cword>")<CR><CR>
+nmap <C-space>g :cs find g <C-R>=expand("<cword>")<CR><CR>
+nmap <C-space>c :cs find c <C-R>=expand("<cword>")<CR><CR>
+nmap <C-space>t :cs find t <C-R>=expand("<cword>")<CR><CR>
+nmap <C-space>e :cs find e <C-R>=expand("<cword>")<CR><CR>
+nmap <C-space>f :cs find f <C-R>=expand("<cfile>")<CR><CR>
+nmap <C-space>i :cs find i <C-R>=expand("<cfile>")<CR><CR>
+
+nmap <C-space>ts :scs find s <C-R>=expand("<cword>")<CR><CR>
+nmap <C-space>tg :scs find g <C-R>=expand("<cword>")<CR><CR>
+nmap <C-space>tc :scs find c <C-R>=expand("<cword>")<CR><CR>
+nmap <C-space>tt :scs find t <C-R>=expand("<cword>")<CR><CR>
+nmap <C-space>te :scs find e <C-R>=expand("<cword>")<CR><CR>
+nmap <C-space>tf :scs find f <C-R>=expand("<cfile>")<CR><CR>
+nmap <C-space>ti :scs find i <C-R>=expand("<cfile>")<CR><CR>
