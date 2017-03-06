@@ -10,3 +10,6 @@ tags
 *.dll
 *.a
 *.so
+GTAGS
+GRTAGS
+GPATH
