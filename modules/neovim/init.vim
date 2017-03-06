@@ -127,8 +127,11 @@ vnoremap p "_dP
 map <Leader>" ysiw"
 
 "CtrlP
-"CTags keybind
+"Tags keybind
 nnoremap <leader>] :CtrlPTag<cr>
+"Enable tag extension for cscope tags (gtags-cscope as well)
+"Enable .ctrlpignore file support 
+let g:ctrlp_extensions = ['tag', "autoignore"]
 let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
 
 "Airline
