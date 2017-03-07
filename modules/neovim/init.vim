@@ -33,7 +33,8 @@ call dein#add('tpope/vim-fugitive')
 call dein#add('easymotion/vim-easymotion')
 call dein#add('vim-airline/vim-airline')
 call dein#add('vim-airline/vim-airline-themes')
-call dein#add('ctrlpvim/ctrlp.vim')
+call dein#add('Shougo/unite.vim')
+call dein#add('hewes/unite-gtags')
 call dein#add('Shougo/deoplete.nvim')
 call dein#add('Shougo/neosnippet')
 call dein#add('Shougo/neosnippet-snippets')
@@ -126,13 +127,31 @@ inoremap <F4> <C-R>=strftime('%Y-%m-%d %H:%M:%S')<CR>
 vnoremap p "_dP
 map <Leader>" ysiw"
 
-"CtrlP
-"Tags keybind
-nnoremap <leader>] :CtrlPTag<cr>
-"Enable tag extension for cscope tags (gtags-cscope as well)
-"Enable .ctrlpignore file support 
-let g:ctrlp_extensions = ['tag', "autoignore"]
-let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
+"Unite
+let g:unite_source_history_yank_enable = 1
+let g:unite_enable_auto_select = 0
+call unite#filters#matcher_default#use(['matcher_glob'])
+"Like ctrlp.vim settings.
+call unite#custom#profile('default', 'context', {
+\   'start_insert': 1,
+\   'winheight': 10,
+\   'direction': 'botright',
+\ })
+nnoremap <C-P> :<C-u>Unite -buffer-name=files file_rec/neovim:!<cr>
+nnoremap <leader>b :<C-u>Unite -buffer-name=buffer buffer<cr>
+nnoremap <leader>s :<C-u>Unite -buffer-name=gtags-s gtags/context<cr>
+nnoremap <leader>d :<C-u>Unite -buffer-name=gtags-d gtags/def<cr>
+nnoremap <leader>r :<C-u>Unite -buffer-name=gtags-r gtags/ref<cr>
+nnoremap <leader>g :<C-u>Unite -buffer-name=gtags-g gtags/grep<cr>
+nnoremap <leader>t :<C-u>Unite -buffer-name=gtags-t gtags/completion<cr>
+nnoremap <leader>f :<C-u>Unite -buffer-name=gtags-f gtags/file<cr>
+
+autocmd FileType unite call s:unite_settings()
+function! s:unite_settings()
+  imap <buffer> <C-j>   <Plug>(unite_select_next_line)
+  imap <buffer> <C-k>   <Plug>(unite_select_previous_line)
+	autocmd InsertLeave <buffer> :UniteClose
+endfunction
 
 "Airline
 if !exists('g:airline_symbols')
