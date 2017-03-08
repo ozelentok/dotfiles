@@ -192,8 +192,8 @@ hi CursorIM         ctermfg=bg              ctermbg=116
 hi CursorColumn     guifg=NONE              guibg=#202438           gui=none
 hi CursorColumn     ctermfg=NONE            ctermbg=236             cterm=none
 " cursor line/row
-hi CursorLine       gui=NONE                guibg=#202438           gui=none
-hi CursorLine       cterm=NONE              ctermbg=236             cterm=none
+hi CursorLine       guifg=NONE                guibg=#202438           gui=none
+hi CursorLine       ctermfg=15                ctermbg=236             cterm=none
 
 
 " Misc
