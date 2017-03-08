@@ -33,13 +33,13 @@ call dein#add('tpope/vim-fugitive')
 call dein#add('easymotion/vim-easymotion')
 call dein#add('vim-airline/vim-airline')
 call dein#add('vim-airline/vim-airline-themes')
+call dein#add('Shougo/denite.nvim')
 call dein#add('Shougo/unite.vim')
 call dein#add('hewes/unite-gtags')
 call dein#add('Shougo/deoplete.nvim')
 call dein#add('Shougo/neosnippet')
 call dein#add('Shougo/neosnippet-snippets')
 call dein#add('Shougo/echodoc.vim')
-"Plugin 'Valloric/YouCompleteMe'
 call dein#add('jistr/vim-nerdtree-tabs')
 call dein#add('rstacruz/vim-closer')
 "call dein#add('davidhalter/jedi-vim')
@@ -48,11 +48,9 @@ call dein#add('zchee/deoplete-jedi')
 call dein#add('zchee/deoplete-clang')
 call dein#add('Shougo/neoinclude.vim')
 "call dein#add('vim-scripts/OmniCppComplete')
-"call dein#add('vim-scripts/cscope_macros.vim')
 call dein#add('octol/vim-cpp-enhanced-highlight')
 "Requires ternjs - install using npm
 call dein#add('carlitux/deoplete-ternjs')
-"Requires typescript - install using npm 
 call dein#add('mhartington/deoplete-typescript')
 call dein#add('pangloss/vim-javascript')
 call dein#add('mxw/vim-jsx')
@@ -137,21 +135,27 @@ call unite#custom#profile('default', 'context', {
 \   'winheight': 10,
 \   'direction': 'botright',
 \ })
-nnoremap <C-P> :<C-u>Unite -buffer-name=files file_rec/neovim:!<cr>
-nnoremap <leader>b :<C-u>Unite -buffer-name=buffer buffer<cr>
-nnoremap <leader>s :<C-u>Unite -buffer-name=gtags-s gtags/context<cr>
-nnoremap <leader>d :<C-u>Unite -buffer-name=gtags-d gtags/def<cr>
-nnoremap <leader>r :<C-u>Unite -buffer-name=gtags-r gtags/ref<cr>
-nnoremap <leader>g :<C-u>Unite -buffer-name=gtags-g gtags/grep<cr>
-nnoremap <leader>t :<C-u>Unite -buffer-name=gtags-t gtags/completion<cr>
-nnoremap <leader>f :<C-u>Unite -buffer-name=gtags-f gtags/file<cr>
 
 autocmd FileType unite call s:unite_settings()
 function! s:unite_settings()
-  imap <buffer> <C-j>   <Plug>(unite_select_next_line)
-  imap <buffer> <C-k>   <Plug>(unite_select_previous_line)
+  imap <buffer> <C-j> <Plug>(unite_select_next_line)
+  imap <buffer> <C-k> <Plug>(unite_select_previous_line)
 	autocmd InsertLeave <buffer> :UniteClose
 endfunction
+
+nnoremap <C-P> :Denite -buffer-name=files file_rec<cr>
+nnoremap <leader>b :Denite -buffer-name=buffer buffer<cr>
+nnoremap <leader>s :Denite -buffer-name=gtags-s unite:gtags/context<cr>
+nnoremap <leader>d :Denite -buffer-name=gtags-d unite:gtags/def<cr>
+nnoremap <leader>r :Denite -buffer-name=gtags-r unite:gtags/ref<cr>
+nnoremap <leader>g :Denite -buffer-name=gtags-g unite:gtags/grep<cr>
+nnoremap <leader>t :Denite -buffer-name=gtags-t unite:gtags/completion<cr>
+nnoremap <leader>f :Denite -buffer-name=gtags-f unite:gtags/file<cr>
+
+call denite#custom#map('insert', '<C-j>', '<denite:move_to_next_line>', 'noremap')
+call denite#custom#map('insert', '<C-k>', '<denite:move_to_previous_line>', 'noremap')
+call denite#custom#source('file_rec', 'sorters', ['sorter_sublime'])
+call denite#custom#option('_', 'winheight', 10)
 
 "Airline
 if !exists('g:airline_symbols')
