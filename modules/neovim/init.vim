@@ -43,6 +43,7 @@ call dein#add('jistr/vim-nerdtree-tabs')
 call dein#add('rstacruz/vim-closer')
 "call dein#add('davidhalter/jedi-vim')
 call dein#add('zchee/deoplete-jedi')
+call dein#add('Vimjas/vim-python-pep8-indent')
 "Requires libclang-py3 - install using pip
 call dein#add('zchee/deoplete-clang')
 call dein#add('Shougo/neoinclude.vim')
