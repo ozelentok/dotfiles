@@ -34,8 +34,7 @@ call dein#add('easymotion/vim-easymotion')
 call dein#add('vim-airline/vim-airline')
 call dein#add('vim-airline/vim-airline-themes')
 call dein#add('Shougo/denite.nvim')
-call dein#add('Shougo/unite.vim')
-call dein#add('hewes/unite-gtags')
+call dein#add('ozelentok/denite-gtags')
 call dein#add('Shougo/deoplete.nvim')
 call dein#add('Shougo/neosnippet')
 call dein#add('Shougo/neosnippet-snippets')
@@ -125,35 +124,18 @@ inoremap <F4> <C-R>=strftime('%Y-%m-%d %H:%M:%S')<CR>
 vnoremap p "_dP
 map <Leader>" ysiw"
 
-"Unite
-let g:unite_source_history_yank_enable = 1
-let g:unite_enable_auto_select = 0
-call unite#filters#matcher_default#use(['matcher_glob'])
-"Like ctrlp.vim settings.
-call unite#custom#profile('default', 'context', {
-\   'start_insert': 1,
-\   'winheight': 10,
-\   'direction': 'botright',
-\ })
-
-autocmd FileType unite call s:unite_settings()
-function! s:unite_settings()
-  imap <buffer> <C-j> <Plug>(unite_select_next_line)
-  imap <buffer> <C-k> <Plug>(unite_select_previous_line)
-	autocmd InsertLeave <buffer> :UniteClose
-endfunction
-
 nnoremap <C-P> :Denite -buffer-name=files file_rec<cr>
 nnoremap <leader>b :Denite -buffer-name=buffer buffer<cr>
-nnoremap <leader>s :Denite -buffer-name=gtags-s unite:gtags/context<cr>
-nnoremap <leader>d :Denite -buffer-name=gtags-d unite:gtags/def<cr>
-nnoremap <leader>r :Denite -buffer-name=gtags-r unite:gtags/ref<cr>
-nnoremap <leader>g :Denite -buffer-name=gtags-g unite:gtags/grep<cr>
-nnoremap <leader>t :Denite -buffer-name=gtags-t unite:gtags/completion<cr>
-nnoremap <leader>f :Denite -buffer-name=gtags-f unite:gtags/file<cr>
+nnoremap <leader>d :DeniteCursorWord -buffer-name=gtags_d gtags_def<cr>
+nnoremap <leader>r :DeniteCursorWord -buffer-name=gtags_r gtags_ref<cr>
+nnoremap <leader>g :DeniteCursorWord -buffer-name=gtags_g gtags_grep<cr>
+nnoremap <leader>t :DeniteCursorWord -buffer-name=gtags_t gtags_completion<cr>
+nnoremap <leader>f :DeniteCursorWord -buffer-name=gtags_f gtags_file<cr>
+nnoremap <leader>p :DeniteCursorWord -buffer-name=gtags_f gtags_path<cr>
 
 call denite#custom#map('insert', '<C-j>', '<denite:move_to_next_line>', 'noremap')
 call denite#custom#map('insert', '<C-k>', '<denite:move_to_previous_line>', 'noremap')
+call denite#custom#map('insert', '<C-t>', '<denite:do_action:tabswitch>', 'noremap')
 call denite#custom#source('file_rec', 'sorters', ['sorter_sublime'])
 call denite#custom#option('_', 'winheight', 10)
 
