@@ -41,16 +41,12 @@ call dein#add('Shougo/neosnippet-snippets')
 call dein#add('Shougo/echodoc.vim')
 call dein#add('jistr/vim-nerdtree-tabs')
 call dein#add('rstacruz/vim-closer')
-"call dein#add('davidhalter/jedi-vim')
 call dein#add('zchee/deoplete-jedi')
 call dein#add('Vimjas/vim-python-pep8-indent')
-"Requires libclang-py3 - install using pip
-call dein#add('zchee/deoplete-clang')
+call dein#add('zchee/deoplete-clang') "Requires libclang-py3 - install using pip
 call dein#add('Shougo/neoinclude.vim')
-"call dein#add('vim-scripts/OmniCppComplete')
 call dein#add('octol/vim-cpp-enhanced-highlight')
-"Requires ternjs - install using npm
-call dein#add('carlitux/deoplete-ternjs')
+call dein#add('carlitux/deoplete-ternjs') "Requires ternjs - install using npm
 call dein#add('mhartington/deoplete-typescript')
 call dein#add('pangloss/vim-javascript')
 call dein#add('mxw/vim-jsx')
@@ -182,6 +178,11 @@ autocmd BufEnter,BufWritePost * silent Neomake
 "Tags
 set tags=tags;,/usr/include/tags
 
+"GNU Global - "Gtags
+set cscopetag
+let GtagsCscope_Ignore_Case = 1
+let GtagsCscope_Absolute_Path = 1
+
 "Deoplete
 let g:deoplete#enable_at_startup = 1
 autocmd InsertLeave,CompleteDone * pclose!
@@ -190,17 +191,16 @@ autocmd InsertLeave,CompleteDone * pclose!
 let g:deoplete#sources#clang#libclang_path='/usr/lib/libclang.so'
 let g:deoplete#sources#clang#clang_header='/usr/include/clang'
 
+"Deoplete jedi
+let g:deoplete#sources#jedi#show_docstring = 1
+
 "Echodoc
 set cmdheight=2
 let g:echodoc_enable_at_startup = 1
 
-"Deoplete jedi
-let g:deoplete#sources#jedi#show_docstring = 1
-
 "Neosnippets
 imap <expr><tab> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<tab>"
 smap <expr><tab> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<tab>"
-
 
 "Neomake Javascript & JSX
 " For neomake support, install the linters
@@ -208,25 +208,3 @@ smap <expr><tab> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expan
 let g:jsx_ext_required = 0
 let g:neomake_javascript_enabled_makers = ['eslint']
 let g:neomake_typescript_enabled_makers = ['tslint']
-
-"Gtags
-
-set cscopetag
-let GtagsCscope_Ignore_Case = 1
-let GtagsCscope_Absolute_Path = 1
-
-nmap <C-space>s :cs find s <C-R>=expand("<cword>")<CR><CR>
-nmap <C-space>g :cs find g <C-R>=expand("<cword>")<CR><CR>
-nmap <C-space>c :cs find c <C-R>=expand("<cword>")<CR><CR>
-nmap <C-space>t :cs find t <C-R>=expand("<cword>")<CR><CR>
-nmap <C-space>e :cs find e <C-R>=expand("<cword>")<CR><CR>
-nmap <C-space>f :cs find f <C-R>=expand("<cfile>")<CR><CR>
-nmap <C-space>i :cs find i <C-R>=expand("<cfile>")<CR><CR>
-
-nmap <C-space>ts :scs find s <C-R>=expand("<cword>")<CR><CR>
-nmap <C-space>tg :scs find g <C-R>=expand("<cword>")<CR><CR>
-nmap <C-space>tc :scs find c <C-R>=expand("<cword>")<CR><CR>
-nmap <C-space>tt :scs find t <C-R>=expand("<cword>")<CR><CR>
-nmap <C-space>te :scs find e <C-R>=expand("<cword>")<CR><CR>
-nmap <C-space>tf :scs find f <C-R>=expand("<cfile>")<CR><CR>
-nmap <C-space>ti :scs find i <C-R>=expand("<cfile>")<CR><CR>
