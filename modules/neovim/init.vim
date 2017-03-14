@@ -130,9 +130,9 @@ nnoremap <leader>b :Denite -buffer-name=buffer buffer<cr>
 nnoremap <leader>d :DeniteCursorWord -buffer-name=gtags_d gtags_def<cr>
 nnoremap <leader>r :DeniteCursorWord -buffer-name=gtags_r gtags_ref<cr>
 nnoremap <leader>g :DeniteCursorWord -buffer-name=gtags_g gtags_grep<cr>
-nnoremap <leader>t :DeniteCursorWord -buffer-name=gtags_t gtags_completion<cr>
-nnoremap <leader>f :DeniteCursorWord -buffer-name=gtags_f gtags_file<cr>
-nnoremap <leader>p :DeniteCursorWord -buffer-name=gtags_f gtags_path<cr>
+nnoremap <leader>t :Denite -buffer-name=gtags_t gtags_completion<cr>
+nnoremap <leader>f :Denite -buffer-name=gtags_f gtags_file<cr>
+nnoremap <leader>p :Denite -buffer-name=gtags_p gtags_path<cr>
 
 call denite#custom#map('insert', '<C-j>', '<denite:move_to_next_line>', 'noremap')
 call denite#custom#map('insert', '<C-k>', '<denite:move_to_previous_line>', 'noremap')
