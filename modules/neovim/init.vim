@@ -100,7 +100,7 @@ nnoremap > <c-w>>
 nnoremap < <c-w><
 
 " Replicate yank/paste operations to system clipbaord
-set clipboard=unnamed
+set clipboard=unnamed,unnamedplus
 
 " Go Back in tabs
 noremap tp :tabp<cr>
