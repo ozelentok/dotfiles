@@ -16,7 +16,7 @@ sudo pip2 install neovim
 
 (
 	cd $DIR
-	ln -s ctags.conf $HOME/.ctags
+	ln -s $DIR/ctags.conf $HOME/.ctags
 	./gnu-global/install.sh
 
 	mkdir -p $HOME/.config/nvim/dein/repos/github.com/Shougo/
@@ -24,7 +24,7 @@ sudo pip2 install neovim
 	git clone https://github.com/Shougo/dein.vim.git $HOME/.config/nvim/dein/repos/github.com/Shougo/dein.vim
 
 	mkdir -p $HOME/.config/nvim/colors
-	ln -s colosus.vim $HOME/.config/nvim/colors/colosus.vim
+	ln -s $DIR/colosus.vim $HOME/.config/nvim/colors/colosus.vim
 
 	mkdir -p $HOME/.config/nvim/plugin
 	cp /usr/share/vim/vimfiles/plugin/gtags* $HOME/.config/nvim/plugin
