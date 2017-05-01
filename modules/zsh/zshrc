@@ -56,7 +56,10 @@ setopt AUTO_CD
 
 # spell check
 setopt CORRECT
+
 export EDITOR="nvim"
+export GTAGSLABEL=pygments
+
 # ls in color
 if [ -x /usr/bin/dircolors ]; then
 	alias ls='ls --color=auto --group-directories-first'
