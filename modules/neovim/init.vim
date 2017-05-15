@@ -53,6 +53,7 @@ call dein#add('pangloss/vim-javascript')
 call dein#add('mxw/vim-jsx')
 call dein#add('leafgarland/typescript-vim')
 call dein#add('godlygeek/tabular')
+call dein#add('ap/vim-css-color')
 call dein#end()
 "General
 filetype plugin indent on
