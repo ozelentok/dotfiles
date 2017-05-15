@@ -35,6 +35,7 @@ call dein#add('vim-airline/vim-airline')
 call dein#add('vim-airline/vim-airline-themes')
 call dein#add('Shougo/denite.nvim')
 call dein#add('ozelentok/denite-gtags')
+call dein#add('ozelentok/deoplete-gtags')
 call dein#add('Shougo/deoplete.nvim')
 call dein#add('Shougo/neosnippet')
 call dein#add('Shougo/neosnippet-snippets')
@@ -123,6 +124,7 @@ map <Leader>" ysiw"
 
 nnoremap <C-P> :Denite -buffer-name=files file_rec<cr>
 nnoremap <leader>b :Denite -buffer-name=buffer buffer<cr>
+nnoremap <leader>a :DeniteCursorWord -buffer-name=gtags_c gtags_context<cr>
 nnoremap <leader>d :DeniteCursorWord -buffer-name=gtags_d gtags_def<cr>
 nnoremap <leader>r :DeniteCursorWord -buffer-name=gtags_r gtags_ref<cr>
 nnoremap <leader>g :DeniteCursorWord -buffer-name=gtags_g gtags_grep<cr>
