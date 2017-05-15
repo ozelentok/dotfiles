@@ -7,11 +7,11 @@
 #	user = ozelentok
 #
 [merge]
-	tool = nvimdiff
+	tool = fugitive
 [core]
 	editor = /usr/bin/nvim
 	excludesfile = ~/.gitignore_global
 [mergetool]
 	prompt = true
-[mergetool "nvimdiff"]
-	cmd = nvim -d $LOCAL $REMOTE $MERGED -c -'$windcmd w' -c 'wincmd J'
+[mergetool "fugitive"]
+	cmd = nvim -f -c \"Gdiff\" \"$MERGED\"
