@@ -29,6 +29,5 @@ sudo pip2 install neovim
 	mkdir -p $HOME/.config/nvim/plugin
 	cp /usr/share/vim/vimfiles/plugin/gtags* $HOME/.config/nvim/plugin
 
-	echo "Enter ':call dein#install()'" | nvim -
-	echo ""
+	nvim -c "call dein#install()" -c "exit"
 )
