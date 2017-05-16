@@ -123,7 +123,7 @@ inoremap <F4> <C-R>=strftime('%Y-%m-%d %H:%M:%S')<CR>
 vnoremap p "_dP
 map <Leader>" ysiw"
 
-nnoremap <C-P> :Denite -buffer-name=files file_rec<cr>
+nnoremap <C-P> :DeniteProjectDir -buffer-name=files file_rec<cr>
 nnoremap <leader>b :Denite -buffer-name=buffer buffer<cr>
 nnoremap <leader>a :DeniteCursorWord -buffer-name=gtags_c gtags_context<cr>
 nnoremap <leader>d :DeniteCursorWord -buffer-name=gtags_d gtags_def<cr>
