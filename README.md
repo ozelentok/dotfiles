@@ -1,14 +1,14 @@
-#Oz Elentok Dotfiles
+# Oz Elentok Dotfiles
 
 - Linux Distribution: Arch Linux
-- Date: 2016-10
+- Date: 2017-05
 - Window Manager: i3wm
 - Program Launcher: dmenu
-- Text Editor: Vim
+- Text Editor: Neovim
 - Music Player: Rhythmbox
 - Video Player: SMPlayer, VLC
 
-##Installation
+## Installation
 
 ```
 sudo pacman -S git
@@ -17,11 +17,11 @@ cd ~/.dotfiles
 ./install.sh
 ```
 
-##Set Up a Wallpaper
+## Set Up a Wallpaper
 
 - Copy/Link an image to ~/Pictures/wallpaper.png
 
-##Auto-mount partitions
+## Auto-mount partitions
 
 - Run the following command to get the UUID of the partitions:
 ```
