@@ -13,7 +13,7 @@ pygments:\
 # See gtags(1).
 #---------------------------------------------------------------------
 common:\
-	:skip=HTML/,HTML.pub/,tags,TAGS,ID,y.tab.c,y.tab.h,cscope.out,cscope.po.out,cscope.in.out,SCCS/,RCS/,CVS/,CVSROOT/,{arch}/,.svn/,.git/,autom4te.cache/:
+	:skip=HTML/,HTML.pub/,tags,TAGS,ID,y.tab.c,y.tab.h,cscope.out,cscope.po.out,cscope.in.out,SCCS/,RCS/,CVS/,CVSROOT/,{arch}/,.svn/,.git/,autom4te.cache,node_modules/:
 #
 # Built-in parsers.
 #
@@ -90,6 +90,7 @@ exuberant-ctags|plugin-example|setting to use Exuberant Ctags plug-in parser:\
 	:gtags_parser=HTML\:/usr/lib/gtags/exuberant-ctags.la:\
 	:gtags_parser=Java\:/usr/lib/gtags/exuberant-ctags.la:\
 	:gtags_parser=JavaScript\:/usr/lib/gtags/exuberant-ctags.la:\
+	:gtags_parser=TypeScript\:/usr/lib/gtags/exuberant-ctags.la:\
 	:gtags_parser=Lisp\:/usr/lib/gtags/exuberant-ctags.la:\
 	:gtags_parser=Lua\:/usr/lib/gtags/exuberant-ctags.la:\
 	:gtags_parser=MatLab\:/usr/lib/gtags/exuberant-ctags.la:\
@@ -182,7 +183,7 @@ pygments-parser|Pygments plug-in parser:\
 	:langmap=Ioke\:.ik:\
 	:langmap=JAGS\:.jag.bug:\
 	:langmap=Jade\:.jade:\
-	:langmap=JavaScript\:.js:\
+	:langmap=JavaScript\:.js.jsx:\
 	:langmap=Java\:.java:\
 	:langmap=Jsp\:.jsp:\
 	:langmap=Julia\:.jl:\
@@ -254,7 +255,7 @@ pygments-parser|Pygments plug-in parser:\
 	:langmap=TeX\:.tex.aux.toc:\
 	:langmap=Tea\:.tea:\
 	:langmap=Treetop\:.treetop.tt:\
-	:langmap=TypeScript\:.ts:\
+	:langmap=TypeScript\:.ts.tsx:\
 	:langmap=UrbiScript\:.u:\
 	:langmap=VB.net\:.vb.bas:\
 	:langmap=VGL\:.rpf:\
@@ -334,7 +335,6 @@ pygments-parser|Pygments plug-in parser:\
 	:gtags_parser=Ioke\:/usr/lib/gtags/pygments-parser.la:\
 	:gtags_parser=JAGS\:/usr/lib/gtags/pygments-parser.la:\
 	:gtags_parser=Jade\:/usr/lib/gtags/pygments-parser.la:\
-	:gtags_parser=JavaScript\:/usr/lib/gtags/pygments-parser.la:\
 	:gtags_parser=Java\:/usr/lib/gtags/pygments-parser.la:\
 	:gtags_parser=Jsp\:/usr/lib/gtags/pygments-parser.la:\
 	:gtags_parser=Julia\:/usr/lib/gtags/pygments-parser.la:\
@@ -408,6 +408,7 @@ pygments-parser|Pygments plug-in parser:\
 	:gtags_parser=TeX\:/usr/lib/gtags/pygments-parser.la:\
 	:gtags_parser=Tea\:/usr/lib/gtags/pygments-parser.la:\
 	:gtags_parser=Treetop\:/usr/lib/gtags/pygments-parser.la:\
+	:gtags_parser=JavaScript\:/usr/lib/gtags/pygments-parser.la:\
 	:gtags_parser=TypeScript\:/usr/lib/gtags/pygments-parser.la:\
 	:gtags_parser=UrbiScript\:/usr/lib/gtags/pygments-parser.la:\
 	:gtags_parser=VB.net\:/usr/lib/gtags/pygments-parser.la:\
