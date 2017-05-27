@@ -272,10 +272,10 @@ hi FoldColumn       ctermfg=117             ctermbg=238             cterm=none
 " Search
 " ------
 " highlight incremental search text; also highlight text replaced with :s///c
-hi IncSearch        guifg=#000000           guibg=#C0A25F          gui=none
-hi IncSearch        ctermfg=0               ctermbg=214            cterm=none
+hi IncSearch        guifg=#000000           guibg=#55FFFF          gui=none
+hi IncSearch        ctermfg=0               ctermbg=14             cterm=none
 " hlsearch (last search pattern), also used for quickfix
-hi Search                                    guibg=#C0A25F          gui=none
+hi Search                                    guibg=#FFAF00          gui=none
 hi Search                                    ctermbg=214            cterm=none
 
 
