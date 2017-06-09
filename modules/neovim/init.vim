@@ -42,6 +42,7 @@ call dein#add('Shougo/denite.nvim')
 call dein#add('ozelentok/denite-gtags')
 call dein#add('Shougo/neosnippet')
 call dein#add('Shougo/neosnippet-snippets')
+call dein#add('Honza/vim-snippets')
 call dein#add('Shougo/echodoc.vim')
 call dein#add('Shougo/deoplete.nvim')
 call dein#add('Shougo/neco-vim')
@@ -210,6 +211,7 @@ let g:echodoc_enable_at_startup = 1
 "Neosnippets
 imap <expr><tab> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<tab>"
 smap <expr><tab> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<tab>"
+let g:neosnippet#enable_snipmate_compatibility = 1
 
 "Neomake Javascript & JSX
 " For neomake support, install the linters
