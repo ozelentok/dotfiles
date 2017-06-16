@@ -215,7 +215,6 @@ let g:neosnippet#enable_snipmate_compatibility = 1
 
 "Neomake Javascript & JSX
 " For neomake support, install the linters
-" $ npm install -g eslint tslint
+" $ npm install -g eslint
 let g:jsx_ext_required = 0
 let g:neomake_javascript_enabled_makers = ['eslint']
-let g:neomake_typescript_enabled_makers = ['tslint']
