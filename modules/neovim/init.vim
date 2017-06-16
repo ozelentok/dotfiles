@@ -195,6 +195,7 @@ let GtagsCscope_Absolute_Path = 1
 
 "Deoplete
 let g:deoplete#enable_at_startup = 1
+call deoplete#custom#set('_', 'min_pattern_length', 1)
 autocmd InsertLeave,CompleteDone * pclose!
 
 "Deoplete clang
@@ -212,6 +213,7 @@ let g:echodoc_enable_at_startup = 1
 imap <expr><tab> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<tab>"
 smap <expr><tab> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<tab>"
 let g:neosnippet#enable_snipmate_compatibility = 1
+
 
 "Neomake Javascript & JSX
 " For neomake support, install the linters
