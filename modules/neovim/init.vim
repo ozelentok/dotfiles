@@ -54,6 +54,7 @@ call dein#add('carlitux/deoplete-ternjs') "Requires ternjs - install using npm
 call dein#add('mhartington/nvim-typescript') "Requires typescript - install using npm
 call dein#add('pangloss/vim-javascript')
 call dein#add('leafgarland/typescript-vim')
+call dein#add('ianks/vim-tsx')
 call dein#add('mxw/vim-jsx')
 call dein#add('Vimjas/vim-python-pep8-indent')
 call dein#add('octol/vim-cpp-enhanced-highlight')
