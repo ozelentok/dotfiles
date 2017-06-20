@@ -68,6 +68,7 @@ set showcmd
 set hlsearch
 set incsearch
 set ignorecase
+set inccommand=split
 set wildmenu
 set wildmode=full
 set wildignore=*.swp,.bak,*.pyc,*.class,*.o,*.obj
