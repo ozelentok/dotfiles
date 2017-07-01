@@ -154,7 +154,7 @@ hi Ignore           ctermfg=bg
 " -----------
 " any erroneous construct
 hi Error            guifg=#E85848           guibg=#451E1A           gui=bold
-hi Error            ctermfg=167             ctermbg=52            cterm=none
+hi Error            ctermfg=15             ctermbg=9                cterm=bold
 
 
 " Todo Group
