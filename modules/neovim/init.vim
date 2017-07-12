@@ -57,6 +57,7 @@ call dein#add('leafgarland/typescript-vim')
 call dein#add('ianks/vim-tsx')
 call dein#add('mxw/vim-jsx')
 call dein#add('Vimjas/vim-python-pep8-indent')
+call dein#add('vim-python/python-syntax')
 call dein#add('octol/vim-cpp-enhanced-highlight')
 call dein#add('ap/vim-css-color')
 call dein#end()
@@ -195,9 +196,12 @@ set cscopetag
 let GtagsCscope_Ignore_Case = 1
 let GtagsCscope_Absolute_Path = 1
 
+"python-syntax
+let g:python_highlight_all = 1
+
 "Deoplete
 let g:deoplete#enable_at_startup = 1
-call deoplete#custom#set('_', 'min_pattern_length', 1)
+call deoplete#custom#set('_', 'min_pattern_length', 0)
 autocmd InsertLeave,CompleteDone * pclose!
 
 "Deoplete clang
