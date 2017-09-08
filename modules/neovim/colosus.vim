@@ -12,8 +12,8 @@ let colors_name="colosus"
 
 " Base color
 " ----------
-hi Normal           guifg=#ffffff           guibg=#151515
-hi Normal           ctermfg=15             ctermbg=233
+hi Normal           guifg=#ffffff           guibg=#000000
+hi Normal           ctermfg=15             ctermbg=16
 
 
 " Comment Group
@@ -247,16 +247,16 @@ hi WildMenu         ctermfg=16              ctermbg=186             cterm=bold
 " ----
 " added line
 hi DiffAdd          guifg=#0000FF           guibg=#201F1F           gui=none
-hi DiffAdd          ctermfg=108             ctermbg=22              cterm=none
-" changed line
-hi DiffChange       guifg=NONE              guibg=#4a343a           gui=none
-hi DiffChange       ctermfg=fg              ctermbg=52              cterm=none
+hi DiffAdd          ctermfg=15              ctermbg=22              cterm=none
 " deleted line
 hi DiffDelete       guifg=#FF0000           guibg=#3c3631           gui=none
-hi DiffDelete       ctermfg=59              ctermbg=58              cterm=none
+hi DiffDelete       ctermfg=59              ctermbg=52              cterm=none
+" changed line
+hi DiffChange       guifg=NONE              guibg=#4a343a           gui=none
+hi DiffChange       ctermfg=none            ctermbg=none            cterm=none
 " changed text within line
 hi DiffText         guifg=#f05060           guibg=#4a343a           gui=bold
-hi DiffText         ctermfg=203             ctermbg=52             cterm=bold
+hi DiffText         ctermfg=none            ctermbg=17              cterm=bold
 
 
 " Folds

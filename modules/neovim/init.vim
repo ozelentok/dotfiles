@@ -89,7 +89,6 @@ set backspace=indent,eol,start
 
 "Colorscheme
 colors colosus
-hi Normal ctermbg=none
 command! W w
 let mapleader = ","
 " map c-h/j/k/l to move between windows
