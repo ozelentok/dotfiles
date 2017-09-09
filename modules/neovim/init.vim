@@ -88,6 +88,7 @@ set autochdir
 set backspace=indent,eol,start
 
 "Colorscheme
+set termguicolors
 colors colosus
 command! W w
 let mapleader = ","
