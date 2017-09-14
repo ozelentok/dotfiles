@@ -8,6 +8,8 @@ echo "========================================"
 DIR=$(dirname "${BASH_SOURCE[0]}")
 DIR=$(cd -P $DIR && pwd)
 
+sudo pacman -S autoconf automake make fakeroot
+
 (
 	git clone "https://aur.archlinux.org/global.git" /tmp/global
 	cd /tmp/global
