@@ -183,11 +183,6 @@ autocmd FileType java setlocal omnifunc=javacomplete#Complete
 autocmd FileType python setlocal expandtab tabstop=4 shiftwidth=4
 autocmd FileType typescript setlocal expandtab tabstop=4 shiftwidth=4
 
-"Neomake
-autocmd BufReadPost * silent GtagsCscope
-autocmd BufWritePost * GtagsUpdate
-autocmd BufEnter,BufWritePost * silent Neomake
-
 "Tags
 set tags=tags;,/usr/include/tags
 
@@ -195,6 +190,22 @@ set tags=tags;,/usr/include/tags
 set cscopetag
 let GtagsCscope_Ignore_Case = 1
 let GtagsCscope_Absolute_Path = 1
+autocmd BufReadPost * silent GtagsCscope
+autocmd BufWritePost * GtagsUpdate
+
+"Neomake
+call neomake#configure#automake('n', 750)
+call neomake#configure#automake('r', 750)
+call neomake#configure#automake('w')
+call neomake#configure#automake({
+  \ 'TextChanged': {},
+  \ 'InsertLeave': {},
+  \ 'BufWritePost': {'delay': 0},
+  \ 'BufWinEnter': {},
+  \ 'FileType': {},
+  \ 'FileChangedShellPost': {},
+  \ }, 100)
+
 
 "python-syntax
 let g:python_highlight_all = 1
