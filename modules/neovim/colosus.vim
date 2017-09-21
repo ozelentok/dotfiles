@@ -349,10 +349,10 @@ hi NeomakeError              guifg=#FF0000                          gui=undercur
 hi NeomakeError              ctermfg=9                              cterm=underline
 
 hi NeomakeInfo               guifg=#FFFFFF                          gui=undercurl
-hi NeomakeInfo               ctermfg=15                             cterm=underline 
+hi NeomakeInfo               ctermfg=15                             cterm=underline
 
 hi NeomakeMessage            guifg=#87D7FF                          gui=undercurl
 hi NeomakeMessage            ctermfg=117                            cterm=underline
 
-hi NeomakeWarning            guifg=#FFFF87                          gui=undercurl 
-hi NeomakeWarning            ctermfg=228                            cterm=underline 
+hi NeomakeWarning            guifg=#FFFF87                          gui=undercurl
+hi NeomakeWarning            ctermfg=228                            cterm=underline
