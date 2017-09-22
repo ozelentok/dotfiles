@@ -130,16 +130,16 @@ inoremap <F4> <C-R>=strftime('%Y-%m-%d %H:%M:%S')<CR>
 vnoremap p "_dP
 map <Leader>" ysiw"
 
-nnoremap <C-P><C-P> :DeniteProjectDir -buffer-name=files file_rec<cr>
-nnoremap <C-P><C-G> :DeniteProjectDir -buffer-name=files-git file_rec/git<cr>
+nnoremap <C-P><C-P> :DeniteProjectDir -no-empty -buffer-name=files file_rec<cr>
+nnoremap <C-P><C-G> :DeniteProjectDir -no-empty -buffer-name=files-git file_rec/git<cr>
 nnoremap <leader>b :Denite -buffer-name=buffer buffer<cr>
-nnoremap <leader>a :DeniteCursorWord -buffer-name=gtags_c gtags_context<cr>
-nnoremap <leader>d :DeniteCursorWord -buffer-name=gtags_d gtags_def<cr>
-nnoremap <leader>r :DeniteCursorWord -buffer-name=gtags_r gtags_ref<cr>
-nnoremap <leader>g :DeniteCursorWord -buffer-name=gtags_g gtags_grep<cr>
-nnoremap <leader>t :Denite -buffer-name=gtags_t gtags_completion<cr>
-nnoremap <leader>f :Denite -buffer-name=gtags_f gtags_file<cr>
-nnoremap <leader>p :Denite -buffer-name=gtags_p gtags_path<cr>
+nnoremap <leader>a :DeniteCursorWord -no-empty -buffer-name=gtags_c gtags_context<cr>
+nnoremap <leader>d :DeniteCursorWord -no-empty -buffer-name=gtags_d gtags_def<cr>
+nnoremap <leader>r :DeniteCursorWord -no-empty -buffer-name=gtags_r gtags_ref<cr>
+nnoremap <leader>g :DeniteCursorWord -no-empty -buffer-name=gtags_g gtags_grep<cr>
+nnoremap <leader>t :Denite -no-empty -buffer-name=gtags_t gtags_completion<cr>
+nnoremap <leader>f :Denite -no-empty -buffer-name=gtags_f gtags_file<cr>
+nnoremap <leader>p :Denite -no-empty -buffer-name=gtags_p gtags_path<cr>
 
 call denite#custom#map('insert', '<C-j>', '<denite:move_to_next_line>', 'noremap')
 call denite#custom#map('insert', '<C-k>', '<denite:move_to_previous_line>', 'noremap')
