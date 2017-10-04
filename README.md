@@ -1,12 +1,12 @@
 # Oz Elentok Dotfiles
 
 - Linux Distribution: Arch Linux
-- Date: 2017-05
+- Date: 2017-10
 - Window Manager: i3wm
 - Program Launcher: dmenu
+- Browser: Firefox
+- File Manager: Double Commander
 - Text Editor: Neovim
-- Music Player: Rhythmbox
-- Video Player: SMPlayer, VLC
 
 ## Installation
 
