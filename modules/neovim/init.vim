@@ -206,6 +206,8 @@ call neomake#configure#automake({
   \ 'FileType': {},
   \ 'FileChangedShellPost': {},
   \ }, 200)
+let g:neomake_open_list = 2
+let g:neomake_list_height = 6
 
 "Neomake Makers
 let g:neomake_python_enabled_makers = ['python', 'pycodestyle', 'mypy']
