@@ -10,6 +10,10 @@ tags
 *.dll
 *.a
 *.so
+*.pyc
 GTAGS
 GRTAGS
 GPATH
+__pycache__
+.mypy_cache
+.cache
