@@ -205,11 +205,14 @@ call neomake#configure#automake({
   \ 'BufWinEnter': {},
   \ 'FileType': {},
   \ 'FileChangedShellPost': {},
-  \ }, 100)
+  \ }, 200)
 
+"Neomake Makers
+let g:neomake_python_enabled_makers = ['python', 'pycodestyle', 'mypy']
 
-"python-syntax
+"Language Syntax
 let g:python_highlight_all = 1
+let g:jsx_ext_required = 0
 
 "Deoplete
 let g:deoplete#enable_at_startup = 1
@@ -231,10 +234,3 @@ let g:echodoc_enable_at_startup = 1
 imap <expr><tab> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<tab>"
 smap <expr><tab> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<tab>"
 let g:neosnippet#enable_snipmate_compatibility = 1
-
-
-"Neomake Javascript & JSX
-" For neomake support, install the linters
-" $ npm install -g eslint
-let g:jsx_ext_required = 0
-let g:neomake_javascript_enabled_makers = ['eslint']
