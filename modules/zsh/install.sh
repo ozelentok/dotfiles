@@ -7,7 +7,7 @@ echo "Configuring ZSH"
 DIR=$(dirname "${BASH_SOURCE[0]}")
 DIR=$(cd -P $DIR && pwd)
 
-sudo pacman -S zsh zsh-completions g++ make
+sudo pacman -S zsh zsh-completions gcc make
 
 (
 	cd $DIR
