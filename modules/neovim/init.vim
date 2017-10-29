@@ -84,7 +84,6 @@ set laststatus=2
 set encoding=utf-8
 set spellsuggest=best,10
 set textwidth=0
-set autochdir
 set backspace=indent,eol,start
 
 "Colorscheme
@@ -172,6 +171,7 @@ let g:nerdtree_tabs_open_on_gui_startup = 0
 autocmd BufRead,BufEnter *.js setlocal nocindent smartindent
 autocmd BufRead,BufEnter *.vs setlocal filetype=c
 autocmd BufRead,BufEnter *.fs setlocal filetype=c
+autocmd BufEnter * silent! lcd %:p:h
 
 " Autocomplete
 "set omnifunc=syntaxcomplete#Complete
