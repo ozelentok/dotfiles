@@ -47,8 +47,7 @@ call dein#add('Shougo/echodoc.vim')
 call dein#add('Shougo/deoplete.nvim')
 call dein#add('Shougo/neco-vim')
 call dein#add('zchee/deoplete-jedi')
-call dein#add('zchee/deoplete-clang') "Requires libclang-py3 - install using pip
-call dein#add('Shougo/neoinclude.vim')
+call dein#add('tweekmonster/deoplete-clang2')
 call dein#add('ozelentok/deoplete-gtags')
 call dein#add('carlitux/deoplete-ternjs') "Requires ternjs - install using npm
 call dein#add('mhartington/nvim-typescript') "Requires typescript - install using npm
@@ -171,7 +170,7 @@ let g:nerdtree_tabs_open_on_gui_startup = 0
 autocmd BufRead,BufEnter *.js setlocal nocindent smartindent
 autocmd BufRead,BufEnter *.vs setlocal filetype=c
 autocmd BufRead,BufEnter *.fs setlocal filetype=c
-autocmd BufEnter * silent! lcd %:p:h
+autocmd FileReadPre * silent! lcd %:p:h
 
 " Autocomplete
 "set omnifunc=syntaxcomplete#Complete
@@ -195,17 +194,7 @@ autocmd BufReadPost * silent GtagsCscope
 autocmd BufWritePost * GtagsUpdate
 
 "Neomake
-call neomake#configure#automake('n', 750)
-call neomake#configure#automake('r', 750)
-call neomake#configure#automake('w')
-call neomake#configure#automake({
-  \ 'TextChanged': {},
-  \ 'InsertLeave': {},
-  \ 'BufWritePost': {'delay': 0},
-  \ 'BufWinEnter': {},
-  \ 'FileType': {},
-  \ 'FileChangedShellPost': {},
-  \ }, 200)
+call neomake#configure#automake('rw', 0)
 let g:neomake_open_list = 0
 let g:neomake_list_height = 6
 
@@ -220,10 +209,6 @@ let g:jsx_ext_required = 0
 let g:deoplete#enable_at_startup = 1
 call deoplete#custom#set('_', 'min_pattern_length', 0)
 autocmd InsertLeave,CompleteDone * pclose!
-
-"Deoplete clang
-let g:deoplete#sources#clang#libclang_path='/usr/lib/libclang.so'
-let g:deoplete#sources#clang#clang_header='/usr/include/clang'
 
 "Deoplete jedi
 let g:deoplete#sources#jedi#show_docstring = 1
