@@ -210,6 +210,9 @@ let g:deoplete#enable_at_startup = 1
 call deoplete#custom#set('_', 'min_pattern_length', 0)
 autocmd InsertLeave,CompleteDone * pclose!
 
+"Deoplete Clang2
+let g:clang2_placeholder_next = ''
+
 "Deoplete jedi
 let g:deoplete#sources#jedi#show_docstring = 1
 
