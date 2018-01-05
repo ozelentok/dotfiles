@@ -1,4 +1,5 @@
 #!/bin/bash
 /usr/lib/gnome-settings-daemon/gsd-xsettings &
 feh --bg-fill ~/Pictures/wallpaper.png &
+compton -b --config ~/.dotfiles/modules/compton/compton.conf &
 exec i3
