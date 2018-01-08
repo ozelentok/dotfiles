@@ -141,7 +141,9 @@ nnoremap <leader>p :Denite -no-empty -buffer-name=gtags_p gtags_path<cr>
 
 call denite#custom#map('insert', '<C-j>', '<denite:move_to_next_line>', 'noremap')
 call denite#custom#map('insert', '<C-k>', '<denite:move_to_previous_line>', 'noremap')
-call denite#custom#map('insert', '<C-t>', '<denite:do_action:tabswitch>', 'noremap')
+call denite#custom#map('insert', '<C-t>', '<denite:do_action:tabopen>', 'noremap')
+call denite#custom#map('insert', '<C-s>', '<denite:do_action:split>', 'noremap')
+call denite#custom#map('insert', '<C-v>', '<denite:do_action:vsplit>', 'noremap')
 call denite#custom#alias('source', 'file_rec/git', 'file_rec')
 call denite#custom#var('file_rec/git', 'command', ['git', 'ls-files', '-co', '--exclude-standard'])
 call denite#custom#source('file_rec', 'sorters', ['sorter_sublime'])
