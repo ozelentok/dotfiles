@@ -130,6 +130,7 @@ map <Leader>" ysiw"
 
 nnoremap <C-P><C-P> :DeniteProjectDir -no-empty -buffer-name=files file_rec<cr>
 nnoremap <C-P><C-G> :DeniteProjectDir -no-empty -buffer-name=files-git file_rec/git<cr>
+nnoremap <C-P><C-J> :Denite -no-empty -buffer-name=samename -input=`expand('%:t:r')` file_rec/git<cr>
 nnoremap <leader>b :Denite -buffer-name=buffer buffer<cr>
 nnoremap <leader>a :DeniteCursorWord -no-empty -buffer-name=gtags_c gtags_context<cr>
 nnoremap <leader>d :DeniteCursorWord -no-empty -buffer-name=gtags_d gtags_def<cr>
