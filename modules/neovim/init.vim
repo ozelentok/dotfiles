@@ -59,6 +59,8 @@ call dein#add('Vimjas/vim-python-pep8-indent')
 call dein#add('vim-python/python-syntax')
 call dein#add('octol/vim-cpp-enhanced-highlight')
 call dein#add('ap/vim-css-color')
+call dein#add('othree/csscomplete.vim')
+
 call dein#end()
 "General
 filetype plugin indent on
@@ -84,6 +86,7 @@ set encoding=utf-8
 set spellsuggest=best,10
 set textwidth=0
 set backspace=indent,eol,start
+set iskeyword+=\-
 
 "Colorscheme
 set termguicolors
