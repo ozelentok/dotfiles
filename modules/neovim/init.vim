@@ -60,6 +60,7 @@ call dein#add('vim-python/python-syntax')
 call dein#add('octol/vim-cpp-enhanced-highlight')
 call dein#add('ap/vim-css-color')
 call dein#add('othree/csscomplete.vim')
+call dein#add('othree/html5.vim')
 
 call dein#end()
 "General
