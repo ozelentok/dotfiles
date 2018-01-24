@@ -87,6 +87,7 @@ set encoding=utf-8
 set spellsuggest=best,10
 set textwidth=0
 set backspace=indent,eol,start
+set autochdir
 set iskeyword+=\-
 
 "Colorscheme
@@ -134,15 +135,15 @@ map <Leader>" ysiw"
 
 nnoremap <C-P><C-P> :DeniteProjectDir -no-empty -buffer-name=files file_rec<cr>
 nnoremap <C-P><C-G> :DeniteProjectDir -no-empty -buffer-name=files-git file_rec/git<cr>
-nnoremap <C-P><C-J> :Denite -no-empty -buffer-name=samename -input=`expand('%:t:r')` file_rec/git<cr>
+nnoremap <C-P><C-J> :DeniteProjectDir -no-empty -buffer-name=samename -input=`expand('%:t:r')` file_rec/git<cr>
 nnoremap <leader>b :Denite -buffer-name=buffer buffer<cr>
-nnoremap <leader>a :DeniteCursorWord -no-empty -buffer-name=gtags_c gtags_context<cr>
-nnoremap <leader>d :DeniteCursorWord -no-empty -buffer-name=gtags_d gtags_def<cr>
-nnoremap <leader>r :DeniteCursorWord -no-empty -buffer-name=gtags_r gtags_ref<cr>
-nnoremap <leader>g :DeniteCursorWord -no-empty -buffer-name=gtags_g gtags_grep<cr>
-nnoremap <leader>t :Denite -no-empty -buffer-name=gtags_t gtags_completion<cr>
-nnoremap <leader>f :Denite -no-empty -buffer-name=gtags_f gtags_file<cr>
-nnoremap <leader>p :Denite -no-empty -buffer-name=gtags_p gtags_path<cr>
+nnoremap <leader>a :DeniteCursorWord -path=`expand('%:p:h')` -no-empty -buffer-name=gtags_c gtags_context<cr>
+nnoremap <leader>d :DeniteCursorWord -path=`expand('%:p:h')` -no-empty -buffer-name=gtags_d gtags_def<cr>
+nnoremap <leader>r :DeniteCursorWord -path=`expand('%:p:h')` -no-empty -buffer-name=gtags_r gtags_ref<cr>
+nnoremap <leader>g :DeniteCursorWord -path=`expand('%:p:h')` -no-empty -buffer-name=gtags_g gtags_grep<cr>
+nnoremap <leader>t :Denite -path=`expand('%:p:h')` -no-empty -buffer-name=gtags_t gtags_completion<cr>
+nnoremap <leader>f :Denite -path=`expand('%:p:h')` -no-empty -buffer-name=gtags_f gtags_file<cr>
+nnoremap <leader>p :Denite -path=`expand('%:p:h')` -no-empty -buffer-name=gtags_p gtags_path<cr>
 
 call denite#custom#map('insert', '<C-j>', '<denite:move_to_next_line>', 'noremap')
 call denite#custom#map('insert', '<C-k>', '<denite:move_to_previous_line>', 'noremap')
