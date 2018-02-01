@@ -204,7 +204,21 @@ autocmd BufWritePost * GtagsUpdate
 "ALE
 let g:airline#extensions#ale#enabled = 1
 let g:ale_linters = {
-			\	'python': ['pycodestyle', 'mypy']
+			\	'python': ['pycodestyle', 'mypy'],
+			\}
+
+let g:ale_fixers = {
+			\	'c': ['trim_whitespace'],
+			\	'cpp': ['trim_whitespace'],
+			\	'python': ['trim_whitespace'],
+			\	'typescript': ['tslint', 'trim_whitespace'],
+			\	'javascript': ['eslint', 'trim_whitespace'],
+			\	'html': ['prettier', 'trim_whitespace'],
+			\	'css': ['prettier', 'trim_whitespace'],
+			\	'scss': ['prettier', 'trim_whitespace'],
+			\	'less': ['prettier', 'trim_whitespace'],
+			\	'json': ['prettier', 'trim_whitespace'],
+			\	'markdown': ['prettier', 'trim_whitespace'],
 			\}
 
 "Language Syntax
