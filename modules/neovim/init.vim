@@ -30,7 +30,7 @@ call dein#add('vim-airline/vim-airline-themes')
 call dein#add('scrooloose/nerdtree')
 call dein#add('jistr/vim-nerdtree-tabs')
 call dein#add('easymotion/vim-easymotion')
-call dein#add('neomake/neomake')
+call dein#add('w0rp/ale')
 call dein#add('scrooloose/nerdcommenter')
 call dein#add('tpope/vim-surround')
 call dein#add('tpope/vim-fugitive')
@@ -201,13 +201,11 @@ let GtagsCscope_Absolute_Path = 1
 autocmd BufReadPost * silent GtagsCscope
 autocmd BufWritePost * GtagsUpdate
 
-"Neomake
-call neomake#configure#automake('rw', 0)
-let g:neomake_open_list = 0
-let g:neomake_list_height = 6
-
-"Neomake Makers
-let g:neomake_python_enabled_makers = ['python', 'pycodestyle', 'mypy']
+"ALE
+let g:airline#extensions#ale#enabled = 1
+let g:ale_linters = {
+			\	'python': ['pycodestyle', 'mypy']
+			\}
 
 "Language Syntax
 let g:python_highlight_all = 1
