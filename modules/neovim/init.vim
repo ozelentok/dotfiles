@@ -133,9 +133,9 @@ inoremap <F4> <C-R>=strftime('%Y-%m-%d %H:%M:%S')<CR>
 vnoremap p "_dP
 map <Leader>" ysiw"
 
-nnoremap <C-P><C-P> :DeniteProjectDir -no-empty -buffer-name=files file_rec<cr>
-nnoremap <C-P><C-G> :DeniteProjectDir -no-empty -buffer-name=files-git file_rec/git<cr>
-nnoremap <C-P><C-J> :DeniteProjectDir -no-empty -buffer-name=samename -input=`expand('%:t:r')` file_rec/git<cr>
+nnoremap <C-P><C-P> :DeniteProjectDir -no-empty -buffer-name=files file/rec<cr>
+nnoremap <C-P><C-G> :DeniteProjectDir -no-empty -buffer-name=files-git file/rec/git<cr>
+nnoremap <C-P><C-J> :DeniteProjectDir -no-empty -buffer-name=samename -input=`expand('%:t:r')` file/rec/git<cr>
 nnoremap <leader>b :Denite -buffer-name=buffer buffer<cr>
 nnoremap <leader>a :DeniteCursorWord -path=`expand('%:p:h')` -no-empty -buffer-name=gtags_c gtags_context<cr>
 nnoremap <leader>d :DeniteCursorWord -path=`expand('%:p:h')` -no-empty -buffer-name=gtags_d gtags_def<cr>
@@ -150,9 +150,9 @@ call denite#custom#map('insert', '<C-k>', '<denite:move_to_previous_line>', 'nor
 call denite#custom#map('insert', '<C-t>', '<denite:do_action:tabopen>', 'noremap')
 call denite#custom#map('insert', '<C-s>', '<denite:do_action:split>', 'noremap')
 call denite#custom#map('insert', '<C-v>', '<denite:do_action:vsplit>', 'noremap')
-call denite#custom#alias('source', 'file_rec/git', 'file_rec')
-call denite#custom#var('file_rec/git', 'command', ['git', 'ls-files', '-co', '--exclude-standard'])
-call denite#custom#source('file_rec', 'sorters', ['sorter_sublime'])
+call denite#custom#alias('source', 'file/rec/git', 'file/rec')
+call denite#custom#var('file/rec/git', 'command', ['git', 'ls-files', '-co', '--exclude-standard'])
+call denite#custom#source('file/rec', 'sorters', ['sorter_sublime'])
 call denite#custom#option('_', 'winheight', 10)
 
 "Airline
@@ -203,6 +203,7 @@ autocmd BufWritePost * GtagsUpdate
 
 "ALE
 let g:airline#extensions#ale#enabled = 1
+let g:ale_cache_executable_check_failures = 1
 let g:ale_linters = {
 			\	'python': ['pycodestyle', 'mypy'],
 			\}
@@ -227,7 +228,7 @@ let g:jsx_ext_required = 0
 
 "Deoplete
 let g:deoplete#enable_at_startup = 1
-call deoplete#custom#set('_', 'min_pattern_length', 0)
+call deoplete#custom#option('_', 'min_pattern_length', 0)
 autocmd InsertLeave,CompleteDone * pclose!
 
 "Deoplete Clang2

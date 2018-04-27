@@ -9,10 +9,11 @@ DIR=$(dirname "${BASH_SOURCE[0]}")
 DIR=$(cd -P $DIR && pwd)
 
 #clang for Deoplete C/C++ Support
-#xsel and xclip for Clipboard support 
+#xsel and xclip for Clipboard support
 sudo pacman -S neovim clang xsel xclip
-sudo pip install neovim 
-sudo pip2 install neovim
+sudo pip install -U neovim mypy pycodestyle
+sudo pip2 install -U neovim
+sudo ln -s $(which nvim) /usr/local/bin/vim
 
 (
 	cd $DIR
