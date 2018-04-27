@@ -1,7 +1,7 @@
 # Oz Elentok Dotfiles
 
 - Linux Distribution: Arch Linux
-- Date: 2017-10
+- Date: 2018-04
 - Window Manager: i3wm
 - Program Launcher: dmenu
 - Browser: Firefox
@@ -33,10 +33,10 @@ sudo blkid
 - For each partition, add the following (single) line to the file:
 
 ```
-UUID={uuid} /media/{mountname} {filesytem} rw,uid={username},gid=users,umask=003 0 0
+UUID={uuid} /media/{mountname} {filesytem} rw,noatime,uid={username},gid=users,umask=003 0 0
 ```
 
 Example:
 ```
-UUID=0001111100001100 /media/data ntfs-3g rw,uid=bob,gid=users,umask=003 0 0
+UUID=0001111100001100 /media/data ntfs-3g rw,noatime,uid=bob,gid=users,umask=003 0 0
 ```
