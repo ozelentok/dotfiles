@@ -26,6 +26,7 @@ sudo ln -s $(which nvim) /usr/local/bin/vim
 
 	mkdir -p $HOME/.config/nvim/colors
 	ln -s $DIR/colosus.vim $HOME/.config/nvim/colors/colosus.vim
+	ln -s $DIR/mypy.ini $HOME/.mypy.ini
 
 	mkdir -p $HOME/.config/nvim/plugin
 	cp /usr/share/vim/vimfiles/plugin/gtags* $HOME/.config/nvim/plugin
