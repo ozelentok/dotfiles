@@ -1,7 +1,7 @@
 # Oz Elentok Dotfiles
 
 - Linux Distribution: Arch Linux
-- Date: 2018-04
+- Date: 2018-05
 - Window Manager: i3wm
 - Program Launcher: dmenu
 - Browser: Firefox
@@ -24,7 +24,7 @@ cd ~/.dotfiles
 ## Auto-mount partitions
 
 - Run the following command to get the UUID of the partitions:
-```
+```bash
 sudo blkid
 ```
 

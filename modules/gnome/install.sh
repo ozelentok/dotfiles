@@ -8,7 +8,7 @@ echo "========================================"
 DIR=$(dirname "${BASH_SOURCE[0]}")
 DIR=$(cd -P $DIR && pwd)
 
-sudo pacman -S gnome gnome-tweak-tool gnome-settings-daemon
+sudo pacman -S gnome-terminal gnome-themes-extra
 
 (
 	cd $DIR
