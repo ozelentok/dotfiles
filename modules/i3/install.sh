@@ -12,7 +12,7 @@ sudo pacman -S i3-wm i3lock i3status dmenu feh
 
 (
 	cd $DIR
-	TODIR="$HOME/.i3/"
+	TODIR="$HOME/.config/i3/"
 	mkdir -p $TODIR
 	ln -s $DIR/config $TODIR
 	ln -s $DIR/i3status.conf $TODIR 
