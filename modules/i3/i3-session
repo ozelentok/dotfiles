@@ -1,4 +1,3 @@
 #!/bin/bash
-/usr/lib/gnome-settings-daemon/gsd-xsettings &
 feh --bg-fill ~/Pictures/wallpaper.png &
 exec i3

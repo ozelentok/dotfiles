@@ -17,6 +17,4 @@ sudo pacman -S i3-wm i3lock i3status dmenu feh
 	ln -s $DIR/config $TODIR
 	ln -s $DIR/i3status.conf $TODIR 
 	ln -s $DIR/i3-session $TODIR 
-	sudo mkdir -p "/usr/share/xsessions"
-	sudo ln -s $DIR/i3-session.desktop /usr/share/xsessions/
 )
