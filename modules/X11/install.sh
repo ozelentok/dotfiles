@@ -16,7 +16,7 @@ sudo pacman -S xorg-server xorg-xinit xorg-xkill
 	cd $DIR
 	sudo mkdir -p $TODIR
 	for confFile in *.conf; do
-		sudo cp $confFile $TODIR
+		sudo ln -s -f $DIR/$confFile $TODIR
 	done
-	cp xinitrc $HOME/.xinitrc
+	ln -s -f $DIR/xinitrc $HOME/.xinitrc
 )
