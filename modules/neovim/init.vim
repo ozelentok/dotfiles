@@ -50,7 +50,7 @@ call dein#add('zchee/deoplete-jedi')
 call dein#add('tweekmonster/deoplete-clang2')
 call dein#add('ozelentok/deoplete-gtags')
 call dein#add('carlitux/deoplete-ternjs') "Requires ternjs - install using npm
-call dein#add('mhartington/nvim-typescript') "Requires typescript - install using npm
+call dein#add('mhartington/nvim-typescript', {'build': './install.sh'}) "Requires typescript - install using npm
 call dein#add('pangloss/vim-javascript')
 call dein#add('leafgarland/typescript-vim')
 call dein#add('ianks/vim-tsx')
