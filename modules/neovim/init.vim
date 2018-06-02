@@ -61,6 +61,8 @@ call dein#add('octol/vim-cpp-enhanced-highlight')
 call dein#add('ap/vim-css-color')
 call dein#add('othree/csscomplete.vim')
 call dein#add('othree/html5.vim')
+call dein#add('plasticboy/vim-markdown')
+call dein#add('JamshedVesuna/vim-markdown-preview') "Requires grip - install using pip
 
 call dein#end()
 "General
@@ -245,3 +247,11 @@ let g:echodoc_enable_at_startup = 1
 imap <expr><tab> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<tab>"
 smap <expr><tab> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<tab>"
 let g:neosnippet#enable_snipmate_compatibility = 1
+
+"Markdown
+let g:vim_markdown_folding_disabled = 1
+
+"Markdown Preview
+let g:vim_markdown_preview_github = 1
+let g:vim_markdown_preview_use_xdg_open = 1
+let g:vim_markdown_preview_hotkey = '<C-m>'
