@@ -11,8 +11,9 @@ DIR=$(cd -P $DIR && pwd)
 #clang for Deoplete C/C++ Support
 #xsel and xclip for Clipboard support
 sudo pacman -S neovim clang xsel xclip
-sudo pip install -U neovim mypy pycodestyle
+sudo pip install -U neovim mypy pycodestyle grip
 sudo pip2 install -U neovim
+sudo npm install -g typescript tern
 sudo ln -s $(which nvim) /usr/local/bin/vim
 
 (

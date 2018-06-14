@@ -50,7 +50,7 @@ call dein#add('Shougo/neco-vim')
 call dein#add('zchee/deoplete-jedi')
 call dein#add('tweekmonster/deoplete-clang2')
 call dein#add('ozelentok/deoplete-gtags')
-call dein#add('carlitux/deoplete-ternjs') "Requires ternjs - install using npm
+call dein#add('carlitux/deoplete-ternjs') "Requires tern - install using npm
 call dein#add('mhartington/nvim-typescript', {'build': './install.sh'}) "Requires typescript - install using npm
 call dein#add('pangloss/vim-javascript')
 call dein#add('leafgarland/typescript-vim')
@@ -64,6 +64,7 @@ call dein#add('othree/csscomplete.vim')
 call dein#add('othree/html5.vim')
 call dein#add('plasticboy/vim-markdown')
 call dein#add('JamshedVesuna/vim-markdown-preview') "Requires grip - install using pip
+call dein#add('Yggdroot/indentLine')
 
 call dein#end()
 "General
