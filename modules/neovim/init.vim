@@ -205,6 +205,10 @@ let GtagsCscope_Absolute_Path = 1
 autocmd BufReadPost * silent GtagsCscope
 autocmd BufWritePost * GtagsUpdate
 
+"Ranger
+let g:ranger_map_keys = 0
+nnoremap <leader>e :Ranger<CR>
+
 "ALE
 let g:airline#extensions#ale#enabled = 1
 let g:ale_cache_executable_check_failures = 1
