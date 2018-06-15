@@ -6,6 +6,8 @@ if has('win32') || has('win64')
 	let &rtp.=',' . b:dein_dir . '/repos/github.com/Shougo/dein.vim'
 	set directory=C:\temp
 	set backupdir=C:\temp
+	set undodir=C:\temp
+
 	" Vim with 256 colors inside ConEmu
 	if !has("gui_running")
 		set term=xterm
@@ -21,6 +23,7 @@ else
 	set directory=/tmp
 	set backupdir=/tmp
 	set dictionary=/usr/share/dict/words
+	set undodir=/tmp
 endif
 
 call dein#begin(expand(b:dein_dir))
@@ -51,6 +54,8 @@ call dein#add('zchee/deoplete-jedi')
 call dein#add('tweekmonster/deoplete-clang2')
 call dein#add('ozelentok/deoplete-gtags')
 call dein#add('carlitux/deoplete-ternjs') "Requires tern - install using npm
+call dein#add('othree/html5.vim')
+call dein#add('othree/csscomplete.vim')
 call dein#add('mhartington/nvim-typescript', {'build': './install.sh'}) "Requires typescript - install using npm
 call dein#add('pangloss/vim-javascript')
 call dein#add('leafgarland/typescript-vim')
@@ -59,9 +64,7 @@ call dein#add('mxw/vim-jsx')
 call dein#add('Vimjas/vim-python-pep8-indent')
 call dein#add('vim-python/python-syntax')
 call dein#add('octol/vim-cpp-enhanced-highlight')
-call dein#add('ap/vim-css-color')
-call dein#add('othree/csscomplete.vim')
-call dein#add('othree/html5.vim')
+call dein#add('ap/vim-css-color', {'merged': 0})
 call dein#add('plasticboy/vim-markdown')
 call dein#add('JamshedVesuna/vim-markdown-preview') "Requires grip - install using pip
 call dein#add('Yggdroot/indentLine')
@@ -92,6 +95,7 @@ set spellsuggest=best,10
 set textwidth=0
 set backspace=indent,eol,start
 set autochdir
+set undofile
 set iskeyword+=\-
 
 "Colorscheme
@@ -194,6 +198,7 @@ autocmd FileType java setlocal omnifunc=javacomplete#Complete
 "Tabs to spaces
 autocmd FileType python setlocal expandtab tabstop=4 shiftwidth=4
 autocmd FileType typescript setlocal expandtab tabstop=4 shiftwidth=4
+autocmd FileType typescript.tsx setlocal expandtab tabstop=4 shiftwidth=4
 
 "Tags
 set tags=tags;,/usr/include/tags
