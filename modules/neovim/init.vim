@@ -182,21 +182,21 @@ let g:airline#extensions#whitespace#enabled = 1
 noremap <Leader>nt :NERDTreeTabsToggle<cr>
 let g:nerdtree_tabs_open_on_gui_startup = 0
 
-" FileType
-autocmd BufRead,BufEnter *.js setlocal nocindent smartindent
+"FileType
 autocmd BufRead,BufEnter *.vs setlocal filetype=c
 autocmd BufRead,BufEnter *.fs setlocal filetype=c
 autocmd FileReadPre * silent! lcd %:p:h
 
-" Autocomplete
+"Autocomplete
 "set omnifunc=syntaxcomplete#Complete
 autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType html setlocal autoindent omnifunc=htmlcomplete#CompleteTags
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
 autocmd FileType java setlocal omnifunc=javacomplete#Complete
 
-"Tabs to spaces
+"Indention
 autocmd FileType python setlocal expandtab tabstop=4 shiftwidth=4
+autocmd FileType html setlocal expandtab tabstop=4 shiftwidth=4
 autocmd FileType typescript setlocal expandtab tabstop=4 shiftwidth=4
 autocmd FileType typescript.tsx setlocal expandtab tabstop=4 shiftwidth=4
 
