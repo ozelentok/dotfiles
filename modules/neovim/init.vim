@@ -58,7 +58,7 @@ call dein#add('othree/html5.vim')
 call dein#add('othree/csscomplete.vim')
 call dein#add('mhartington/nvim-typescript', {'build': './install.sh'}) "Requires typescript - install using npm
 call dein#add('pangloss/vim-javascript')
-call dein#add('leafgarland/typescript-vim')
+call dein#add('ozelentok/typescript-vim')
 call dein#add('ozelentok/vim-tsx')
 call dein#add('mxw/vim-jsx')
 call dein#add('Vimjas/vim-python-pep8-indent')
