@@ -13,7 +13,7 @@ DIR=$(cd -P $DIR && pwd)
 sudo pacman -S neovim clang xsel xclip
 sudo pip install -U neovim mypy pycodestyle grip
 sudo pip2 install -U neovim
-sudo npm install -g typescript tern
+sudo npm install -g neovim typescript tern
 sudo ln -s $(which nvim) /usr/local/bin/vim
 
 (
