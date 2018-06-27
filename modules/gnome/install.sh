@@ -8,7 +8,7 @@ echo "========================================"
 DIR=$(dirname "${BASH_SOURCE[0]}")
 DIR=$(cd -P $DIR && pwd)
 
-sudo pacman -S gnome-terminal gnome-themes-extra
+sudo pacman -S gnome-terminal gnome-themes-extra eog evince
 
 (
 	cd $DIR
