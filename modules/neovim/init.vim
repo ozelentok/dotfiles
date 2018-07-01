@@ -55,7 +55,6 @@ call dein#add('tweekmonster/deoplete-clang2')
 call dein#add('ozelentok/deoplete-gtags')
 call dein#add('carlitux/deoplete-ternjs') "Requires tern - install using npm
 call dein#add('othree/html5.vim')
-call dein#add('othree/csscomplete.vim')
 call dein#add('mhartington/nvim-typescript', {'build': './install.sh'}) "Requires typescript - install using npm
 call dein#add('pangloss/vim-javascript')
 call dein#add('ozelentok/typescript-vim')
@@ -191,7 +190,6 @@ autocmd FileReadPre * silent! lcd %:p:h
 "set omnifunc=syntaxcomplete#Complete
 autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType html setlocal autoindent omnifunc=htmlcomplete#CompleteTags
-autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
 autocmd FileType java setlocal omnifunc=javacomplete#Complete
 
 "Indention
