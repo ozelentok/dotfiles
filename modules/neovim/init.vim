@@ -57,7 +57,7 @@ call dein#add('carlitux/deoplete-ternjs') "Requires tern - install using npm
 call dein#add('othree/html5.vim')
 call dein#add('mhartington/nvim-typescript', {'build': './install.sh'}) "Requires typescript - install using npm
 call dein#add('pangloss/vim-javascript')
-call dein#add('HerringtonDarkholme/yats.vim')
+call dein#add('ozelentok/yats.vim')
 call dein#add('mxw/vim-jsx')
 call dein#add('Vimjas/vim-python-pep8-indent')
 call dein#add('vim-python/python-syntax')
@@ -195,7 +195,7 @@ autocmd FileType java setlocal omnifunc=javacomplete#Complete
 autocmd FileType python setlocal expandtab tabstop=4 shiftwidth=4
 autocmd FileType html setlocal expandtab tabstop=4 shiftwidth=4
 autocmd FileType typescript setlocal expandtab tabstop=4 shiftwidth=4
-autocmd FileType typescriptreact setlocal expandtab tabstop=4 shiftwidth=4
+autocmd FileType typescript.tsx setlocal expandtab tabstop=4 shiftwidth=4
 
 "Tags
 set tags=tags;,/usr/include/tags
@@ -223,6 +223,7 @@ let g:ale_fixers = {
 			\	'cpp': ['trim_whitespace'],
 			\	'python': ['trim_whitespace'],
 			\	'typescript': ['tslint', 'trim_whitespace'],
+			\	'typescript.tsx': ['tslint', 'trim_whitespace'],
 			\	'javascript': ['eslint', 'trim_whitespace'],
 			\	'html': ['prettier', 'trim_whitespace'],
 			\	'css': ['prettier', 'trim_whitespace'],
