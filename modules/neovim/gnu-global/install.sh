@@ -11,14 +11,14 @@ DIR=$(cd -P $DIR && pwd)
 sudo pacman -S autoconf automake make fakeroot
 
 (
-	git clone "https://aur.archlinux.org/global.git" /tmp/global
-	cd /tmp/global
+	cd $DIR/global
 	makepkg -Acs
 	sudo pacman -U global*.pkg*
+	git clean -f
 	sudo pip2 install Pygments
 
-	ln -s $DIR/globalrc ~/.globalrc
-	sudo sed -i '1s/python/python2/' /usr/share/gtags/script/pygments_parser.py
+	ln -s -f $DIR/globalrc $HOME/.globalrc
+	sudo sed -i '1s/python$/python2/' /usr/share/gtags/script/pygments_parser.py
 	echo ""
 	echo "Remember to set GTAGSLABEL=pygments in your shell startup file"
 	echo " (The Zsh module already includes this configuration)"

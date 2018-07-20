@@ -48,7 +48,7 @@ zstyle ':vcs_info:git*+set-message:*' hooks git-status
 
 function precmd() {
 	vcs_info
-	PS1="$($HOME/.config/zprompt)"
+	PS1="$($HOME/.zsh/zprompt)"
 }
 setopt prompt_subst
 RPROMPT='${vcs_info_msg_0_}'

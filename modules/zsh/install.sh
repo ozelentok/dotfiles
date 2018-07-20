@@ -11,26 +11,26 @@ sudo pacman -S zsh zsh-completions gcc make
 
 (
 	cd $DIR
-	mkdir -p "$HOME/.zsh"
-	git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $HOME/.zsh/syntaxhl
-	git clone https://github.com/ozelentok/ZPrompt.git /tmp/ZPrompt
-
 	echo "Zsh Settings Configuration"
-	ln -s $DIR/zshrc $HOME/.zshrc
-	cp $DIR/extra.zsh $HOME/.zsh/extra.zsh
+	mkdir -p "$HOME/.zsh"
+	ln -s -f $DIR/zshrc $HOME/.zshrc
+	ln -s -f $DIR/extra.zsh $HOME/.zsh/extra.zsh
+	if [ ! -L $HOME/.zsh/syntaxhl ]; then
+		ln -s -f $DIR/zsh-syntax-highlighting $HOME/.zsh/syntaxhl
+	fi
 	sudo usermod -s $(which zsh) $USER
-	echo ""
+
 	echo "=============================="
 	echo "Installing ZPrompt for zsh"
 	(
-		cd /tmp/ZPrompt
+		cd $DIR/ZPrompt
 		make TARGET_SHELL=zsh
-		make install
-		echo "=============================="
-		echo "Installing patched Ubuntu Mono Fonts for ZPrompt"
-		echo "Font Family Name: Ubuntu Mono ZPower"
-		mkdir -p $HOME/.fonts
-		cp PatchedFonts/*.otf $HOME/.fonts/
-		sudo -E fc-cache -vf
+		make install TARGET_SHELL=zsh
 	)
+	echo "=============================="
+	echo "Installing patched Ubuntu Mono Fonts for ZPrompt"
+	echo "Font Family Name: Ubuntu Mono ZPower"
+	mkdir -p $HOME/.fonts
+	cp $DIR/ZPrompt/PatchedFonts/*.otf $HOME/.fonts/
+	fc-cache -vf
 )
