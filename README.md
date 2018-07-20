@@ -1,7 +1,7 @@
 # Oz Elentok Dotfiles
 
 - Linux Distribution: Arch Linux
-- Date: 2018-05
+- Date: 2018-07
 - Window Manager: i3wm
 - Program Launcher: dmenu
 - Browser: Firefox
@@ -12,7 +12,7 @@
 
 ```
 sudo pacman -S git
-git clone https://github.com/ozelentok/dotfiles.git ~/.dotfiles
+git clone --recursive https://github.com/ozelentok/dotfiles.git ~/.dotfiles
 cd ~/.dotfiles
 ./install.sh
 ```

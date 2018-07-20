@@ -18,19 +18,21 @@ sudo ln -s $(which nvim) /usr/local/bin/vim
 
 (
 	cd $DIR
-	ln -s $DIR/ctags.conf $HOME/.ctags
-	./gnu-global/install.sh
+	ln -s $DIR/init.vim $HOME/.config/nvim/init.vim
 
 	mkdir -p $HOME/.config/nvim/dein/repos/github.com/Shougo/
-	ln -s $DIR/init.vim $HOME/.config/nvim/init.vim
-	git clone https://github.com/Shougo/dein.vim.git $HOME/.config/nvim/dein/repos/github.com/Shougo/dein.vim
+	ln -s -f $DIR/dein.vim $HOME/.config/nvim/dein/repos/github.com/Shougo/dein.vim
 
 	mkdir -p $HOME/.config/nvim/colors
-	ln -s $DIR/colosus.vim $HOME/.config/nvim/colors/colosus.vim
-	ln -s $DIR/mypy.ini $HOME/.mypy.ini
+	ln -s -f $DIR/colosus.vim $HOME/.config/nvim/colors/
+	ln -s -f $DIR/mypy.ini $HOME/.mypy.ini
+
+	ln -s -f $DIR/ctags.conf $HOME/.ctags
+	./gnu-global/install.sh
 
 	mkdir -p $HOME/.config/nvim/plugin
-	cp /usr/share/vim/vimfiles/plugin/gtags* $HOME/.config/nvim/plugin
+	ln -s -f /usr/share/vim/vimfiles/plugin/gtags-cscope.vim $HOME/.config/nvim/plugin/
+	ln -s -f /usr/share/vim/vimfiles/plugin/gtags.vim $HOME/.config/nvim/plugin/
 
 	nvim -c "call dein#install()" -c "exit"
 )
