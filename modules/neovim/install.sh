@@ -21,7 +21,7 @@ sudo ln -s $(which nvim) /usr/local/bin/vim
 	ln -s $DIR/init.vim $HOME/.config/nvim/init.vim
 
 	mkdir -p $HOME/.config/nvim/dein/repos/github.com/Shougo/
-	ln -s -f $DIR/dein.vim $HOME/.config/nvim/dein/repos/github.com/Shougo/dein.vim
+	git clone https://github.com/Shougo/dein.vim.git $HOME/.config/nvim/dein/repos/github.com/Shougo/dein.vim
 
 	mkdir -p $HOME/.config/nvim/colors
 	ln -s -f $DIR/colosus.vim $HOME/.config/nvim/colors/

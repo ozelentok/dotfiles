@@ -6,10 +6,6 @@
 	path = modules/zsh/ZPrompt
 	url = https://github.com/ozelentok/ZPrompt.git
 	branch = master
-[submodule "modules/neovim/dein.vim"]
-	path = modules/neovim/dein.vim
-	url = https://github.com/Shougo/dein.vim.git
-	branch = master
 [submodule "modules/neovim/gnu-global/global"]
 	path = modules/neovim/gnu-global/global
 	url = https://aur.archlinux.org/global.git
