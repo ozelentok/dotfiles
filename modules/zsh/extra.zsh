@@ -6,7 +6,7 @@ alias cpptags='ctags -R --c++-kinds=+p --fields=+iaS --extra=+q --language-force
 alias psu='ps -lF --ppid 2 -p 2 --deselect'
 
 rdp() {
-	rdesktop $1 -g 1920x1060 -u $2 -z -m -x m -0
+	rdesktop $1 -g 1920x1060 -u $2 -z -m -x m -0 -r clipboard:CLIPBOARD
 }
 
 startinx() {
