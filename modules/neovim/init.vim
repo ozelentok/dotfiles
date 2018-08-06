@@ -218,13 +218,13 @@ nnoremap <leader>e :Ranger<CR>
 let g:airline#extensions#ale#enabled = 1
 let g:ale_cache_executable_check_failures = 1
 let g:ale_linters = {
-			\	'python': ['pycodestyle', 'mypy'],
+			\	'python': ['mypy', 'pycodestyle', 'pyflakes', 'pyls'],
 			\}
 
 let g:ale_fixers = {
 			\	'c': ['trim_whitespace'],
 			\	'cpp': ['trim_whitespace'],
-			\	'python': ['trim_whitespace'],
+			\	'python': ['autopep8', 'trim_whitespace'],
 			\	'typescript': ['tslint', 'trim_whitespace'],
 			\	'typescript.tsx': ['tslint', 'trim_whitespace'],
 			\	'javascript': ['eslint', 'trim_whitespace'],
@@ -250,6 +250,7 @@ let g:clang2_placeholder_next = ''
 
 "Deoplete jedi
 let g:deoplete#sources#jedi#show_docstring = 1
+let g:deoplete#sources#jedi#python_path='/usr/bin/python3'
 
 "Echodoc
 set cmdheight=2
