@@ -263,6 +263,7 @@ let g:neosnippet#enable_snipmate_compatibility = 1
 
 "Markdown
 let g:vim_markdown_folding_disabled = 1
+let g:vim_markdown_conceal = 0
 
 "Markdown Preview
 let g:vim_markdown_preview_github = 1
