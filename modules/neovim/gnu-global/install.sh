@@ -15,7 +15,7 @@ sudo pacman -S autoconf automake make fakeroot
 	makepkg -Acs
 	sudo pacman -U global*.pkg*
 	git clean -f
-	sudo pip2 install Pygments
+	pip2 install --user -U Pygments
 
 	ln -s -f $DIR/globalrc $HOME/.globalrc
 	sudo sed -i '1s/python$/python2/' /usr/share/gtags/script/pygments_parser.py
