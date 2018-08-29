@@ -11,10 +11,12 @@ DIR=$(cd -P $DIR && pwd)
 #clang for Deoplete C/C++ Support
 #xsel and xclip for Clipboard support
 sudo pacman -S neovim clang xsel xclip
-sudo pip install -U neovim mypy pycodestyle grip autopep8 yapf
-sudo pip2 install -U neovim
+pip install --user -U neovim mypy pycodestyle grip autopep8 yapf
+pip2 install --user -U neovim
 sudo npm install -g neovim typescript tern tslint
 sudo ln -s $(which nvim) /usr/local/bin/vim
+
+export PATH="$HOME/.local/bin:$PATH"
 
 (
 	cd $DIR

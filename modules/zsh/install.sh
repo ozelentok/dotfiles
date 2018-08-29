@@ -14,6 +14,7 @@ sudo pacman -S zsh zsh-completions gcc make
 	echo "Zsh Settings Configuration"
 	mkdir -p "$HOME/.zsh"
 	ln -s -f $DIR/zshrc $HOME/.zshrc
+	ln -s -f $DIR/zprofile $HOME/.zprofile
 	ln -s -f $DIR/extra.zsh $HOME/.zsh/extra.zsh
 	if [ ! -L $HOME/.zsh/syntaxhl ]; then
 		ln -s -f $DIR/zsh-syntax-highlighting $HOME/.zsh/syntaxhl
