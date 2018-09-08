@@ -54,10 +54,11 @@ call dein#add('zchee/deoplete-jedi')
 call dein#add('tweekmonster/deoplete-clang2')
 call dein#add('ozelentok/deoplete-gtags')
 call dein#add('carlitux/deoplete-ternjs') "Requires tern - install using npm
+call dein#add('artur-shaik/vim-javacomplete2')
 call dein#add('othree/html5.vim')
 call dein#add('mhartington/nvim-typescript', {'build': './install.sh'}) "Requires typescript - install using npm
 call dein#add('pangloss/vim-javascript')
-call dein#add('ozelentok/yats.vim')
+call dein#add('HerringtonDarkholme/yats.vim')
 call dein#add('mxw/vim-jsx')
 call dein#add('Vimjas/vim-python-pep8-indent')
 call dein#add('vim-python/python-syntax')
@@ -100,7 +101,7 @@ set iskeyword+=\-
 set termguicolors
 colors colosus
 command! W w
-let mapleader = ","
+let mapleader=","
 " map c-h/j/k/l to move between windows
 nmap <c-h> <c-w>h
 nmap <c-j> <c-w>j
@@ -163,22 +164,22 @@ call denite#custom#option('_', 'winheight', 10)
 
 "Airline
 if !exists('g:airline_symbols')
-	let g:airline_symbols = {}
+	let g:airline_symbols={}
 endif
-let g:airline_left_sep = '⮀'
-let g:airline_left_alt_sep = '⮁'
-let g:airline_right_sep = '⮂'
-let g:airline_right_alt_sep = '⮃'
-let g:airline_symbols.branch = '⭠'
-let g:airline_symbols.linenr = '⭡'
-let g:airline_symbols.maxlinenr = ''
-let g:airline_symbols.readonly = '⭤'
+let g:airline_left_sep='⮀'
+let g:airline_left_alt_sep='⮁'
+let g:airline_right_sep='⮂'
+let g:airline_right_alt_sep='⮃'
+let g:airline_symbols.branch='⭠'
+let g:airline_symbols.linenr='⭡'
+let g:airline_symbols.maxlinenr=''
+let g:airline_symbols.readonly='⭤'
 let g:airline_theme='powerlineish'
-let g:airline#extensions#whitespace#enabled = 1
+let g:airline#extensions#whitespace#enabled=1
 
 "NERDTree Window Toogle
 noremap <Leader>nt :NERDTreeTabsToggle<cr>
-let g:nerdtree_tabs_open_on_gui_startup = 0
+let g:nerdtree_tabs_open_on_gui_startup=0
 
 "FileType
 autocmd BufRead,BufEnter *.vs setlocal filetype=c
@@ -205,23 +206,23 @@ set tags=tags;,/usr/include/tags
 
 "GNU Global - "Gtags
 set cscopetag
-let GtagsCscope_Ignore_Case = 1
-let GtagsCscope_Absolute_Path = 1
+let GtagsCscope_Ignore_Case=1
+let GtagsCscope_Absolute_Path=1
 autocmd BufReadPost * silent GtagsCscope
 autocmd BufWritePost * GtagsUpdate
 
 "Ranger
-let g:ranger_map_keys = 0
+let g:ranger_map_keys=0
 nnoremap <leader>e :Ranger<CR>
 
 "ALE
-let g:airline#extensions#ale#enabled = 1
-let g:ale_cache_executable_check_failures = 1
-let g:ale_linters = {
+let g:airline#extensions#ale#enabled=1
+let g:ale_cache_executable_check_failures=1
+let g:ale_linters={
 			\	'python': ['mypy', 'pycodestyle', 'pyflakes', 'pyls'],
 			\}
 
-let g:ale_fixers = {
+let g:ale_fixers={
 			\	'c': ['trim_whitespace'],
 			\	'cpp': ['trim_whitespace'],
 			\	'python': ['autopep8', 'trim_whitespace'],
@@ -237,35 +238,35 @@ let g:ale_fixers = {
 			\}
 
 "Language Syntax
-let g:python_highlight_all = 1
-let g:jsx_ext_required = 0
+let g:python_highlight_all=1
+let g:jsx_ext_required=0
 
 "Deoplete
-let g:deoplete#enable_at_startup = 1
+let g:deoplete#enable_at_startup=1
 call deoplete#custom#option('_', 'min_pattern_length', 0)
 autocmd InsertLeave,CompleteDone * pclose!
 
 "Deoplete Clang2
-let g:clang2_placeholder_next = ''
+let g:clang2_placeholder_next=''
 
 "Deoplete jedi
-let g:deoplete#sources#jedi#show_docstring = 1
-let g:deoplete#sources#jedi#python_path='/usr/bin/python3'
+let g:deoplete#sources#jedi#show_docstring=1
+let g:deoplete#sources#jedi#python_path ='/usr/bin/python3'
 
 "Echodoc
 set cmdheight=2
-let g:echodoc_enable_at_startup = 1
+let g:echodoc_enable_at_startup=1
 
 "Neosnippets
 imap <expr><tab> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<tab>"
 smap <expr><tab> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<tab>"
-let g:neosnippet#enable_snipmate_compatibility = 1
+let g:neosnippet#enable_snipmate_compatibility=1
 
 "Markdown
-let g:vim_markdown_folding_disabled = 1
-let g:vim_markdown_conceal = 0
+let g:vim_markdown_folding_disabled=1
+let g:vim_markdown_conceal=0
 
 "Markdown Preview
-let g:vim_markdown_preview_github = 1
-let g:vim_markdown_preview_use_xdg_open = 1
-let g:vim_markdown_preview_hotkey = '<C-m>'
+let g:vim_markdown_preview_github=1
+let g:vim_markdown_preview_use_xdg_open=1
+let g:vim_markdown_preview_hotkey='<C-m>'
