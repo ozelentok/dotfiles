@@ -6,14 +6,13 @@ alias cpptags='ctags -R --c++-kinds=+p --fields=+iaS --extra=+q --language-force
 alias psu='ps -lF --ppid 2 -p 2 --deselect'
 
 rdp() {
-	rdesktop $1 -g 1920x1060 -u $2 -z -m -x m -0 -r clipboard:CLIPBOARD
+	rdesktop $1 -g 1920x1060 -u $2 -z -0 -r clipboard:CLIPBOARD ${@:3}
 }
 
 startinx() {
-	export DISPLAY=:0
-	$1
+	DISPLAY=:0 $@
 }
 
 sftpmount() {
-	sshfs $1@$2:$3 /mnt/sftp
+	sshfs $1@$2:$3 /mnt/sftp ${@:4}
 }
