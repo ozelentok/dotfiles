@@ -20,6 +20,7 @@ export PATH="$HOME/.local/bin:$PATH"
 
 (
 	cd $DIR
+	mkdir -p $HOME/.config/nvim
 	ln -s $DIR/init.vim $HOME/.config/nvim/init.vim
 
 	mkdir -p $HOME/.config/nvim/dein/repos/github.com/Shougo/
