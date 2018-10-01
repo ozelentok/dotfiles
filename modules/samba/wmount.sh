@@ -17,7 +17,7 @@ sudo mkdir -p /mnt/cifs/$REMOTE_HOST/$REMOTE_DIR
 set +e
 sudo mount -t cifs //$REMOTE_HOST/$REMOTE_DIR \
 /mnt/cifs/$REMOTE_HOST/$REMOTE_DIR -o user=$REMOTE_USER,\
-rw,uid=$LOCAL_USER,gid=$LOCAL_GROUP
+rw,uid=$LOCAL_USER,gid=$LOCAL_GROUP,cache=strict
 MOUNT_EXIT_CODE=$?
 set -e
 if [ $MOUNT_EXIT_CODE -ne 0 ]; then
