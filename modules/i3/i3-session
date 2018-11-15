@@ -1,3 +1,5 @@
 #!/bin/bash
 feh --bg-fill ~/Pictures/wallpaper.png &
+autocutsel -fork &
+autocutsel -selection PRIMARY -fork &
 exec i3
