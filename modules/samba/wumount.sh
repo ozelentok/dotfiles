@@ -4,7 +4,7 @@ set -e
 
 if [ "$#" -lt 2 ] || [ "$#" -gt 3 ]; then
 	echo "wumount - Unmount CIFS Shares from /mnt/cifs"
-	echo "Usage: wumount [HOST] [REMOTE DIR]"
+	echo "Usage: wumount HOST REMOTE_DIR"
 	echo ""
 	exit 1
 fi
