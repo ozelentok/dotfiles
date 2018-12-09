@@ -2,7 +2,7 @@
 
 echo ""
 echo "========================================"
-echo "Configuring Temperatures Sensors"
+echo "Installing Temperatures Sensors"
 echo "========================================"
 
 sudo pacman -Syu --needed lm_sensors

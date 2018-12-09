@@ -2,7 +2,7 @@
 
 echo ""
 echo "========================================"
-echo "Configuring Samba Server"
+echo "Installing Samba Server"
 echo "========================================"
 
 DIR=$(dirname "${BASH_SOURCE[0]}")

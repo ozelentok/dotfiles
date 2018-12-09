@@ -2,14 +2,14 @@
 
 echo ""
 echo "========================================"
-echo "Configuring neovim"
+echo "Installing neovim"
 echo "========================================"
 
 DIR=$(dirname "${BASH_SOURCE[0]}")
 DIR=$(cd -P $DIR && pwd)
 
-#clang for Deoplete C/C++ Support
-#xsel and xclip for Clipboard support
+# clang for Deoplete C/C++ Support
+# xsel and xclip for Clipboard support
 sudo pacman -Syu --needed neovim clang xsel xclip
 pip install --user -U neovim mypy pycodestyle grip autopep8 yapf
 pip2 install --user -U neovim

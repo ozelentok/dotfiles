@@ -2,8 +2,8 @@
 
 echo ""
 echo "========================================"
-echo "Configuring X11"
-echo "Keyboard and Monitors"
+echo "Installing X11"
+echo "Configuring Keyboard & Monitor"
 echo "========================================"
 
 DIR=$(dirname "${BASH_SOURCE[0]}")

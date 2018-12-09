@@ -2,7 +2,7 @@
 
 echo ""
 echo "=============================="
-echo "Configuring ZSH"
+echo "Installing ZSH"
 
 DIR=$(dirname "${BASH_SOURCE[0]}")
 DIR=$(cd -P $DIR && pwd)
