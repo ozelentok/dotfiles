@@ -1,7 +1,7 @@
 # Oz Elentok Dotfiles
 
 - Linux Distribution: Arch Linux
-- Date: 2018-07
+- Date: 2018-12
 - Window Manager: i3wm
 - Program Launcher: dmenu
 - Browser: Firefox

@@ -2,7 +2,7 @@
 
 echo ""
 echo "========================================"
-echo "Configuring Samba"
+echo "Configuring Samba Server"
 echo "========================================"
 
 DIR=$(dirname "${BASH_SOURCE[0]}")
@@ -17,8 +17,6 @@ read smb_user
 	cd $DIR
 	sudo mkdir -p $TODIR
 	sudo ln -s -f $DIR/smb.conf $TODIR/smb.conf
-	sudo ln -s -f $DIR/wmount.sh /usr/local/bin/wmount
-	sudo ln -s -f $DIR/wumount.sh /usr/local/bin/wumount
 
 	if [ ! -f $TODIR/machine.conf ]; then
 		sudo sh -c "sed -e \"s/HOST_NAME/$(hostname)/\" machine.conf > $TODIR/machine.conf"
