@@ -9,7 +9,7 @@ DIR=$(dirname "${BASH_SOURCE[0]}")
 DIR=$(cd -P $DIR && pwd)
 TODIR="/etc/samba"
 
-sudo pacman -S samba
+sudo pacman -Syu --needed samba
 
 echo "Enter Samba Username: "
 read smb_user

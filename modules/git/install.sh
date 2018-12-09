@@ -8,7 +8,7 @@ echo "========================================"
 DIR=$(dirname "${BASH_SOURCE[0]}")
 DIR=$(cd -P $DIR && pwd)
 
-sudo pacman -S git
+sudo pacman -Syu --needed git
 
 (
 	cd $DIR
