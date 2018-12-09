@@ -2,7 +2,7 @@
 
 echo ""
 echo "========================================"
-echo "Configuring Double Commander"
+echo "Installing Double Commander"
 echo "========================================"
 
 DIR=$(dirname "${BASH_SOURCE[0]}")

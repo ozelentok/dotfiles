@@ -2,7 +2,7 @@
 
 echo ""
 echo "========================================"
-echo "Configuring Git"
+echo "Installing Git"
 echo "========================================"
 
 DIR=$(dirname "${BASH_SOURCE[0]}")
