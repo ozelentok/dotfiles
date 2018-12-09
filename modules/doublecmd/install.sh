@@ -9,7 +9,7 @@ DIR=$(dirname "${BASH_SOURCE[0]}")
 DIR=$(cd -P $DIR && pwd)
 TODIR="$HOME/.config/doublecmd"
 
-sudo pacman -S doublecmd-gtk2
+sudo pacman -Syu --needed doublecmd-gtk2
 
 (
 	cd $DIR
