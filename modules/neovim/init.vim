@@ -50,8 +50,8 @@ call dein#add('Honza/vim-snippets')
 call dein#add('Shougo/echodoc.vim')
 call dein#add('Shougo/deoplete.nvim')
 call dein#add('Shougo/neco-vim')
+call dein#add('zchee/deoplete-clang')
 call dein#add('zchee/deoplete-jedi')
-call dein#add('tweekmonster/deoplete-clang2')
 call dein#add('ozelentok/deoplete-gtags')
 call dein#add('carlitux/deoplete-ternjs') "Requires tern - install using npm
 call dein#add('artur-shaik/vim-javacomplete2')
@@ -246,10 +246,11 @@ let g:deoplete#enable_at_startup=1
 call deoplete#custom#option('_', 'min_pattern_length', 0)
 autocmd InsertLeave,CompleteDone * pclose!
 
-"Deoplete Clang2
-let g:clang2_placeholder_next=''
+"Deoplete-clang
+let g:deoplete#sources#clang#libclang_path = '/usr/lib/libclang.so'
+let g:deoplete#sources#clang#clang_header = '/usr/lib/clang'
 
-"Deoplete jedi
+"Deoplete-jedi
 let g:deoplete#sources#jedi#show_docstring=1
 let g:deoplete#sources#jedi#python_path ='/usr/bin/python3'
 
