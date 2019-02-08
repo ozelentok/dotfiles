@@ -1,5 +1,7 @@
 #!/bin/bash
-feh --bg-fill ~/Pictures/wallpaper.png &
-autocutsel -fork &
-autocutsel -selection PRIMARY -fork &
+
+type feh > /dev/null 2>&1 && feh --bg-fill ~/Pictures/wallpaper.png
+type autocutsel > /dev/null 2>&1 && autocutsel -fork
+type autocutsel > /dev/null 2>&1 && autocutsel -selection PRIMARY -fork
+type alttab > /dev/null 2>&1 && alttab -w 1 -d 1 -sc 1 -s 2 -bg black -fg white -frame "#00AAFF" -t 160x140 &
 exec i3

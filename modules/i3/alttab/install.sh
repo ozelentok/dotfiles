@@ -2,17 +2,16 @@
 
 echo ""
 echo "========================================"
-echo "Installing pikaur - AUR helper"
+echo "Installing AltTab"
 echo "========================================"
 
 DIR=$(dirname "${BASH_SOURCE[0]}")
 DIR=$(cd -P $DIR && pwd)
 
-sudo pacman -Syu --needed base-devel git
+sudo pacman -Syu --needed autoconf automake make fakeroot
 
 (
-	cd /tmp
-	git clone https://aur.archlinux.org/pikaur.git
-	cd pikaur
+	cd $DIR
 	makepkg -fci
+	rm -rf alttab
 )

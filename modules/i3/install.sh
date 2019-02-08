@@ -11,10 +11,13 @@ DIR=$(cd -P $DIR && pwd)
 sudo pacman -Syu --needed i3-wm i3lock i3status dmenu feh autocutsel
 
 (
-	cd $DIR
 	TODIR="$HOME/.config/i3/"
+
+	cd $DIR
 	mkdir -p $TODIR
 	ln -s $DIR/config $TODIR
 	ln -s $DIR/i3status.conf $TODIR
 	ln -s $DIR/i3-session $TODIR
+
+	./alttab/install.sh
 )

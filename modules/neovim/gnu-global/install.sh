@@ -12,8 +12,7 @@ sudo pacman -Syu --needed autoconf automake make fakeroot
 
 (
 	cd $DIR/global
-	makepkg -Acs
-	sudo pacman -U global*.pkg*
+	makepkg -fci
 	git clean -f
 	pip2 install --user -U Pygments
 
