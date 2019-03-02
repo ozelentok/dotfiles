@@ -213,6 +213,10 @@ bindsym $mod+c exec firefox-developer-edition
 bindsym $mod+control+l exec i3lock -c 000000
 
 # Volume Keyboard
-bindcode $mod+87 exec amixer -q set Master 5%-; exec kill -USR1 $(pidof i3status)
-bindcode $mod+88 exec amixer -q set Master 5%+; exec kill -USR1 $(pidof i3status)
-bindcode $mod+89 exec amixer -q set Master toggle; exec kill -USR1 $(pidof i3status)
+bindcode $mod+87 exec amixer -q set Master 5%-
+bindcode $mod+88 exec amixer -q set Master 5%+
+bindcode $mod+89 exec amixer -q set Master toggle
+
+bindsym XF86AudioLowerVolume exec amixer -q set Master 5%-
+bindsym XF86AudioRaiseVolume exec amixer -q set Master 5%+
+bindsym XF86AudioMute        exec amixer -q set Master toggle
