@@ -8,7 +8,7 @@ echo "========================================"
 DIR=$(dirname "${BASH_SOURCE[0]}")
 DIR=$(cd -P $DIR && pwd)
 
-sudo pacman -Syu --needed base-devel git
+sudo pacman -Syu --needed base-devel git pyalpm
 
 (
 	cd /tmp
