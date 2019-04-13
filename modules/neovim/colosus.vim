@@ -246,16 +246,16 @@ hi WildMenu         ctermfg=16              ctermbg=186             cterm=bold
 " Diff
 " ----
 " added line
-hi DiffAdd          guifg=None              guibg=#005F00           gui=none
+hi DiffAdd          guifg=none              guibg=#004000           gui=none
 hi DiffAdd          ctermfg=None            ctermbg=22              cterm=none
 " deleted line
-hi DiffDelete       guifg=#FF0000           guibg=#262626           gui=none
-hi DiffDelete       ctermfg=09             ctermbg=235             cterm=none
+hi DiffDelete       guifg=#FF0000           guibg=#202020           gui=none
+hi DiffDelete       ctermfg=none            ctermbg=235             cterm=none
 " changed line
-hi DiffChange       guifg=NONE              guibg=#3a3a3a           gui=none
+hi DiffChange       guifg=none              guibg=#282828           gui=none
 hi DiffChange       ctermfg=none            ctermbg=237             cterm=none
 " changed text within line
-hi DiffText         guifg=#FF505F           guibg=#3a3a3a           gui=bold
+hi DiffText         guifg=#FF505F           guibg=#282828           gui=bold
 hi DiffText         ctermfg=203             ctermbg=237             cterm=bold
 
 
