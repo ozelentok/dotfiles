@@ -150,6 +150,7 @@ nnoremap <leader>r :DeniteCursorWord -path=`expand('%:p:h')` -no-empty -buffer-n
 nnoremap <leader>g :DeniteCursorWord -path=`expand('%:p:h')` -no-empty -buffer-name=gtags_g gtags_grep<cr>
 nnoremap <leader>t :Denite -path=`expand('%:p:h')` -no-empty -buffer-name=gtags_t gtags_completion<cr>
 nnoremap <leader>f :Denite -path=`expand('%:p:h')` -no-empty -buffer-name=gtags_f gtags_file<cr>
+nnoremap <leader>F :Denite -path=`expand('%:p:h')` -no-empty -buffer-name=gtags_f gtags_files<cr>
 nnoremap <leader>p :Denite -path=`expand('%:p:h')` -no-empty -buffer-name=gtags_p gtags_path<cr>
 
 call denite#custom#map('insert', '<C-j>', '<denite:move_to_next_line>', 'noremap')
