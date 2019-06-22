@@ -1,5 +1,10 @@
-export ANDROID_HOME="/opt/studio-android-sdk"
-ANDROID_PATHS="$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin:$ANDROID_HOME/platform-tools:$ANDROID_HOME/emulator"
+export ANDROID_SDK_ROOT="/opt/studio-android-sdk"
+export ANDROID_HOME="$ANDROID_SDK_ROOT"
+
+export ANDROID_NDK_ROOT="/opt/studio-android-sdk/ndk-bundle"
+export ANDROID_NDK_HOME="$ANDROID_NDK_HOME"
+
+ANDROID_PATHS="$ANDROID_SDK_ROOT/tools:$ANDROID_SDK_ROOT/tools/bin:$ANDROID_SDK_ROOT/platform-tools:$ANDROID_SDK_ROOT/emulator"
 
 if [[ ":$PATH:" != *":$ANDROID_PATHS:"* ]]; then
 	export PATH="$HOME/.local/bin:$ANDROID_PATHS:$PATH"
