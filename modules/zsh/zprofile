@@ -2,7 +2,7 @@ export ANDROID_SDK_ROOT="/opt/studio-android-sdk"
 export ANDROID_HOME="$ANDROID_SDK_ROOT"
 
 export ANDROID_NDK_ROOT="/opt/studio-android-sdk/ndk-bundle"
-export ANDROID_NDK_HOME="$ANDROID_NDK_HOME"
+export ANDROID_NDK_HOME="$ANDROID_NDK_ROOT"
 
 ANDROID_PATHS="$ANDROID_SDK_ROOT/tools:$ANDROID_SDK_ROOT/tools/bin:$ANDROID_SDK_ROOT/platform-tools:$ANDROID_SDK_ROOT/emulator"
 

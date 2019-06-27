@@ -140,6 +140,7 @@ inoremap <F4> <C-R>=strftime('%Y-%m-%d %H:%M:%S')<CR>
 vnoremap p "_dP
 map <Leader>" ysiw"
 
+" Denite
 nnoremap <C-P><C-P> :DeniteProjectDir -no-empty -buffer-name=files file/rec<cr>
 nnoremap <C-P><C-G> :DeniteProjectDir -no-empty -buffer-name=files-git file/rec/git<cr>
 nnoremap <C-P><C-J> :DeniteProjectDir -no-empty -buffer-name=samename -input=`expand('%:t:r')` file/rec/git<cr>
@@ -153,15 +154,27 @@ nnoremap <leader>f :Denite -path=`expand('%:p:h')` -no-empty -buffer-name=gtags_
 nnoremap <leader>F :Denite -path=`expand('%:p:h')` -no-empty -buffer-name=gtags_f gtags_files<cr>
 nnoremap <leader>p :Denite -path=`expand('%:p:h')` -no-empty -buffer-name=gtags_p gtags_path<cr>
 
-call denite#custom#map('insert', '<C-j>', '<denite:move_to_next_line>', 'noremap')
-call denite#custom#map('insert', '<C-k>', '<denite:move_to_previous_line>', 'noremap')
-call denite#custom#map('insert', '<C-t>', '<denite:do_action:tabopen>', 'noremap')
-call denite#custom#map('insert', '<C-s>', '<denite:do_action:split>', 'noremap')
-call denite#custom#map('insert', '<C-v>', '<denite:do_action:vsplit>', 'noremap')
+autocmd FileType denite call s:denite_my_settings()
+function! s:denite_my_settings() abort
+	nnoremap <silent><buffer><expr> <CR> denite#do_map('do_action')
+	nnoremap <silent><buffer><expr> d denite#do_map('do_action', 'delete')
+	nnoremap <silent><buffer><expr> p denite#do_map('do_action', 'preview')
+	nnoremap <silent><buffer><expr> q denite#do_map('quit')
+	nnoremap <silent><buffer><expr> i denite#do_map('open_filter_buffer')
+
+	nnoremap <silent><buffer><expr> <C-t> denite#do_map('do_action', 'tabopen')
+	nnoremap <silent><buffer><expr> <C-s> denite#do_map('do_action', 'split')
+	nnoremap <silent><buffer><expr> <C-v> denite#do_map('do_action', 'vsplit')
+	nnoremap <silent><buffer><expr> <C-w><C-t> denite#do_map('do_action', 'tabswitch')
+	nnoremap <silent><buffer><expr> <C-w><C-s> denite#do_map('do_action', 'splitswitch')
+	nnoremap <silent><buffer><expr> <C-w><C-v> denite#do_map('do_action', 'vsplitswitch')
+endfunction
+
 call denite#custom#alias('source', 'file/rec/git', 'file/rec')
 call denite#custom#var('file/rec/git', 'command', ['git', 'ls-files', '-co', '--exclude-standard'])
 call denite#custom#source('file/rec', 'sorters', ['sorter_sublime'])
 call denite#custom#option('_', 'winheight', 10)
+
 
 "Airline
 if !exists('g:airline_symbols')
