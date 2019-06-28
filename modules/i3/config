@@ -196,6 +196,7 @@ for_window [title="Unpack.*"] floating enable
 for_window [title="Testing Archive"] floating enable
 for_window [title="Open Database -.*"] floating enable
 for_window [title=".* KeePass Password Safe"] floating enable
+for_window [title=".*\[Locked\] - KeePassXC.*"] floating enable
 for_window [title="Unlock Login .*"] floating enable
 
 # Empathy
