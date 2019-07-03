@@ -1,32 +1,21 @@
 set nocompatible
-if has('win32') || has('win64')
-	let b:os='Windows'
-	let b:vim_files=$HOME . '/.config/nvim'
-	let b:dein_dir=b:vim_files . '/dein'
-	let &rtp.=',' . b:dein_dir . '/repos/github.com/Shougo/dein.vim'
+
+let g:vim_files=$HOME . '/.config/nvim'
+let g:dein_dir=g:vim_files . '/dein'
+let &rtp.=',' . g:dein_dir . '/repos/github.com/Shougo/dein.vim'
+
+if !has('win32') && !has('win64')
+	set directory=/tmp
+	set backupdir=/tmp
+	set undodir=/tmp
+	set dictionary=/usr/share/dict/words
+else
 	set directory=C:\temp
 	set backupdir=C:\temp
 	set undodir=C:\temp
-
-	" Vim with 256 colors inside ConEmu
-	if !has("gui_running")
-		set term=xterm
-		set t_Co=256
-		let &t_AB="\e[48;5;%dm"
-		let &t_AF="\e[38;5;%dm"
-	endif
-else
-	let b:os='Linux'
-	let b:vim_files=$HOME . '/.config/nvim'
-	let b:dein_dir=b:vim_files . '/dein'
-	let &rtp.=',' . b:dein_dir . '/repos/github.com/Shougo/dein.vim'
-	set directory=/tmp
-	set backupdir=/tmp
-	set dictionary=/usr/share/dict/words
-	set undodir=/tmp
 endif
 
-call dein#begin(expand(b:dein_dir))
+call dein#begin(expand(g:dein_dir))
 call dein#add('Shougo/dein.vim')
 call dein#add('vim-airline/vim-airline')
 call dein#add('vim-airline/vim-airline-themes')
@@ -67,9 +56,9 @@ call dein#add('ap/vim-css-color', {'merged': 0})
 call dein#add('plasticboy/vim-markdown')
 call dein#add('JamshedVesuna/vim-markdown-preview') "Requires grip - install using pip
 call dein#add('Yggdroot/indentLine')
-
 call dein#end()
-"General
+
+" General
 filetype plugin indent on
 syntax on
 set backup
@@ -97,12 +86,12 @@ set autochdir
 set undofile
 set iskeyword+=\-
 
-"Colorscheme
+" Colorscheme
 set termguicolors
 colors colosus
 command! W w
 let mapleader=","
-" map c-h/j/k/l to move between windows
+" Map c-h/j/k/l to move between windows
 nmap <c-h> <c-w>h
 nmap <c-j> <c-w>j
 nmap <c-k> <c-w>k
@@ -112,7 +101,7 @@ noremap <space> 20j
 vnoremap <space> 20j
 noremap - 20k
 vnoremap - 20k
-"Resize
+" Resize
 nnoremap _ <c-w>-
 nnoremap + <c-w>+
 nnoremap > <c-w>>
@@ -176,7 +165,7 @@ call denite#custom#source('file/rec', 'sorters', ['sorter_sublime'])
 call denite#custom#option('_', 'winheight', 10)
 
 
-"Airline
+" Airline
 if !exists('g:airline_symbols')
 	let g:airline_symbols={}
 endif
@@ -191,22 +180,21 @@ let g:airline_symbols.readonly='⭤'
 let g:airline_theme='powerlineish'
 let g:airline#extensions#whitespace#enabled=1
 
-"NERDTree Window Toogle
+" NERDTree Window Toogle
 noremap <Leader>nt :NERDTreeTabsToggle<cr>
 let g:nerdtree_tabs_open_on_gui_startup=0
 
-"FileType
+" FileType
 autocmd BufRead,BufEnter *.vs setlocal filetype=c
 autocmd BufRead,BufEnter *.fs setlocal filetype=c
 autocmd FileReadPre * silent! lcd %:p:h
 
-"Autocomplete
-"set omnifunc=syntaxcomplete#Complete
+" Autocomplete
 autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType html setlocal autoindent omnifunc=htmlcomplete#CompleteTags
 autocmd FileType java setlocal omnifunc=javacomplete#Complete
 
-"Indention
+" Language Specific Indention
 autocmd FileType python setlocal expandtab tabstop=4 shiftwidth=4
 autocmd FileType html setlocal expandtab tabstop=4 shiftwidth=4
 autocmd FileType css setlocal expandtab tabstop=4 shiftwidth=4
@@ -215,21 +203,21 @@ autocmd FileType javascript.jsx setlocal expandtab tabstop=4 shiftwidth=4
 autocmd FileType typescript setlocal expandtab tabstop=4 shiftwidth=4
 autocmd FileType typescript.tsx setlocal expandtab tabstop=4 shiftwidth=4
 
-"Tags
+" Tags
 set tags=tags;,/usr/include/tags
 
-"GNU Global - "Gtags
+" GNU Global (GTags)
 set cscopetag
 let GtagsCscope_Ignore_Case=1
 let GtagsCscope_Absolute_Path=1
 autocmd BufReadPost * silent GtagsCscope
 autocmd BufWritePost * GtagsUpdate
 
-"Ranger
+" Ranger
 let g:ranger_map_keys=0
 nnoremap <leader>e :Ranger<CR>
 
-"ALE
+" ALE
 let g:airline#extensions#ale#enabled=1
 let g:ale_cache_executable_check_failures=1
 let g:ale_linters={
@@ -251,37 +239,37 @@ let g:ale_fixers={
 			\	'markdown': ['prettier', 'trim_whitespace'],
 			\}
 
-"Language Syntax
+" Language Syntax
 let g:python_highlight_all=1
 let g:jsx_ext_required=0
 
-"Deoplete
+" Deoplete
 let g:deoplete#enable_at_startup=1
 call deoplete#custom#option('_', 'min_pattern_length', 0)
 autocmd InsertLeave,CompleteDone * pclose!
 
-"Deoplete-clang
+" Deoplete-clang
 let g:deoplete#sources#clang#libclang_path = '/usr/lib/libclang.so'
 let g:deoplete#sources#clang#clang_header = '/usr/lib/clang'
 
-"Deoplete-jedi
+" Deoplete-jedi
 let g:deoplete#sources#jedi#show_docstring=1
 let g:deoplete#sources#jedi#python_path ='/usr/bin/python3'
 
-"Echodoc
+" Echodoc
 set cmdheight=2
 let g:echodoc_enable_at_startup=1
 
-"Neosnippets
+" Neosnippets
 imap <expr><tab> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<tab>"
 smap <expr><tab> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<tab>"
 let g:neosnippet#enable_snipmate_compatibility=1
 
-"Markdown
+" Markdown
 let g:vim_markdown_folding_disabled=1
 let g:vim_markdown_conceal=0
 
-"Markdown Preview
+" Markdown Preview
 let g:vim_markdown_preview_github=1
 let g:vim_markdown_preview_use_xdg_open=1
 let g:vim_markdown_preview_hotkey='<C-m>'
