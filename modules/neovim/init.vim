@@ -85,6 +85,8 @@ set backspace=indent,eol,start
 set autochdir
 set undofile
 set iskeyword+=\-
+set nomodeline
+set modelines=0
 
 " Colorscheme
 set termguicolors
