@@ -132,18 +132,18 @@ vnoremap p "_dP
 map <Leader>" ysiw"
 
 " Denite
-nnoremap <C-P><C-P> :DeniteProjectDir -no-empty -buffer-name=files file/rec<cr>
-nnoremap <C-P><C-G> :DeniteProjectDir -no-empty -buffer-name=files-git file/rec/git<cr>
-nnoremap <C-P><C-J> :DeniteProjectDir -no-empty -buffer-name=samename -input=`expand('%:t:r')` file/rec/git<cr>
+nnoremap <C-P><C-P> :DeniteProjectDir -no-empty -start-filter -buffer-name=files file/rec<cr>
+nnoremap <C-P><C-G> :DeniteProjectDir -no-empty -start-filter -buffer-name=files-git file/rec/git<cr>
+nnoremap <C-P><C-J> :DeniteProjectDir -no-empty -start-filter -buffer-name=samename -input=`expand('%:t:r')` file/rec/git<cr>
 nnoremap <leader>b :Denite -buffer-name=buffer buffer<cr>
 nnoremap <leader>a :DeniteCursorWord -path=`expand('%:p:h')` -no-empty -buffer-name=gtags_c gtags_context<cr>
 nnoremap <leader>d :DeniteCursorWord -path=`expand('%:p:h')` -no-empty -buffer-name=gtags_d gtags_def<cr>
 nnoremap <leader>r :DeniteCursorWord -path=`expand('%:p:h')` -no-empty -buffer-name=gtags_r gtags_ref<cr>
 nnoremap <leader>g :DeniteCursorWord -path=`expand('%:p:h')` -no-empty -buffer-name=gtags_g gtags_grep<cr>
-nnoremap <leader>t :Denite -path=`expand('%:p:h')` -no-empty -buffer-name=gtags_t gtags_completion<cr>
-nnoremap <leader>f :Denite -path=`expand('%:p:h')` -no-empty -buffer-name=gtags_f gtags_file<cr>
-nnoremap <leader>F :Denite -path=`expand('%:p:h')` -no-empty -buffer-name=gtags_f gtags_files<cr>
-nnoremap <leader>p :Denite -path=`expand('%:p:h')` -no-empty -buffer-name=gtags_p gtags_path<cr>
+nnoremap <leader>t :Denite -path=`expand('%:p:h')` -no-empty -start-filter -buffer-name=gtags_t gtags_completion<cr>
+nnoremap <leader>f :Denite -path=`expand('%:p:h')` -no-empty -start-filter -buffer-name=gtags_f gtags_file<cr>
+nnoremap <leader>F :Denite -path=`expand('%:p:h')` -no-empty -start-filter -buffer-name=gtags_f gtags_files<cr>
+nnoremap <leader>p :Denite -path=`expand('%:p:h')` -no-empty -start-filter -buffer-name=gtags_p gtags_path<cr>
 
 autocmd FileType denite call s:denite_my_settings()
 function! s:denite_my_settings() abort
