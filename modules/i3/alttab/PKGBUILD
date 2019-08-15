@@ -1,6 +1,6 @@
 pkgname=alttab-git
 _name=alttab
-pkgver=v1.3.0.7.g77d8a45
+pkgver=v1.4.0.16.g6ff9d46
 pkgrel=1
 pkgdesc="The task switcher for minimalistic window managers or standalone X11 session"
 url="https://github.com/sagb/alttab"

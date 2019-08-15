@@ -15,9 +15,9 @@ sudo pacman -Syu --needed i3-wm i3lock i3status dmenu feh autocutsel
 
 	cd $DIR
 	mkdir -p $TODIR
-	ln -s $DIR/config $TODIR
-	ln -s $DIR/i3status.conf $TODIR
-	ln -s $DIR/i3-session $TODIR
+	ln -s -f -r $DIR/config $TODIR
+	ln -s -f -r $DIR/i3status.conf $TODIR
+	ln -s -f -r $DIR/i3-session $TODIR
 
 	./alttab/install.sh
 )
