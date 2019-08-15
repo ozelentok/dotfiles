@@ -13,5 +13,5 @@ sudo pacman -Syu --needed git
 (
 	cd $DIR
 	cp $DIR/gitconfig $HOME/.gitconfig
-	ln -s $DIR/gitignore_global $HOME/.gitignore_global
+	ln -s -f -r $DIR/gitignore_global $HOME/.gitignore_global
 )

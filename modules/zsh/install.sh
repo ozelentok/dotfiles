@@ -13,10 +13,10 @@ sudo pacman -Syu --needed zsh zsh-completions gcc make
 	cd $DIR
 	echo "Zsh Settings Configuration"
 	mkdir -p "$HOME/.zsh"
-	ln -s -f $DIR/zshrc $HOME/.zshrc
-	ln -s -f $DIR/zprofile $HOME/.zprofile
+	ln -s -f -r $DIR/zshrc $HOME/.zshrc
+	ln -s -f -r $DIR/zprofile $HOME/.zprofile
 	if [ ! -L $HOME/.zsh/syntaxhl ]; then
-		ln -s -f $DIR/zsh-syntax-highlighting $HOME/.zsh/syntaxhl
+		ln -s -f -r $DIR/zsh-syntax-highlighting $HOME/.zsh/syntaxhl
 	fi
 	sudo usermod -s $(which zsh) $USER
 
