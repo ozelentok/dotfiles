@@ -10,7 +10,7 @@ SELECTED_MODULES_FILE_PATH="/tmp/dotfiles_selected_modules"
 # Install dialog for TUI choice list
 sudo pacman -Syu --needed dialog
 
-dotfiles_packages=(firefox-developer-edition chromium openssh keepassxc htop unrar rdesktop gimp audacity vlc smplayer deluge ntfs-3g exfat-utils fuse-exfat alsa-utils net-tools ctags mlocate python python2 python-pip python2-pip nodejs npm ranger strace lsof bind-tools ripgrep pulseaudio pulseaudio-alsa pavucontrol udisks2 noto-fonts ttf-dejavu ttf-ubuntu-font-family)
+dotfiles_packages=(firefox-developer-edition chromium openssh keepassxc htop unrar rdesktop gimp audacity vlc smplayer deluge ntfs-3g exfat-utils fuse-exfat alsa-utils inetutils net-tools ctags mlocate python python2 python-pip python2-pip nodejs npm ranger strace lsof bind-tools ripgrep pulseaudio pulseaudio-alsa pavucontrol udisks2 noto-fonts noto-fonts-emoji ttf-dejavu ttf-ubuntu-font-family)
 dotfiles_modules=$(ls ./modules)
 
 # ========================================
