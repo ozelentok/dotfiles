@@ -20,8 +20,7 @@ dotfiles_packages=(
 	python python2 python-pip python2-pip
 	nodejs npm ctags
 	noto-fonts noto-fonts-emoji ttf-dejavu ttf-ubuntu-font-family
-	vlc smplayer rdesktop libreoffice-fresh
-	gimp audacity deluge
+	vlc smplayer rdesktop libreoffice-fresh audacity
 	wine)
 dotfiles_modules=$(ls ./modules)
 
