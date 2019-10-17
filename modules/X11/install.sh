@@ -3,13 +3,12 @@
 echo ""
 echo "========================================"
 echo "Installing X11"
-echo "Configuring Keyboard & Monitor"
 echo "========================================"
 
 DIR=$(dirname "${BASH_SOURCE[0]}")
 DIR=$(cd -P $DIR && pwd)
 
-sudo pacman -Syu --needed xorg-server xorg-xinit xorg-xkill
+sudo pacman -Syu --needed xorg-server xorg-xinit xorg-xkill xorg-xhost xorg-xev
 
 (
 	TODIR="/etc/X11/xorg.conf.d/"
