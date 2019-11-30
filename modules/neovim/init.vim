@@ -204,6 +204,8 @@ autocmd FileType javascript setlocal expandtab tabstop=4 shiftwidth=4
 autocmd FileType javascript.jsx setlocal expandtab tabstop=4 shiftwidth=4
 autocmd FileType typescript setlocal expandtab tabstop=4 shiftwidth=4
 autocmd FileType typescript.tsx setlocal expandtab tabstop=4 shiftwidth=4
+autocmd FileType cpp setlocal cino=j1,(0,ws,Ws
+
 
 " Tags
 set tags=tags;,/usr/include/tags
