@@ -146,3 +146,10 @@ alias cpptags='ctags -R --c++-kinds=+p --fields=+iaS --extra=+q --language-force
 rdp() {
 	rdesktop $1 -g 1920x1060 -u $2 -z -0 -r clipboard:CLIPBOARD ${@:3}
 }
+
+if ! pgrep -u "$USER" ssh-agent > /dev/null; then
+	ssh-agent > "$XDG_RUNTIME_DIR/ssh-agent.env"
+fi
+if [[ ! "$SSH_AUTH_SOCK" ]]; then
+	eval "$(<"$XDG_RUNTIME_DIR/ssh-agent.env")"
+fi
