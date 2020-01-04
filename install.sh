@@ -11,7 +11,7 @@ SELECTED_MODULES_FILE_PATH="/tmp/dotfiles_selected_modules"
 sudo pacman -Syu --needed dialog
 
 dotfiles_packages=(
-	firefox-developer-edition chromium
+	firefox-developer-edition chromium keepassxc
 	openssh htop ranger mlocate ripgrep 
 	unrar p7zip unzip rsync strace lsof man
 	ntfs-3g exfat-utils fuse-exfat udisks2
