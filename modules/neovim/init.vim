@@ -253,16 +253,16 @@ call deoplete#custom#option('_', 'min_pattern_length', 0)
 autocmd InsertLeave,CompleteDone * pclose!
 
 " Deoplete-clang
-let g:deoplete#sources#clang#libclang_path = '/usr/lib/libclang.so'
-let g:deoplete#sources#clang#clang_header = '/usr/lib/clang'
+let g:deoplete#sources#clang#libclang_path='/usr/lib/libclang.so'
+let g:deoplete#sources#clang#clang_header='/usr/lib/clang'
 
 " Deoplete-jedi
 let g:deoplete#sources#jedi#show_docstring=1
-let g:deoplete#sources#jedi#python_path ='/usr/bin/python3'
+let g:deoplete#sources#jedi#python_path='/usr/bin/python3'
 
 " Echodoc
-set cmdheight=2
-let g:echodoc_enable_at_startup=1
+let g:echodoc#enable_at_startup=1
+let g:echodoc#type='floating'
 
 " Neosnippets
 imap <expr><tab> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<tab>"
