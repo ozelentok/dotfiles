@@ -1,7 +1,8 @@
-<?xml version="1.0" encoding="utf-8"?>
-<doublecmd DCVersion="0.7.3 beta" ConfigVersion="9">
-  <Configuration Save="True" SortOrder="0">
+<?xml version="1.0" encoding="UTF-8"?>
+<doublecmd DCVersion="0.9.7 beta" ConfigVersion="10">
+  <Configuration Save="True" SortOrder="0" TreeType="0">
     <UseConfigInProgramDir>False</UseConfigInProgramDir>
+    <FolderTabs Save="True"/>
   </Configuration>
   <Colors>
     <FileFilters>
@@ -55,7 +56,7 @@
     <WlxPlugins>
       <WlxPlugin Enabled="True">
         <Name>wlxMplayer</Name>
-        <Path>%COMMANDER_PATH%/plugins/wlx/wlxmplayer/wlxmplayer.wlx</Path>
+        <Path>%commander_path%/plugins/wlx/wlxmplayer/wlxmplayer.wlx</Path>
         <DetectString>(EXT="MPG")|(EXT="AVI")|(EXT="MPEG")|(EXT="FLV")</DetectString>
       </WlxPlugin>
     </WlxPlugins>
@@ -114,7 +115,7 @@
       <WcxPlugin Enabled="True">
         <ArchiveExt>zipx</ArchiveExt>
         <Path>%commander_path%/plugins/wcx/zip/zip.wcx</Path>
-        <Flags>212</Flags>
+        <Flags>223</Flags>
       </WcxPlugin>
       <WcxPlugin Enabled="True">
         <ArchiveExt>cpio</ArchiveExt>
@@ -136,6 +137,11 @@
         <Path>%commander_path%/plugins/wcx/unrar/unrar.wcx</Path>
         <Flags>68</Flags>
       </WcxPlugin>
+      <WcxPlugin Enabled="True">
+        <ArchiveExt>jar</ArchiveExt>
+        <Path>%commander_path%/plugins/wcx/zip/zip.wcx</Path>
+        <Flags>990</Flags>
+      </WcxPlugin>
     </WcxPlugins>
     <WdxPlugins>
       <WdxPlugin>
@@ -147,6 +153,11 @@
         <Name>rpm_wdx</Name>
         <Path>%COMMANDER_PATH%/plugins/wdx/rpm_wdx/rpm_wdx.wdx</Path>
         <DetectString>EXT="RPM"</DetectString>
+      </WdxPlugin>
+      <WdxPlugin>
+        <Name>audioinfo</Name>
+        <Path>/usr/lib/doublecmd/plugins/wdx/audioinfo/audioinfo.wdx</Path>
+        <DetectString>(EXT="MP3") | (EXT="MP2") | (EXT="MP1") | (EXT="OGG") | (EXT="WMA") | (EXT="WAV") | (EXT="VQF") | (EXT="AAC") | (EXT="APE") | (EXT="MPC") | (EXT="FLAC") | (EXT="CDA") | (EXT="TTA") | (EXT="AC3") | (EXT="DTS") | (EXT="WV") | (EXT="WVC") | (EXT="OFR") | (EXT="OFS") | (EXT="M4A") | (EXT="MP4")</DetectString>
       </WdxPlugin>
     </WdxPlugins>
     <WfxPlugins>
@@ -268,20 +279,33 @@
   <Behaviours>
     <GoToRoot>False</GoToRoot>
     <RunInTerminalStayOpenCmd>xterm</RunInTerminalStayOpenCmd>
-    <RunInTerminalStayOpenParams>-e sh -c '{command}; echo -n Press ENTER to exit... ; read a'</RunInTerminalStayOpenParams>
-    <RunInTerminalCloseCmd>xterm</RunInTerminalCloseCmd>
-    <RunInTerminalCloseParams>-e sh -c {command}</RunInTerminalCloseParams>
+    <RunInTerminalStayOpenCmd>gnome-terminal</RunInTerminalStayOpenCmd>
+    <RunInTerminalStayOpenParams>-e '{command}'</RunInTerminalStayOpenParams>
+    <RunInTerminalCloseCmd>gnome-terminal</RunInTerminalCloseCmd>
+    <RunInTerminalCloseParams>-e '{command}'</RunInTerminalCloseParams>
     <JustRunTerminal>gnome-terminal</JustRunTerminal>
     <JustRunTermParams/>
     <OnlyOneAppInstance>True</OnlyOneAppInstance>
     <LynxLike>True</LynxLike>
     <FileSizeFormat>0</FileSizeFormat>
+    <OperationSizeFormat>0</OperationSizeFormat>
+    <HeaderFooterSizeFormat>0</HeaderFooterSizeFormat>
+    <FileSizeDigits>1</FileSizeDigits>
+    <HeaderFooterDigits>1</HeaderFooterDigits>
+    <OperationSizeDigits>1</OperationSizeDigits>
+    <PersonalizedByte>B</PersonalizedByte>
+    <PersonalizedKilo>KB</PersonalizedKilo>
+    <PersonalizedMega>MB</PersonalizedMega>
+    <PersonalizedGiga>GB</PersonalizedGiga>
+    <PersonalizedTera>TB</PersonalizedTera>
     <MinimizeToTray>True</MinimizeToTray>
     <AlwaysShowTrayIcon>True</AlwaysShowTrayIcon>
     <Mouse>
       <Selection Enabled="True">
         <Button>0</Button>
+        <IconClick>0</IconClick>
       </Selection>
+      <SingleClickStart>0</SingleClickStart>
       <ScrollMode>1</ScrollMode>
       <WheelScrollLines>3</WheelScrollLines>
     </Mouse>
@@ -291,7 +315,8 @@
     <BriefViewFileExtAligned>False</BriefViewFileExtAligned>
     <DateTimeFormat>yyyy-mm-dd hh:mm</DateTimeFormat>
     <CutTextToColumnWidth>True</CutTextToColumnWidth>
-    <ShowSystemFiles>False</ShowSystemFiles>
+    <ExtendCellWidth>False</ExtendCellWidth>
+    <ShowSystemFiles>True</ShowSystemFiles>
     <ListFilesInThread>True</ListFilesInThread>
     <LoadIconsSeparately>True</LoadIconsSeparately>
     <DelayLoadingTabs>True</DelayLoadingTabs>
@@ -306,11 +331,11 @@
       <RunInTerminal>False</RunInTerminal>
       <KeepTerminalOpen>False</KeepTerminalOpen>
     </Viewer>
-    <Editor Enabled="False">
-      <Path/>
+    <Editor Enabled="True">
+      <Path>/usr/bin/nvim</Path>
       <Parameters/>
-      <RunInTerminal>False</RunInTerminal>
-      <KeepTerminalOpen>False</KeepTerminalOpen>
+      <RunInTerminal>True</RunInTerminal>
+      <KeepTerminalOpen>True</KeepTerminalOpen>
     </Editor>
     <Differ Enabled="False">
       <Path/>
@@ -329,13 +354,13 @@
     </Main>
     <Editor>
       <Name>Monospace</Name>
-      <Size>14</Size>
+      <Size>12</Size>
       <Style>0</Style>
       <Quality>0</Quality>
     </Editor>
     <Viewer>
-      <Name>Monospace</Name>
-      <Size>14</Size>
+      <Name>Ubuntu Mono</Name>
+      <Size>12</Size>
       <Style>0</Style>
       <Quality>0</Quality>
     </Viewer>
@@ -347,7 +372,7 @@
     </Log>
     <ViewerBook>
       <Name>default</Name>
-      <Size>16</Size>
+      <Size>12</Size>
       <Style>1</Style>
       <Quality>0</Quality>
     </ViewerBook>
@@ -357,10 +382,42 @@
       <Style>0</Style>
       <Quality>0</Quality>
     </Console>
+    <OptionsTree>
+      <Name>default</Name>
+      <Size>10</Size>
+      <Style>0</Style>
+      <Quality>0</Quality>
+    </OptionsTree>
+    <OptionsMain>
+      <Name>default</Name>
+      <Size>10</Size>
+      <Style>0</Style>
+      <Quality>0</Quality>
+    </OptionsMain>
+    <SearchResults>
+      <Name>default</Name>
+      <Size>14</Size>
+      <Style>0</Style>
+      <Quality>0</Quality>
+    </SearchResults>
+    <PathEdit>
+      <Name>default</Name>
+      <Size>8</Size>
+      <Style>0</Style>
+      <Quality>0</Quality>
+    </PathEdit>
+    <FunctionButtons>
+      <Name>default</Name>
+      <Size>8</Size>
+      <Style>0</Style>
+      <Quality>0</Quality>
+    </FunctionButtons>
   </Fonts>
   <ToolTips>
     <ShowToolTipMode>True</ShowToolTipMode>
     <CustomFields/>
+    <ActualToolTipMode>0</ActualToolTipMode>
+    <ToolTipHideTimeOut>0</ToolTipHideTimeOut>
   </ToolTips>
   <Layout>
     <MainMenu>True</MainMenu>
@@ -415,6 +472,7 @@
         <AutoSize>2</AutoSize>
       </Columns>
     </BriefView>
+    <ExtraLineSpan>2</ExtraLineSpan>
   </FilesViews>
   <Keyboard>
     <Typing>
