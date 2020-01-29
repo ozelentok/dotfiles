@@ -34,6 +34,7 @@ user-custom|User custom plugin parser:\
 #
 exuberant-ctags|plugin-example|setting to use Exuberant Ctags plug-in parser:\
 	:tc=common:\
+	:ctagscom=/usr/bin/ctags:\
 	:langmap=Asm\:.asm.ASM.s.S:\
 	:langmap=Asp\:.asp.asa:\
 	:langmap=Awk\:.awk.gawk.mawk:\
@@ -115,6 +116,7 @@ exuberant-ctags|plugin-example|setting to use Exuberant Ctags plug-in parser:\
 	:gtags_parser=YACC\:/usr/lib/gtags/exuberant-ctags.la:
 
 pygments-parser|Pygments plug-in parser:\
+	:ctagscom=/usr/bin/ctags:\
 	:tc=common:\
 	:langmap=ABAP\:.abap:\
 	:langmap=ANTLR\:.G.g:\

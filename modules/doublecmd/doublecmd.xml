@@ -278,7 +278,7 @@
   </Language>
   <Behaviours>
     <GoToRoot>False</GoToRoot>
-    <RunInTerminalStayOpenCmd>xterm</RunInTerminalStayOpenCmd>
+    <ActiveRight>False</ActiveRight>
     <RunInTerminalStayOpenCmd>gnome-terminal</RunInTerminalStayOpenCmd>
     <RunInTerminalStayOpenParams>-e '{command}'</RunInTerminalStayOpenParams>
     <RunInTerminalCloseCmd>gnome-terminal</RunInTerminalCloseCmd>
@@ -456,7 +456,7 @@
     <Sorting>
       <CaseSensitivity>0</CaseSensitivity>
       <NaturalSorting>False</NaturalSorting>
-      <SortFolderMode>0</SortFolderMode>
+      <SortFolderMode>1</SortFolderMode>
       <NewFilesPosition>2</NewFilesPosition>
       <UpdatedFilesPosition>2</UpdatedFilesPosition>
     </Sorting>
