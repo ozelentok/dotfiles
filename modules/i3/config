@@ -1,94 +1,52 @@
 set $mod Mod4
-#set $mod Mod1
-
-#window borders
-new_window pixel 1
-
+default_border pixel 1
 font pango: Ubuntu 11
-
-# Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
-
 focus_follows_mouse no
 
-# When pressing Mod+2 it will switch back and forth from workspace #2
-#workspace_auto_back_and_forth yes
-
-# start a terminal
-bindsym $mod+Return exec gnome-terminal
-
-# kill focused window
-bindsym $mod+Shift+q kill
-
-# start dmenu (a program launcher)
-bindsym $mod+d exec dmenu_run -nb black -nf white
-bindsym $mod+Shift+D exec i3-dmenu-desktop --dmenu="dmenu -nb black -nf white"
-
-
-# change focus
-# default - disabled
-#bindsym $mod+j focus left
-#bindsym $mod+k focus down
-#bindsym $mod+l focus up
-#bindsym $mod+semicolon focus right
-# vim-like - enabled
+# Change focus
 bindsym $mod+h focus left
 bindsym $mod+j focus down
 bindsym $mod+k focus up
 bindsym $mod+l focus right
-
-# alternatively, you can use the cursor keys:
 bindsym $mod+Left focus left
 bindsym $mod+Down focus down
 bindsym $mod+Up focus up
 bindsym $mod+Right focus right
 
-# move focused window
-# default - disabled
-#bindsym $mod+Shift+J move left
-#bindsym $mod+Shift+K move down
-#bindsym $mod+Shift+L move up
-#bindsym $mod+Shift+colon move right
-# vim-like - enabled
+# Move focused window
 bindsym $mod+Shift+H move left
 bindsym $mod+Shift+J move down
 bindsym $mod+Shift+K move up
 Bindsym $mod+Shift+L move right
-
-# alternatively, you can use the cursor keys:
 bindsym $mod+Shift+Left move left
 bindsym $mod+Shift+Down move down
 bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
-# split in horizontal orientation
-#bindsym $mod+h split h
+# Split horizontal/vertical
 bindsym $mod+o split h
-
-# split in vertical orientation
 bindsym $mod+v split v
 
-# enter fullscreen mode for the focused container
+# Enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen
 
-# change container layout (stacked, tabbed, default)
+# Change container layout: stacked, tabbed, default
 bindsym $mod+s layout stacking
 bindsym $mod+w layout tabbed
 bindsym $mod+e layout default
 
-# toggle tiling / floating
+# Toggle tiling / floating
 bindsym $mod+Shift+space floating toggle
 
-# change focus between tiling / floating windows
+# Change focus between tiling / floating windows
 bindsym $mod+space focus mode_toggle
 
-# focus the parent container
+# Focus the parent/child container
 bindsym $mod+a focus parent
+bindsym $mod+z focus child
 
-# focus the child container
-#bindcode $mod+d focus child
-
-# switch to workspace
+# Switch to workspace
 bindsym $mod+1 workspace 1
 bindsym $mod+2 workspace 2
 bindsym $mod+3 workspace 3
@@ -101,7 +59,7 @@ bindsym $mod+9 workspace 9
 bindsym $mod+0 workspace 10
 bindsym $mod+grave workspace back_and_forth
 
-# move focused container to workspace
+# Move focused container to workspace
 bindsym $mod+Shift+exclam move workspace 1
 bindsym $mod+Shift+at move workspace 2
 bindsym $mod+Shift+numbersign move workspace 3
@@ -113,14 +71,14 @@ bindsym $mod+Shift+asterisk move workspace 8
 bindsym $mod+Shift+parenleft move workspace 9
 bindsym $mod+Shift+parenright move workspace 10
 
-# reload the configuration file
+# Reload the configuration file
 bindsym $mod+Shift+C reload
-# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+# Restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+R restart
-# exit i3 (logs you out of your X session)
+# Exit i3 (logs you out of your X session)
 bindsym $mod+Shift+E exit
 
-# resize window (you can also use the mouse for that)
+# Resize window (you can also use the mouse for that)
 mode "resize" {
 	# These bindings trigger as soon as you enter the resize mode
 
@@ -130,30 +88,24 @@ mode "resize" {
 
 	bindsym h resize shrink left 5 px or 5 ppt
 	bindsym Shift+H resize grow left 5 px or 5 ppt
-
 	bindsym j resize shrink down 5 px or 5 ppt
 	bindsym Shift+J resize grow down 5 px or 5 ppt
-
 	bindsym k resize shrink up 5 px or 5 ppt
 	bindsym Shift+K resize grow up 5 px or 5 ppt
-
 	bindsym l resize shrink right 5 px or 5 ppt
 	bindsym Shift+L resize grow right 5 px or 5 ppt
 
-	# same bindings, but for the arrow keys
+	# Same bindings, but for the arrow keys
 	bindsym Left resize shrink left 5 px or 5 ppt
 	bindsym Shift+Left resize grow left 5 px or 5 ppt
-
 	bindsym Down resize shrink down 5 px or 5 ppt
 	bindsym Shift+Down resize grow down 5 px or 5 ppt
-
 	bindsym Up resize shrink up 5 px or 5 ppt
 	bindsym Shift+Up resize grow up 5 px or 5 ppt
-
 	bindsym Right resize shrink right 5 px or 5 ppt
 	bindsym Shift+Right resize grow right 5 px or 5 ppt
 
-	# back to normal: Enter or Escape
+	# Back to normal: Enter or Escape
 	bindsym Return mode "default"
 	bindsym Escape mode "default"
 }
@@ -167,9 +119,6 @@ client.focused_inactive #000000 #000000 #ffffff #111111
 client.unfocused				#303030 #000000 #888888 #111111
 client.urgent				 	  #000000 #900000 #ffffff #111111
 
-
-# Start i3bar to display a workspace bar (plus the system information i3status
-# finds out, if available)
 bar {
 	status_command i3status -c ~/.config/i3/i3status.conf
 	colors {
@@ -178,46 +127,35 @@ bar {
 	}
 }
 
-# ==============================================
-# App-specific settings
-#
-# Note: to find the class of a window, run "xprop | grep -i class"
-
-# Gimp: float by default, open in workspace #3
-#for_window [class="Gimp"] floating enable
-#assign [class="Gimp"] 4: gimp
-
-# Chrome: assign to workspace #1
-#assign [class="firefox"] 2: www
-
+# Floating windows
 for_window [title=".*Copying.*"] floating enable
 for_window [title=".*Moving.*"] floating enable
 for_window [title="Unpack.*"] floating enable
 for_window [title="Testing Archive"] floating enable
-for_window [title="Open Database -.*"] floating enable
-for_window [title=".* KeePass Password Safe"] floating enable
-for_window [title=".*\[Locked\] - KeePassXC.*"] floating enable
-for_window [title="Unlock Login .*"] floating enable
+for_window [title=".*\.kdbx(?!\s\[Locked\])\s-\sKeePassXC"] floating enable
+# for_window [title=".*\[Locked\] - KeePassXC.*"] floating enable
 
-# Empathy
-#assign [class="empathy"] 3: chat
-#assign [class="empathy-chat"] 3: chat
+# Close window
+bindsym $mod+Shift+q         kill
 
-# Pidgin
-#assign [class="Pidgin"] 3: chat
+# Start demnu
+bindsym $mod+d               exec dmenu_run -nb black -nf white
+bindsym $mod+Shift+D         exec i3-dmenu-desktop --dmenu="dmenu -nb black -nf white"
 
-# =============================================
-# Launcher keybidings
-
-bindsym $mod+n exec doublecmd
-bindsym $mod+c exec firefox-developer-edition
-bindsym $mod+control+l exec i3lock -c 000000
+bindsym $mod+Return          exec gnome-terminal
+bindsym $mod+n               exec doublecmd
+bindsym $mod+c               exec firefox-developer-edition
 
 # Volume Keyboard
-bindcode $mod+87 exec amixer -q set Master 5%-
-bindcode $mod+88 exec amixer -q set Master 5%+
-bindcode $mod+89 exec amixer -q set Master toggle
-
+bindcode $mod+87             exec amixer -q set Master 5%-
+bindcode $mod+88             exec amixer -q set Master 5%+
+bindcode $mod+89             exec amixer -q set Master toggle
 bindsym XF86AudioLowerVolume exec amixer -q set Master 5%-
 bindsym XF86AudioRaiseVolume exec amixer -q set Master 5%+
 bindsym XF86AudioMute        exec amixer -q set Master toggle
+
+# Lock and screen control
+bindsym $mod+control+l       exec i3lock -c 000000
+bindsym $mod+control+o       exec "sleep 1 && xset -display :0.0 dpms force off"
+bindsym $mod+control+p       exec xset -display :0.0 dpms force on
+bindsym Print                exec scrot -q 100 'scrot_%Y-%m-%d-%s.jpg' -e 'mv "$f" /tmp/'
