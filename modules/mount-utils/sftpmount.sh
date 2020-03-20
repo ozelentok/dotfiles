@@ -14,8 +14,14 @@ REMOTE_HOST=$1
 REMOTE_USER=$2
 mkdir -p /mnt/sftp/$REMOTE_HOST
 set +e
-sshfs $REMOTE_USER@$REMOTE_HOST:/ \
-/mnt/sftp/$REMOTE_HOST ${@:3}
+
+if [[ "${@:3}" != *directport* ]]; then
+	sshfs $REMOTE_USER@$REMOTE_HOST:/ \
+		/mnt/sftp/$REMOTE_HOST ${@:3}
+else
+	sshfs $REMOTE_HOST:/ \
+		/mnt/sftp/$REMOTE_HOST ${@:3}
+fi
 
 MOUNT_EXIT_CODE=$?
 set -e
