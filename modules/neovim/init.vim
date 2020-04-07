@@ -35,6 +35,7 @@ if dein#load_state(expand(g:dein_dir))
 	call dein#add('sheerun/vim-polyglot')
 	call dein#add('Shougo/denite.nvim')
 	call dein#add('ozelentok/denite-gtags')
+	call dein#add('Shougo/neomru.vim')
 	call dein#add('Shougo/neosnippet')
 	call dein#add('Shougo/neosnippet-snippets')
 	call dein#add('Honza/vim-snippets')
@@ -132,6 +133,7 @@ nnoremap <C-P><C-P> :DeniteProjectDir -no-empty -start-filter -buffer-name=files
 nnoremap <C-P><C-G> :DeniteProjectDir -no-empty -start-filter -buffer-name=files-git file/rec/git<cr>
 nnoremap <C-P><C-J> :DeniteProjectDir -no-empty -start-filter -buffer-name=samename -input=`expand('%:t:r')` file/rec/git<cr>
 nnoremap <leader>b :Denite -buffer-name=buffer buffer<cr>
+nnoremap <leader>m :Denite -buffer-name=mru file_mru<cr>
 nnoremap <leader>a :DeniteCursorWord -path=`expand('%:p:h')` -no-empty -buffer-name=gtags_c gtags_context<cr>
 nnoremap <leader>d :DeniteCursorWord -path=`expand('%:p:h')` -no-empty -buffer-name=gtags_d gtags_def<cr>
 nnoremap <leader>r :DeniteCursorWord -path=`expand('%:p:h')` -no-empty -buffer-name=gtags_r gtags_ref<cr>
@@ -159,9 +161,11 @@ endfunction
 
 call denite#custom#alias('source', 'file/rec/git', 'file/rec')
 call denite#custom#var('file/rec/git', 'command', ['git', 'ls-files', '-co', '--exclude-standard'])
-call denite#custom#source('file/rec', 'sorters', ['sorter_sublime'])
+call denite#custom#source('file/rec', 'sorters', ['sorter/sublime'])
 call denite#custom#option('_', 'winheight', 10)
 
+" NeoMRU
+let g:neomru#do_validate=0 
 
 " Airline
 if !exists('g:airline_symbols')
