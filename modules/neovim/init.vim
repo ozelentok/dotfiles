@@ -49,7 +49,7 @@ if dein#load_state(expand(g:dein_dir))
 	call dein#add('artur-shaik/vim-javacomplete2')
 	call dein#add('mhartington/nvim-typescript', {'build': './install.sh'}) "Requires typescript - install using npm
 	call dein#add('ap/vim-css-color', {'merged': 0})
-	call dein#add('JamshedVesuna/vim-markdown-preview') "Requires grip - install using pip
+	call dein#add('iamcco/markdown-preview.nvim', {'build': 'sh -c "cd app && npm install"'}) "Requires npm
 	call dein#add('Yggdroot/indentLine')
 	call dein#end()
 	call dein#save_state()
@@ -165,7 +165,7 @@ call denite#custom#source('file/rec', 'sorters', ['sorter/sublime'])
 call denite#custom#option('_', 'winheight', 10)
 
 " NeoMRU
-let g:neomru#do_validate=0 
+let g:neomru#do_validate=0
 
 " Airline
 if !exists('g:airline_symbols')
@@ -274,6 +274,4 @@ let g:vim_markdown_folding_disabled=1
 let g:vim_markdown_conceal=0
 
 " Markdown Preview
-let g:vim_markdown_preview_github=1
-let g:vim_markdown_preview_use_xdg_open=1
-let g:vim_markdown_preview_hotkey='<C-m>'
+nmap <C-m> <Plug>MarkdownPreviewToggle
