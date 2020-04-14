@@ -189,6 +189,7 @@ let g:nerdtree_tabs_open_on_gui_startup=0
 " FileType
 autocmd BufRead,BufEnter *.vs setlocal filetype=c
 autocmd BufRead,BufEnter *.fs setlocal filetype=c
+autocmd BufRead,BufEnter *.conf setlocal filetype=conf
 autocmd FileReadPre * silent! lcd %:p:h
 
 " Autocomplete
