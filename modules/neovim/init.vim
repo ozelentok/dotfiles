@@ -8,7 +8,7 @@ if !has('win32') && !has('win64')
 	set directory=/tmp
 	set backupdir=/tmp
 	set undodir=/tmp
-	set dictionary=/usr/share/dict/words
+	set dictionary=/usr/share/dict/cracklib-small
 else
 	set directory=C:\temp
 	set backupdir=C:\temp
