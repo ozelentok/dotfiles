@@ -1,17 +1,14 @@
 [[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && which startx && exec startx
-# Set up the prompt
 
 setopt histignorealldups sharehistory
-
-# Use emacs keybindings even if our EDITOR is set to vi
 bindkey -e
 
-# Keep 1000 lines of history within the shell and save it to ~/.zsh_history:
 HISTSIZE=100000
 SAVEHIST=100000
 HISTFILE=$HOME/.zsh_history
+setopt APPEND_HISTORY
+setopt PATH_DIRS
 
-# Use modern completion system
 autoload -Uz compinit && compinit -i
 
 zstyle ':completion:*' auto-description 'specify: %d'
@@ -23,18 +20,14 @@ eval "$(dircolors -b)"
 zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 zstyle ':completion:*' list-colors ''
 zstyle ':completion:*' list-prompt %SAt %p: Hit TAB for more, or the character to insert%s
-# ignore case
+# Ignore case on completion
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
 zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s
 zstyle ':completion:*' use-compctl false
 zstyle ':completion:*' verbose true
-
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 
-# oz custom starts here
-
-# simple power prompt
 autoload -Uz vcs_info
 zstyle ':vcs_info:*' enable git
 zstyle ':vcs_info:*' check-for-changes true
@@ -50,19 +43,16 @@ function precmd() {
 	vcs_info
 	PS1="$($HOME/.zsh/zprompt)"
 }
+
 setopt prompt_subst
 RPROMPT='${vcs_info_msg_0_}'
 
-# auto cd
 setopt AUTO_CD
-
-# spell check
 setopt CORRECT
 
 export EDITOR="nvim"
 export GTAGSLABEL=pygments
 
-# ls in color
 if [ -x /usr/bin/dircolors ]; then
 	alias ls='ls --color=auto --group-directories-first'
 	alias dir='dir --color=auto'
@@ -72,16 +62,11 @@ if [ -x /usr/bin/dircolors ]; then
 	alias egrep='egrep --color=auto'
 fi
 
-# ls aliases
 alias ll='ls -lFhX --time-style=long-iso'
 alias la='ls -A'
 alias l='ls -CF'
 
-# command-not found module
-if [[ -s '/etc/zsh_command_not_found' ]]; then
-	source '/etc/zsh_command_not_found'
-fi
-
+source $HOME/.zsh/syntaxhl/zsh-syntax-highlighting.zsh
 
 # Home and End
 bindkey "\e[1~" beginning-of-line
@@ -132,11 +117,16 @@ man() {
 		LESS_TERMCAP_us=$'\E[04;38;5;146m' \
 		man "$@"
 }
-setopt PATH_DIRS
-setopt APPEND_HISTORY
+
+# SSH Agent
+if ! pgrep -u "$USER" ssh-agent > /dev/null; then
+	ssh-agent > "$XDG_RUNTIME_DIR/ssh-agent.env"
+fi
+if [[ ! "$SSH_AUTH_SOCK" ]]; then
+	eval "$(<"$XDG_RUNTIME_DIR/ssh-agent.env")" > /dev/null
+fi
 
 [[ -f $HOME/.profile ]] && source $HOME/.profile
-source $HOME/.zsh/syntaxhl/zsh-syntax-highlighting.zsh
 
 alias pwf='sudo poweroff'
 alias rbt='sudo reboot'
@@ -146,10 +136,3 @@ alias cpptags='ctags -R --c++-kinds=+p --fields=+iaS --extra=+q --language-force
 rdp() {
 	rdesktop $1 -g 1920x1060 -u $2 -z -0 -r clipboard:CLIPBOARD ${@:3}
 }
-
-if ! pgrep -u "$USER" ssh-agent > /dev/null; then
-	ssh-agent > "$XDG_RUNTIME_DIR/ssh-agent.env"
-fi
-if [[ ! "$SSH_AUTH_SOCK" ]]; then
-	eval "$(<"$XDG_RUNTIME_DIR/ssh-agent.env")" > /dev/null
-fi
