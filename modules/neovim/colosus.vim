@@ -1,7 +1,4 @@
 " Vim color file
-" Maintainer:Oz Elentok <oz.elen@gmail.com>
-" Last Modified: 09 September 2017
-" Version: 2.0
 
 set background=dark
 hi clear
@@ -117,22 +114,22 @@ hi Typedef          ctermfg=117                                     cterm=none
 " Special Group
 " -------------
 " any special symbol
-hi Special          guifg=#d7afaf                                   gui=bold
+hi Special          guifg=#a5a5a5                                   gui=bold
 hi Special          ctermfg=181                                     cterm=none
 " special character in a constant
-hi SpecialChar      guifg=#d7afaf                                   gui=bold
+hi SpecialChar      guifg=#a5a5a5                                   gui=bold
 hi SpecialChar      ctermfg=181                                     cterm=none
 " things you can CTRL-]
-hi Tag              guifg=#d7afaf                                   gui=none
+hi Tag              guifg=#a5a5a5                                   gui=none
 hi Tag              ctermfg=181                                     cterm=none
 " character that needs attention
-hi Delimiter        guifg=#d7afaf                                   gui=none
+hi Delimiter        guifg=#a5a5a5                                   gui=none
 hi Delimiter        ctermfg=181                                     cterm=none
 " special things inside a comment
-hi SpecialComment   guifg=#d7afaf                                   gui=none
+hi SpecialComment   guifg=#a5a5a5                                   gui=none
 hi SpecialComment   ctermfg=181                                     cterm=none
 " debugging statements
-hi Debug            guifg=#d7afaf           guibg=NONE              gui=bold
+hi Debug            guifg=#a5a5a5           guibg=NONE              gui=bold
 hi Debug            ctermfg=181             ctermbg=NONE            cterm=none
 
 

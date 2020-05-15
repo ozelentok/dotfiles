@@ -8,7 +8,7 @@ echo "========================================"
 DIR=$(dirname "${BASH_SOURCE[0]}")
 DIR=$(cd -P $DIR && pwd)
 
-sudo pacman -Syu --needed i3-wm i3lock py3status dmenu feh autocutsel
+sudo pacman -Syu --needed i3-wm i3lock py3status dmenu feh autocutsel python-pytz python-tzlocal xorg-xset
 
 (
 	TODIR="$HOME/.config/i3/"

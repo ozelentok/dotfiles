@@ -8,7 +8,7 @@ SELECTED_MODULES_FILE_PATH="/tmp/dotfiles_selected_modules"
 
 # ========================================
 # Install dialog for TUI choice list
-sudo pacman -Syu --needed dialog
+sudo pacman -Syu --needed dialog git
 
 dotfiles_packages=(
 	firefox-developer-edition chromium keepassxc
@@ -19,7 +19,7 @@ dotfiles_packages=(
 	pulseaudio pulseaudio-alsa pavucontrol alsa-utils
 	python python2 python-pip python2-pip
 	nodejs npm ctags
-	noto-fonts noto-fonts-emoji ttf-dejavu ttf-ubuntu-font-family
+	noto-fonts noto-fonts-emoji ttf-dejavu
 	vlc smplayer rdesktop libreoffice-fresh audacity
 	dunst
 	wine)

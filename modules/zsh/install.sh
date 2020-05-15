@@ -27,10 +27,4 @@ sudo pacman -Syu --needed zsh zsh-completions gcc make
 		make TARGET_SHELL=zsh
 		make install TARGET_SHELL=zsh
 	)
-	echo "=============================="
-	echo "Installing patched Ubuntu Mono Fonts for ZPrompt"
-	echo "Font Family Name: Ubuntu Mono ZPower"
-	mkdir -p $HOME/.fonts
-	cp $DIR/ZPrompt/PatchedFonts/*.otf $HOME/.fonts/
-	fc-cache -vf
 )
