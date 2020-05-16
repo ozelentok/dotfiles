@@ -10,12 +10,9 @@ DIR=$(cd -P $DIR && pwd)
 
 sudo pacman -Syu --needed xorg-server xorg-xinit xorg-xkill xorg-xhost xorg-xev
 
-(
-	TODIR="/etc/X11/xorg.conf.d/"
-	cd $DIR
-	sudo mkdir -p $TODIR
-	for confFile in *.conf; do
-		sudo ln -s -f $DIR/$confFile $TODIR
-	done
-	ln -s -f $DIR/xinitrc $HOME/.xinitrc
-)
+cd $DIR
+XORG_CONF_DIR=/etc/X11/xorg.conf.d
+sudo mkdir -p $XORG_CONF_DIR
+sudo ln -s -f -r ./00-keyboard.conf $XORG_CONF_DIR/00-keyboard.conf
+ln -s -f -r ./xinitrc $HOME/.xinitrc
+ln -s -f -r ./Xresources $HOME/.Xresources
