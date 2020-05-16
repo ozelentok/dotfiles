@@ -1,3 +1,4 @@
-gtk-icon-theme-name = "Adwaita-dark"
-gtk-theme-name = "Adwaita-dark"
-gtk-application-prefer-dark-theme = true
+gtk-theme-name="Arc-Black-Classic-3.36"
+gtk-icon-theme-name="Arc-ICONS"
+gtk-cursor-theme-name="oxy-neon"
+gtk-application-prefer-dark-theme=true
