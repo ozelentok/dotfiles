@@ -11,13 +11,14 @@ DIR=$(cd -P $DIR && pwd)
 sudo pacman -Syu --needed i3-wm i3lock py3status dmenu feh autocutsel python-pytz python-tzlocal xorg-xset
 
 (
-	TODIR="$HOME/.config/i3/"
+	TODIR="$HOME/.config/i3"
 
 	cd $DIR
 	mkdir -p $TODIR
-	ln -s -f -r $DIR/i3.config $TODIR/config
-	ln -s -f -r $DIR/i3-session $TODIR
-	ln -s -f -r $DIR/i3status.conf $TODIR
+	ln -s -f -r ./i3.config $TODIR/config
+	ln -s -f -r ./i3-session $TODIR/
+	ln -s -f -r ./i3status.conf $TODIR/
+	ln -s -f -r ./py3status $TODIR/
 
 	./alttab/install.sh
 	./xkb-switch/install.sh
