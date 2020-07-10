@@ -18,6 +18,8 @@ pkgver() {
 
 build() {
 	cd "$_name"
+	export CFLAGS="${CFLAGS} -fcommon"
+	export LDFLAGS="${LDFLAGS} -fcommon"
 	./bootstrap.sh
 	./configure --prefix=/usr
 	make
