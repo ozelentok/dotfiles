@@ -50,9 +50,6 @@ RPROMPT='${vcs_info_msg_0_}'
 setopt AUTO_CD
 setopt CORRECT
 
-export EDITOR="nvim"
-export GTAGSLABEL=pygments
-
 if [ -x /usr/bin/dircolors ]; then
 	alias ls='ls --color=auto --group-directories-first'
 	alias dir='dir --color=auto'

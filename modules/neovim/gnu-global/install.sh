@@ -13,5 +13,5 @@ pip install --user -U Pygments
 
 cp $DIR/PKGBUILD /tmp
 cd /tmp
-makepkg -fci
+makepkg -fsci
 ln -s -f -r $DIR/globalrc $HOME/.globalrc
