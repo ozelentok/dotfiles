@@ -11,11 +11,11 @@ DIR=$(cd -P $DIR && pwd)
 # clang for Deoplete C/C++ Support
 # xsel and xclip for Clipboard support
 sudo pacman -Syu --needed neovim cmake clang xsel xclip
-pip install --user -U --upgrade-strategy=eager jedi neovim mypy pycodestyle autopep8 yapf
+pip install --user -U --upgrade-strategy=eager jedi neovim mypy pycodestyle autopep8 yapf Pygments
 pip2 install --user -U --upgrade-strategy=eager neovim
 sudo npm install -g neovim typescript tern tslint
-sudo ln -s -f -r $(which nvim) /usr/local/bin/vim
 
+sudo ln -s -f -r $(which nvim) /usr/local/bin/vim
 export PATH="$HOME/.local/bin:$PATH"
 
 (
@@ -31,7 +31,7 @@ export PATH="$HOME/.local/bin:$PATH"
 	ln -s -f -r $DIR/mypy.ini $HOME/.mypy.ini
 
 	ln -s -f -r $DIR/ctags.conf $HOME/.ctags
-	./gnu-global/install.sh
+	ln -s -f -r $DIR/globalrc $HOME/.globalrc
 
 	mkdir -p $HOME/.config/nvim/plugin
 	ln -s -f /usr/share/vim/vimfiles/plugin/gtags-cscope.vim $HOME/.config/nvim/plugin/
