@@ -23,7 +23,7 @@ if dein#load_state(expand(g:dein_dir))
 	call dein#add('scrooloose/nerdtree')
 	call dein#add('jistr/vim-nerdtree-tabs')
 	call dein#add('easymotion/vim-easymotion')
-	call dein#add('w0rp/ale')
+	call dein#add('dense-analysis/ale')
 	call dein#add('scrooloose/nerdcommenter')
 	call dein#add('tpope/vim-surround')
 	call dein#add('tpope/vim-fugitive')
@@ -227,6 +227,7 @@ let g:airline#extensions#ale#enabled=1
 let g:ale_cache_executable_check_failures=1
 let g:ale_linters={
 			\	'python': ['mypy', 'pycodestyle', 'pyflakes', 'pyls'],
+			\	'c++': ['g++'],
 			\}
 
 let g:ale_fixers={
@@ -276,3 +277,5 @@ let g:vim_markdown_conceal=0
 
 " Markdown Preview
 nmap <C-m> <Plug>MarkdownPreviewToggle
+
+call deoplete#custom#option('num_processes', 4)

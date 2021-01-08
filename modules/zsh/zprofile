@@ -1,7 +1,7 @@
 export ANDROID_SDK_ROOT="/opt/studio-android-sdk"
 export ANDROID_HOME="$ANDROID_SDK_ROOT"
 
-export ANDROID_NDK_ROOT="/opt/studio-android-sdk/ndk-bundle"
+export ANDROID_NDK_ROOT="/opt/studio-android-sdk/ndk"
 export ANDROID_NDK_HOME="$ANDROID_NDK_ROOT"
 
 export EDITOR="nvim"
