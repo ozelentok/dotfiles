@@ -205,7 +205,8 @@ autocmd FileType javascript setlocal expandtab tabstop=4 shiftwidth=4
 autocmd FileType javascript.jsx setlocal expandtab tabstop=4 shiftwidth=4
 autocmd FileType typescript setlocal expandtab tabstop=4 shiftwidth=4
 autocmd FileType typescript.tsx setlocal expandtab tabstop=4 shiftwidth=4
-autocmd FileType cpp setlocal cino=j1,(0,ws,Ws
+autocmd FileType c setlocal expandtab tabstop=2 shiftwidth=2
+autocmd FileType cpp setlocal expandtab tabstop=2 shiftwidth=2 cino=j1,(0,ws,Ws
 
 
 " Tags
@@ -223,6 +224,7 @@ let g:ranger_map_keys=0
 nnoremap <leader>e :Ranger<CR>
 
 " ALE
+nnoremap <F5> :ALEFix<CR>
 let g:airline#extensions#ale#enabled=1
 let g:ale_cache_executable_check_failures=1
 let g:ale_linters={
@@ -231,8 +233,8 @@ let g:ale_linters={
 			\}
 
 let g:ale_fixers={
-			\	'c': ['trim_whitespace'],
-			\	'cpp': ['trim_whitespace'],
+			\	'c': ['clang-format', 'trim_whitespace'],
+			\	'cpp': ['clang-format', 'trim_whitespace'],
 			\	'python': ['autopep8', 'trim_whitespace'],
 			\	'typescript': ['tslint', 'trim_whitespace'],
 			\	'typescript.tsx': ['tslint', 'trim_whitespace'],
