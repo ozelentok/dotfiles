@@ -1,11 +1,9 @@
-# Add the following lines to ~/.gitconfig.private
-# Change name, email and user to your own
 #[user]
 #	name = Oz Elentok
 #	email = oz.elen@gmail.com
 #[github]
 #	user = ozelentok
-#
+
 [merge]
 	tool = fugitive
 [core]
@@ -14,4 +12,6 @@
 [mergetool]
 	prompt = true
 [mergetool "fugitive"]
-	cmd = nvim -f -c \"Gdiff\" \"$MERGED\"
+	cmd = nvim -f -c \"Gdiffsplit!\" \"$MERGED\"
+[pull]
+	rebase = true
