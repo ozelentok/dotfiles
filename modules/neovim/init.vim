@@ -9,6 +9,8 @@ if !has('win32') && !has('win64')
 	set backupdir=/tmp
 	set undodir=/tmp
 	set dictionary=/usr/share/dict/cracklib-small
+	let g:python3_host_prog = '/usr/bin/python3'
+	let g:loaded_python_provider = 0 " Disable python2 provider
 else
 	set directory=C:\temp
 	set backupdir=C:\temp
@@ -45,11 +47,11 @@ if dein#load_state(expand(g:dein_dir))
 	call dein#add('zchee/deoplete-clang')
 	call dein#add('zchee/deoplete-jedi')
 	call dein#add('ozelentok/deoplete-gtags')
-	call dein#add('carlitux/deoplete-ternjs') "Requires tern - install using npm
+	call dein#add('carlitux/deoplete-ternjs') " Requires tern - install using npm
 	call dein#add('artur-shaik/vim-javacomplete2')
-	call dein#add('mhartington/nvim-typescript', {'build': './install.sh'}) "Requires typescript - install using npm
+	call dein#add('mhartington/nvim-typescript', {'build': './install.sh'}) " Requires typescript - install using npm
 	call dein#add('ap/vim-css-color', {'merged': 0})
-	call dein#add('iamcco/markdown-preview.nvim', {'build': 'sh -c "cd app && npm install"'}) "Requires npm
+	call dein#add('iamcco/markdown-preview.nvim', {'build': 'sh -c "cd app && npm install"'}) " Requires npm
 	call dein#add('Yggdroot/indentLine')
 	call dein#end()
 	call dein#save_state()
@@ -208,7 +210,6 @@ autocmd FileType typescript setlocal expandtab tabstop=4 shiftwidth=4
 autocmd FileType typescript.tsx setlocal expandtab tabstop=4 shiftwidth=4
 autocmd FileType c setlocal expandtab tabstop=2 shiftwidth=2
 autocmd FileType cpp setlocal expandtab tabstop=2 shiftwidth=2 cino=j1,(0,ws,Ws
-
 
 " Tags
 set tags=tags;,/usr/include/tags
