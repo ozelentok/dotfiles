@@ -22,6 +22,7 @@ dotfiles_packages=(
 	noto-fonts noto-fonts-emoji ttf-dejavu
 	vlc rdesktop libreoffice-fresh audacity
 	dunst scrot
+	imagemagick
 	wine)
 dotfiles_modules=$(ls ./modules)
 
