@@ -201,6 +201,7 @@ autocmd FileType java setlocal omnifunc=javacomplete#Complete
 autocmd FileType python setlocal expandtab tabstop=4 shiftwidth=4
 autocmd FileType html setlocal expandtab tabstop=4 shiftwidth=4
 autocmd FileType css setlocal expandtab tabstop=4 shiftwidth=4
+autocmd FileType java setlocal expandtab tabstop=4 shiftwidth=4
 autocmd FileType javascript setlocal expandtab tabstop=4 shiftwidth=4
 autocmd FileType javascript.jsx setlocal expandtab tabstop=4 shiftwidth=4
 autocmd FileType typescript setlocal expandtab tabstop=4 shiftwidth=4
