@@ -11,5 +11,5 @@ export QT_QPA_PLATFORMTHEME=gtk2
 ANDROID_PATHS="$ANDROID_SDK_ROOT/tools:$ANDROID_SDK_ROOT/tools/bin:$ANDROID_SDK_ROOT/platform-tools:$ANDROID_SDK_ROOT/emulator"
 
 if [[ ":$PATH:" != *":$ANDROID_PATHS:"* ]]; then
-	export PATH="$HOME/.local/bin:/opt/toolchains/bin:$ANDROID_PATHS:$PATH"
+	export PATH="$HOME/.local/bin:$ANDROID_PATHS:$PATH"
 fi
