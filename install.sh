@@ -21,7 +21,7 @@ dotfiles_packages=(
 	nodejs npm ctags
 	noto-fonts noto-fonts-emoji ttf-dejavu
 	vlc rdesktop libreoffice-fresh audacity
-	dunst
+	dunst scrot
 	wine)
 dotfiles_modules=$(ls ./modules)
 
