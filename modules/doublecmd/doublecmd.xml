@@ -1,23 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<doublecmd DCVersion="0.9.7 beta" ConfigVersion="10">
+<doublecmd DCVersion="0.9.10 beta" ConfigVersion="10">
   <Configuration Save="True" SortOrder="0" TreeType="0">
     <UseConfigInProgramDir>False</UseConfigInProgramDir>
     <FolderTabs Save="True"/>
   </Configuration>
   <Colors>
     <FileFilters>
-      <Filter>
-        <Name>Pascal sources</Name>
-        <FileMasks>*.pas;*.pp</FileMasks>
-        <Color>32768</Color>
-        <Attributes/>
-      </Filter>
-      <Filter>
-        <Name>Pascal binaries</Name>
-        <FileMasks>*.ppu;*.o;*.dcu</FileMasks>
-        <Color>16711680</Color>
-        <Attributes/>
-      </Filter>
       <Filter>
         <Name>Specified Executables</Name>
         <FileMasks>*</FileMasks>
@@ -34,12 +22,12 @@
     <UseCursorBorder>False</UseCursorBorder>
     <CursorBorderColor>-2147483635</CursorBorderColor>
     <UseFrameCursor>False</UseFrameCursor>
-    <Foreground>16777215</Foreground>
-    <Background>2171169</Background>
-    <Background2>4342338</Background2>
+    <Foreground>15987699</Foreground>
+    <Background>1118481</Background>
+    <Background2>2302755</Background2>
     <Cursor>-2147483635</Cursor>
     <CursorText>-2147483634</CursorText>
-    <Mark>65535</Mark>
+    <Mark>255</Mark>
     <InactiveCursor>-2147483645</InactiveCursor>
     <InactiveMark>16711935</InactiveMark>
     <UseInvertedSelection>False</UseInvertedSelection>
@@ -285,21 +273,21 @@
     <RunInTerminalCloseParams>-e '{command}'</RunInTerminalCloseParams>
     <JustRunTerminal>gnome-terminal</JustRunTerminal>
     <JustRunTermParams/>
-    <OnlyOneAppInstance>True</OnlyOneAppInstance>
+    <OnlyOneAppInstance>False</OnlyOneAppInstance>
     <LynxLike>True</LynxLike>
     <FileSizeFormat>0</FileSizeFormat>
     <OperationSizeFormat>0</OperationSizeFormat>
     <HeaderFooterSizeFormat>0</HeaderFooterSizeFormat>
-    <FileSizeDigits>1</FileSizeDigits>
-    <HeaderFooterDigits>1</HeaderFooterDigits>
-    <OperationSizeDigits>1</OperationSizeDigits>
+    <FileSizeDigits>2</FileSizeDigits>
+    <HeaderFooterDigits>2</HeaderFooterDigits>
+    <OperationSizeDigits>2</OperationSizeDigits>
     <PersonalizedByte>B</PersonalizedByte>
     <PersonalizedKilo>KB</PersonalizedKilo>
     <PersonalizedMega>MB</PersonalizedMega>
     <PersonalizedGiga>GB</PersonalizedGiga>
     <PersonalizedTera>TB</PersonalizedTera>
     <MinimizeToTray>True</MinimizeToTray>
-    <AlwaysShowTrayIcon>True</AlwaysShowTrayIcon>
+    <AlwaysShowTrayIcon>False</AlwaysShowTrayIcon>
     <Mouse>
       <Selection Enabled="True">
         <Button>0</Button>
@@ -312,11 +300,11 @@
     <AutoFillColumns>False</AutoFillColumns>
     <AutoSizeColumn>1</AutoSizeColumn>
     <CustomColumnsChangeAllColumns>False</CustomColumnsChangeAllColumns>
-    <BriefViewFileExtAligned>False</BriefViewFileExtAligned>
+    <BriefViewFileExtAligned>True</BriefViewFileExtAligned>
     <DateTimeFormat>yyyy-mm-dd hh:mm</DateTimeFormat>
     <CutTextToColumnWidth>True</CutTextToColumnWidth>
     <ExtendCellWidth>False</ExtendCellWidth>
-    <ShowSystemFiles>True</ShowSystemFiles>
+    <ShowSystemFiles>False</ShowSystemFiles>
     <ListFilesInThread>True</ListFilesInThread>
     <LoadIconsSeparately>True</LoadIconsSeparately>
     <DelayLoadingTabs>True</DelayLoadingTabs>
@@ -347,20 +335,20 @@
   </Tools>
   <Fonts>
     <Main>
-      <Name>default</Name>
+      <Name>Cantarell</Name>
       <Size>10</Size>
       <Style>1</Style>
       <Quality>0</Quality>
     </Main>
     <Editor>
-      <Name>Monospace</Name>
-      <Size>12</Size>
+      <Name>DejaVu Sans Mono</Name>
+      <Size>9</Size>
       <Style>0</Style>
       <Quality>0</Quality>
     </Editor>
     <Viewer>
-      <Name>Ubuntu Mono</Name>
-      <Size>12</Size>
+      <Name>DejaVu Sans Mono</Name>
+      <Size>9</Size>
       <Style>0</Style>
       <Quality>0</Quality>
     </Viewer>
@@ -465,7 +453,7 @@
       <TitleStyle>1</TitleStyle>
     </ColumnsView>
     <BriefView>
-      <FileExtAligned>False</FileExtAligned>
+      <FileExtAligned>True</FileExtAligned>
       <Columns>
         <FixedWidth>100</FixedWidth>
         <FixedCount>2</FixedCount>
@@ -473,6 +461,8 @@
       </Columns>
     </BriefView>
     <ExtraLineSpan>2</ExtraLineSpan>
+    <FolderPrefix>[</FolderPrefix>
+    <FolderPostfix>]</FolderPostfix>
   </FilesViews>
   <Keyboard>
     <Typing>
@@ -491,7 +481,7 @@
     <WipePassNumber>1</WipePassNumber>
     <DropReadOnlyFlag>False</DropReadOnlyFlag>
     <ProcessComments>False</ProcessComments>
-    <RenameSelOnlyName>False</RenameSelOnlyName>
+    <RenameSelOnlyName>True</RenameSelOnlyName>
     <ShowCopyTabSelectPanel>False</ShowCopyTabSelectPanel>
     <UseTrash>True</UseTrash>
     <SkipFileOpError>False</SkipFileOpError>
@@ -748,7 +738,7 @@
           <Width>70</Width>
           <Align>1</Align>
           <Font>
-            <Name>default</Name>
+            <Name>Cantarell</Name>
             <Size>10</Size>
             <Style>1</Style>
             <Quality>0</Quality>

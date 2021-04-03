@@ -13,3 +13,4 @@ cd /tmp
 git clone https://aur.archlinux.org/pikaur.git
 cd pikaur
 makepkg -fsci
+ln -s -f /tmp $HOME/.cache/pikaur
