@@ -10,7 +10,7 @@ DIR=$(cd -P $DIR && pwd)
 
 # clang for Deoplete C/C++ Support
 # xsel and xclip for Clipboard support
-sudo pacman -Syu --needed neovim cmake clang xsel xclip
+sudo pacman -Syu --needed neovim cmake global clang xsel xclip
 pip install --user -U --upgrade-strategy=eager jedi neovim mypy pycodestyle autopep8 yapf Pygments
 sudo npm install -g neovim typescript tern eslint
 
