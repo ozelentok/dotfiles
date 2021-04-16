@@ -9,6 +9,8 @@ echo "========================================"
 DIR=$(dirname "${BASH_SOURCE[0]}")
 DIR=$(cd -P $DIR && pwd)
 
+sudo pacman -Syu --needed sshfs fuse3
+
 (
 	cd /mnt
 	sudo mkdir sftp cifs
