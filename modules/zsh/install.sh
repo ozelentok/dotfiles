@@ -7,7 +7,7 @@ echo "Installing ZSH"
 DIR=$(dirname "${BASH_SOURCE[0]}")
 DIR=$(cd -P $DIR && pwd)
 
-sudo pacman -Syu --needed zsh zsh-completions gcc make
+sudo pacman -Syu --needed zsh zsh-completions lsd gcc make
 
 (
 	cd $DIR
