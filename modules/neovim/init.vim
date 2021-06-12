@@ -32,7 +32,7 @@ if dein#load_state(expand(g:dein_dir))
 	call dein#add('tpope/vim-abolish')
 	call dein#add('brooth/far.vim')
 	call dein#add('godlygeek/tabular')
-	call dein#add('ozelentok/vim-closer')
+	call dein#add('rstacruz/vim-closer')
 	call dein#add('francoiscabrol/ranger.vim')
 	call dein#add('sheerun/vim-polyglot')
 	call dein#add('Shougo/denite.nvim')
@@ -50,7 +50,7 @@ if dein#load_state(expand(g:dein_dir))
 	call dein#add('carlitux/deoplete-ternjs') " Requires tern - install using npm
 	call dein#add('artur-shaik/vim-javacomplete2')
 	call dein#add('mhartington/nvim-typescript', {'build': './install.sh'}) " Requires typescript - install using npm
-	call dein#add('ap/vim-css-color', {'merged': 0})
+	call dein#add('norcalli/nvim-colorizer.lua')
 	call dein#add('iamcco/markdown-preview.nvim', {'build': 'sh -c "cd app && npm install"'}) " Requires npm
 	call dein#add('Yggdroot/indentLine')
 	call dein#end()
@@ -111,7 +111,7 @@ nnoremap < <c-w><
 " Replicate yank/paste operations to system clipbaord
 set clipboard=unnamed,unnamedplus
 
-" Go Back in tabs
+" Go back in tabs
 noremap tp :tabp<cr>
 
 " Date Insert
@@ -120,15 +120,42 @@ inoremap <F3> <C-R>=strftime('%Y-%m-%d')<CR>
 nnoremap <F4> "=strftime('%Y-%m-%d %H:%M:%S')<CR>P
 inoremap <F4> <C-R>=strftime('%Y-%m-%d %H:%M:%S')<CR>
 
-" From https://github.com/skwp/dotfiles/blob/master/vim/plugin/settings/stop-visual-paste-insanity.vim:
-" If you visually select something and hit paste
-" that thing gets yanked into your buffer. This
-" generally is annoying when you're copying one item
-" and repeatedly pasting it. This changes the paste
-" command in visual mode so that it doesn't overwrite
-" whatever is in your paste buffer.
-vnoremap p "_dP
-map <Leader>" ysiw"
+" Disable visual block copy during paste
+xnoremap <expr> p 'pgv"'.v:register.'y`>'
+xnoremap <expr> P 'Pgv"'.v:register.'y`>'
+
+" FileType
+autocmd BufRead,BufEnter *.vs setlocal filetype=c
+autocmd BufRead,BufEnter *.fs setlocal filetype=c
+autocmd BufRead,BufEnter *.conf setlocal filetype=conf
+autocmd FileReadPre * silent! lcd %:p:h
+
+" Autocomplete
+autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType html setlocal autoindent omnifunc=htmlcomplete#CompleteTags
+autocmd FileType java setlocal omnifunc=javacomplete#Complete
+
+" Language Specific Indention
+autocmd FileType c setlocal expandtab tabstop=2 shiftwidth=2
+autocmd FileType cpp setlocal expandtab tabstop=2 shiftwidth=2 cino=j1,(0,ws,Ws
+autocmd FileType python setlocal expandtab tabstop=4 shiftwidth=4
+autocmd FileType html setlocal expandtab tabstop=4 shiftwidth=4
+autocmd FileType css setlocal expandtab tabstop=4 shiftwidth=4
+autocmd FileType java setlocal expandtab tabstop=4 shiftwidth=4
+autocmd FileType javascript setlocal expandtab tabstop=4 shiftwidth=4
+autocmd FileType javascript.jsx setlocal expandtab tabstop=4 shiftwidth=4
+autocmd FileType typescript setlocal expandtab tabstop=4 shiftwidth=4
+autocmd FileType typescript.tsx setlocal expandtab tabstop=4 shiftwidth=4
+
+" Tags
+set tags=tags;,/usr/include/tags
+
+" GNU Global (GTags)
+set cscopetag
+let GtagsCscope_Ignore_Case=1
+let GtagsCscope_Absolute_Path=1
+autocmd BufReadPost * silent GtagsCscope
+autocmd BufWritePost * GtagsUpdate
 
 " Denite
 nnoremap <C-P><C-P> :DeniteProjectDir -no-empty -start-filter -buffer-name=files file/rec<cr>
@@ -188,38 +215,8 @@ let g:airline#extensions#whitespace#enabled=1
 noremap <Leader>nt :NERDTreeTabsToggle<cr>
 let g:nerdtree_tabs_open_on_gui_startup=0
 
-" FileType
-autocmd BufRead,BufEnter *.vs setlocal filetype=c
-autocmd BufRead,BufEnter *.fs setlocal filetype=c
-autocmd BufRead,BufEnter *.conf setlocal filetype=conf
-autocmd FileReadPre * silent! lcd %:p:h
-
-" Autocomplete
-autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType html setlocal autoindent omnifunc=htmlcomplete#CompleteTags
-autocmd FileType java setlocal omnifunc=javacomplete#Complete
-
-" Language Specific Indention
-autocmd FileType python setlocal expandtab tabstop=4 shiftwidth=4
-autocmd FileType html setlocal expandtab tabstop=4 shiftwidth=4
-autocmd FileType css setlocal expandtab tabstop=4 shiftwidth=4
-autocmd FileType java setlocal expandtab tabstop=4 shiftwidth=4
-autocmd FileType javascript setlocal expandtab tabstop=4 shiftwidth=4
-autocmd FileType javascript.jsx setlocal expandtab tabstop=4 shiftwidth=4
-autocmd FileType typescript setlocal expandtab tabstop=4 shiftwidth=4
-autocmd FileType typescript.tsx setlocal expandtab tabstop=4 shiftwidth=4
-autocmd FileType c setlocal expandtab tabstop=2 shiftwidth=2
-autocmd FileType cpp setlocal expandtab tabstop=2 shiftwidth=2 cino=j1,(0,ws,Ws
-
-" Tags
-set tags=tags;,/usr/include/tags
-
-" GNU Global (GTags)
-set cscopetag
-let GtagsCscope_Ignore_Case=1
-let GtagsCscope_Absolute_Path=1
-autocmd BufReadPost * silent GtagsCscope
-autocmd BufWritePost * GtagsUpdate
+" nvim-colorizer
+lua require 'colorizer'.setup()
 
 " Ranger
 let g:ranger_map_keys=0
@@ -264,7 +261,6 @@ let g:deoplete#sources#clang#clang_header='/usr/lib/clang'
 
 " Deoplete-jedi
 let g:deoplete#sources#jedi#show_docstring=1
-let g:deoplete#sources#jedi#python_path='/usr/bin/python3'
 
 " Echodoc
 let g:echodoc#enable_at_startup=1
@@ -281,5 +277,3 @@ let g:vim_markdown_conceal=0
 
 " Markdown Preview
 nmap <C-m> <Plug>MarkdownPreviewToggle
-
-call deoplete#custom#option('num_processes', 4)

@@ -59,11 +59,14 @@ if [ -x /usr/bin/dircolors ]; then
 	alias egrep='egrep --color=auto'
 fi
 
-alias ll='ls -lFhX --time-style=long-iso'
-alias la='ls -A'
-alias l='ls -CF'
+# alias ll='ls -lFhX --time-style=long-iso'
+# alias la='ls -A'
 
-source $HOME/.zsh/syntaxhl/zsh-syntax-highlighting.zsh
+alias ll='lsd --color=auto --group-dirs --date="+%Y-%m-%d %H:%m" -lFX'
+alias lla='lsd --color=auto --group-dirs --date="+%Y-%m-%d %H:%m" -lFXA'
+alias la='lsd --color=auto --group-dirs -A'
+alias lsd='lsd --color=auto --group-dirs -1'
+alias l='lsd'
 
 # Home and End
 bindkey "\e[1~" beginning-of-line
@@ -114,6 +117,8 @@ man() {
 		LESS_TERMCAP_us=$'\E[04;38;5;146m' \
 		man "$@"
 }
+
+source $HOME/.zsh/syntaxhl/zsh-syntax-highlighting.zsh
 
 # SSH Agent
 if ! pgrep -u "$USER" ssh-agent > /dev/null; then

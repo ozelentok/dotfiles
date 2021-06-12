@@ -44,54 +44,54 @@ hi Float            ctermfg=153                                     cterm=none
 " Identifier Group
 " ----------------
 " any variable name
-hi Identifier       guifg=#00d7ff                                   gui=bold
+hi Identifier       guifg=#00f0ff                                   gui=bold
 hi Identifier       ctermfg=45                                      cterm=none
 " function, method, class
-hi Function         guifg=#00d7ff                                   gui=bold
+hi Function         guifg=#40e940                                   gui=bold
 hi Function         ctermfg=45                                      cterm=none
 
 
 " Statement Group
 " ---------------
 " any statement
-hi Statement        guifg=#afd787                                   gui=bold
+hi Statement        guifg=#ff6050                                   gui=bold
 hi Statement        ctermfg=150                                     cterm=none
 " if, then, else
-hi Conditional      guifg=#afd75f                                   gui=bold
+hi Conditional      guifg=#ff6050                                   gui=bold
 hi Conditional      ctermfg=149                                     cterm=none
 " try, catch, throw, raise
-hi Exception        guifg=#afd75f                                   gui=bold
+hi Exception        guifg=#cfd75f                                   gui=bold
 hi Exception        ctermfg=149                                     cterm=none
 " for, while, do
-hi Repeat           guifg=#afd75f                                   gui=bold
+hi Repeat           guifg=#ff6050                                   gui=bold
 hi Repeat           ctermfg=149                                     cterm=none
 " case, default
-hi Label            guifg=#afd75f                                   gui=bold
+hi Label            guifg=#ff6050                                   gui=bold
 hi Label            ctermfg=149                                     cterm=none
 " sizeof, +, *
-hi Operator         guifg=#87ffff                                   gui=none
+hi Operator         guifg=#afd7ff                                   gui=none
 hi Operator         ctermfg=123                                     cterm=none
 " any other keyword, e.g. 'sub'
-hi Keyword          guifg=#afd75f                                   gui=bold
+hi Keyword          guifg=#ff6050                                   gui=bold
 hi Keyword          ctermfg=149                                     cterm=none
 
 
 " Preprocessor Group
 " ------------------
 " generic preprocessor
-hi PreProc          guifg=#FFD7AF                                   gui=none
+hi PreProc          guifg=#ffe000                                   gui=none
 hi PreProc          ctermfg=223                                     cterm=none
 " #include
-hi Include          guifg=#FFD7AF                                   gui=none
+hi Include          guifg=#ffe000                                   gui=none
 hi Include          ctermfg=223                                     cterm=none
 " #define
-hi Define           guifg=#FFD7AF                                   gui=none
+hi Define           guifg=#ffe000                                   gui=none
 hi Define           ctermfg=223                                     cterm=none
 " same as define
-hi Macro            guifg=#FFD7AF                                   gui=none
+hi Macro            guifg=#ffe000                                   gui=none
 hi Macro            ctermfg=223                                     cterm=none
 " #if, #else, #endif
-hi PreCondit        guifg=#FFD7AF                                   gui=none
+hi PreCondit        guifg=#ffe000                                   gui=none
 hi PreCondit        ctermfg=223                                     cterm=none
 
 
