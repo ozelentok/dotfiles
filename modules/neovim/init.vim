@@ -22,9 +22,9 @@ if dein#load_state(expand(g:dein_dir))
 	call dein#add('Shougo/dein.vim')
 	call dein#add('vim-airline/vim-airline')
 	call dein#add('vim-airline/vim-airline-themes')
-	call dein#add('scrooloose/nerdtree')
-	call dein#add('jistr/vim-nerdtree-tabs')
-	call dein#add('easymotion/vim-easymotion')
+	call dein#add('kyazdani42/nvim-web-devicons')
+	call dein#add('kyazdani42/nvim-tree.lua')
+	call dein#add('phaazon/hop.nvim')
 	call dein#add('dense-analysis/ale')
 	call dein#add('scrooloose/nerdcommenter')
 	call dein#add('tpope/vim-surround')
@@ -210,9 +210,27 @@ let g:airline_symbols.maxlinenr=''
 let g:airline_theme='powerlineish'
 let g:airline#extensions#whitespace#enabled=1
 
-" NERDTree Window Toogle
-noremap <Leader>nt :NERDTreeTabsToggle<cr>
-let g:nerdtree_tabs_open_on_gui_startup=0
+" nvim-tree.lua
+let g:nvim_tree_width = 40
+let g:nvim_tree_ignore = ['.git', 'node_modules', '.cache']
+let g:nvim_tree_gitignore = 0
+let g:nvim_tree_indent_markers = 1
+let g:nvim_tree_hide_dotfiles = 1
+let g:nvim_tree_git_hl = 1
+let g:nvim_tree_highlight_opened_files = 1
+let g:nvim_tree_tab_open = 1
+let g:nvim_tree_width_allow_resize  = 1
+let g:nvim_tree_disable_netrw = 1
+let g:nvim_tree_hijack_netrw = 1
+let g:nvim_tree_add_trailing = 1
+let g:nvim_tree_group_empty = 1
+let g:nvim_tree_hijack_cursor = 1
+let g:nvim_tree_update_cwd = 0
+let g:nvim_tree_icons = { 'default': '' }
+
+nnoremap <C-n> :NvimTreeToggle<CR>
+nnoremap <leader>m :NvimTreeRefresh<CR>
+nnoremap <leader>n :NvimTreeFindFile<CR>
 
 " nvim-colorizer
 lua require 'colorizer'.setup()
@@ -220,6 +238,12 @@ lua require 'colorizer'.setup()
 " Ranger
 let g:ranger_map_keys=0
 nnoremap <leader>e :Ranger<CR>
+
+" hop.nvim
+noremap <leader>ww :HopWord<CR>
+noremap <leader>l :HopLine<CR>
+noremap <leader>s :HopPattern<CR>
+noremap <leader>wc :HopChar1<CR>
 
 " ALE
 nnoremap <F5> :ALEFix<CR>
@@ -233,7 +257,7 @@ let g:ale_linters={
 let g:ale_fixers={
 			\	'c': ['clang-format', 'trim_whitespace'],
 			\	'cpp': ['clang-format', 'trim_whitespace'],
-			\	'python': ['autopep8', 'trim_whitespace'],
+			\	'python': ['autopep8', 'yapf', 'trim_whitespace'],
 			\	'typescript': ['tslint', 'trim_whitespace'],
 			\	'typescript.tsx': ['tslint', 'trim_whitespace'],
 			\	'javascript': ['eslint', 'trim_whitespace'],
