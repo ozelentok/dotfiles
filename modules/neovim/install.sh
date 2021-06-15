@@ -12,7 +12,7 @@ DIR=$(cd -P $DIR && pwd)
 # xsel and xclip for Clipboard support
 sudo pacman -Syu --needed neovim cmake global clang xsel xclip
 pip install --user -U --upgrade-strategy=eager jedi neovim mypy pycodestyle autopep8 yapf Pygments
-sudo npm install -g neovim typescript tern eslint
+sudo npm install -g neovim typescript eslint
 
 sudo ln -s -f -r $(which nvim) /usr/local/bin/vim
 export PATH="$HOME/.local/bin:$PATH"

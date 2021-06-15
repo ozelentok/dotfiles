@@ -47,7 +47,6 @@ if dein#load_state(expand(g:dein_dir))
 	call dein#add('zchee/deoplete-clang')
 	call dein#add('zchee/deoplete-jedi')
 	call dein#add('ozelentok/deoplete-gtags')
-	call dein#add('carlitux/deoplete-ternjs') " Requires tern - install using npm
 	call dein#add('artur-shaik/vim-javacomplete2')
 	call dein#add('mhartington/nvim-typescript', {'build': './install.sh'}) " Requires typescript - install using npm
 	call dein#add('norcalli/nvim-colorizer.lua')
