@@ -12,12 +12,10 @@ let colors_name="colosus"
 hi Normal           guifg=#ffffff           guibg=#000000
 hi Normal           ctermfg=15              ctermbg=16
 
-
 " Comment Group
 " -------------
 hi Comment          guifg=#a8a8a8                                   gui=italic
 hi Comment          ctermfg=248                                     cterm=none
-
 
 " Constant Group
 " --------------
@@ -31,13 +29,13 @@ hi String           ctermfg=214                                     cterm=none
 hi Character        guifg=#ff8700                                   gui=none
 hi Character        ctermfg=208                                     cterm=none
 " numbers decimal/hex
-hi Number           guifg=#afd7ff                                   gui=none
+hi Number           guifg=#00ffff                                   gui=bold
 hi Number           ctermfg=153                                     cterm=none
 " true, false
 hi Boolean          guifg=#d7d787                                   gui=bold
 hi Boolean          ctermfg=186                                     cterm=none
 " float
-hi Float            guifg=#afd7ff                                   gui=none
+hi Float            guifg=#00ffff                                   gui=bold
 hi Float            ctermfg=153                                     cterm=none
 
 
@@ -47,32 +45,32 @@ hi Float            ctermfg=153                                     cterm=none
 hi Identifier       guifg=#00f0ff                                   gui=bold
 hi Identifier       ctermfg=45                                      cterm=none
 " function, method, class
-hi Function         guifg=#40e940                                   gui=bold
+hi Function         guifg=#40e0ff                                   gui=bold
 hi Function         ctermfg=45                                      cterm=none
 
 
 " Statement Group
 " ---------------
 " any statement
-hi Statement        guifg=#ff6050                                   gui=bold
+hi Statement        guifg=#40e940                                   gui=bold
 hi Statement        ctermfg=150                                     cterm=none
 " if, then, else
-hi Conditional      guifg=#ff6050                                   gui=bold
+hi Conditional      guifg=#40e940                                   gui=bold
 hi Conditional      ctermfg=149                                     cterm=none
 " try, catch, throw, raise
 hi Exception        guifg=#cfd75f                                   gui=bold
 hi Exception        ctermfg=149                                     cterm=none
 " for, while, do
-hi Repeat           guifg=#ff6050                                   gui=bold
+hi Repeat           guifg=#40e940                                   gui=bold
 hi Repeat           ctermfg=149                                     cterm=none
 " case, default
-hi Label            guifg=#ff6050                                   gui=bold
+hi Label            guifg=#40e940                                   gui=bold
 hi Label            ctermfg=149                                     cterm=none
 " sizeof, +, *
-hi Operator         guifg=#afd7ff                                   gui=none
+hi Operator         guifg=#00ff40                                   gui=none
 hi Operator         ctermfg=123                                     cterm=none
 " any other keyword, e.g. 'sub'
-hi Keyword          guifg=#ff6050                                   gui=bold
+hi Keyword          guifg=#40e940                                   gui=bold
 hi Keyword          ctermfg=149                                     cterm=none
 
 
@@ -252,7 +250,7 @@ hi DiffDelete       ctermfg=none            ctermbg=235             cterm=none
 hi DiffChange       guifg=none              guibg=#282828           gui=none
 hi DiffChange       ctermfg=none            ctermbg=237             cterm=none
 " changed text within line
-hi DiffText         guifg=#FF505F           guibg=#282828           gui=bold
+hi DiffText         guifg=#FFFF00           guibg=#282828           gui=bold
 hi DiffText         ctermfg=203             ctermbg=237             cterm=bold
 
 
@@ -328,28 +326,5 @@ hi VisualNOS        ctermfg=fg                                      cterm=underl
 hi LineNr           guifg=#c4a000           guibg=#1c1c1c           gui=bold
 hi LineNr           ctermfg=3               ctermbg=234
 
-" NeoMake
-
-hi NeomakeMessageSign        guifg=#87D7FF  guibg=#121212
-hi NeomakeMessageSign        ctermfg=117    ctermbg=233
-
-hi NeomakeWarningSign        guifg=#FFFF87  guibg=#121212
-hi NeomakeWarningSign        ctermfg=228    ctermbg=233
-
-hi NeomakeErrorSign          guifg=#FF0000  guibg=#121212
-hi NeomakeErrorSign          ctermfg=09      ctermbg=233
-
-hi NeomakeInfoSign           guifg=#FFFFFF  guibg=#121212
-hi NeomakeInfoSign           ctermfg=15     ctermbg=233
-
-hi NeomakeError              guifg=#FF0000                          gui=undercurl
-hi NeomakeError              ctermfg=9                              cterm=underline
-
-hi NeomakeInfo               guifg=#FFFFFF                          gui=undercurl
-hi NeomakeInfo               ctermfg=15                             cterm=underline
-
-hi NeomakeMessage            guifg=#87D7FF                          gui=undercurl
-hi NeomakeMessage            ctermfg=117                            cterm=underline
-
-hi NeomakeWarning            guifg=#FFFF87                          gui=undercurl
-hi NeomakeWarning            ctermfg=228                            cterm=underline
+hi ALEWarning       guifg=#ffff00                                   gui=bold
+hi ALEError         guifg=#ff3030                                   gui=bold

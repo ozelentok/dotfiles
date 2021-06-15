@@ -65,6 +65,7 @@ set hlsearch
 set incsearch
 set ignorecase
 set inccommand=split
+set signcolumn=yes
 set wildmenu
 set wildmode=full
 set wildignore=*.swp,.bak,*.pyc,*.class,*.o,*.obj
@@ -90,7 +91,7 @@ set modelines=0
 set termguicolors
 colors colosus
 command! W w
-let mapleader=","
+let mapleader=','
 " Map c-h/j/k/l to move between windows
 nmap <c-h> <c-w>h
 nmap <c-j> <c-w>j
@@ -211,22 +212,22 @@ let g:airline_theme='powerlineish'
 let g:airline#extensions#whitespace#enabled=1
 
 " nvim-tree.lua
-let g:nvim_tree_width = 40
-let g:nvim_tree_ignore = ['.git', 'node_modules', '.cache']
-let g:nvim_tree_gitignore = 0
-let g:nvim_tree_indent_markers = 1
-let g:nvim_tree_hide_dotfiles = 1
-let g:nvim_tree_git_hl = 1
-let g:nvim_tree_highlight_opened_files = 1
-let g:nvim_tree_tab_open = 1
-let g:nvim_tree_width_allow_resize  = 1
-let g:nvim_tree_disable_netrw = 1
-let g:nvim_tree_hijack_netrw = 1
-let g:nvim_tree_add_trailing = 1
-let g:nvim_tree_group_empty = 1
-let g:nvim_tree_hijack_cursor = 1
-let g:nvim_tree_update_cwd = 0
-let g:nvim_tree_icons = { 'default': '' }
+let g:nvim_tree_width=40
+let g:nvim_tree_ignore=['.git', 'node_modules', '.cache']
+let g:nvim_tree_gitignore=0
+let g:nvim_tree_indent_markers=1
+let g:nvim_tree_hide_dotfiles=1
+let g:nvim_tree_git_hl=1
+let g:nvim_tree_highlight_opened_files=1
+let g:nvim_tree_tab_open=1
+let g:nvim_tree_width_allow_resize =1
+let g:nvim_tree_disable_netrw=1
+let g:nvim_tree_hijack_netrw=1
+let g:nvim_tree_add_trailing=1
+let g:nvim_tree_group_empty=1
+let g:nvim_tree_hijack_cursor=1
+let g:nvim_tree_update_cwd=0
+let g:nvim_tree_icons={ 'default': '' }
 
 nnoremap <C-n> :NvimTreeToggle<CR>
 nnoremap <leader>m :NvimTreeRefresh<CR>
@@ -246,11 +247,19 @@ noremap <leader>s :HopPattern<CR>
 noremap <leader>wc :HopChar1<CR>
 
 " ALE
-nnoremap <F5> :ALEFix<CR>
+nnoremap <F5> :ALEDetail<CR>
+nnoremap <F6> :ALEHover<CR>
+nnoremap <F7> :ALEFix<CR>
 let g:airline#extensions#ale#enabled=1
 let g:ale_cache_executable_check_failures=1
+let g:ale_virtualtext_cursor=1
+let g:ale_echo_cursor=1
+let g:ale_echo_delay=200
+let g:ale_virtualtext_delay=200
+let g:ale_sign_error='✘'
+let g:ale_sign_warning='⚠'
 let g:ale_linters={
-			\	'python': ['mypy', 'pycodestyle', 'pyflakes', 'pyls'],
+			\	'python': ['mypy', 'yapf', 'autopep8', 'pycodestyle'],
 			\	'c++': ['g++'],
 			\}
 
@@ -258,8 +267,8 @@ let g:ale_fixers={
 			\	'c': ['clang-format', 'trim_whitespace'],
 			\	'cpp': ['clang-format', 'trim_whitespace'],
 			\	'python': ['autopep8', 'yapf', 'trim_whitespace'],
-			\	'typescript': ['tslint', 'trim_whitespace'],
-			\	'typescript.tsx': ['tslint', 'trim_whitespace'],
+			\	'typescript': ['eslint', 'trim_whitespace'],
+			\	'typescript.tsx': ['eslint', 'trim_whitespace'],
 			\	'javascript': ['eslint', 'trim_whitespace'],
 			\	'html': ['prettier', 'trim_whitespace'],
 			\	'css': ['prettier', 'trim_whitespace'],
