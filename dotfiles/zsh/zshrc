@@ -1,0 +1,144 @@
+[[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && which startx && exec startx
+
+setopt histignorealldups sharehistory
+bindkey -e
+
+HISTSIZE=100000
+SAVEHIST=100000
+HISTFILE=$HOME/.zsh_history
+setopt APPEND_HISTORY
+setopt PATH_DIRS
+
+autoload -Uz compinit && compinit -i
+
+zstyle ':completion:*' auto-description 'specify: %d'
+zstyle ':completion:*' completer _expand _complete _correct _approximate
+zstyle ':completion:*' format 'Completing %d'
+zstyle ':completion:*' group-name ''
+zstyle ':completion:*' menu select
+eval "$(dircolors -b)"
+zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
+zstyle ':completion:*' list-colors ''
+zstyle ':completion:*' list-prompt %SAt %p: Hit TAB for more, or the character to insert%s
+# Ignore case on completion
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
+zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s
+zstyle ':completion:*' use-compctl false
+zstyle ':completion:*' verbose true
+zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
+zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
+
+autoload -Uz vcs_info
+zstyle ':vcs_info:*' enable git
+zstyle ':vcs_info:*' check-for-changes true
+zstyle ':vcs_info:*' get-revision true
+zstyle ':vcs_info:*' use-simple true
+zstyle ':vcs_info:*' unstagedstr '%F{red}✗ %b%f'
+zstyle ':vcs_info:*' stagedstr '%F{blue}✓ %b%f'
+zstyle ':vcs_info:*' formats '%u%c%F{green}[%b]%f'
+zstyle ':vcs_info:*' actionformats ' %F{blue}%b%f %F{white}%.7i%f +%a%u'
+zstyle ':vcs_info:git*+set-message:*' hooks git-status
+
+function precmd() {
+	vcs_info
+	PS1="$($HOME/.zsh/zprompt)"
+}
+
+setopt prompt_subst
+RPROMPT='${vcs_info_msg_0_}'
+
+setopt AUTO_CD
+setopt CORRECT
+
+if [ -x /usr/bin/dircolors ]; then
+	alias ls='ls --color=auto --group-directories-first'
+	alias dir='dir --color=auto'
+	alias vdir='vdir --color=auto'
+	alias grep='grep --color=auto'
+	alias fgrep='fgrep --color=auto'
+	alias egrep='egrep --color=auto'
+fi
+
+# alias ll='ls -lFhX --time-style=long-iso'
+# alias la='ls -A'
+
+alias ll='lsd --color=auto --group-dirs --date="+%Y-%m-%d %H:%M" -lFX'
+alias lla='lsd --color=auto --group-dirs --date="+%Y-%m-%d %H:%M" -lFXA'
+alias la='lsd --color=auto --group-dirs -A'
+alias lsd='lsd --color=auto --group-dirs -1'
+alias l='lsd'
+
+# Home and End
+bindkey "\e[1~" beginning-of-line
+bindkey "\e[4~" end-of-line
+bindkey "\e[H" beginning-of-line
+bindkey "\e[F" end-of-line
+bindkey "${terminfo[khome]}" beginning-of-line
+bindkey "${terminfo[kend]}" end-of-line
+# Insert and Delete
+bindkey "${terminfo[kich1]}" overwrite-mode
+bindkey "${terminfo[kdch1]}" delete-char
+# Pageup and Pagedown
+bindkey "${terminfo[kpp]}" beginning-of-buffer-or-history
+bindkey "${terminfo[knp]}" end-of-buffer-or-history
+# Ctrl-Left and Ctrl-Right
+bindkey "\e[5C" forward-word
+bindkey "\e[5D" backward-word
+bindkey "\e\e[C" forward-word
+bindkey "\e\e[D" backward-word
+bindkey "\e[1;5C" forward-word
+bindkey "\e[1;5D" backward-word
+
+function zle-line-init () {
+	echoti smkx
+}
+function zle-line-finish () {
+	echoti rmkx
+}
+
+if [ -n "${DISPLAY:-}" ]; then
+	zle -N zle-line-init
+	zle -N zle-line-finish
+fi
+
+# Edit current command in editor
+autoload -z edit-command-line
+zle -N edit-command-line
+bindkey "^X^E" edit-command-line
+
+# Colored man
+man() {
+	env LESS_TERMCAP_mb=$'\E[01;31m' \
+		LESS_TERMCAP_md=$'\E[01;38;5;74m' \
+		LESS_TERMCAP_me=$'\E[0m' \
+		LESS_TERMCAP_se=$'\E[0m' \
+		LESS_TERMCAP_so=$'\E[38;5;246m' \
+		LESS_TERMCAP_ue=$'\E[0m' \
+		LESS_TERMCAP_us=$'\E[04;38;5;146m' \
+		man "$@"
+}
+
+# SSH Agent
+if ! pgrep -u "$USER" ssh-agent > /dev/null; then
+	ssh-agent > "$XDG_RUNTIME_DIR/ssh-agent.env"
+fi
+if [[ ! "$SSH_AUTH_SOCK" ]]; then
+	eval "$(<"$XDG_RUNTIME_DIR/ssh-agent.env")" > /dev/null
+fi
+
+[[ -f $HOME/.profile ]] && source $HOME/.profile
+
+alias pwf='sudo poweroff'
+alias rbt='sudo reboot'
+alias psu='ps -lF --ppid 2 -p 2 --deselect'
+alias cpptags='ctags -R --c++-kinds=+p --fields=+iaS --extra=+q --language-force=C++'
+
+rdp() {
+	rdesktop $1 -g 1920x1060 -u $2 -z -0 -r clipboard:CLIPBOARD ${@:3}
+}
+
+jp() {
+	convert "${1}" "${1%.*}.jpg"
+}
+
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
