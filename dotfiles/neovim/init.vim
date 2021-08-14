@@ -51,7 +51,7 @@ if dein#load_state(expand(g:dein_dir))
 	call dein#add('mhartington/nvim-typescript', {'build': './install.sh'}) " Requires typescript - install using npm
 	call dein#add('norcalli/nvim-colorizer.lua')
 	call dein#add('iamcco/markdown-preview.nvim', {'build': 'sh -c "cd app && npm install"'}) " Requires npm
-	call dein#add('Yggdroot/indentLine')
+	call dein#add('lukas-reineke/indent-blankline.nvim')
 	call dein#end()
 	call dein#save_state()
 endif
@@ -309,3 +309,6 @@ let g:vim_markdown_conceal=0
 
 " Markdown Preview
 nmap <C-m> <Plug>MarkdownPreviewToggle
+
+" indent-blankline
+lua require('indent_blankline').setup({char_list = {'|', '¦', '┆'}, buftype_exclude = {'terminal'}})
