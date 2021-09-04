@@ -234,13 +234,14 @@ nnoremap <leader>m :NvimTreeRefresh<CR>
 nnoremap <leader>n :NvimTreeFindFile<CR>
 
 " nvim-colorizer
-lua require 'colorizer'.setup()
+lua require('colorizer').setup()
 
 " Ranger
 let g:ranger_map_keys=0
 nnoremap <leader>e :Ranger<CR>
 
 " hop.nvim
+lua require('hop').setup()
 noremap <leader>ww :HopWord<CR>
 noremap <leader>l :HopLine<CR>
 noremap <leader>s :HopPattern<CR>
