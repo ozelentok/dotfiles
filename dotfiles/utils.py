@@ -25,7 +25,7 @@ def mkdir(path: Path) -> None:
     os.makedirs(path, exist_ok=True)
 
 
-def symlink_relative(src_path: Path, dst_path: Path, hidden=False) -> None:
+def symlink_relative(src_path: Path, dst_path: Path, hidden: bool = False) -> None:
     if dst_path.is_dir() and not dst_path.is_symlink():
         dst_path /= ('.' if hidden else '') + src_path.name
     rel_target_path = os.path.relpath(src_path, dst_path.parent)
@@ -36,18 +36,18 @@ def symlink_relative(src_path: Path, dst_path: Path, hidden=False) -> None:
     dst_path.symlink_to(rel_target_path)
 
 
-def symlink_dotfile(dotfile_path: Path, dst_path: Path, hidden=False) -> None:
+def symlink_dotfile(dotfile_path: Path, dst_path: Path, hidden: bool = False) -> None:
     symlink_relative(__MOUDLE_PATH / dotfile_path, dst_path, hidden)
 
 
-def symlink_dotfile_with_root(src_path: Path, dst_path: Path, hidden=False) -> None:
+def symlink_dotfile_with_root(src_path: Path, dst_path: Path, hidden: bool = False) -> None:
     if dst_path.is_dir() and not dst_path.is_symlink():
         dst_path /= ('.' if hidden else '') + src_path.name
     rel_target_path = os.path.relpath(src_path, dst_path.parent)
     run_shell_command(['sudo', 'ln', '-s', '-f', '-r', src_path.as_posix(), rel_target_path])
 
 
-def copy_dotfile(dotfile_path: Path, dst_path: Path, hidden=False) -> None:
+def copy_dotfile(dotfile_path: Path, dst_path: Path, hidden: bool = False) -> None:
     if dst_path.is_dir():
         dst_path /= ('.' if hidden else '') + dotfile_path.name
 
@@ -66,10 +66,10 @@ def extract_dotfile_tar(dotfile_tar_path: Path, dst_dir_path: Path):
 
 
 def avoid_reinstall(executable: str):
-    def decorator(f: Callable[[], None]) -> Callable[[], None]:
+    def decorator(f: Callable) -> Callable:
         @functools.wraps(f)
         def wrapper(*args, **kwargs):
             if shutil.which(executable) is None:
-                f(*args, **kwargs)
+                return f(*args, **kwargs)
         return wrapper
     return decorator
