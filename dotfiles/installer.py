@@ -1,8 +1,6 @@
-import os
 import subprocess
 import tempfile
 from pathlib import Path
-from typing import Callable
 from . import utils
 
 
@@ -135,39 +133,27 @@ class Installer:
     @classmethod
     def neovim(cls) -> None:
         utils.install_packages([
-            'neovim', 'python-neovim', 'python-jedi', 'python-pygments',
-            'words', 'yapf', 'mypy', 'global', 'clang', 'xsel', 'xclip',
+            'neovim', 'python-neovim',
+            'xsel', 'xclip', 'words', 'global', 'python-pygments',
+            'pyright', 'clang', 'lua-language-server',
             'nodejs', 'npm'
         ])
-        utils.run_shell_command('sudo npm install -g neovim typescript eslint')
+        utils.run_shell_command('sudo npm install -g neovim vscode-langservers-extracted')
         utils.run_shell_command('sudo ln -s -f -r $(which nvim) /usr/local/bin/vim')
 
-        config_dir_path = Path.home() / '.config/nvim'
-        utils.mkdir(config_dir_path / 'dein/repos/github.com/Shougo')
-        dein_repo_dir = config_dir_path / 'dein/repos/github.com/Shougo/dein.vim'
-        if not dein_repo_dir.exists():
-            subprocess.check_call([
-                'git', 'clone', 'https://github.com/Shougo/dein.vim.git',
-                dein_repo_dir
-            ])
+        packer_dir_path = Path.home() / '.local/share/nvim/site/pack/packer/start/packer.nvim'
+        if not packer_dir_path.exists():
+            subprocess.check_call(['git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', packer_dir_path])
 
-        utils.symlink_dotfile(Path('neovim/init.vim'), config_dir_path)
-        utils.symlink_dotfile(Path('neovim/mypy.ini'), Path.home(), hidden=True)
+        config_dir_path = Path.home() / '.config/nvim'
+        utils.mkdir(config_dir_path)
+        utils.symlink_dotfile(Path('neovim/init.lua'), config_dir_path)
+        utils.symlink_dotfile(Path('neovim/lua'), config_dir_path)
         utils.symlink_dotfile(Path('neovim/globalrc'), Path.home(), hidden=True)
         utils.symlink_dotfile(Path('neovim/ctags.conf'), Path.home() / '.ctags')
 
-        colors_dir_path = config_dir_path / 'colors'
-        utils.mkdir(colors_dir_path)
-        utils.symlink_dotfile(Path('neovim/colosus.vim'), colors_dir_path)
-
-        plugin_dir_path = config_dir_path / 'plugin'
-        utils.mkdir(plugin_dir_path)
-        utils.symlink_relative(Path('/usr/share/vim/vimfiles/plugin/gtags.vim'),
-                               plugin_dir_path)
-        utils.symlink_relative(Path('/usr/share/vim/vimfiles/plugin/gtags-cscope.vim'),
-                               plugin_dir_path)
-
-        utils.run_shell_command('nvim -c "call dein#install()" -c "exit"')
+        utils.run_shell_command('nvim -c "autocmd User PackerComplete quitall" -c "PackerSync"')
+        utils.run_shell_command('nvim -c "TSUpdateSync"')
 
     @classmethod
     def qtconfig(cls) -> None:
