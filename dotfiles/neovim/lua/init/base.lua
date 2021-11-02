@@ -1,7 +1,8 @@
 vim.o.autochdir = true
 vim.o.backup = true
-vim.o.directory = '/tmp'
-vim.o.backupdir = '/tmp'
+io.popen('mkdir -p /tmp/nvim').close()
+vim.o.directory = '/tmp/nvim'
+vim.o.backupdir = '/tmp/nvim'
 vim.o.inccommand = 'split'
 vim.o.ignorecase = true
 vim.o.wildignore = '*.swp,.bak,*.pyc,*.class,*.o,*.obj'
