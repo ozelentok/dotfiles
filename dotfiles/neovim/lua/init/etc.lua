@@ -10,7 +10,7 @@ require('indent_blankline').setup({char_list = {'|', '¦', '┆'}, buftype_exclu
 local neoscroll_mappings = {}
 neoscroll_mappings['<C-u>'] = {'scroll', {'-vim.wo.scroll', 'true', '160'}}
 neoscroll_mappings['<C-d>'] = {'scroll', { 'vim.wo.scroll', 'true', '160'}}
-require('neoscroll').setup({hide_cursor = false, respect_scrolloff = true})
+require('neoscroll').setup({mappings={'<C-u>', '<C-d>'}, hide_cursor = false, respect_scrolloff = true})
 require('neoscroll.config').set_mappings(neoscroll_mappings)
 
 require('telescope').setup({defaults = {layout_strategy = 'bottom_pane'}})
