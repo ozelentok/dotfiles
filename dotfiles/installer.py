@@ -21,6 +21,7 @@ class Installer:
             'pulseaudio', 'pulseaudio-alsa', 'pavucontrol', 'alsa-utils',
             'python-pip',
             'nodejs', 'npm',
+            'polkit', 'polkit-gnome',
             'ctags',
             'vlc',
             'audacity',
