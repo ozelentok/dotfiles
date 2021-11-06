@@ -25,13 +25,13 @@ map('i', '<F2>', '<C-R>=strftime("%Y-%m-%d")<CR>')
 map('n', '<F3>', '"=strftime("%Y-%m-%d %H:%M:%S")<CR>P')
 map('i', '<F3>', '<C-R>=strftime("%Y-%m-%d %H:%M:%S")<CR>')
 
-map('n', '<C-e>', ':Nuake<CR>')
-map('i', '<C-e>', '<C-\\><C-n>:Nuake<CR>')
-map('t', '<C-e>', '<C-\\><C-n>:Nuake<CR>')
+map('n', '<C-x>', ':Nuake<CR>')
+map('i', '<C-x>', '<C-\\><C-n>:Nuake<CR>')
+map('t', '<C-x>', '<C-\\><C-n>:Nuake<CR>')
 
 map('n', '~', ':RnvimrToggle<CR>', {silent=true})
 map('t', '~', '<C-\\><C-n>:RnvimrToggle<CR>', {silent=true})
-map('t', '<C-r>', '<C-\\><C-n>:RnvimrResize<CR>', {silent=true})
+map('t', '<C-t>', '<C-\\><C-n>:RnvimrResize<CR>', {silent=true})
 
 map('n', '<C-w>w', ':HopWord<CR>')
 map('n', '<C-w>l', ':HopLine<CR>')

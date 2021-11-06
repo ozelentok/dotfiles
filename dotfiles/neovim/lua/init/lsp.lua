@@ -9,25 +9,32 @@ cmp.setup({
 		end,
 	},
 	mapping = {
-		['<C-p>'] = cmp.mapping.select_prev_item(),
-		['<C-n>'] = cmp.mapping.select_next_item(),
+		['<C-p>'] = cmp.mapping(function()
+			cmp.select_prev_item()
+		end, {'i', 's', 'c'}),
+		['<C-n>'] = cmp.mapping(function()
+			cmp.select_next_item()
+		end, {'i', 's', 'c'}),
 		['<C-d>'] = cmp.mapping.scroll_docs(-4),
 		['<C-f>'] = cmp.mapping.scroll_docs(4),
 		['<C-Space>'] = cmp.mapping.complete(),
-		['<C-e>'] = cmp.mapping.close(),
+		['<C-e>'] = cmp.mapping({
+			i = cmp.mapping.abort(),
+			c = cmp.mapping.close(),
+		}),
 		['<CR>'] = cmp.mapping.confirm({ select = true }),
 		['<Tab>'] = cmp.mapping(function(fallback)
-			if snippy.can_expand_or_advance() then
-				snippy.expand_or_advance()
-			elseif cmp.visible() then
+			if cmp.visible() then
 				cmp.select_next_item()
+			elseif snippy.can_expand_or_advance() then
+				snippy.expand_or_advance()
 			else
 				fallback()
 			end
 		end, {'i', 's'}),
 		['<S-Tab>'] = cmp.mapping(function(fallback)
 			if snippy.can_jump(-1) then
-				snippy.jump(-1)
+				snippy.previous()
 			elseif cmp.visible() then
 				cmp.select_prev_item()
 			else
@@ -40,6 +47,19 @@ cmp.setup({
 		{name = 'nvim_lsp'},
 		{name = 'buffer'},
 		{name = 'path'},
+	})
+})
+
+cmp.setup.cmdline('/', {
+	sources = {
+		{name = 'buffer'}
+	}
+})
+
+cmp.setup.cmdline(':', {
+	sources = cmp.config.sources({
+		{name = 'path'},
+		{name = 'cmdline'}
 	})
 })
 
