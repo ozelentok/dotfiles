@@ -8,12 +8,17 @@ if [ "$#" -lt 2 ]; then
 	echo ""
 	exit 1
 fi
-LOCAL_USER=$USER
-LOCAL_GROUP=$(id -g -n $USER)
 REMOTE_HOST=$1
 REMOTE_USER=$2
 mkdir -p /mnt/sftp/$REMOTE_HOST
 set +e
+
+if [[ "$*" == *-u* ]]; then
+	fusermount -u /mnt/sftp/$REMOTE_HOST
+	rmdir /mnt/sftp/$REMOTE_HOST
+	echo "Share dismounted from /mnt/sftp/$REMOTE_HOST"
+	exit 0
+fi
 
 if [[ "${@:3}" != *directport* ]]; then
 	sshfs $REMOTE_USER@$REMOTE_HOST:/ \

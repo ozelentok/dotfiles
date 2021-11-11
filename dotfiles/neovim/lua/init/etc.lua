@@ -20,6 +20,16 @@ vim.g.nuake_position = 'top'
 require('formatter').setup({
 	filetype = {
 		python = {function() return {exe = 'yapf', stdin = true} end},
+		cpp = {
+			function() return {
+				exe = 'clang-format',
+				args = {'--assume-filename', vim.api.nvim_buf_get_name(0)},
+				stdin = true,
+				cwd = vim.fn.expand('%:p:h')
+			}
+			end
+		},
+
 	}
 })
 require('telescope').load_extension('gtags')
