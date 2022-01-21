@@ -224,6 +224,7 @@ class Installer:
         cls.gnome()
         cls.pikaur()
         cls.i3()
+        cls.mount_utils()
         cls.mpv()
         cls.neovim()
         cls.qtconfig()
