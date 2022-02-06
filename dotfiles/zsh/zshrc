@@ -62,10 +62,10 @@ fi
 # alias ll='ls -lFhX --time-style=long-iso'
 # alias la='ls -A'
 
-alias ll='lsd --color=auto --group-dirs --date="+%Y-%m-%d %H:%M" -lFX'
-alias lla='lsd --color=auto --group-dirs --date="+%Y-%m-%d %H:%M" -lFXA'
-alias la='lsd --color=auto --group-dirs -A'
-alias lsd='lsd --color=auto --group-dirs -1'
+alias ll='lsd --color=auto --group-dirs first --date="+%Y-%m-%d %H:%M" -lFX'
+alias lla='lsd --color=auto --group-dirs first --date="+%Y-%m-%d %H:%M" -lFXA'
+alias la='lsd --color=auto --group-dirs first -A'
+alias lsd='lsd --color=auto --group-dirs first -1'
 alias l='lsd'
 
 # Home and End

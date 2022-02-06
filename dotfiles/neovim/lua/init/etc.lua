@@ -33,3 +33,4 @@ require('formatter').setup({
 	}
 })
 require('telescope').load_extension('gtags')
+vim.cmd[[autocmd User TelescopePreviewerLoaded setlocal number]]
