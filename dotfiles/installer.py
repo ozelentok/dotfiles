@@ -113,6 +113,13 @@ class Installer:
         utils.install_aur_packages(['alttab-git', 'xkb-switch'])
 
     @classmethod
+    def picom(cls) -> None:
+        utils.install_packages(['picom'])
+        config_dir_path = Path.home() / '.config'
+        utils.mkdir(config_dir_path)
+        utils.symlink_dotfile(Path('picom/picom.conf'), config_dir_path)
+
+    @classmethod
     def mount_utils(cls) -> None:
         utils.install_packages(['sshfs', 'cifs-utils', 'fuse3'])
         utils.run_shell_command('sudo mkdir -p /mnt/sftp /mnt/cifs')
@@ -229,6 +236,7 @@ class Installer:
         cls.gnome()
         cls.pikaur()
         cls.i3()
+        cls.picom()
         cls.mount_utils()
         cls.mpv()
         cls.neovim()
