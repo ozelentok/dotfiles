@@ -56,12 +56,12 @@ cmp.setup.cmdline('/', {
 	}
 })
 
-cmp.setup.cmdline(':', {
-	sources = cmp.config.sources({
-		{name = 'path'},
-		{name = 'cmdline'}
-	})
-})
+-- cmp.setup.cmdline(':', {
+-- 	sources = cmp.config.sources({
+-- 		{name = 'path'},
+-- 		{name = 'cmdline'}
+-- 	})
+-- })
 
 local on_lsp_attach = function(_, bufnr)
 	vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
