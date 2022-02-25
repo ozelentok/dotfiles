@@ -1,0 +1,5 @@
+date: +%Y-%m-%d %H:%M
+color: 
+  when: auto
+sorting:
+  dir-grouping: first 

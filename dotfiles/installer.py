@@ -213,6 +213,11 @@ class Installer:
         utils.run_shell_command('sudo usermod -s $(which zsh) ${USER}')
         utils.run_shell_command('cd zsh/ZPrompt && make install TARGET_SHELL=zsh')
 
+        lsd_config_dir_path = Path.home() / '.config/lsd'
+        utils.mkdir(lsd_config_dir_path)
+        utils.symlink_dotfile(Path('zsh/lsd-config.yaml'),
+                              lsd_config_dir_path / 'config.yaml')
+
     @classmethod
     def all(cls) -> None:
         cls.base_packages()
