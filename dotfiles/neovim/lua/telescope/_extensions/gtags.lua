@@ -5,7 +5,7 @@ end
 
 local pickers = require('telescope.pickers')
 local finders = require('telescope.finders')
-local conf = require("telescope.config").values
+local conf = require('telescope.config').values
 local Path = require('plenary.path')
 
 local generate_gtags_picker = function(command, title)
