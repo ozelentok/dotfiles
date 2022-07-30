@@ -36,7 +36,7 @@ map('t', '<C-t>', '<C-\\><C-n>:RnvimrResize<CR>', {silent=true})
 map('n', '<C-w>w', ':HopWord<CR>')
 map('n', '<C-w>l', ':HopLine<CR>')
 map('n', '<C-w>p', ':HopPattern<CR>')
-map('n', '<C-W>c', ':HopChar1<CR>')
+map('n', '<C-w>c', ':HopChar1<CR>')
 
 map('n', '<leader>g', '<cmd>Git<CR>')
 

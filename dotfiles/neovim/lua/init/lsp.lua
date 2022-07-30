@@ -87,7 +87,6 @@ lspconfig.sumneko_lua.setup{
 	}
 }
 lspconfig.pyright.setup({on_attach = on_lsp_attach, capabilities = capabilities})
--- lspconfig.jedi_language_server.setup({on_attach = on_lsp_attach, capabilities = capabilities})
 lspconfig.html.setup({on_attach = on_lsp_attach, capabilities = capabilities})
 lspconfig.jsonls.setup({on_attach = on_lsp_attach, capabilities = capabilities})
 lspconfig.cssls.setup({on_attach = on_lsp_attach, capabilities = capabilities})

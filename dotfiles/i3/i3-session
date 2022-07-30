@@ -1,10 +1,11 @@
-#!/bin/bash
+#!/usr/bin/env zsh
 
 mkdir -p /tmp/0-screenshots /tmp/1-imgs
 type feh > /dev/null 2>&1 && feh --bg-fill ~/Pictures/wallpaper.png
 type autocutsel > /dev/null 2>&1 && autocutsel -selection PRIMARY -fork
-type picom > /dev/null 2>&1 && picom -c -b
-type alttab > /dev/null 2>&1 && alttab -w 1 -d 1 -sc 1 -s 2 -bg black -fg white -frame "#00AAFF" -t 160x140 &
-type nm-applet > /dev/null 2>&1 && nm-applet &
-if [[ -f /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 ]]; then /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 & fi
+type picom > /dev/null 2>&1 && picom -b
+type alttab > /dev/null 2>&1 && alttab -w 1 -d 1 -sc 1 -s 2 -bg black -fg white -frame "#00AAFF" -t 160x140 &!
+type nm-applet > /dev/null 2>&1 && nm-applet &!
+type blueman-applet > /dev/null 2>&1 && blueman-applet &!
+if [[ -f /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 ]]; then /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &! fi
 exec i3
