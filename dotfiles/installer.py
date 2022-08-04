@@ -146,7 +146,6 @@ class Installer:
             'pyright', 'clang', 'lua-language-server',
             'nodejs', 'npm'
         ])
-        utils.run_shell_command('sudo npm install -g neovim vscode-langservers-extracted')
         utils.run_shell_command('sudo ln -s -f -r $(which nvim) /usr/local/bin/vim')
 
         packer_dir_path = Path.home() / '.local/share/nvim/site/pack/packer/start/packer.nvim'
@@ -159,9 +158,13 @@ class Installer:
         utils.symlink_dotfile(Path('neovim/lua'), config_dir_path)
         utils.symlink_dotfile(Path('neovim/globalrc'), Path.home(), hidden=True)
         utils.symlink_dotfile(Path('neovim/ctags.conf'), Path.home() / '.ctags')
+        cls.upgrade_neovim_plugins()
 
+    @classmethod
+    def upgrade_neovim_plugins(cls):
+        utils.run_shell_command('sudo npm install -g neovim vscode-langservers-extracted')
         utils.run_shell_command('nvim -c "autocmd User PackerComplete quitall" -c "PackerSync"')
-        utils.run_shell_command('nvim -c "TSUpdateSync"')
+        utils.run_shell_command('nvim -c "TSUpdateSync" -c q')
 
     @classmethod
     def qtconfig(cls) -> None:
@@ -185,6 +188,10 @@ class Installer:
         utils.run_shell_command(
             f'echo "{samba_user} = \"{samba_user}\"" | sudo tee -a /etc/samba/smbusers > /dev/null')
         utils.run_shell_command('sudo systemctl enable smb')
+
+    @classmethod
+    def upgrade_scripts_dependencies(cls) -> None:
+        utils.run_shell_command('pip install --user -U -r scripts/requirements.txt')
 
     @classmethod
     def sensors(cls) -> None:
@@ -242,7 +249,15 @@ class Installer:
         cls.neovim()
         cls.qtconfig()
         cls.samba()
+        cls.upgrade_scripts_dependencies()
         cls.sensors()
         cls.smplayer()
         cls.X11()
         cls.zsh()
+
+
+    @classmethod
+    def upgrade(cls) -> None:
+        utils.run_shell_command('pikaur -Syu')
+        cls.upgrade_scripts_dependencies()
+        cls.upgrade_neovim_plugins()
