@@ -1,9 +1,9 @@
 require('nvim-treesitter.configs').setup({
-	ensure_installed = 'maintained',
-	highlight = {enable = true, additional_vim_regex_highlighting = false},
+	ensure_installed = 'all',
+	highlight = {enable = true, disable = {'markdown'}, additional_vim_regex_highlighting = true},
 	indent = {enable = true}
 })
-require('lualine').setup({options = {theme = 'material'}})
+require('lualine').setup({options = {theme = 'powerline'}})
 require('hop').setup()
 require('indent_blankline').setup({char_list = {'|', '¦', '┆'}, buftype_exclude = {'terminal'}})
 

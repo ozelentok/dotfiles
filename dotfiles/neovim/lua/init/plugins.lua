@@ -1,6 +1,7 @@
 require('packer').startup(function(use)
 	use 'wbthomason/packer.nvim'
 	use 'nvim-lua/plenary.nvim'
+	use 'sheerun/vim-polyglot'
 	use 'nvim-treesitter/nvim-treesitter'
 	use 'mhartington/formatter.nvim'
 	use 'marko-cerovac/material.nvim'
