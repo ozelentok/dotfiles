@@ -15,6 +15,8 @@ require('neoscroll.config').set_mappings(neoscroll_mappings)
 
 require('telescope').setup({defaults = {layout_strategy = 'bottom_pane'}})
 require('trouble').setup({})
+require('lsp_lines').setup()
+vim.diagnostic.config({virtual_text = true, virtual_lines = { only_current_line = true}})
 vim.g.nuake_position = 'top'
 
 require('formatter').setup({
