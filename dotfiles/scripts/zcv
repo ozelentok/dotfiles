@@ -1,0 +1,369 @@
+#!/usr/bin/env python3
+
+from datetime import datetime
+from enum import Enum
+from pathlib import Path
+from typing import Optional, cast
+import subprocess
+import typer
+import humanfriendly
+import dateparser
+
+app = typer.Typer()
+
+SUBTITLES_OPTIONS = 'Fontname=Roboto,Fontsize=24,PrimaryColour=&H00ffffff,BackColour=&H00000000,OutlineColour=&H00000000,Bold=1,Italic=0,Alignment=2,BorderStyle=1,Outline=0.9,Shadow=0.9,MarginL=20,MarginR=20,MarginV=10'
+X265_HQ_PARAMS = "bframes=8:psy-rd=1:aq-mode=3:aq-strength=0.8:deblock=1,1"
+
+
+def extract_duration(input_path: Path) -> float:
+    return float(
+        subprocess.check_output([
+            'ffprobe', '-v', 'error', '-show_entries', 'format=duration', '-of',
+            'default=noprint_wrappers=1:nokey=1', input_path
+        ]))
+
+
+def time_to_seconds(timestamp: str) -> Optional[float]:
+    if not timestamp:
+        return None
+    delta = cast(datetime, dateparser.parse(timestamp)) - cast(datetime, dateparser.parse('00:00:00'))
+    return delta.total_seconds()
+
+
+def calculate_duration(input_path: Path, time_from: str, time_to: str) -> float:
+    parsed_from = time_to_seconds(time_from)
+    parsed_to = time_to_seconds(time_to)
+    if parsed_from or parsed_from == 0:
+        if parsed_to:
+            return parsed_to - parsed_from
+        return extract_duration(input_path) - parsed_from
+    if parsed_to:
+        return extract_duration(input_path) - parsed_to
+    return extract_duration(input_path)
+
+
+class Preset(str, Enum):
+    slow = 'slow'
+    medium = 'medium'
+    fast = 'fast'
+
+
+class X265Tune(str, Enum):
+    animation = 'animation'
+    grain = 'grain'
+
+
+@app.command()
+def x265hq(
+    input_path: Path,
+    output_path: Path,
+    crf: float,
+    preset: Preset = typer.Option(Preset.slow, '-p', case_sensitive=False),
+    time_from: str = typer.Option('', '-from'),
+    time_to: str = typer.Option('', '-to'),
+    video_filter: str = typer.Option('', '-vf'),
+    tune: Optional[X265Tune] = typer.Option(None, '-t', case_sensitive=False)
+) -> None:
+    ffmpeg_args = ['ffmpeg', '-hide_banner', '-i', str(input_path)]
+    if time_from:
+        ffmpeg_args += ['-ss', time_from]
+    if time_to:
+        ffmpeg_args += ['-to', time_to]
+    if video_filter:
+        ffmpeg_args += ['-vf', video_filter]
+    ffmpeg_args += [
+        '-c:v', 'libx265', '-crf',
+        str(crf), '-preset', preset.name, '-pix_fmt', 'yuv420p10le', '-x265-params', X265_HQ_PARAMS,
+        '-c:s', 'copy',
+        '-c:a', 'aac', '-b:a', '128k'
+    ]
+    if tune:
+        ffmpeg_args += ['-tune', tune.name]
+    subprocess.check_call(ffmpeg_args + [str(output_path)])
+
+
+@app.command()
+def ix265hq(
+    input_path: Path,
+    output_path: Path,
+    crf: float,
+    fps: float,
+    video_filter: str = typer.Option('', '-vf'),
+    preset: Preset = typer.Option(Preset.slow, '-p', case_sensitive=False),
+    tune: Optional[X265Tune] = typer.Option(None, '-t', case_sensitive=False)
+) -> None:
+    ffmpeg_args = [
+        'ffmpeg', '-hide_banner', '-framerate',
+        str(fps), '-f', 'image2', '-i',
+        str(input_path)
+    ]
+    if video_filter:
+        ffmpeg_args += ['-vf', video_filter]
+    ffmpeg_args += [
+        '-c:v', 'libx265', '-crf',
+        str(crf), '-preset', preset.name, '-pix_fmt', 'yuv420p10le', '-x265-params', X265_HQ_PARAMS,
+        '-an'
+    ]
+    if tune:
+        ffmpeg_args += ['-tune', tune.name]
+    subprocess.check_call(ffmpeg_args + [str(output_path)])
+
+
+@app.command()
+def x264(
+    input_path: Path,
+    output_path: Path,
+    crf: float,
+    preset: Preset = typer.Option(Preset.slow, '-p', case_sensitive=False),
+    time_from: str = typer.Option('', '-from'),
+    time_to: str = typer.Option('', '-to'),
+    video_filter: str = typer.Option('', '-vf'),
+    audio_filter: str = typer.Option('', '-af'),
+    tune: Optional[X265Tune] = typer.Option(None, '-t', case_sensitive=False)
+) -> None:
+    ffmpeg_args = ['ffmpeg', '-hide_banner', '-i', str(input_path)]
+    if time_from:
+        ffmpeg_args += ['-ss', time_from]
+    if time_to:
+        ffmpeg_args += ['-to', time_to]
+    if video_filter:
+        ffmpeg_args += ['-vf', video_filter]
+    if audio_filter:
+        ffmpeg_args += ['-af', audio_filter]
+    ffmpeg_args += [
+        '-c:v', 'libx264', '-crf',
+        str(crf), '-preset', preset.name,
+        '-profile:v', 'main',
+        '-pix_fmt', 'yuv420p',
+        # '-c:a', 'copy', '-ac', '2',
+        '-c:a', 'aac', '-b:a', '128k',
+        # '-c:s', 'copy',
+        '-sn',
+        '-map_metadata', '-1', '-map_chapters', '-1',
+    ]
+    if tune:
+        ffmpeg_args += ['-tune', tune.name]
+    subprocess.check_call(ffmpeg_args + [str(output_path)])
+
+
+@app.command()
+def ix264(
+    input_path: Path,
+    output_path: Path,
+    crf: float,
+    fps: float,
+    video_filter: str = typer.Option('', '-vf'),
+    preset: Preset = typer.Option(Preset.slow, '-p', case_sensitive=False),
+    tune: Optional[X265Tune] = typer.Option(None, '-t', case_sensitive=False)
+) -> None:
+    ffmpeg_args = [
+        'ffmpeg', '-hide_banner', '-framerate',
+        str(fps), '-f', 'image2', '-i',
+        str(input_path)
+    ]
+    if video_filter:
+        ffmpeg_args += ['-vf', video_filter]
+    ffmpeg_args += [
+        '-c:v', 'libx264', '-crf',
+        str(crf), '-preset', preset.name, '-pix_fmt', 'yuv420p',
+        '-an'
+    ]
+    if tune:
+        ffmpeg_args += ['-tune', tune.name]
+    subprocess.check_call(ffmpeg_args + [str(output_path)])
+
+
+@app.command()
+def images(
+    input_path: Path,
+    output_path: Path,
+    time_from: str = typer.Option('', '-from'),
+    time_to: str = typer.Option('', '-to'),
+    video_filter: str = typer.Option('', '-vf')
+) -> None:
+    ffmpeg_args = ['ffmpeg', '-hide_banner', '-i', str(input_path)]
+    if time_from:
+        ffmpeg_args += ['-ss', time_from]
+    if time_to:
+        ffmpeg_args += ['-to', time_to]
+    if video_filter:
+        ffmpeg_args += ['-vf', video_filter]
+
+    if output_path.suffix.lower() in ('.jpg', '.jpeg'):
+        ffmpeg_args += ['-pix_fmt', 'yuvj444p']
+    ffmpeg_args += ['-qscale:v', '2', str(output_path)]
+    output_path.parent.mkdir(exist_ok=True)
+    subprocess.check_call(ffmpeg_args)
+
+
+@app.command()
+def webm(
+    input_path: Path,
+    output_path: Path,
+    output_size: str,
+    time_from: str = typer.Option('', '-from'),
+    time_to: str = typer.Option('', '-to'),
+    video_filter: str = typer.Option('', '-vf'),
+    with_audio: bool = typer.Option(False, '-audio/-no-audio'),
+    subtitles_path: Path = typer.Option(None, '-subs'),
+    bitexact: bool = typer.Option(False, '-bitexact')
+) -> None:
+    size_bytes = humanfriendly.parse_size(output_size)
+    duration = calculate_duration(input_path, time_from, time_to)
+    print(f'Duration: {duration}')
+    bps = int(8.0 * size_bytes / duration)
+    ffmpeg_args = ['ffmpeg', '-hide_banner', '-i', str(input_path)]
+    if time_from:
+        ffmpeg_args += ['-ss', time_from]
+    if time_to:
+        ffmpeg_args += ['-to', time_to]
+    if subtitles_path:
+        if video_filter:
+            video_filter += ','
+        video_filter += f'subtitles={str(subtitles_path)}:force_style=\'{SUBTITLES_OPTIONS}\''
+    if video_filter:
+        ffmpeg_args += ['-vf', video_filter]
+    ffmpeg_args += [
+        '-c:v', 'libvpx', '-b:v', str(bps),
+        # '-pix_fmt', 'yuva420p', '-auto-alt-ref', '0',
+        '-deadline', 'best', '-sn', '-map_metadata', '-1', '-map_chapters', '-1'
+    ]
+    bitexact_params = ['-bitexact'] if bitexact else []
+    subprocess.check_call(ffmpeg_args + ['-an', '-pass', '1'] + bitexact_params + ['-y', '-f', 'webm', '/dev/null'])
+    ffmpeg_args += ['-c:a', 'libvorbis', '-ac', '2', '-b:a', '80K'] if with_audio else ['-an']
+    subprocess.check_call(ffmpeg_args + ['-pass', '2' ] + bitexact_params + ['-y', str(output_path)])
+
+
+@app.command()
+def vp9webm(
+    input_path: Path,
+    output_path: Path,
+    output_size: str,
+    time_from: str = typer.Option('', '-from'),
+    time_to: str = typer.Option('', '-to'),
+    video_filter: str = typer.Option('', '-vf'),
+    with_audio: bool = typer.Option(False, '-audio/-no-audio'),
+    subtitles_path: Path = typer.Option(None, '-subs'),
+    bitexact: bool = typer.Option(False, '-bitexact')
+) -> None:
+    size_bytes = humanfriendly.parse_size(output_size)
+    duration = calculate_duration(input_path, time_from, time_to)
+    print(f'Duration: {duration}')
+    bps = int(8.0 * size_bytes / duration)
+    ffmpeg_args = ['ffmpeg', '-hide_banner', '-i', str(input_path)]
+    if time_from:
+        ffmpeg_args += ['-ss', time_from]
+    if time_to:
+        ffmpeg_args += ['-to', time_to]
+    if subtitles_path:
+        if video_filter:
+            video_filter += ','
+        video_filter += f'subtitles={str(subtitles_path)}:force_style=\'{SUBTITLES_OPTIONS}\''
+    if video_filter:
+        ffmpeg_args += ['-vf', video_filter]
+    ffmpeg_args += [
+        '-c:v', 'libvpx-vp9', '-b:v', str(bps),
+        '-row-mt', '1',
+        '-threads', '4',
+        '-cpu-used', '2',
+        # '-pix_fmt', 'yuv420p', #'-auto-alt-ref', '0',
+        '-deadline', 'good', '-sn', '-map_metadata', '-1', '-map_chapters', '-1'
+    ]
+    bitexact_params = ['-bitexact'] if bitexact else []
+    subprocess.check_call(ffmpeg_args + ['-an', '-pass', '1'] + bitexact_params + ['-y', '-f', 'webm', '/dev/null'])
+    ffmpeg_args += ['-c:a', 'libvorbis', '-ac', '2', '-b:a', '80K'] if with_audio else ['-an']
+    subprocess.check_call(ffmpeg_args + ['-pass', '2' ] + bitexact_params + ['-y', str(output_path)])
+
+
+
+
+@app.command()
+def iwebm(
+    input_path: Path,
+    output_path: Path,
+    output_size: str,
+    fps: float,
+    video_filter: str = typer.Option('', '-vf'),
+    audio_path: Path = typer.Option(None, '-audio'),
+    bitexact: bool = typer.Option(False, '-bitexact')
+) -> None:
+    size_bytes = humanfriendly.parse_size(output_size)
+    frames_count = len([1 for i in input_path.parent.iterdir() if i.is_file()])
+    bps = int(8.0 * size_bytes * fps / frames_count)
+    ffmpeg_args = [
+        'ffmpeg', '-hide_banner', '-framerate',
+        str(fps), '-f', 'image2', '-i',
+        str(input_path)
+    ]
+    if audio_path:
+        ffmpeg_args += ['-i', str(audio_path)]
+    if video_filter:
+        ffmpeg_args += ['-vf', video_filter]
+    ffmpeg_args += [
+        '-auto-alt-ref', '0',
+        '-c:v', 'libvpx', '-b:v',
+        str(bps), '-deadline', 'best', '-sn', '-map_metadata', '-1', '-map_chapters', '-1'
+    ]
+    bitexact_params = ['-bitexact'] if bitexact else []
+    subprocess.check_call(ffmpeg_args + ['-an', '-pass', '1'] + bitexact_params + ['-y', '-f', 'webm', '/dev/null'])
+    if audio_path:
+        ffmpeg_args += ['-c:a', 'libvorbis', '-b:a', '128K']
+    subprocess.check_call(ffmpeg_args + ['-pass', '2' ] + bitexact_params + ['-y', str(output_path)])
+
+
+@app.command()
+def ivp9webm(
+    input_path: Path,
+    output_path: Path,
+    output_size: str,
+    fps: float,
+    video_filter: str = typer.Option('', '-vf'),
+    audio_path: Path = typer.Option(None, '-audio')
+) -> None:
+    size_bytes = humanfriendly.parse_size(output_size)
+    frames_count = len([1 for i in input_path.parent.iterdir() if i.is_file()])
+    bps = int(8.0 * size_bytes * fps / frames_count)
+    ffmpeg_args = [
+        'ffmpeg', '-hide_banner', '-framerate',
+        str(fps), '-f', 'image2', '-i',
+        str(input_path)
+    ]
+    if audio_path:
+        ffmpeg_args += ['-i', str(audio_path)]
+    if video_filter:
+        ffmpeg_args += ['-vf', video_filter]
+    ffmpeg_args += [
+        '-auto-alt-ref', '0',
+        '-c:v', 'libvpx-vp9', '-b:v',
+        str(bps), '-deadline', 'best', '-sn', '-map_metadata', '-1', '-map_chapters', '-1'
+    ]
+    subprocess.check_call(ffmpeg_args + ['-pass', '1', '-an', '-y', '-f', 'webm', '/dev/null'])
+    if audio_path:
+        ffmpeg_args += ['-c:a', 'libvorbis', '-b:a', '128K']
+    subprocess.check_call(ffmpeg_args + ['-pass', '2', '-y', str(output_path)])
+
+
+@app.command()
+def copy(
+    input_path: Path,
+    output_path: Path,
+    time_from: str = typer.Option('', '-from'),
+    time_to: str = typer.Option('', '-to'),
+) -> None:
+    ffmpeg_args = ['ffmpeg', '-hide_banner']
+    if time_from:
+        ffmpeg_args += ['-ss', time_from]
+    if time_to:
+        ffmpeg_args += ['-to', time_to]
+    ffmpeg_args += [
+        '-i', str(input_path),
+        '-map', '0',
+        '-c:v', 'copy',
+        '-c:a', 'copy',
+        '-c:s', 'copy',
+    ]
+    subprocess.check_call(ffmpeg_args + ['-y', str(output_path)])
+
+
+if __name__ == "__main__":
+    app()

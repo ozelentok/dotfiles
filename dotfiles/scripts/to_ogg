@@ -1,0 +1,129 @@
+#!/usr/bin/env python3
+
+import os
+import subprocess
+import argparse
+import mutagen
+import mutagen.mp3
+from typing import Optional
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser()
+    parser.add_argument('source_dir')
+    args = parser.parse_args()
+
+    dir_name = os.path.basename(args.source_dir)
+    output_dir = os.path.join(args.source_dir, '..', 'ogg', dir_name.replace(' ', '_'))
+    os.makedirs(output_dir, exist_ok=True)
+
+    for entry in os.scandir(args.source_dir):
+        if entry.name.lower().endswith('.mp3'):
+            convert_mp3_file(entry.path, output_dir, 192000)
+        elif entry.name.lower().endswith('.m4a'):
+            convert_m4a_file(entry.path, output_dir)
+        elif entry.name.lower().endswith('.flac'):
+            convert_flac_file(entry.path, output_dir)
+        elif entry.name.lower().endswith('.wma'):
+            convert_wma_file(entry.path, output_dir)
+        elif entry.name.lower().endswith('.riff'):
+            convert_riff_file(entry.path, output_dir)
+        elif entry.name.lower().endswith('.mpeg'):
+            convert_mp3_file(entry.path, output_dir)
+        elif entry.name.lower().endswith('.wav'):
+            convert_wav_file(entry.path, output_dir)
+
+
+def run_ffmpeg(file_path: str, output_dir: str, dst_bitrate: int, strip: bool = False) -> None:
+    file_name = os.path.basename(file_path)
+    output_file_path = os.path.join(output_dir, f'{os.path.splitext(file_name)[0]}.ogg')
+
+    try:
+        args = [
+            'ffmpeg', '-hide_banner', '-i', file_path, '-vn', '-c:a', 'libvorbis', '-b:a',
+            str(dst_bitrate)
+        ]
+        if strip:
+            args += ['-map_metadata', '-1', '-map_chapters', '-1', '-sn']
+        args += ['-y', output_file_path]
+        subprocess.run(args, check=True)
+    except:
+        pass
+
+
+def convert_mp3_file(file_path: str, output_dir: str, forced_bitrate: Optional[int] = None) -> None:
+    src_audio_file = mutagen.File(file_path)
+    bitrate_mode = src_audio_file.info.bitrate_mode
+    src_bitrate = src_audio_file.info.bitrate
+    mode = src_audio_file.info.mode
+
+    if bitrate_mode == mutagen.mp3.BitrateMode.UNKNOWN:
+        print(f'Bit rate is unknown, guessed as: {src_bitrate}')
+
+    if forced_bitrate:
+        dst_bitrate = forced_bitrate
+    elif mode == mutagen.mp3.MONO:
+        dst_bitrate = 64000
+    elif src_bitrate >= 310 * 1000:
+        dst_bitrate = 192000
+    elif src_bitrate >= 200 * 1000:
+        dst_bitrate = 160000
+    elif src_bitrate >= 180 * 1000:
+        dst_bitrate = 160000
+    elif src_bitrate >= 140 * 1000:
+        dst_bitrate = 128000
+    elif src_bitrate >= 127 * 1000:
+        dst_bitrate = 96000
+    elif src_bitrate < 64000:
+        dst_bitrate = 192000
+        raise ValueError(f'Bit rate should not be this low: {src_bitrate}, from {file_path}')
+    else:
+        dst_bitrate = src_bitrate
+
+    print(f'Converting {file_path}, from {src_bitrate} to {dst_bitrate}')
+    run_ffmpeg(file_path, output_dir, dst_bitrate)
+
+
+def convert_m4a_file(file_path: str, output_dir: str) -> None:
+    dst_bitrate = 192000
+    print(f'Converting {file_path}, to {dst_bitrate}')
+    run_ffmpeg(file_path, output_dir, dst_bitrate)
+
+
+def convert_flac_file(file_path: str, output_dir: str) -> None:
+    dst_bitrate = 224000
+
+    print(f'Converting {file_path}, to {dst_bitrate}')
+    run_ffmpeg(file_path, output_dir, dst_bitrate)
+
+
+def convert_ogg_opus_file(file_path: str, output_dir: str) -> None:
+    dst_bitrate = 192000
+
+    print(f'Converting {file_path}, to {dst_bitrate}')
+    run_ffmpeg(file_path, output_dir, dst_bitrate)
+
+
+def convert_wma_file(file_path: str, output_dir: str) -> None:
+    dst_bitrate = 128000
+
+    print(f'Converting {file_path}, to {dst_bitrate}')
+    run_ffmpeg(file_path, output_dir, dst_bitrate)
+
+
+def convert_riff_file(file_path: str, output_dir: str) -> None:
+    dst_bitrate = 128000
+
+    print(f'Converting {file_path}, to {dst_bitrate}')
+    run_ffmpeg(file_path, output_dir, dst_bitrate)
+
+
+def convert_wav_file(file_path: str, output_dir: str) -> None:
+    dst_bitrate = 32000
+
+    print(f'Converting {file_path}, to {dst_bitrate}')
+    run_ffmpeg(file_path, output_dir, dst_bitrate)
+
+
+if __name__ == '__main__':
+    main()

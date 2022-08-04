@@ -1,0 +1,151 @@
+#!/usr/bin/env python
+
+import argparse
+import os
+from pathlib import Path
+from typing import Any
+import gi
+gi.require_version('Gtk', '3.0')
+gi.require_version('Gst', '1.0')
+from gi.repository import Gst, Gtk, Gdk
+
+ALLOWED_SOUND_FILES = ['.ogg', '.aac', '.mp3']
+
+class MyWindow(Gtk.Window):
+    _button_to_file: dict[Gtk.Widget, Path]
+    _listboxes: list[Gtk.ListBox]
+    _search_text: str
+    _player: Any
+    _sound_directory: Path
+
+    def __init__(self, sound_directory: Path):
+        super().__init__()
+        self._button_to_file = {}
+        self._listboxes = []
+        self._search_text = ''
+        self._sound_directory = sound_directory
+
+        self._player = Gst.ElementFactory.make('playbin', 'player')
+        bus = self._player.get_bus()
+        bus.add_signal_watch()
+        bus.connect('message', self._on_player_bus_message)
+
+        self._load_css()
+        self.set_default_size(600, 800)
+        self.set_title('ZSoundboard')
+
+        main_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
+        self.add(main_box)
+
+        search_entry = Gtk.SearchEntry()
+        search_entry.connect('search_changed', self._on_search_change)
+        main_box.pack_start(search_entry, False, True, 0)
+
+        self._stop_button = Gtk.Button(label='Stop ■')
+        self._stop_button.connect('clicked', self._on_stop_button_click)
+        self._stop_button.set_sensitive(False)
+        main_box.pack_start(self._stop_button, False, True, 0)
+
+        self._scroll_win = Gtk.ScrolledWindow()
+        self._scroll_win.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
+        main_box.pack_start(self._scroll_win, True, True, 0)
+
+        self._box = Gtk.FlowBox()
+        self._box.set_selection_mode(Gtk.SelectionMode.NONE)
+        self._scroll_win.add(self._box)
+        self._init_sound_buttons()
+
+    def _load_css(self) -> None:
+        css = '''
+        .sound-dir-header { font-size: 1.5em; }
+        '''
+        css_provider = Gtk.CssProvider()
+        css_provider.load_from_data(css.encode())
+        context = Gtk.StyleContext()
+        screen = Gdk.Screen.get_default()
+        context.add_provider_for_screen(screen, css_provider,
+                                        Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+
+    def _init_sound_buttons(self) -> None:
+        def listbox_filter_func(row, data, notify_destroy):
+            return self._listbox_filter(row, data, notify_destroy)
+
+        for current_dir, _, files in sorted(os.walk(self._sound_directory, followlinks=True)):
+            dir_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
+            self._box.add(dir_box)
+            label = Gtk.Label(label=Path(current_dir).name)
+            label.get_style_context().add_class('sound-dir-header')
+            dir_box.pack_start(label, False, True, 12)
+
+            dir_listbox = Gtk.ListBox()
+            dir_listbox.set_selection_mode(Gtk.SelectionMode.NONE)
+            dir_listbox.set_filter_func(listbox_filter_func, None, False)
+            dir_box.pack_start(dir_listbox, True, True, 0)
+            self._listboxes.append(dir_listbox)
+
+            files.sort()
+            for file_name in files:
+                suffix = Path(file_name).suffix.lower()
+                if suffix not in ALLOWED_SOUND_FILES:
+                    continue
+                row = Gtk.ListBoxRow()
+                dir_listbox.add(row)
+
+                button = Gtk.Button(label=file_name)
+                file_path = Path(current_dir) / file_name
+                self._button_to_file[button] = file_path
+                button.connect('clicked', self._on_button_click)
+                row.add(button)
+
+    def _on_search_change(self, widget: Gtk.SearchEntry) -> None:
+        self._search_text = widget.get_text().lower()
+        for lb in self._listboxes:
+            lb.invalidate_filter()
+
+    def _on_button_click(self, widget: Gtk.Widget) -> None:
+        file_path = self._button_to_file[widget]
+        self._play_audio_file(file_path)
+
+    def _on_stop_button_click(self, widget: Gtk.Widget) -> None:
+        self._stop_audio()
+
+    def _listbox_filter(self, row: Gtk.ListBoxRow, data, notify_destroy):
+        if not self._search_text:
+            return True
+        button: Gtk.Button = row.get_child()
+        file_name = self._button_to_file[button].name.lower()
+        return self._search_text in file_name
+
+    def _play_audio_file(self, file_path: Path) -> None:
+        self._player.set_state(Gst.State.NULL)
+        self._player.set_property('uri', file_path.as_uri())
+        self._player.set_state(Gst.State.PLAYING)
+        self._stop_button.set_sensitive(True)
+
+    def _stop_audio(self) -> None:
+        self._player.set_state(Gst.State.NULL)
+        self._stop_button.set_sensitive(False)
+
+    def _on_player_bus_message(self, bus, message):
+        t = message.type
+        if t == Gst.MessageType.EOS:
+            self._stop_audio()
+        elif t == Gst.MessageType.ERROR:
+            self._stop_audio()
+            self._player.set_state(Gst.State.NULL)
+            err, debug = message.parse_error()
+            print(f'Error: {err}: {debug}')
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser()
+    parser.add_argument('dir', help='Directory containing sound files', type=Path)
+    args = parser.parse_args()
+    Gst.init(None)
+    win = MyWindow(args.dir)
+    win.connect('destroy', Gtk.main_quit)
+    win.show_all()
+    Gtk.main()
+
+if __name__ == '__main__':
+    main()
