@@ -3,7 +3,7 @@ require('packer').startup(function(use)
 	use 'nvim-lua/plenary.nvim'
 	use 'sheerun/vim-polyglot'
 	use 'nvim-treesitter/nvim-treesitter'
-	use 'mhartington/formatter.nvim'
+	use 'jose-elias-alvarez/null-ls.nvim'
 	use 'marko-cerovac/material.nvim'
 	use 'norcalli/nvim-colorizer.lua'
 	use 'kyazdani42/nvim-web-devicons'

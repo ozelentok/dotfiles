@@ -142,9 +142,12 @@ class Installer:
     def neovim(cls) -> None:
         utils.install_packages([
             'neovim', 'python-neovim',
-            'xsel', 'xclip', 'words', 'global', 'python-pygments',
-            'pyright', 'clang', 'lua-language-server',
             'nodejs', 'npm'
+            'xsel', 'xclip', 'words', 'global', 'python-pygments',
+            'pyright',
+            'clang',
+            'lua-language-server',
+            'sqlfluff',
         ])
         utils.run_shell_command('sudo ln -s -f -r $(which nvim) /usr/local/bin/vim')
 

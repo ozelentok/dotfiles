@@ -86,8 +86,38 @@ lspconfig.sumneko_lua.setup{
 		}
 	}
 }
-lspconfig.pyright.setup({on_attach = on_lsp_attach, capabilities = capabilities})
-lspconfig.html.setup({on_attach = on_lsp_attach, capabilities = capabilities})
+lspconfig.html.setup({on_attach = on_lsp_attach, capabilities = capabilities,
+	autoFixOnSave = false,
+	html = {
+		format = {
+			templating = true,
+			wrapLineLength = 200,
+			wrapAttributes = 'force-aligned',
+		},
+		editor = {
+			formatOnSave = false,
+			formatOnPaste = false,
+			formatOnType = false,
+		},
+		hover = {
+			documentation = true,
+			references = true,
+		},
+	},
+})
 lspconfig.jsonls.setup({on_attach = on_lsp_attach, capabilities = capabilities})
 lspconfig.cssls.setup({on_attach = on_lsp_attach, capabilities = capabilities})
 lspconfig.clangd.setup({on_attach = on_lsp_attach, capabilities = capabilities})
+lspconfig.pyright.setup({on_attach = on_lsp_attach, capabilities = capabilities})
+
+local null_ls = require('null-ls')
+null_ls.setup({
+	sources = {
+		null_ls.builtins.diagnostics.sqlfluff.with({extra_args = {'--dialect','sqlite'}}),
+		null_ls.builtins.diagnostics.trail_space,
+		null_ls.builtins.formatting.json_tool,
+		null_ls.builtins.formatting.yapf,
+		null_ls.builtins.formatting.trim_whitespace,
+		null_ls.builtins.completion.spell,
+	},
+})
