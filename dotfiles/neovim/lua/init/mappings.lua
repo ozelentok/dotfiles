@@ -39,6 +39,7 @@ map('n', '<C-w>p', ':HopPattern<CR>')
 map('n', '<C-w>c', ':HopChar1<CR>')
 
 map('n', '<leader>g', '<cmd>Git<CR>')
+vim.keymap.set('n', '<leader>ff', vim.lsp.buf.formatting_seq_sync)
 
 map('n', '<C-p>', '<cmd>Telescope find_files<CR>')
 map('n', '<C-g>', '<cmd>Telescope git_files<CR>')
