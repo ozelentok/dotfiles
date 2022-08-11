@@ -142,7 +142,7 @@ class Installer:
     def neovim(cls) -> None:
         utils.install_packages([
             'neovim', 'python-neovim',
-            'nodejs', 'npm'
+            'nodejs', 'npm',
             'xsel', 'xclip', 'words', 'global', 'python-pygments',
             'pyright',
             'clang',
