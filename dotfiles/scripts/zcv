@@ -38,7 +38,7 @@ def calculate_duration(input_path: Path, time_from: str, time_to: str) -> float:
             return parsed_to - parsed_from
         return extract_duration(input_path) - parsed_from
     if parsed_to:
-        return extract_duration(input_path) - parsed_to
+        return parsed_to
     return extract_duration(input_path)
 
 
@@ -135,8 +135,9 @@ def x264(
         str(crf), '-preset', preset.name,
         '-profile:v', 'main',
         '-pix_fmt', 'yuv420p',
-        # '-c:a', 'copy', '-ac', '2',
-        '-c:a', 'aac', '-b:a', '128k',
+        '-c:a', 'copy',
+        #'-ac', '2',
+        #'-c:a', 'aac', '-b:a', '128k',
         # '-c:s', 'copy',
         '-sn',
         '-map_metadata', '-1', '-map_chapters', '-1',
@@ -266,7 +267,8 @@ def vp9webm(
         '-row-mt', '1',
         '-threads', '4',
         '-cpu-used', '2',
-        # '-pix_fmt', 'yuv420p', #'-auto-alt-ref', '0',
+         '-pix_fmt', 'yuv420p',
+        #'-auto-alt-ref', '0',
         '-deadline', 'good', '-sn', '-map_metadata', '-1', '-map_chapters', '-1'
     ]
     bitexact_params = ['-bitexact'] if bitexact else []
@@ -318,7 +320,8 @@ def ivp9webm(
     output_size: str,
     fps: float,
     video_filter: str = typer.Option('', '-vf'),
-    audio_path: Path = typer.Option(None, '-audio')
+    audio_path: Path = typer.Option(None, '-audio'),
+    bitexact: bool = typer.Option(False, '-bitexact')
 ) -> None:
     size_bytes = humanfriendly.parse_size(output_size)
     frames_count = len([1 for i in input_path.parent.iterdir() if i.is_file()])
@@ -333,14 +336,18 @@ def ivp9webm(
     if video_filter:
         ffmpeg_args += ['-vf', video_filter]
     ffmpeg_args += [
-        '-auto-alt-ref', '0',
-        '-c:v', 'libvpx-vp9', '-b:v',
-        str(bps), '-deadline', 'best', '-sn', '-map_metadata', '-1', '-map_chapters', '-1'
+        '-c:v', 'libvpx-vp9', '-b:v', str(bps),
+        '-row-mt', '1',
+        '-threads', '4',
+        '-cpu-used', '2',
+        '-pix_fmt', 'yuv444p', #'-auto-alt-ref', '0',
+        '-deadline', 'good', '-sn', '-map_metadata', '-1', '-map_chapters', '-1'
     ]
-    subprocess.check_call(ffmpeg_args + ['-pass', '1', '-an', '-y', '-f', 'webm', '/dev/null'])
+    bitexact_params = ['-bitexact'] if bitexact else []
+    subprocess.check_call(ffmpeg_args + ['-an', '-pass', '1'] + bitexact_params + ['-y', '-f', 'webm', '/dev/null'])
     if audio_path:
         ffmpeg_args += ['-c:a', 'libvorbis', '-b:a', '128K']
-    subprocess.check_call(ffmpeg_args + ['-pass', '2', '-y', str(output_path)])
+    subprocess.check_call(ffmpeg_args + ['-pass', '2' ] + bitexact_params + ['-y', str(output_path)])
 
 
 @app.command()
