@@ -56,13 +56,6 @@ cmp.setup.cmdline('/', {
 	}
 })
 
--- cmp.setup.cmdline(':', {
--- 	sources = cmp.config.sources({
--- 		{name = 'path'},
--- 		{name = 'cmdline'}
--- 	})
--- })
-
 local on_lsp_attach = function(_, bufnr)
 	vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 	require('lsp_signature').on_attach({hint_enable = false, hi_parameter = 'MoreMsg'}, bufnr)
@@ -118,6 +111,5 @@ null_ls.setup({
 		null_ls.builtins.formatting.json_tool,
 		null_ls.builtins.formatting.yapf,
 		null_ls.builtins.formatting.trim_whitespace,
-		null_ls.builtins.completion.spell,
 	},
 })
