@@ -8,8 +8,7 @@ vim.g.nuake_position = 'top'
 require('lualine').setup({options = {theme = 'powerline'}})
 require('hop').setup()
 require('indent_blankline').setup({char_list = {'|', '¦', '┆'}, buftype_exclude = {'terminal'}})
-require('lsp_lines').setup()
-vim.diagnostic.config({virtual_text = true, virtual_lines = { only_current_line = true}})
+vim.diagnostic.config({virtual_text = true})
 
 local neoscroll_mappings = {}
 neoscroll_mappings['<C-u>'] = {'scroll', {'-vim.wo.scroll', 'true', '160'}}
