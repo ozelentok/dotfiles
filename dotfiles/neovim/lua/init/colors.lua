@@ -24,5 +24,5 @@ require('material').setup({
 		background = true
 	},
 })
-vim.cmd[[colorscheme material]]
+vim.cmd [[colorscheme material]]
 require('colorizer').setup()

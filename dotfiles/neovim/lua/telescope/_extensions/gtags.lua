@@ -15,7 +15,7 @@ local generate_gtags_picker = function(command, title)
 		local results = {}
 		for l in proc:lines() do
 			local _, _, path, line_number, text = string.find(l, '([^\t]+)\t(%d+)\t(.*)')
-			table.insert(results, {path, tonumber(line_number, 10), text})
+			table.insert(results, { path, tonumber(line_number, 10), text })
 		end
 		proc.close()
 
@@ -23,7 +23,7 @@ local generate_gtags_picker = function(command, title)
 			results = results,
 			entry_maker = function(r)
 				local cwd = vim.fn.expand(opts.cwd or vim.loop.cwd())
-				local abs_path = Path:new({cwd, r[1]}):absolute()
+				local abs_path = Path:new({ cwd, r[1] }):absolute()
 				return {
 					filename = r[1],
 					path = abs_path,
@@ -42,9 +42,9 @@ local generate_gtags_picker = function(command, title)
 	end
 end
 
-return telescope.register_extension{
+return telescope.register_extension {
 	exports = {
 		def = generate_gtags_picker('-d', 'Gtags Definitions'),
-		ref = generate_gtags_picker('-r', 'Gtags Refrences')
+		ref = generate_gtags_picker('-r', 'Gtags References')
 	}
 }
