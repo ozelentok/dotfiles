@@ -3,6 +3,7 @@ vim.o.backup = true
 io.popen('mkdir -p /tmp/nvim').close()
 vim.o.directory = '/tmp/nvim'
 vim.o.backupdir = '/tmp/nvim'
+vim.o.undodir = '/tmp/nvim'
 vim.o.inccommand = 'split'
 vim.o.ignorecase = true
 vim.o.wildignore = '*.swp,.bak,*.pyc,*.class,*.o,*.obj'
@@ -17,7 +18,6 @@ vim.o.expandtab = false
 vim.o.mouse = 'a'
 vim.o.textwidth = 0
 vim.o.undofile = true
-vim.o.undodir = '/tmp'
 vim.o.iskeyword = 'a-z,A-Z,48-57,_,-'
 vim.o.dictionary = '/usr/share/dict/words'
 vim.o.modeline = false
