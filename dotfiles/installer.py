@@ -165,7 +165,7 @@ class Installer:
 
     @classmethod
     def upgrade_neovim_plugins(cls):
-        utils.run_shell_command('sudo npm install -g neovim vscode-langservers-extracted')
+        utils.run_shell_command('sudo npm install -g neovim eslint vscode-langservers-extracted')
         utils.run_shell_command('nvim -c "autocmd User PackerComplete quitall" -c "PackerSync"')
         utils.run_shell_command('nvim -c "TSUpdateSync" -c q')
 
