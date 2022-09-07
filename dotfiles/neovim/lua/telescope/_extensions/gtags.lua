@@ -1,6 +1,6 @@
 local has_telescope, telescope = pcall(require, 'telescope')
 if not has_telescope then
-	error('This plugins requires nvim-telescope/telescope.nvim')
+	error('gtags plugin requires nvim-telescope/telescope.nvim')
 end
 
 local pickers = require('telescope.pickers')
@@ -12,12 +12,13 @@ local generate_gtags_picker = function(command, title)
 	return function(opts)
 		local tag = opts.search or vim.fn.expand('<cword>')
 		local proc = io.popen(string.format('global -q %s --result=ctags-mod -- "%s"', command, tag))
+		assert(proc, 'Failed to run gtags global')
 		local results = {}
 		for l in proc:lines() do
 			local _, _, path, line_number, text = string.find(l, '([^\t]+)\t(%d+)\t(.*)')
 			table.insert(results, { path, tonumber(line_number, 10), text })
 		end
-		proc.close()
+		proc:close()
 
 		local finder = finders.new_table({
 			results = results,
