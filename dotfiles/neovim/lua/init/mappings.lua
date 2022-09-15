@@ -63,3 +63,4 @@ map('n', '<leader>mr', '<cmd>Telescope gtags ref initial_mode=normal<CR>')
 
 map('n', '<leader>t', '<cmd>TroubleToggle document_diagnostics<CR>')
 map('n', '<leader>wt', '<cmd>TroubleToggle workspace_diagnostics<CR>')
+map('n', '<leader><leader>d', '<cmd>diffthis<CR><C-w><C-w><cmd>diffthis<CR><C-w><C-w>')
