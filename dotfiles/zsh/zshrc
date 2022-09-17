@@ -129,7 +129,7 @@ if ! pgrep -u "$USER" ssh-agent > /dev/null; then
 	ssh-agent > "$SSH_AGENT_ENV_PATH"
 	chmod 600 "$SSH_AGENT_ENV_PATH"
 fi
-if [ ! -z "$SSH_AUTH_SOCK" ]; then
+if [ -z "$SSH_AUTH_SOCK" ]; then
 	source "$SSH_AGENT_ENV_PATH" > /dev/null
 fi
 
