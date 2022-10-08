@@ -67,6 +67,7 @@ alias lla='lsd -lFXA'
 alias la='lsd -A'
 alias lsd='lsd -1'
 alias l='lsd'
+alias rm='rm -I'
 
 # Home and End
 bindkey "\e[1~" beginning-of-line
