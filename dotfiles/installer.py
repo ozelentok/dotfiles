@@ -209,6 +209,13 @@ class Installer:
         utils.copy_dotfile(Path('smplayer/smplayer.ini'), config_dir_path)
 
     @classmethod
+    def wezterm(cls) -> None:
+        utils.install_packages(['wezterm'])
+        config_dir_path = Path.home() / '.config/wezterm'
+        utils.mkdir(config_dir_path)
+        utils.symlink_dotfile(Path('wezterm/wezterm.lua'), config_dir_path)
+
+    @classmethod
     def X11(cls) -> None:
         utils.install_packages(['xorg-server', 'xorg-xinit', 'xorg-xkill',
                                 'xorg-xhost', 'xorg-xev'])
