@@ -10,7 +10,6 @@ class Installer:
     def base_packages(cls) -> None:
         utils.install_packages([
             'htop',
-            'ranger',
             'mlocate',
             'ripgrep',
             'unrar', 'p7zip', 'unzip',
@@ -195,6 +194,13 @@ class Installer:
         utils.symlink_dotfile(Path('qtconfig/Trolltech.conf'), config_dir_path)
 
     @classmethod
+    def ranger(cls) -> None:
+        utils.install_packages(['ranger', 'ueberzug'])
+        config_dir_path = Path.home() / '.config/ranger'
+        utils.mkdir(config_dir_path)
+        utils.symlink_dotfile(Path('ranger/rc.conf'), config_dir_path)
+
+    @classmethod
     def samba(cls) -> None:
         utils.install_packages(['samba'])
         samba_user = input('Enter Samba Username: ')
@@ -275,10 +281,12 @@ class Installer:
         cls.mpv()
         cls.neovim()
         cls.qtconfig()
+        cls.ranger()
         cls.samba()
         cls.upgrade_scripts_dependencies()
         cls.sensors()
         cls.smplayer()
+        cls.wezterm()
         cls.X11()
         cls.zsh()
 
