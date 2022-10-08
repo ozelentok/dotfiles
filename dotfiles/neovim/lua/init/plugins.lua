@@ -17,6 +17,7 @@ require('packer').startup(function(use)
 	use 'folke/trouble.nvim'
 	use 'Lenovsky/nuake'
 	use 'rstacruz/vim-closer'
+	use 'kylechui/nvim-surround'
 	use 'neovim/nvim-lspconfig'
 	use 'hrsh7th/nvim-cmp'
 	use 'hrsh7th/cmp-nvim-lsp'

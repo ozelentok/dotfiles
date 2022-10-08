@@ -12,7 +12,7 @@ require('material').setup({
 	custom_colors = {
 		fg = '#FFFFFF',
 		bg = '#000000',
-		bg_alt = '#303030',
+		bg_alt = '#202020',
 		bg_num = '#161616',
 		bg_sign = '#161616',
 		line_numbers = '#c4a000'
@@ -25,4 +25,4 @@ require('material').setup({
 	},
 })
 vim.cmd [[colorscheme material]]
-require('colorizer').setup()
+require('colorizer').setup({})

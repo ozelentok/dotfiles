@@ -5,6 +5,7 @@ require('nvim-treesitter.configs').setup({
 })
 
 vim.g.nuake_position = 'top'
+require('nvim-surround').setup()
 require('lualine').setup({ options = { theme = 'powerline' } })
 require('hop').setup()
 require('indent_blankline').setup({ char_list = { '|', '¦', '┆' }, buftype_exclude = { 'terminal' } })
