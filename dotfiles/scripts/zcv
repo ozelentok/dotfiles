@@ -118,6 +118,7 @@ def x264(
     time_from: str = typer.Option('', '-from'),
     time_to: str = typer.Option('', '-to'),
     video_filter: str = typer.Option('', '-vf'),
+    with_audio: bool = typer.Option(False, '-audio/-no-audio'),
     audio_filter: str = typer.Option('', '-af'),
     tune: Optional[X265Tune] = typer.Option(None, '-t', case_sensitive=False)
 ) -> None:
@@ -135,13 +136,11 @@ def x264(
         str(crf), '-preset', preset.name,
         '-profile:v', 'main',
         '-pix_fmt', 'yuv420p',
-        '-c:a', 'copy',
-        #'-ac', '2',
-        #'-c:a', 'aac', '-b:a', '128k',
-        # '-c:s', 'copy',
         '-sn',
         '-map_metadata', '-1', '-map_chapters', '-1',
     ]
+    # ffmpeg_args += ['-c:a', 'aac', '-ac', '2', '-b:a', '128K'] if with_audio else ['-an']
+    ffmpeg_args += ['-c:a', 'copy'] if with_audio else ['-an']
     if tune:
         ffmpeg_args += ['-tune', tune.name]
     subprocess.check_call(ffmpeg_args + [str(output_path)])
