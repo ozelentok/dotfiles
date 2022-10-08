@@ -5,32 +5,45 @@ from . import utils
 
 
 class Installer:
+
     @classmethod
     def base_packages(cls) -> None:
         utils.install_packages([
-            'firefox-developer-edition',
-            'chromium',
-            'htop', 'ranger', 'mlocate', 'ripgrep',
+            'htop',
+            'ranger',
+            'mlocate',
+            'ripgrep',
             'unrar', 'p7zip', 'unzip',
-            'rsync', 'strace', 'lsof', 'man',
-            'keepassxc',
+            'rsync',
+            'strace',
+            'lsof',
+            'man',
+            'ntfs-3g',
+            'exfat-utils', 'fuse-exfat',
+            'udisks2',
+            'inetutils',
+            'net-tools',
+            'bind-tools',
             'imagemagick',
-            'ntfs-3g', 'exfat-utils', 'fuse-exfat', 'udisks2',
-            'inetutils', 'net-tools', 'bind-tools',
-            'wireshark-qt',
-            'pulseaudio', 'pulseaudio-alsa', 'pavucontrol', 'alsa-utils',
+
             'python-pip',
             'nodejs', 'npm',
-            'polkit', 'polkit-gnome',
-            'eog', 'evince'
             'ctags',
-            'vlc',
-            'audacity',
-            'libreoffice-fresh',
+
+            'pulseaudio', 'pulseaudio-alsa', 'pavucontrol', 'alsa-utils',
+            'polkit', 'polkit-gnome',
+
+            'firefox-developer-edition',
+            'chromium',
+            'keepassxc',
+            'eog',
+            'evince'
             'rdesktop',
-            'dunst',
-            'scrot',
+            'audacity',
+            'wireshark-qt',
+            'libreoffice-fresh',
             'wine'
+            'vlc',
         ])
 
     @classmethod
@@ -99,7 +112,9 @@ class Installer:
     @classmethod
     def i3(cls) -> None:
         utils.install_packages([
-            'i3-wm', 'i3lock', 'py3status', 'dmenu', 'feh', 'autocutsel',
+            'i3-wm', 'i3lock', 'py3status',
+            'dmenu', 'feh', 'autocutsel',
+            'dunst', 'scrot',
             'python-pytz', 'python-tzlocal', 'xorg-xset'
         ])
 
@@ -142,9 +157,10 @@ class Installer:
     @classmethod
     def neovim(cls) -> None:
         utils.install_packages([
-            'neovim', 'python-neovim',
+            'neovim', 'python-neovim', 'words',
+            'xsel', 'xclip',
             'nodejs', 'npm',
-            'xsel', 'xclip', 'words', 'global', 'python-pygments',
+            'global', 'python-pygments',
             'pyright',
             'clang',
             'lua-language-server',
@@ -265,7 +281,6 @@ class Installer:
         cls.smplayer()
         cls.X11()
         cls.zsh()
-
 
     @classmethod
     def upgrade(cls) -> None:
