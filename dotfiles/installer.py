@@ -22,6 +22,7 @@ class Installer:
             'python-pip',
             'nodejs', 'npm',
             'polkit', 'polkit-gnome',
+            'eog', 'evince'
             'ctags',
             'vlc',
             'audacity',
@@ -67,7 +68,7 @@ class Installer:
 
     @classmethod
     def gnome(cls) -> None:
-        utils.install_packages(['gtk2', 'gtk3', 'gnome-terminal', 'eog', 'evince'])
+        utils.install_packages(['gtk2', 'gtk3'])
         themes_dir_path = Path.home() / '.themes'
         icons_dir_path = Path.home() / '.local/share/icons'
         utils.mkdir(themes_dir_path)
