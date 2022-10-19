@@ -3,20 +3,16 @@ require('material').setup({
 	contrast = {
 		sidebars = true,
 		floating_windows = true,
-		line_numbers = true,
-		sign_column = true,
 		cursor_line = true,
 		non_current_windows = false,
-		popup_menu = true,
 	},
-	custom_colors = {
-		fg = '#FFFFFF',
-		bg = '#000000',
-		bg_alt = '#202020',
-		bg_num = '#161616',
-		bg_sign = '#161616',
-		line_numbers = '#c4a000'
-	},
+	custom_colors = function (colors)
+			colors.editor.fg = '#FFFFFF'
+			colors.editor.fg_dark = '#FFFFFF'
+			colors.editor.bg = '#000000'
+			colors.editor.bg_alt = '#202020'
+			colors.editor.line_numbers = '#c4a000'
+	end,
 	high_visibility = {
 		darker = true
 	},

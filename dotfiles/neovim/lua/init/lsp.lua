@@ -65,7 +65,7 @@ local lua_rpath = vim.split(package.path, ';')
 table.insert(lua_rpath, 'lua/?.lua')
 table.insert(lua_rpath, 'lua/?/init.lua')
 
-local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
 capabilities = vim.tbl_extend('force', capabilities, { offsetEncoding = 'utf-8' })
 lspconfig.sumneko_lua.setup {
 	cmd = { '/usr/bin/lua-language-server', '-E', '/usr/lib/lua-language-server/main.lua' };
