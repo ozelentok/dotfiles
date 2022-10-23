@@ -60,9 +60,7 @@ class Installer:
     @classmethod
     def fontconfig(cls) -> None:
         utils.install_packages(['noto-fonts', 'noto-fonts-cjk', 'noto-fonts-emoji',
-                                'ttf-liberation', 'ttf-roboto', 'fontconfig'])
-        cls.pikaur()
-        utils.install_aur_packages(['nerd-fonts-hack'])
+                                'ttf-hack-nerd', 'ttf-liberation', 'ttf-roboto', 'fontconfig'])
 
         config_dir_path = Path.home() / '.config/fontconfig'
         utils.mkdir(config_dir_path)
