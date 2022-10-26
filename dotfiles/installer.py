@@ -36,12 +36,12 @@ class Installer:
             'chromium',
             'keepassxc',
             'eog',
-            'evince'
+            'evince',
             'rdesktop',
             'audacity',
             'wireshark-qt',
             'libreoffice-fresh',
-            'wine'
+            'wine',
             'vlc',
         ])
 
