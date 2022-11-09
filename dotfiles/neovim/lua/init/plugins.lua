@@ -28,6 +28,7 @@ require('packer').startup(function(use)
 	use 'dcampos/cmp-snippy'
 	use 'honza/vim-snippets'
 	use 'ray-x/lsp_signature.nvim'
+	use 'numToStr/Comment.nvim'
 end)
 
 local installed_plugins = vim.fn.readdir(vim.fn.stdpath('data') .. '/site/pack/packer/start')

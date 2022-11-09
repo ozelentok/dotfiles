@@ -8,6 +8,7 @@ vim.g.nuake_position = 'top'
 require('nvim-surround').setup()
 require('lualine').setup({ options = { theme = 'powerline' } })
 require('hop').setup()
+require('Comment').setup()
 require('indent_blankline').setup({ char_list = { '|', '¦', '┆' }, buftype_exclude = { 'terminal' } })
 vim.diagnostic.config({ virtual_text = true })
 

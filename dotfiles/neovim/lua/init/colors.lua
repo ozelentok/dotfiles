@@ -12,6 +12,7 @@ require('material').setup({
 			colors.editor.bg = '#000000'
 			colors.editor.bg_alt = '#202020'
 			colors.editor.line_numbers = '#c4a000'
+			colors.backgrounds.non_current_windows = 'NONE'
 	end,
 	high_visibility = {
 		darker = true
