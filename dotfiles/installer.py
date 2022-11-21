@@ -230,6 +230,13 @@ class Installer:
         utils.copy_dotfile(Path('smplayer/smplayer.ini'), config_dir_path)
 
     @classmethod
+    def tmux(cls) -> None:
+        utils.install_packages(['tmux'])
+        config_dir_path = Path.home() / '.config/tmux'
+        utils.mkdir(config_dir_path)
+        utils.symlink_dotfile(Path('tmux/tmux.conf'), config_dir_path)
+
+    @classmethod
     def wezterm(cls) -> None:
         utils.install_packages(['wezterm'])
         config_dir_path = Path.home() / '.config/wezterm'
@@ -284,6 +291,7 @@ class Installer:
         cls.upgrade_scripts_dependencies()
         cls.sensors()
         cls.smplayer()
+        cls.tmux()
         cls.wezterm()
         cls.X11()
         cls.zsh()
