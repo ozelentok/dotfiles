@@ -112,6 +112,7 @@ null_ls.setup({
 		null_ls.builtins.diagnostics.trail_space,
 		null_ls.builtins.formatting.json_tool,
 		null_ls.builtins.formatting.yapf,
+		null_ls.builtins.formatting.tidy,
 		null_ls.builtins.formatting.trim_whitespace,
 	},
 })
