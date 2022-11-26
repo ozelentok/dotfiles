@@ -158,6 +158,7 @@ class Installer:
             'xsel', 'xclip',
             'nodejs', 'npm',
             'global', 'python-pygments',
+            'tidy', 'python-isort',
             'pyright',
             'clang',
             'lua-language-server',
