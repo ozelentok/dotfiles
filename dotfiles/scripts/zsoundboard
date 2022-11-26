@@ -4,12 +4,16 @@ import argparse
 import os
 from pathlib import Path
 from typing import Any
+
 import gi
+
 gi.require_version('Gtk', '3.0')
+gi.require_version('Gdk', '3.0')
 gi.require_version('Gst', '1.0')
-from gi.repository import Gst, Gtk, Gdk
+from gi.repository import Gdk, Gst, Gtk  # pyright: ignore
 
 ALLOWED_SOUND_FILES = ['.ogg', '.aac', '.mp3']
+
 
 class MyWindow(Gtk.Window):
     _button_to_file: dict[Gtk.Widget, Path]
@@ -37,9 +41,14 @@ class MyWindow(Gtk.Window):
         main_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
         self.add(main_box)
 
-        search_entry = Gtk.SearchEntry()
-        search_entry.connect('search_changed', self._on_search_change)
-        main_box.pack_start(search_entry, False, True, 0)
+        self._search_entry = Gtk.SearchEntry()
+        self._search_entry.connect('search_changed', self._on_search_change)
+        main_box.pack_start(self._search_entry, False, True, 0)
+
+        accel = Gtk.AccelGroup()
+        accel.connect(Gdk.keyval_from_name('F'), Gdk.ModifierType.CONTROL_MASK, 0,
+                      lambda *_: self._search_entry.grab_focus())
+        self.add_accel_group(accel)
 
         self._stop_button = Gtk.Button(label='Stop ■')
         self._stop_button.connect('clicked', self._on_stop_button_click)
@@ -67,6 +76,7 @@ class MyWindow(Gtk.Window):
                                         Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
 
     def _init_sound_buttons(self) -> None:
+
         def listbox_filter_func(row, data, notify_destroy):
             return self._listbox_filter(row, data, notify_destroy)
 
@@ -106,10 +116,10 @@ class MyWindow(Gtk.Window):
         file_path = self._button_to_file[widget]
         self._play_audio_file(file_path)
 
-    def _on_stop_button_click(self, widget: Gtk.Widget) -> None:
+    def _on_stop_button_click(self, _) -> None:
         self._stop_audio()
 
-    def _listbox_filter(self, row: Gtk.ListBoxRow, data, notify_destroy):
+    def _listbox_filter(self, row: Gtk.ListBoxRow, *_):
         if not self._search_text:
             return True
         button: Gtk.Button = row.get_child()
@@ -126,7 +136,7 @@ class MyWindow(Gtk.Window):
         self._player.set_state(Gst.State.NULL)
         self._stop_button.set_sensitive(False)
 
-    def _on_player_bus_message(self, bus, message):
+    def _on_player_bus_message(self, _, message):
         t = message.type
         if t == Gst.MessageType.EOS:
             self._stop_audio()
@@ -146,6 +156,7 @@ def main() -> None:
     win.connect('destroy', Gtk.main_quit)
     win.show_all()
     Gtk.main()
+
 
 if __name__ == '__main__':
     main()
