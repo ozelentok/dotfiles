@@ -1,1 +1,23 @@
 Xcursor.theme: oxy-neon
+
+*foreground: #ffffff
+*background: #000000
+*faceName: Hack Nerd Font
+*faceSize: 9
+
+*color0:  #000000
+*color1:  #e10000
+*color2:  #00ee00
+*color3:  #cdcd00
+*color4:  #0080ff
+*color5:  #cd00cd
+*color6:  #00cdcd
+*color7:  #e5e5e5
+*color8:  #7f7f7f
+*color9:  #ff0000
+*color10: #00ff00
+*color11: #ffff00
+*color12: #00b0ff
+*color13: #ff00ff
+*color14: #00ffff
+*color15: #ffffff
