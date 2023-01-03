@@ -24,3 +24,4 @@ vim.o.modeline = false
 vim.o.termguicolors = true
 vim.o.clipboard = 'unnamed,unnamedplus'
 vim.o.completeopt = 'menu,menuone,noselect'
+vim.o.timeoutlen = 400

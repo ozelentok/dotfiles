@@ -22,3 +22,4 @@ require('trouble').setup({})
 require('telescope').setup({ defaults = { layout_strategy = 'bottom_pane' } })
 require('telescope').load_extension('gtags')
 vim.cmd [[autocmd User TelescopePreviewerLoaded setlocal number]]
+require('which-key').setup({})
