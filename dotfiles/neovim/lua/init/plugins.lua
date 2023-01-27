@@ -30,6 +30,8 @@ require('packer').startup(function(use)
 	use 'ray-x/lsp_signature.nvim'
 	use 'numToStr/Comment.nvim'
 	use 'folke/which-key.nvim'
+	use 'smjonas/inc-rename.nvim'
+	use 'ellisonleao/glow.nvim'
 end)
 
 local installed_plugins = vim.fn.readdir(vim.fn.stdpath('data') .. '/site/pack/packer/start')
