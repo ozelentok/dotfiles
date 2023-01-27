@@ -2,3 +2,4 @@ dateparser
 humanfriendly
 typer
 pulsectl
+yt-dlp
