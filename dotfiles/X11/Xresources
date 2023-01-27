@@ -21,3 +21,12 @@ Xcursor.theme: oxy-neon
 *color13: #ff00ff
 *color14: #00ffff
 *color15: #ffffff
+
+XTerm*selectToClipboard:   true
+XTerm*alternateScroll:     true
+XTerm*VT100*translations:  #override \n\
+		Shift <Key>Home:       copy-selection(SELECT) \n\
+		Shift <Key>Insert:     copy-selection(SELECT) \n\
+		Ctrl Shift <Key>C:     copy-selection(SELECT) \n\
+		Ctrl Shift <Key>V:     insert-selection(SELECT) \n\
+		<Btn1Up>:              select-end(PRIMARY, CLIPBOARD, CUT_BUFFER0)
