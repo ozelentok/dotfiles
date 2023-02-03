@@ -22,6 +22,7 @@ Xcursor.theme: oxy-neon
 *color14: #00ffff
 *color15: #ffffff
 
+XTerm*termName: xterm-256color
 XTerm*selectToClipboard:   true
 XTerm*alternateScroll:     true
 XTerm*VT100*translations:  #override \n\
