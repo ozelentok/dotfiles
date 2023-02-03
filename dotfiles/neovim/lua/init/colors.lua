@@ -17,9 +17,6 @@ require('material').setup({
 	high_visibility = {
 		darker = true
 	},
-	disable = {
-		background = true
-	},
 })
 vim.cmd [[colorscheme material]]
 require('colorizer').setup({})
