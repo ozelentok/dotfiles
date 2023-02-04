@@ -258,6 +258,7 @@ class Installer:
     @classmethod
     def zsh(cls) -> None:
         utils.install_packages(['zsh', 'zsh-completions', 'zsh-syntax-highlighting',
+                                'fzf',
                                 'lsd', 'gcc', 'make'])
         config_dir_path = Path.home() / '.zsh'
         utils.mkdir(config_dir_path)
