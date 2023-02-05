@@ -1,4 +1,3 @@
-vim.o.autochdir = true
 vim.o.backup = true
 io.popen('mkdir -p /tmp/nvim').close()
 vim.o.directory = '/tmp/nvim'
