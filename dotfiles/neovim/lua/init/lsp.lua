@@ -67,7 +67,7 @@ table.insert(lua_rpath, 'lua/?/init.lua')
 
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 capabilities = vim.tbl_extend('force', capabilities, { offsetEncoding = 'utf-8' })
-lspconfig.sumneko_lua.setup {
+lspconfig.lua_ls.setup {
 	cmd = { '/usr/bin/lua-language-server', '-E', '/usr/lib/lua-language-server/main.lua' };
 	on_attach = on_lsp_attach,
 	capabilities = capabilities,
@@ -75,7 +75,7 @@ lspconfig.sumneko_lua.setup {
 		Lua = {
 			runtime = { version = 'LuaJIT', path = lua_rpath },
 			diagnostics = { globals = { 'vim' } },
-			workspace = { library = vim.api.nvim_get_runtime_file('', true) },
+			workspace = { library = vim.api.nvim_get_runtime_file('', true), checkThirdParty = false },
 			telemetry = { enable = false },
 		}
 	}
