@@ -10,6 +10,8 @@ vim.g.mapleader = ','
 map('x', 'p', "'pgv\"'.v:register.'y`>'", { expr = true })
 map('x', 'P', "'Pgv\"'.v:register.'y`>'", { expr = true })
 
+map('n', 'U', '<C-r>')
+
 map('n', '<C-h>', '<C-w>h')
 map('n', '<C-j>', '<C-w>j')
 map('n', '<C-k>', '<C-w>k')
@@ -29,8 +31,8 @@ map('n', '<C-q>', ':Nuake<CR>')
 map('i', '<C-q>', '<C-\\><C-n>:Nuake<CR>')
 map('t', '<C-q>', '<C-\\><C-n>:Nuake<CR>')
 
-map('n', '~', ':RnvimrToggle<CR>', { silent = true })
-map('t', '~', '<C-\\><C-n>:RnvimrToggle<CR>', { silent = true })
+map('n', '<C-r>', ':RnvimrToggle<CR>', { silent = true })
+map('t', '<C-r>', '<C-\\><C-n>:RnvimrToggle<CR>', { silent = true })
 map('t', '<C-t>', '<C-\\><C-n>:RnvimrResize<CR>', { silent = true })
 
 map('n', '<C-w>w', '<cmd>HopWord<CR>')
