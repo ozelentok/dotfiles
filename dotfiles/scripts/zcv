@@ -283,7 +283,7 @@ def vp9webm(
         '-row-mt', '1',
         '-threads', '4',
         '-cpu-used', '2',
-         '-pix_fmt', 'yuv420p',
+        '-pix_fmt', 'yuv420p',
         #'-auto-alt-ref', '0',
         '-deadline', 'good', '-sn', '-map_metadata', '-1', '-map_chapters', '-1'
     ]
