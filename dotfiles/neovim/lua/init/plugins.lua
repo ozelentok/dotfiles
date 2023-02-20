@@ -4,6 +4,7 @@ require('packer').startup(function(use)
 	use 'sheerun/vim-polyglot'
 	use 'ahmedkhalf/project.nvim'
 	use 'nvim-treesitter/nvim-treesitter'
+	use 'nvim-treesitter/playground'
 	use 'jose-elias-alvarez/null-ls.nvim'
 	use 'marko-cerovac/material.nvim'
 	use 'NvChad/nvim-colorizer.lua'
