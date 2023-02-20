@@ -46,7 +46,7 @@ map_vim('v', '<C-w>l', '<cmd>HopLine<CR>')
 map_vim('v', '<C-w>p', '<cmd>HopPattern<CR>')
 map_vim('v', '<C-w>c', '<cmd>HopChar1<CR>')
 
-map_vim('n', '<leader>g', '<cmd>Git<CR>')
+map_vim('n', '<leader>g', '<cmd>Git|20wincmd_<CR>')
 map_lua('n', '<leader>v', vim.lsp.buf.format)
 
 map_vim('n', '<C-p>', '<cmd>Telescope find_files follow=true<CR>')
