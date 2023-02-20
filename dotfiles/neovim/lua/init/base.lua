@@ -1,5 +1,5 @@
 vim.o.backup = true
-io.popen('mkdir -p /tmp/nvim').close()
+io.popen('mkdir -p /tmp/nvim')
 vim.o.directory = '/tmp/nvim'
 vim.o.backupdir = '/tmp/nvim'
 vim.o.undodir = '/tmp/nvim'
