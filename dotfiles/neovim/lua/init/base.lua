@@ -24,3 +24,4 @@ vim.o.termguicolors = true
 vim.o.clipboard = 'unnamed,unnamedplus'
 vim.o.completeopt = 'menu,menuone,noselect'
 vim.o.timeoutlen = 400
+vim.o.diffopt = 'filler,vertical,closeoff,internal'
