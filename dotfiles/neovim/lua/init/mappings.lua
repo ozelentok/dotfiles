@@ -29,12 +29,12 @@ map_vim('i', '<F2>', '<C-R>=strftime("%Y-%m-%d")<CR>')
 map_vim('n', '<F3>', '"=strftime("%Y-%m-%d %H:%M:%S")<CR>P')
 map_vim('i', '<F3>', '<C-R>=strftime("%Y-%m-%d %H:%M:%S")<CR>')
 
-map_vim('n', '<C-q>', ':Nuake<CR>')
-map_vim('i', '<C-q>', '<C-\\><C-n>:Nuake<CR>')
-map_vim('t', '<C-q>', '<C-\\><C-n>:Nuake<CR>')
+map_vim('n', '<C-e>', ':Nuake<CR>')
+map_vim('i', '<C-e>', '<C-\\><C-n>:Nuake<CR>')
+map_vim('t', '<C-e>', '<C-\\><C-n>:Nuake<CR>')
 
-map_vim('n', '<C-r>', ':RnvimrToggle<CR>', { silent = true })
-map_vim('t', '<C-r>', '<C-\\><C-n>:RnvimrToggle<CR>', { silent = true })
+map_vim('n', '<C-f>', ':RnvimrToggle<CR>', { silent = true })
+map_vim('t', '<C-f>', '<C-\\><C-n>:RnvimrToggle<CR>', { silent = true })
 map_vim('t', '<C-t>', '<C-\\><C-n>:RnvimrResize<CR>', { silent = true })
 
 map_vim('n', '<C-w>w', '<cmd>HopWord<CR>')
