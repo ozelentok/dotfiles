@@ -1,13 +1,14 @@
-vim.o.backup = true
 io.popen('mkdir -p /tmp/nvim')
 vim.o.directory = '/tmp/nvim'
 vim.o.backupdir = '/tmp/nvim'
 vim.o.undodir = '/tmp/nvim'
+vim.o.backup = true
+vim.o.undofile = true
 vim.o.inccommand = 'split'
 vim.o.ignorecase = true
+vim.o.smartcase = true
 vim.o.wildignore = '*.swp,.bak,*.pyc,*.class,*.o,*.obj'
 vim.o.wildignorecase = true
-vim.o.smartcase = true
 vim.o.number = true
 vim.o.signcolumn = 'yes'
 vim.o.scrolloff = 1
@@ -15,8 +16,6 @@ vim.o.shiftwidth = 2
 vim.o.tabstop = 2
 vim.o.expandtab = false
 vim.o.mouse = 'a'
-vim.o.textwidth = 0
-vim.o.undofile = true
 vim.o.iskeyword = 'a-z,A-Z,48-57,_,-'
 vim.o.dictionary = '/usr/share/dict/words'
 vim.o.modeline = false

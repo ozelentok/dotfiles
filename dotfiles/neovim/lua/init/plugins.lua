@@ -1,7 +1,6 @@
 require('packer').startup(function(use)
 	use 'wbthomason/packer.nvim'
 	use 'nvim-lua/plenary.nvim'
-	use 'sheerun/vim-polyglot'
 	use 'ahmedkhalf/project.nvim'
 	use 'nvim-treesitter/nvim-treesitter'
 	use 'nvim-treesitter/playground'
