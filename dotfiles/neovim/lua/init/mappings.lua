@@ -19,11 +19,6 @@ map_vim('n', '<C-j>', '<C-w>j')
 map_vim('n', '<C-k>', '<C-w>k')
 map_vim('n', '<C-l>', '<C-w>l')
 
-map_vim('n', '_', '<C-w>-')
-map_vim('n', '+', '<C-w>+')
-map_vim('n', '>', '<C-w>>')
-map_vim('n', '<', '<C-w><')
-
 map_vim('n', '<F2>', '"=strftime("%Y-%m-%d")<CR>P')
 map_vim('i', '<F2>', '<C-R>=strftime("%Y-%m-%d")<CR>')
 map_vim('n', '<F3>', '"=strftime("%Y-%m-%d %H:%M:%S")<CR>P')
