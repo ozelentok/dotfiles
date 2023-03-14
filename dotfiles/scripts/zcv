@@ -46,6 +46,7 @@ class Preset(str, Enum):
     slow = 'slow'
     medium = 'medium'
     fast = 'fast'
+    veryfast = 'veryfast'
 
 
 class X265Tune(str, Enum):
@@ -240,9 +241,11 @@ def webm(
         ffmpeg_args += ['-vf', video_filter]
     ffmpeg_args += [
         '-c:v', 'libvpx', '-b:v', str(bps),
-        # '-pix_fmt', 'yuva420p', '-auto-alt-ref', '0',
+        # '-pix_fmt', 'yuva420p',
         '-deadline', 'best', '-sn', '-map_metadata', '-1', '-map_chapters', '-1',
     ]
+    if input_path.suffix.lower() == '.gif':
+        ffmpeg_args += ['-auto-alt-ref', '0']
     if fps:
         ffmpeg_args += ['-r', fps]
     bitexact_params = ['-bitexact'] if bitexact else []
