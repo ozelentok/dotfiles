@@ -1,0 +1,30 @@
+#!/usr/bin/env python3
+
+import argparse
+from datetime import datetime, timedelta
+
+
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('start', help='Start time in HH:MM format')
+    parser.add_argument('end', help='End time in HH:MM format')
+
+    args = parser.parse_args()
+    start = datetime.strptime(args.start, '%H:%M')
+    end = datetime.strptime(args.end, '%H:%M')
+    if end < start:
+        end += timedelta(days=1)
+
+    duration = end - start
+    total_secs = duration.total_seconds()
+
+    hours, reminder = divmod(total_secs, 3600)
+    hours = int(hours)
+    minutes = int(reminder / 60)
+    hours_exact = total_secs / 3600
+
+    print(f'Duration = {hours:02}:{minutes:02} = {hours_exact:.3f} hours')
+
+
+if __name__ == '__main__':
+    main()
