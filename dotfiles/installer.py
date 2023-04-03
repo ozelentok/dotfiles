@@ -87,7 +87,7 @@ class Installer:
 
         utils.extract_dotfile_tar(Path('gnome/Arc-Black-Classic-3.36.tar.xz'), themes_dir_path)
         utils.extract_dotfile_tar(Path('gnome/Arc-ICONS.tar.xz'), icons_dir_path)
-        utils.extract_dotfile_tar(Path('gnome/oxy-neon.tar.gz'), icons_dir_path)
+        utils.extract_dotfile_tar(Path('gnome/Future-Cyan.tar.gz'), icons_dir_path)
 
         config_dir_path = Path.home() / '.config/gtk-3.0'
         utils.mkdir(config_dir_path)
