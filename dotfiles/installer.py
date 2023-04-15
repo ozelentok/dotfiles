@@ -77,23 +77,14 @@ class Installer:
         utils.symlink_dotfile(Path('git/gitignore_global'), Path.home(), hidden=True)
 
     @classmethod
-    def gnome(cls) -> None:
+    def gtk(cls) -> None:
         utils.install_packages(['gtk2', 'gtk3'])
-        themes_dir_path = Path.home() / '.themes'
-        icons_dir_path = Path.home() / '.local/share/icons'
-        utils.mkdir(themes_dir_path)
-        utils.mkdir(icons_dir_path)
-        utils.symlink_relative(icons_dir_path, Path.home() / '.icons')
-
-        utils.extract_dotfile_tar(Path('gnome/Arc-Black-Classic-3.36.tar.xz'), themes_dir_path)
-        utils.extract_dotfile_tar(Path('gnome/Arc-ICONS.tar.xz'), icons_dir_path)
-        utils.extract_dotfile_tar(Path('gnome/Future-Cyan.tar.gz'), icons_dir_path)
-
         config_dir_path = Path.home() / '.config/gtk-3.0'
         utils.mkdir(config_dir_path)
-        utils.run_shell_command('dconf load / < gnome/dconf.ini')
-        utils.symlink_dotfile(Path('gnome/gtk-3.0-settings.ini'), config_dir_path / 'settings.ini')
-        utils.symlink_dotfile(Path('gnome/gtkrc-2.0'), Path.home(), hidden=True)
+
+        utils.run_shell_command('dconf load / < gtk/dconf.ini')
+        utils.symlink_dotfile(Path('gtk/gtk-3.0-settings.ini'), config_dir_path / 'settings.ini')
+        utils.symlink_dotfile(Path('gtk/gtkrc-2.0'), Path.home(), hidden=True)
 
     @classmethod
     @utils.avoid_reinstall('pikaur')
@@ -231,6 +222,18 @@ class Installer:
         utils.copy_dotfile(Path('smplayer/smplayer.ini'), config_dir_path)
 
     @classmethod
+    def theme(cls) -> None:
+        themes_dir_path = Path.home() / '.themes'
+        icons_dir_path = Path.home() / '.local/share/icons'
+        utils.mkdir(themes_dir_path)
+        utils.mkdir(icons_dir_path)
+        utils.symlink_relative(icons_dir_path, Path.home() / '.icons')
+
+        utils.extract_dotfile_tar(Path('theme/Flat-Remix-GTK-Blue-Darkest-20220627.tar.gz'), themes_dir_path)
+        utils.extract_dotfile_tar(Path('theme/Arc-ICONS-1.5.7.tar.gz'), icons_dir_path)
+        utils.extract_dotfile_tar(Path('theme/Future-Cyan-20230405.tar.gz'), icons_dir_path)
+
+    @classmethod
     def tmux(cls) -> None:
         utils.install_packages(['tmux'])
         config_dir_path = Path.home() / '.config/tmux'
@@ -280,7 +283,7 @@ class Installer:
         cls.fontconfig()
         cls.git()
         cls.gimp()
-        cls.gnome()
+        cls.gtk()
         cls.pikaur()
         cls.i3()
         cls.picom()
@@ -293,6 +296,7 @@ class Installer:
         cls.upgrade_scripts_dependencies()
         cls.sensors()
         cls.smplayer()
+        cls.theme()
         cls.tmux()
         cls.wezterm()
         cls.X11()

@@ -1,3 +1,6 @@
 [submodule "dotfiles/zsh/ZPrompt"]
 	path = dotfiles/zsh/ZPrompt
 	url = https://github.com/ozelentok/ZPrompt
+[submodule "dotfiles/theme"]
+	path = dotfiles/theme
+	url = https://github.com/ozelentok/dotfiles-theme
