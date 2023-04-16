@@ -46,13 +46,43 @@ function precmd() {
 setopt AUTO_CD
 setopt CORRECT
 setopt PROMPT_SUBST
-ZLE_RPROMPT_INDENT=0
 
-PROMPT='%K{25} %n@%m %F{25}%K{235} %f%~ %k%F{235}%f'
-PROMPT+=$'\n'
-PROMPT+='%K{22} %(!.#.$) %k%F{22}%f'
+ZLE_RPROMPT_INDENT=0
+ZVM_INIT_MODE=sourcing
+ENABLE_ZVM=1
+
+PROMPT_START='%K{25} %n@%m %F{25}%K{235} %f%~ %k%F{235}%f'
+PROMPT_START+=$'\n'
+PROMPT_START+='%K{22} %(!.#.$) %F{22}'
+if [ $ENABLE_ZVM -ne 0 ]; then
+	PROMPT_START+='%K{235}%f'
+else
+	PROMPT_START+='%k%f'
+fi
+PROMPT=${PROMPT_START}
 
 RPROMPT='${vcs_info_msg_0_} %B%F{12}[%D{%H:%M:%S}]%b%f'
+
+function zvm_after_select_vi_mode() {
+  case $ZVM_MODE in
+    $ZVM_MODE_INSERT)
+			PROMPT="${PROMPT_START} I %k%F{235}%f"
+    ;;
+    $ZVM_MODE_NORMAL)
+			PROMPT="${PROMPT_START}%F{11}%B N %b%k%F{235}%f"
+    ;;
+    $ZVM_MODE_VISUAL)
+			PROMPT="${PROMPT_START}%F{208}%B V %b%k%F{235}%f"
+    ;;
+    $ZVM_MODE_VISUAL_LINE)
+			PROMPT="${PROMPT_START}%F{208}%B B %b%k%F{235}%f"
+    ;;
+    $ZVM_MODE_REPLACE)
+			PROMPT="${PROMPT_START}%F{1}%B R %b%k%F{235}%f"
+    ;;
+  esac
+}
+
 
 if [ -x /usr/bin/dircolors ]; then
 	alias ls='ls --color=auto --group-directories-first'
@@ -157,6 +187,9 @@ jp() {
 	convert "${1}" "${1%.*}.jpg"
 }
 
+if [ $ENABLE_ZVM -ne 0 ]; then
+	source $HOME/.dotfiles/dotfiles/zsh/zsh-vi-mode/zsh-vi-mode.plugin.zsh
+fi
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source /usr/share/fzf/key-bindings.zsh
 source /usr/share/fzf/completion.zsh
