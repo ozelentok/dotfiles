@@ -77,6 +77,9 @@ require('material').setup({
 		hls['DiffText'] = { bg = main_colors.darkpurple, reverse = false }
 		hls['diffAdded'] = { link = 'DiffAdd' }
 		hls['diffRemoved'] = { link = 'DiffDelete' }
+		hls['IncSearch'] = { fg = main_colors.black, bg = main_colors.cyan, bold = true }
+		hls['CurSearch'] = { fg = main_colors.black, bg = main_colors.cyan, bold = true }
+		hls['Search'] = { fg = main_colors.black, bg = main_colors.yellow, bold = false }
 		return hls
 	end)()
 })
