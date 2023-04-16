@@ -262,13 +262,12 @@ class Installer:
     def zsh(cls) -> None:
         utils.install_packages(['zsh', 'zsh-completions', 'zsh-syntax-highlighting',
                                 'fzf',
-                                'lsd', 'gcc', 'make'])
+                                'lsd'])
         config_dir_path = Path.home() / '.zsh'
         utils.mkdir(config_dir_path)
         utils.symlink_dotfile(Path('zsh/zshrc'), Path.home(), hidden=True)
         utils.symlink_dotfile(Path('zsh/zprofile'), Path.home(), hidden=True)
         utils.run_shell_command('sudo usermod -s $(which zsh) ${USER}')
-        utils.run_shell_command('cd zsh/ZPrompt && make install TARGET_SHELL=zsh')
 
         lsd_config_dir_path = Path.home() / '.config/lsd'
         utils.mkdir(lsd_config_dir_path)
