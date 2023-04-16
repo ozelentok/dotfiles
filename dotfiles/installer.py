@@ -189,6 +189,7 @@ class Installer:
         config_dir_path = Path.home() / '.config/ranger'
         utils.mkdir(config_dir_path)
         utils.symlink_dotfile(Path('ranger/rc.conf'), config_dir_path)
+        utils.run_shell_command('/usr/bin/ranger --copy-config=scope')
 
     @classmethod
     def samba(cls) -> None:
