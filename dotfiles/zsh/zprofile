@@ -9,6 +9,7 @@ export GTAGSLABEL=pygments
 export QT_QPA_PLATFORMTHEME=gtk2
 export PYTHONDONTWRITEBYTECODE=1
 export DOTFILES_ROOT="$HOME/.dotfiles"
+export XDG_CACHE_HOME="$XDG_RUNTIME_DIR/cache"
 
 ANDROID_PATHS="$ANDROID_SDK_ROOT/tools:$ANDROID_SDK_ROOT/tools/bin:$ANDROID_SDK_ROOT/platform-tools:$ANDROID_SDK_ROOT/emulator"
 
