@@ -107,6 +107,9 @@ alias l='lsd'
 alias rm='rm -I'
 alias ranger='. ranger'
 
+alias 11="cd /tmp/1-imgs"
+alias 12="cd /tmp/0-screenshots"
+
 # Home and End
 bindkey "\e[1~" beginning-of-line
 bindkey "\e[4~" end-of-line
