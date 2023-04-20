@@ -5,10 +5,6 @@ require('nvim-treesitter.configs').setup({
 	indent = { enable = true, disable = { 'python' } }
 })
 
-require('lualine').setup({
-	options = { theme = 'powerline' },
-	sections = { lualine_c = { { 'filename', path = 3 } } }
-})
 require('hop').setup()
 require('indent_blankline').setup({ char_list = { '|', '¦', '┆' }, buftype_exclude = { 'terminal' } })
 
