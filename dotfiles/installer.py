@@ -7,8 +7,8 @@ from . import utils
 
 class Installer:
 
-    def __init__(self):
-        self._pm = utils.SystemPackageManager()
+    def __init__(self, skip_upgrade=False):
+        self._pm = utils.SystemPackageManager(skip_upgrade)
 
     def base_packages(self) -> None:
         self._pm.install_packages([

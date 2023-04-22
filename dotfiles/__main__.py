@@ -15,10 +15,14 @@ def main():
                         choices=packages,
                         nargs='?',
                         help='Package to install (default: all packages)')
+    parser.add_argument('--skip-upgrade',
+                        action='store_true',
+                        help='Skip upgrading existing packages (for testing new packages)')
+
     args = parser.parse_args()
     package = args.package
 
-    installer = Installer()
+    installer = Installer(args.skip_upgrade)
     getattr(installer, package)()
 
 
