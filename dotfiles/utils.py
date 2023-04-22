@@ -1,23 +1,24 @@
+import functools
 import os
 import shutil
 import subprocess
 import tarfile
-import functools
 from pathlib import Path
-from typing import Union, Callable
+from typing import Callable
 
 __MOUDLE_PATH = Path(os.path.dirname(os.path.abspath(__file__)))
 
 
-def install_packages(packages: list[str]) -> None:
-    subprocess.check_call(['sudo', 'pacman', '-Syu', '--needed', '--noconfirm'] + packages)
+class SystemPackageManager:
+
+    def install_packages(self, packages: list[str]) -> None:
+        subprocess.check_call(['sudo', 'pacman', '-Syu', '--needed', '--noconfirm'] + packages)
+
+    def install_aur_packages(self, packages: list[str]) -> None:
+        subprocess.check_call(['pikaur', '-Syu', '--needed', '--noconfirm'] + packages)
 
 
-def install_aur_packages(packages: list[str]) -> None:
-    subprocess.check_call(['pikaur', '-Syu', '--needed', '--noconfirm'] + packages)
-
-
-def run_shell_command(command: Union[str, list[str]]) -> None:
+def run_shell_command(command: str | list[str]) -> None:
     subprocess.check_call(command, shell=True, cwd=__MOUDLE_PATH)
 
 
@@ -44,7 +45,9 @@ def symlink_dotfile_with_root(dotfile_path: Path, dst_path: Path, hidden: bool =
     if dst_path.is_dir() and not dst_path.is_symlink():
         dst_path /= ('.' if hidden else '') + dotfile_path.name
     src_path = __MOUDLE_PATH / dotfile_path
-    run_shell_command(' '.join(['sudo', 'ln', '-s', '-f', src_path.as_posix(), dst_path.as_posix()]))
+    run_shell_command(' '.join(['sudo', 'ln', '-s', '-f',
+                                src_path.as_posix(),
+                                dst_path.as_posix()]))
 
 
 def copy_dotfile(dotfile_path: Path, dst_path: Path, hidden: bool = False) -> None:
@@ -66,10 +69,14 @@ def extract_dotfile_tar(dotfile_tar_path: Path, dst_dir_path: Path):
 
 
 def avoid_reinstall(executable: str):
+
     def decorator(f: Callable) -> Callable:
+
         @functools.wraps(f)
         def wrapper(*args, **kwargs):
             if shutil.which(executable) is None:
                 return f(*args, **kwargs)
+
         return wrapper
+
     return decorator
