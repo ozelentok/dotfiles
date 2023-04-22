@@ -3,4 +3,4 @@
 	url = https://github.com/ozelentok/dotfiles-theme
 [submodule "dotfiles/zsh/zsh-vi-mode"]
 	path = dotfiles/zsh/zsh-vi-mode
-	url = https://github.com/jeffreytse/zsh-vi-mode
+	url = https://github.com/ozelentok/zsh-vi-mode
