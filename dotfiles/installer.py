@@ -185,11 +185,11 @@ class Installer:
 
     @classmethod
     def ranger(cls) -> None:
-        utils.install_packages(['ranger', 'ueberzug'])
+        utils.install_packages(['ranger', 'ffmpegthumbnailer', 'ueberzug'])
         config_dir_path = Path.home() / '.config/ranger'
         utils.mkdir(config_dir_path)
         utils.symlink_dotfile(Path('ranger/rc.conf'), config_dir_path)
-        utils.run_shell_command('/usr/bin/ranger --copy-config=scope')
+        utils.symlink_dotfile(Path('ranger/scope.sh'), config_dir_path)
 
     @classmethod
     def samba(cls) -> None:
