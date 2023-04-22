@@ -239,6 +239,14 @@ class Installer:
         utils.mkdir(config_dir_path)
         utils.symlink_dotfile(Path('tmux/tmux.conf'), config_dir_path)
 
+    def vifm(self) -> None:
+        self._pm.install_packages(['vifm'])
+        config_dir_path = Path.home() / '.config/vifm'
+        colors_dir_path = config_dir_path / 'colors'
+        utils.mkdir(colors_dir_path)
+        utils.symlink_dotfile(Path('vifm/vifmrc'), config_dir_path)
+        utils.symlink_dotfile(Path('vifm/dircolors.vifm'), colors_dir_path)
+
     def wezterm(self) -> None:
         self._pm.install_packages(['wezterm'])
         config_dir_path = Path.home() / '.config/wezterm'
