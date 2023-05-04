@@ -175,8 +175,6 @@ if [ -z "$SSH_AUTH_SOCK" ]; then
 	source "$SSH_AGENT_ENV_PATH" > /dev/null
 fi
 
-[[ -f $HOME/.profile ]] && source $HOME/.profile
-
 alias pwf='sudo poweroff'
 alias rbt='sudo reboot'
 alias psu='ps -lFww --ppid 2 -p 2 --deselect'

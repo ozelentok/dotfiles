@@ -15,3 +15,5 @@ ANDROID_PATHS="$ANDROID_SDK_ROOT/tools:$ANDROID_SDK_ROOT/tools/bin:$ANDROID_SDK_
 if [[ ":$PATH:" != *":$ANDROID_PATHS:"* ]]; then
 	export PATH="$HOME/.local/bin:$DOTFILES_ROOT/dotfiles/scripts:$ANDROID_PATHS:$PATH"
 fi
+
+[[ -f $HOME/.profile ]] && source $HOME/.profile
