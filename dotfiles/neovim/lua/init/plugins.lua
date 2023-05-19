@@ -34,6 +34,7 @@ require('packer').startup(function(use)
 	use 'folke/which-key.nvim'
 	use 'smjonas/inc-rename.nvim'
 	use 'ellisonleao/glow.nvim'
+	use 'salkin-mada/openscad.nvim'
 end)
 
 local installed_plugins = vim.fn.readdir(vim.fn.stdpath('data') .. '/site/pack/packer/start')

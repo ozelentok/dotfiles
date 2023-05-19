@@ -26,5 +26,6 @@ require('Comment').setup()
 require('which-key').setup({})
 require('inc_rename').setup({})
 require('glow').setup({})
+require('openscad').setup()
 
 vim.diagnostic.config({ virtual_text = true })

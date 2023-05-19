@@ -63,6 +63,8 @@ map_vim('n', '<leader>t', '<cmd>TroubleToggle document_diagnostics<CR>')
 map_vim('n', '<leader>w', '<cmd>TroubleToggle workspace_diagnostics<CR>')
 map_vim('n', '<leader>f', '<cmd>diffthis<CR><C-w><C-w><cmd>diffthis<CR><C-w><C-w>')
 
+map_lua('n', '<leader>n', function() require('openscad').exec_openscad() end)
+
 map_lua('c', '<C-e>', function()
 	local escaped_command = string.gsub(vim.fn.getcmdline(), "'", "''")
 	local wrapped_command = string.format("put=execute('%s')", escaped_command)

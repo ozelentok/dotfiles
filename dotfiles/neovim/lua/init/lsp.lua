@@ -109,6 +109,8 @@ lspconfig.cssls.setup({ on_attach = on_lsp_attach, capabilities = capabilities }
 lspconfig.clangd.setup({ on_attach = on_lsp_attach, capabilities = capabilities })
 lspconfig.pyright.setup({ on_attach = on_lsp_attach, capabilities = capabilities })
 lspconfig.eslint.setup({ on_attach = on_lsp_attach, capabilities = capabilities })
+lspconfig.openscad_lsp.setup({ on_attach = on_lsp_attach, capabilities = capabilities })
+
 
 local null_ls = require('null-ls')
 null_ls.setup({

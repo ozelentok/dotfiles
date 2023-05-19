@@ -146,6 +146,7 @@ class Installer:
             'yapf', 'tidy', 'python-isort',
             'pyright',
             'clang',
+            'rust',
             'lua-language-server',
             'sqlfluff',
         ])
@@ -167,6 +168,7 @@ class Installer:
         self.upgrade_neovim_plugins()
 
     def upgrade_neovim_plugins(self):
+        utils.run_shell_command('cargo install openscad-lsp')
         utils.run_shell_command('sudo npm install -g neovim eslint vscode-langservers-extracted')
         utils.run_shell_command('nvim -c "autocmd User PackerComplete quitall" -c "PackerSync"')
         utils.run_shell_command('nvim -c "TSUpdateSync" -c q')
