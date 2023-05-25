@@ -138,12 +138,14 @@ def x264(
     ffmpeg_args += [
         '-c:v', 'libx264', '-crf',
         str(crf), '-preset', preset.name,
-        '-profile:v', 'baseline',
+        # '-profile:v', 'baseline',
+        '-profile:v', 'high',
         '-pix_fmt', 'yuv420p',
         '-sn',
         '-map_metadata', '-1', '-map_chapters', '-1',
     ]
     # ffmpeg_args += ['-c:a', 'aac', '-ac', '2', '-b:a', '128K'] if with_audio else ['-an']
+    # ffmpeg_args += ['-c:a', 'aac', '-ac', '1', '-b:a', '96K'] if with_audio else ['-an']
     ffmpeg_args += ['-c:a', 'copy'] if with_audio else ['-an']
     if tune:
         ffmpeg_args += ['-tune', tune.name]
@@ -242,7 +244,8 @@ def webm(
     ffmpeg_args += [
         '-c:v', 'libvpx', '-b:v', str(bps),
         # '-pix_fmt', 'yuva420p',
-        '-deadline', 'best', '-sn', '-map_metadata', '-1', '-map_chapters', '-1',
+        '-deadline', 'best', '-sn',
+        '-map_metadata', '-1', '-map_chapters', '-1', '-map_metadata:s:v', '-1',
     ]
     if input_path.suffix.lower() == '.gif':
         ffmpeg_args += ['-auto-alt-ref', '0']
@@ -288,7 +291,8 @@ def vp9webm(
         '-cpu-used', '2',
         '-pix_fmt', 'yuv420p',
         #'-auto-alt-ref', '0',
-        '-deadline', 'good', '-sn', '-map_metadata', '-1', '-map_chapters', '-1'
+        '-deadline', 'good', '-sn',
+        '-map_metadata', '-1', '-map_chapters', '-1', '-map_metadata:s:v', '-1',
     ]
     bitexact_params = ['-bitexact'] if bitexact else []
     subprocess.check_call(ffmpeg_args + ['-an', '-pass', '1'] + bitexact_params + ['-y', '-f', 'webm', '/dev/null'])
@@ -323,7 +327,8 @@ def iwebm(
     ffmpeg_args += [
         '-auto-alt-ref', '0',
         '-c:v', 'libvpx', '-b:v',
-        str(bps), '-deadline', 'best', '-sn', '-map_metadata', '-1', '-map_chapters', '-1'
+        str(bps), '-deadline', 'best', '-sn',
+        '-map_metadata', '-1', '-map_chapters', '-1', '-map_metadata:s:v', '-1',
     ]
     bitexact_params = ['-bitexact'] if bitexact else []
     subprocess.check_call(ffmpeg_args + ['-an', '-pass', '1'] + bitexact_params + ['-y', '-f', 'webm', '/dev/null'])
@@ -360,7 +365,8 @@ def ivp9webm(
         '-threads', '4',
         '-cpu-used', '2',
         '-pix_fmt', 'yuv444p', #'-auto-alt-ref', '0',
-        '-deadline', 'good', '-sn', '-map_metadata', '-1', '-map_chapters', '-1'
+        '-deadline', 'good', '-sn',
+        '-map_metadata', '-1', '-map_chapters', '-1', '-map_metadata:s:v', '-1',
     ]
     bitexact_params = ['-bitexact'] if bitexact else []
     subprocess.check_call(ffmpeg_args + ['-an', '-pass', '1'] + bitexact_params + ['-y', '-f', 'webm', '/dev/null'])

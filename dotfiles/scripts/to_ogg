@@ -20,7 +20,7 @@ def main() -> None:
 
     for entry in sorted(os.scandir(args.source_dir), key=lambda e: e.name):
         if entry.name.lower().endswith('.mp3'):
-            convert_mp3_file(entry.path, output_dir, 192000)
+            convert_mp3_file(entry.path, output_dir, 224000)
         elif entry.name.lower().endswith('.m4a'):
             convert_m4a_file(entry.path, output_dir)
         elif entry.name.lower().endswith('.flac'):
@@ -60,6 +60,8 @@ def convert_mp3_file(file_path: str, output_dir: str, forced_bitrate: Optional[i
 
     if bitrate_mode == mutagen.mp3.BitrateMode.UNKNOWN:
         print(f'Bit rate is unknown, guessed as: {src_bitrate}')
+    else:
+        print(f'Detected bit rate: {src_bitrate}')
 
     if forced_bitrate:
         dst_bitrate = forced_bitrate
