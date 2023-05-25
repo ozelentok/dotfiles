@@ -14,8 +14,8 @@ Requires:
     lm_sensors: a tool to read temperature/voltage/fan sensors
 '''
 
-from typing import Any, List, Dict, Tuple
 import json
+from typing import Any, Dict, List, Tuple
 
 
 class Py3status:
@@ -39,8 +39,7 @@ class Py3status:
     def _get_lm_sensors_json(self) -> Dict:
         return json.loads(self.py3.command_output('sensors -j -A'))
 
-    def _find_sensor_params(
-            self, sensors_output: Dict) -> Tuple[str, List[Tuple[str, str]]]:
+    def _find_sensor_params(self, sensors_output: Dict) -> Tuple[str, List[Tuple[str, str]]]:
         '''
         Returns the sensor name and pairs of input and key strings
         for accessing the cores temperature
@@ -62,8 +61,7 @@ class Py3status:
 
         temperature = 0
         for input_name, input_key in self.input_key_pairs:
-            temperature += sensors_output[
-                self.sensor_name][input_name][input_key]
+            temperature += sensors_output[self.sensor_name][input_name][input_key]
         temperature = temperature / len(self.input_key_pairs)
         if temperature < self.temperature_warning:
             color = self.py3.COLOR_GOOD
@@ -73,15 +71,12 @@ class Py3status:
             color = self.py3.COLOR_BAD
 
         return {
-            'full_text':
-            self.py3.safe_format(self.format, {"temperature": temperature}),
-            'color':
-            color,
-            'cached_until':
-            self.py3.time_in(self.cache_timeout),
+            'full_text': self.py3.safe_format(self.format, {"temperature": temperature}),
+            'color': color,
+            'cached_until': self.py3.time_in(self.cache_timeout),
         }
 
-    def on_click(self, event):
+    def on_click(self, _):
         self.py3.update()
 
 
