@@ -10,7 +10,6 @@ if [ "$#" -lt 2 ]; then
 fi
 REMOTE_HOST=$1
 REMOTE_USER=$2
-mkdir -p /mnt/sftp/$REMOTE_HOST
 set +e
 
 if [[ "$*" == *-u* ]]; then
@@ -20,6 +19,7 @@ if [[ "$*" == *-u* ]]; then
 	exit 0
 fi
 
+mkdir -p /mnt/sftp/$REMOTE_HOST
 if [[ "${@:3}" != *directport* ]]; then
 	sshfs $REMOTE_USER@$REMOTE_HOST:/ \
 		/mnt/sftp/$REMOTE_HOST ${@:3}

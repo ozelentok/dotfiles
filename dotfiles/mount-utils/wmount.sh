@@ -13,17 +13,17 @@ LOCAL_GROUP=$(id -g -n $USER)
 REMOTE_HOST=$1
 REMOTE_SHARE=$2
 REMOTE_USER=$3
-mkdir -p /mnt/cifs/$REMOTE_HOST/$REMOTE_SHARE
 set +e
 
 if [[ "$*" == *-u* ]]; then
-	sudo umount /mnt/cifs/$REMOTE_HOST/$REMOTE_SHARE
+	sudo umount /mnt/cifs/$REMOTE_HOST/$REMOTE_SHARE ${@:5}
 	rmdir /mnt/cifs/$REMOTE_HOST/$REMOTE_SHARE
 	rmdir --ignore-fail-on-non-empty /mnt/cifs/$REMOTE_HOST
 	echo "Share dismounted from /mnt/cifs/$REMOTE_HOST/$REMOTE_SHARE"
 	exit 0
 fi
 
+mkdir -p /mnt/cifs/$REMOTE_HOST/$REMOTE_SHARE
 sudo mount -t cifs //$REMOTE_HOST/$REMOTE_SHARE \
 /mnt/cifs/$REMOTE_HOST/$REMOTE_SHARE -o user=$REMOTE_USER,\
 rw,uid=$LOCAL_USER,gid=$LOCAL_GROUP,cache=strict,${@:4}
