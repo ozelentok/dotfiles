@@ -11,7 +11,7 @@ import dateparser
 
 app = typer.Typer()
 
-SUBTITLES_OPTIONS = 'Fontname=Roboto,Fontsize=24,PrimaryColour=&H00ffffff,BackColour=&H00000000,OutlineColour=&H00000000,Bold=1,Italic=0,Alignment=2,BorderStyle=1,Outline=0.9,Shadow=0.9,MarginL=20,MarginR=20,MarginV=10'
+SUBTITLES_OPTIONS = 'Fontname=Roboto,Fontsize=24,PrimaryColour=&H00ffffff,BackColour=&H00000000,OutlineColour=&H00000000,Bold=1,Italic=0,Alignment=2,BorderStyle=1,Outline=0.4,Shadow=0.4,MarginL=20,MarginR=20,MarginV=10'
 X265_HQ_PARAMS = "bframes=8:psy-rd=1:aq-mode=3:aq-strength=0.8:deblock=1,1"
 
 
