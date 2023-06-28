@@ -211,7 +211,7 @@ class Installer:
         utils.run_shell_command('sudo systemctl enable smb')
 
     def upgrade_scripts_dependencies(self) -> None:
-        utils.run_shell_command('pip install --user -U -r scripts/requirements.txt')
+        utils.run_shell_command('pip install --user --break-system-packages -U -r scripts/requirements.txt')
 
     def sensors(self) -> None:
         self._pm.install_packages(['lm_sensors'])
