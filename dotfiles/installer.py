@@ -103,6 +103,7 @@ class Installer:
             'dunst', 'scrot',
             'python-pytz', 'python-tzlocal', 'xorg-xset'
         ])
+        utils.run_shell_command('pip install --user --break-system-packages -U pulsectl')
 
         config_dir_path = Path.home() / '.config/i3'
         utils.mkdir(config_dir_path)
