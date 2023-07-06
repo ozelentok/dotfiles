@@ -157,6 +157,7 @@ class Installer:
         utils.mkdir(config_dir_path)
         utils.symlink_dotfile(Path('neovim/init.lua'), config_dir_path)
         utils.symlink_dotfile(Path('neovim/lua'), config_dir_path)
+        utils.symlink_dotfile(Path('neovim/ftplugin'), config_dir_path)
         utils.symlink_dotfile(Path('neovim/globalrc'), Path.home(), hidden=True)
         utils.symlink_dotfile(Path('neovim/ctags.conf'), Path.home() / '.ctags')
         self.upgrade_neovim_plugins(True)

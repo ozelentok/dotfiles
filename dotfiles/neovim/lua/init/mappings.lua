@@ -1,7 +1,7 @@
 local map_vim = function(mode, lhs, rhs, opts)
-	local options = { noremap = true }
-	if opts then options = vim.tbl_extend('force', options, opts) end
-	vim.api.nvim_set_keymap(mode, lhs, rhs, options)
+  local options = { noremap = true }
+  if opts then options = vim.tbl_extend('force', options, opts) end
+  vim.api.nvim_set_keymap(mode, lhs, rhs, options)
 end
 
 local map_lua = vim.keymap.set
@@ -72,10 +72,10 @@ map_vim('n', '<leader>f', '<cmd>diffthis<CR><C-w><C-w><cmd>diffthis<CR><C-w><C-w
 map_lua('n', '<leader>n', function() require('openscad').exec_openscad() end)
 
 map_lua('c', '<C-e>', function()
-	local escaped_command = string.gsub(vim.fn.getcmdline(), "'", "''")
-	local wrapped_command = string.format("put=execute('%s')", escaped_command)
-	vim.fn.setcmdline(wrapped_command)
+  local escaped_command = string.gsub(vim.fn.getcmdline(), "'", "''")
+  local wrapped_command = string.format("put=execute('%s')", escaped_command)
+  vim.fn.setcmdline(wrapped_command)
 
-	local enter_key = vim.api.nvim_replace_termcodes('<CR>', true, true, true)
-	vim.api.nvim_feedkeys(enter_key, 'n', true)
+  local enter_key = vim.api.nvim_replace_termcodes('<CR>', true, true, true)
+  vim.api.nvim_feedkeys(enter_key, 'n', true)
 end)
