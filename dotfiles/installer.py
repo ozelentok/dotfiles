@@ -153,26 +153,20 @@ class Installer:
         ])
         utils.run_shell_command('sudo ln -s -f -r $(which nvim) /usr/local/bin/vim')
 
-        packer_dir_path = Path.home() / '.local/share/nvim/site/pack/packer/start/packer.nvim'
-        if not packer_dir_path.exists():
-            subprocess.check_call([
-                'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim',
-                packer_dir_path
-            ])
-
         config_dir_path = Path.home() / '.config/nvim'
         utils.mkdir(config_dir_path)
         utils.symlink_dotfile(Path('neovim/init.lua'), config_dir_path)
         utils.symlink_dotfile(Path('neovim/lua'), config_dir_path)
         utils.symlink_dotfile(Path('neovim/globalrc'), Path.home(), hidden=True)
         utils.symlink_dotfile(Path('neovim/ctags.conf'), Path.home() / '.ctags')
-        self.upgrade_neovim_plugins()
+        self.upgrade_neovim_plugins(True)
 
-    def upgrade_neovim_plugins(self):
+    def upgrade_neovim_plugins(self, installation: bool = False):
         utils.run_shell_command('cargo install openscad-lsp')
         utils.run_shell_command('sudo npm install -g neovim eslint vscode-langservers-extracted')
-        utils.run_shell_command('nvim -c "autocmd User PackerComplete quitall" -c "PackerSync"')
-        utils.run_shell_command('nvim -c "TSUpdateSync" -c q')
+        utils.run_shell_command('nvim --headless -c "autocmd User PackerComplete quitall" "+PackerSync"')
+        if not installation:
+            utils.run_shell_command('nvim --headless "+TSUpdateSync" "+quitall"')
 
     def qtconfig(self) -> None:
         self.pikaur()
