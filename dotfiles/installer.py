@@ -165,9 +165,10 @@ class Installer:
     def upgrade_neovim_plugins(self, installation: bool = False):
         utils.run_shell_command('cargo install openscad-lsp')
         utils.run_shell_command('sudo npm install -g neovim eslint vscode-langservers-extracted')
-        utils.run_shell_command('nvim --headless -c "autocmd User PackerComplete quitall" "+PackerSync"')
-        if not installation:
-            utils.run_shell_command('nvim --headless "+TSUpdateSync" "+quitall"')
+        if installation:
+            utils.run_shell_command('nvim --headless "+Lazy! sync" "+qa"')
+        else:
+            utils.run_shell_command('nvim --headless "+Lazy! sync" "+TSUpdateSync" "+qa"')
 
     def qtconfig(self) -> None:
         self.pikaur()

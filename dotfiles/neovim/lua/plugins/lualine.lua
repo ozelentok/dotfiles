@@ -50,8 +50,11 @@ local sections = {
   lualine_z = { 'location' }
 }
 
-require('lualine').setup({
-  options = { theme = theme },
-  sections = sections,
-  inactive_sections = sections,
-})
+return {
+  'nvim-lualine/lualine.nvim',
+  opts = {
+    options = { theme = theme },
+    sections = sections,
+    inactive_sections = sections,
+  }
+}
