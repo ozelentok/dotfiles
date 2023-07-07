@@ -46,13 +46,13 @@ class Installer:
             'libreoffice-fresh',
             'wine',
             'vlc',
-        ])
+        ]) # yapf: disable
 
     def deluge(self) -> None:
         self._pm.install_packages([
             'deluge', 'deluge-gtk', 'gtk3', 'python-gobject', 'python-cairo', 'librsvg',
             'libappindicator-gtk3', 'libnotify'
-        ])
+        ]) # yapf: disable
 
     def doublecmd(self):
         self._pm.install_packages(['doublecmd-gtk2'])
@@ -64,7 +64,7 @@ class Installer:
         self._pm.install_packages([
             'noto-fonts', 'noto-fonts-cjk', 'noto-fonts-emoji', 'ttf-hack-nerd', 'ttf-liberation',
             'ttf-roboto', 'fontconfig'
-        ])
+        ]) # yapf: disable
 
         config_dir_path = Path.home() / '.config/fontconfig'
         utils.mkdir(config_dir_path)
@@ -102,7 +102,7 @@ class Installer:
             'dmenu', 'feh', 'autocutsel',
             'dunst', 'scrot',
             'python-pytz', 'python-tzlocal', 'xorg-xset'
-        ])
+        ]) # yapf: disable
         utils.run_shell_command('pip install --user --break-system-packages -U pulsectl')
 
         config_dir_path = Path.home() / '.config/i3'
@@ -150,7 +150,7 @@ class Installer:
             'rust',
             'lua-language-server',
             'sqlfluff',
-        ])
+        ]) # yapf: disable
         utils.run_shell_command('sudo ln -s -f -r $(which nvim) /usr/local/bin/vim')
 
         config_dir_path = Path.home() / '.config/nvim'
@@ -208,7 +208,8 @@ class Installer:
         utils.run_shell_command('sudo systemctl enable smb')
 
     def upgrade_scripts_dependencies(self) -> None:
-        utils.run_shell_command('pip install --user --break-system-packages -U -r scripts/requirements.txt')
+        utils.run_shell_command(
+            'pip install --user --break-system-packages -U -r scripts/requirements.txt')
 
     def sensors(self) -> None:
         self._pm.install_packages(['lm_sensors'])
@@ -263,10 +264,11 @@ class Installer:
         utils.symlink_dotfile(Path('X11/Xresources'), Path.home(), hidden=True)
 
     def zsh(self) -> None:
-        self._pm.install_packages(
-                ['zsh', 'zsh-completions', 'zsh-syntax-highlighting',
-                 'fzf',
-                 'lsd'])
+        self._pm.install_packages([
+            'zsh', 'zsh-completions', 'zsh-syntax-highlighting',
+            'fzf',
+            'lsd'
+         ]) # yapf: disable
         config_dir_path = Path.home() / '.zsh'
         utils.mkdir(config_dir_path)
         utils.symlink_dotfile(Path('zsh/zshrc'), Path.home(), hidden=True)
