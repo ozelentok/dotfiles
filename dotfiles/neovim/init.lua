@@ -25,6 +25,7 @@ vim.o.completeopt = 'menu,menuone,noselect'
 vim.o.timeoutlen = 400
 vim.o.diffopt = 'filler,vertical,closeoff,internal'
 vim.o.shada = '!,\'500,<10,s10,h'
+vim.o.showcmdloc = 'statusline'
 vim.g.mapleader = ','
 vim.diagnostic.config({ virtual_text = true })
 
