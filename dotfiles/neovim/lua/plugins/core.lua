@@ -93,10 +93,10 @@ return {
         hide_cursor = false,
         respect_scrolloff = true
       })
-      local mappings = {}
-      mappings['<C-u>'] = { 'scroll', { '-vim.wo.scroll', 'true', '160' } }
-      mappings['<C-d>'] = { 'scroll', { 'vim.wo.scroll', 'true', '160' } }
-      require('neoscroll.config').set_mappings(mappings)
+      require('neoscroll.config').set_mappings({
+        ['<C-u>'] = { 'scroll', { '-vim.wo.scroll', 'true', '160' } },
+        ['<C-d>'] = { 'scroll', { 'vim.wo.scroll', 'true', '160' } },
+      })
     end
   },
 
