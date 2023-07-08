@@ -9,11 +9,10 @@ return {
       'hrsh7th/cmp-cmdline',
       'dcampos/cmp-snippy',
     },
-    config = function ()
+    config = function()
       local cmp = require('cmp')
       local snippy = require('snippy')
-
-      cmp.setup({
+      cmp.setup({ ---@diagnostic disable-line: redundant-parameter
         snippet = {
           expand = function(args)
             snippy.expand_snippet(args.body)
@@ -58,14 +57,22 @@ return {
           { name = 'nvim_lsp' },
           { name = 'nvim_lua' },
           { name = 'buffer' },
-          { name = 'path' },
+          { name = 'path',    option = { label_trailing_slash = false } },
         })
       })
-
       cmp.setup.cmdline('/', {
-        sources = {
+        mapping = cmp.mapping.preset.cmdline(),
+        sources = cmp.config.sources({
           { name = 'buffer' }
-        }
+        })
+      })
+      cmp.setup.cmdline(':', {
+        mapping = cmp.mapping.preset.cmdline(),
+        sources = cmp.config.sources({
+          { name = 'path' }
+        }, {
+          { name = 'cmdline', option = { ignore_cmds = { 'Man', '!' } } }
+        })
       })
     end,
   },
