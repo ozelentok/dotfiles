@@ -1,4 +1,32 @@
 return {
+  -- UI
+  {
+    'folke/noice.nvim',
+    dependencies = {
+      'MunifTanjim/nui.nvim',
+    },
+    event = 'VeryLazy',
+    opts = {
+      lsp = {
+        override = {
+          ['vim.lsp.util.convert_input_to_markdown_lines'] = true,
+          ['vim.lsp.util.stylize_markdown'] = true,
+          ['cmp.entry.get_documentation'] = true,
+        },
+        signature = {
+          enabled = false,
+        }
+      },
+      presets = {
+        bottom_search = false,
+        command_palette = false,
+        long_message_to_split = true,
+        inc_rename = true,
+        lsp_doc_border = false,
+      },
+    },
+  },
+
   -- Movement
   {
     'phaazon/hop.nvim',
@@ -47,7 +75,10 @@ return {
   -- Fuzzy finder
   {
     'nvim-telescope/telescope.nvim',
-    dependencies = { 'nvim-lua/plenary.nvim' },
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+      'folke/noice.nvim'
+    },
     keys = {
       { '<C-p>',      '<cmd>Telescope find_files follow=true<CR>',              noremap = true },
       { '<C-o>',      '<cmd>Telescope oldfiles<CR>',                            noremap = true },
@@ -59,6 +90,7 @@ return {
       { '<leader>b',  '<cmd>Telescope spell_suggest initial_mode=normal<CR>',   noremap = true },
       { '<leader>r',  '<cmd>Telescope lsp_references initial_mode=normal<CR>',  noremap = true },
       { '<leader>d',  '<cmd>Telescope lsp_definitions initial_mode=normal<CR>', noremap = true },
+      { '<leader>n',  '<cmd>Telescope noice<CR>',                               noremap = true },
       { '<leader>mm', '<cmd>Telescope man_pages<CR>',                           noremap = true },
       { '<leader>md', '<cmd>Telescope gtags def initial_mode=normal<CR>',       noremap = true },
       { '<leader>mr', '<cmd>Telescope gtags ref initial_mode=normal<CR>',       noremap = true },
@@ -70,6 +102,7 @@ return {
       }
     },
     init = function()
+      require('telescope').load_extension('noice')
       require('telescope').load_extension('gtags')
       vim.cmd [[autocmd User TelescopePreviewerLoaded setlocal number]]
     end,
@@ -166,7 +199,7 @@ return {
     'salkin-mada/openscad.nvim',
     ft = 'openscad',
     keys = {
-      { '<leader>n', function() require('openscad').exec_openscad() end, noremap = true },
+      { '<leader>ms', function() require('openscad').exec_openscad() end, noremap = true },
     }
   },
 }
