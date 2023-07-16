@@ -1,3 +1,5 @@
+vim.lsp.set_log_level('OFF')
+
 return {
   {
     'neovim/nvim-lspconfig',
