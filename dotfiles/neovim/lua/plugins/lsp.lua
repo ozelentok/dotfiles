@@ -42,28 +42,7 @@ return {
         }
       }
 
-      lspconfig.html.setup({
-        on_attach = on_lsp_attach,
-        capabilities = capabilities,
-        autoFixOnSave = false,
-        html = {
-          format = {
-            templating = true,
-            wrapLineLength = 200,
-            wrapAttributes = 'force-aligned',
-          },
-          editor = {
-            formatOnSave = false,
-            formatOnPaste = false,
-            formatOnType = false,
-          },
-          hover = {
-            documentation = true,
-            references = true,
-          },
-        },
-      })
-
+      lspconfig.html.setup({ on_attach = on_lsp_attach, capabilities = capabilities })
       lspconfig.jsonls.setup({ on_attach = on_lsp_attach, capabilities = capabilities })
       lspconfig.cssls.setup({ on_attach = on_lsp_attach, capabilities = capabilities })
       lspconfig.clangd.setup({ on_attach = on_lsp_attach, capabilities = capabilities })
