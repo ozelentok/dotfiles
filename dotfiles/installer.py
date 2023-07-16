@@ -149,6 +149,7 @@ class Installer:
             'clang',
             'rust',
             'lua-language-server',
+            'arduino-language-server',
             'sqlfluff',
         ]) # yapf: disable
         utils.run_shell_command('sudo ln -s -f -r $(which nvim) /usr/local/bin/vim')
