@@ -152,6 +152,8 @@ class Installer:
             'arduino-language-server',
             'sqlfluff',
         ]) # yapf: disable
+        utils.run_shell_command(
+            'pip install --user --break-system-packages -U cmakelang cmake-language-server')
         utils.run_shell_command('sudo ln -s -f -r $(which nvim) /usr/local/bin/vim')
 
         config_dir_path = Path.home() / '.config/nvim'
