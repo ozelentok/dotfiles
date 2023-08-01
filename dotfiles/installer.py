@@ -243,7 +243,7 @@ class Installer:
         utils.symlink_dotfile(Path('tmux/tmux.conf'), config_dir_path)
 
     def vifm(self) -> None:
-        self._pm.install_packages(['vifm'])
+        self._pm.install_packages(['vifm', 'python-pygments'])
         config_dir_path = Path.home() / '.config/vifm'
         colors_dir_path = config_dir_path / 'colors'
         utils.mkdir(colors_dir_path)
