@@ -42,6 +42,12 @@ def calculate_duration(input_path: Path, time_from: str, time_to: str) -> float:
     return extract_duration(input_path)
 
 
+def call_ffmpeg(args: list) -> None:
+    args = ['ffmpeg', '-hide_banner'] + [str(i) for i in args]
+    print(' '.join(args))
+    subprocess.check_call(args)
+
+
 class Preset(str, Enum):
     slow = 'slow'
     medium = 'medium'
@@ -65,7 +71,7 @@ def x265hq(
     video_filter: str = typer.Option('', '-vf'),
     tune: Optional[X265Tune] = typer.Option(None, '-t', case_sensitive=False)
 ) -> None:
-    ffmpeg_args = ['ffmpeg', '-hide_banner', '-i', str(input_path)]
+    ffmpeg_args = ['-i', str(input_path)]
     if time_from:
         ffmpeg_args += ['-ss', time_from]
     if time_to:
@@ -83,7 +89,7 @@ def x265hq(
     ]
     if tune:
         ffmpeg_args += ['-tune', tune.name]
-    subprocess.check_call(ffmpeg_args + [str(output_path)])
+    call_ffmpeg(ffmpeg_args + [str(output_path)])
 
 
 @app.command()
@@ -97,7 +103,7 @@ def ix265hq(
     tune: Optional[X265Tune] = typer.Option(None, '-t', case_sensitive=False)
 ) -> None:
     ffmpeg_args = [
-        'ffmpeg', '-hide_banner', '-framerate',
+        '-framerate',
         str(fps), '-f', 'image2', '-i',
         str(input_path)
     ]
@@ -110,7 +116,7 @@ def ix265hq(
     ]
     if tune:
         ffmpeg_args += ['-tune', tune.name]
-    subprocess.check_call(ffmpeg_args + [str(output_path)])
+    call_ffmpeg(ffmpeg_args + [str(output_path)])
 
 
 @app.command()
@@ -126,7 +132,7 @@ def x264(
     audio_filter: str = typer.Option('', '-af'),
     tune: Optional[X265Tune] = typer.Option(None, '-t', case_sensitive=False)
 ) -> None:
-    ffmpeg_args = ['ffmpeg', '-hide_banner', '-i', str(input_path)]
+    ffmpeg_args = ['-i', str(input_path)]
     if time_from:
         ffmpeg_args += ['-ss', time_from]
     if time_to:
@@ -149,7 +155,7 @@ def x264(
     ffmpeg_args += ['-c:a', 'copy'] if with_audio else ['-an']
     if tune:
         ffmpeg_args += ['-tune', tune.name]
-    subprocess.check_call(ffmpeg_args + [str(output_path)])
+    call_ffmpeg(ffmpeg_args + [str(output_path)])
 
 
 @app.command()
@@ -164,7 +170,7 @@ def ix264(
     tune: Optional[X265Tune] = typer.Option(None, '-t', case_sensitive=False)
 ) -> None:
     ffmpeg_args = [
-        'ffmpeg', '-hide_banner', '-framerate',
+        '-framerate',
         str(fps), '-f', 'image2', '-i',
         str(input_path)
     ]
@@ -187,7 +193,7 @@ def ix264(
     else:
         ffmpeg_args += ['-an']
 
-    subprocess.check_call(ffmpeg_args + [str(output_path)])
+    call_ffmpeg(ffmpeg_args + [str(output_path)])
 
 
 @app.command()
@@ -198,7 +204,7 @@ def images(
     time_to: str = typer.Option('', '-to'),
     video_filter: str = typer.Option('', '-vf')
 ) -> None:
-    ffmpeg_args = ['ffmpeg', '-hide_banner', '-i', str(input_path)]
+    ffmpeg_args = ['-i', str(input_path)]
     if time_from:
         ffmpeg_args += ['-ss', time_from]
     if time_to:
@@ -210,7 +216,7 @@ def images(
         ffmpeg_args += ['-pix_fmt', 'yuvj444p']
     ffmpeg_args += ['-qscale:v', '2', str(output_path)]
     output_path.parent.mkdir(exist_ok=True)
-    subprocess.check_call(ffmpeg_args)
+    call_ffmpeg(ffmpeg_args)
 
 
 @app.command()
@@ -230,7 +236,7 @@ def webm(
     duration = calculate_duration(input_path, time_from, time_to)
     print(f'Duration: {duration}')
     bps = int(8.0 * size_bytes / duration)
-    ffmpeg_args = ['ffmpeg', '-hide_banner', '-i', str(input_path)]
+    ffmpeg_args = ['-i', str(input_path)]
     if time_from:
         ffmpeg_args += ['-ss', time_from]
     if time_to:
@@ -252,9 +258,9 @@ def webm(
     if fps:
         ffmpeg_args += ['-r', fps]
     bitexact_params = ['-bitexact'] if bitexact else []
-    subprocess.check_call(ffmpeg_args + ['-an', '-pass', '1'] + bitexact_params + ['-y', '-f', 'webm', '/dev/null'])
+    call_ffmpeg(ffmpeg_args + ['-an', '-pass', '1'] + bitexact_params + ['-y', '-f', 'webm', '/dev/null'])
     ffmpeg_args += ['-c:a', 'libvorbis', '-ac', '2', '-b:a', '80K'] if with_audio else ['-an']
-    subprocess.check_call(ffmpeg_args + ['-pass', '2' ] + bitexact_params + ['-y', str(output_path)])
+    call_ffmpeg(ffmpeg_args + ['-pass', '2' ] + bitexact_params + ['-y', str(output_path)])
 
 
 @app.command()
@@ -273,7 +279,7 @@ def vp9webm(
     duration = calculate_duration(input_path, time_from, time_to)
     print(f'Duration: {duration}')
     bps = int(8.0 * size_bytes / duration)
-    ffmpeg_args = ['ffmpeg', '-hide_banner', '-i', str(input_path)]
+    ffmpeg_args = ['-i', str(input_path)]
     if time_from:
         ffmpeg_args += ['-ss', time_from]
     if time_to:
@@ -295,9 +301,9 @@ def vp9webm(
         '-map_metadata', '-1', '-map_chapters', '-1', '-map_metadata:s:v', '-1',
     ]
     bitexact_params = ['-bitexact'] if bitexact else []
-    subprocess.check_call(ffmpeg_args + ['-an', '-pass', '1'] + bitexact_params + ['-y', '-f', 'webm', '/dev/null'])
+    call_ffmpeg(ffmpeg_args + ['-an', '-pass', '1'] + bitexact_params + ['-y', '-f', 'webm', '/dev/null'])
     ffmpeg_args += ['-c:a', 'libvorbis', '-ac', '2', '-b:a', '80K'] if with_audio else ['-an']
-    subprocess.check_call(ffmpeg_args + ['-pass', '2' ] + bitexact_params + ['-y', str(output_path)])
+    call_ffmpeg(ffmpeg_args + ['-pass', '2' ] + bitexact_params + ['-y', str(output_path)])
 
 
 
@@ -316,7 +322,7 @@ def iwebm(
     frames_count = len([1 for i in input_path.parent.iterdir() if i.is_file()])
     bps = int(8.0 * size_bytes * fps / frames_count)
     ffmpeg_args = [
-        'ffmpeg', '-hide_banner', '-framerate',
+        '-framerate',
         str(fps), '-f', 'image2', '-i',
         str(input_path)
     ]
@@ -331,10 +337,10 @@ def iwebm(
         '-map_metadata', '-1', '-map_chapters', '-1', '-map_metadata:s:v', '-1',
     ]
     bitexact_params = ['-bitexact'] if bitexact else []
-    subprocess.check_call(ffmpeg_args + ['-an', '-pass', '1'] + bitexact_params + ['-y', '-f', 'webm', '/dev/null'])
+    call_ffmpeg(ffmpeg_args + ['-an', '-pass', '1'] + bitexact_params + ['-y', '-f', 'webm', '/dev/null'])
     if audio_path:
         ffmpeg_args += ['-c:a', 'libvorbis', '-b:a', '128K']
-    subprocess.check_call(ffmpeg_args + ['-pass', '2' ] + bitexact_params + ['-y', str(output_path)])
+    call_ffmpeg(ffmpeg_args + ['-pass', '2' ] + bitexact_params + ['-y', str(output_path)])
 
 
 @app.command()
@@ -351,7 +357,7 @@ def ivp9webm(
     frames_count = len([1 for i in input_path.parent.iterdir() if i.is_file()])
     bps = int(8.0 * size_bytes * fps / frames_count)
     ffmpeg_args = [
-        'ffmpeg', '-hide_banner', '-framerate',
+        '-framerate',
         str(fps), '-f', 'image2', '-i',
         str(input_path)
     ]
@@ -369,10 +375,10 @@ def ivp9webm(
         '-map_metadata', '-1', '-map_chapters', '-1', '-map_metadata:s:v', '-1',
     ]
     bitexact_params = ['-bitexact'] if bitexact else []
-    subprocess.check_call(ffmpeg_args + ['-an', '-pass', '1'] + bitexact_params + ['-y', '-f', 'webm', '/dev/null'])
+    call_ffmpeg(ffmpeg_args + ['-an', '-pass', '1'] + bitexact_params + ['-y', '-f', 'webm', '/dev/null'])
     if audio_path:
         ffmpeg_args += ['-c:a', 'libvorbis', '-b:a', '128K']
-    subprocess.check_call(ffmpeg_args + ['-pass', '2' ] + bitexact_params + ['-y', str(output_path)])
+    call_ffmpeg(ffmpeg_args + ['-pass', '2' ] + bitexact_params + ['-y', str(output_path)])
 
 
 @app.command()
@@ -382,7 +388,7 @@ def copy(
     time_from: str = typer.Option('', '-from'),
     time_to: str = typer.Option('', '-to'),
 ) -> None:
-    ffmpeg_args = ['ffmpeg', '-hide_banner']
+    ffmpeg_args = []
     if time_from:
         ffmpeg_args += ['-ss', time_from]
     if time_to:
@@ -394,7 +400,7 @@ def copy(
         '-c:a', 'copy',
         '-c:s', 'copy',
     ]
-    subprocess.check_call(ffmpeg_args + ['-y', str(output_path)])
+    call_ffmpeg(ffmpeg_args + ['-y', str(output_path)])
 
 
 if __name__ == "__main__":
