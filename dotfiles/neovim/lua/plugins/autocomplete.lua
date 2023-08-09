@@ -8,10 +8,13 @@ return {
       'hrsh7th/cmp-path',
       'hrsh7th/cmp-cmdline',
       'dcampos/cmp-snippy',
+      'windwp/nvim-autopairs',
     },
     config = function()
       local cmp = require('cmp')
       local snippy = require('snippy')
+      local cmp_autopairs = require('nvim-autopairs.completion.cmp')
+
       cmp.setup({ ---@diagnostic disable-line: redundant-parameter
         snippet = {
           expand = function(args)
@@ -74,6 +77,10 @@ return {
           { name = 'cmdline', option = { ignore_cmds = { 'Man', '!' } } }
         })
       })
+      cmp.event:on(
+        'confirm_done',
+        cmp_autopairs.on_confirm_done()
+      )
     end,
   },
   'dcampos/nvim-snippy',

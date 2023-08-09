@@ -158,8 +158,9 @@ return {
 
   -- Automatic Brackets Closer
   {
-    'rstacruz/vim-closer',
-    event = 'VeryLazy'
+    'windwp/nvim-autopairs',
+    event = 'InsertEnter',
+    opts = {},
   },
 
   -- Surrounding Pairs Actions
