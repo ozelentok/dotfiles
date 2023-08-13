@@ -130,6 +130,7 @@ def x264(
     video_filter: str = typer.Option('', '-vf'),
     with_audio: bool = typer.Option(False, '-audio/-no-audio'),
     audio_filter: str = typer.Option('', '-af'),
+    subtitles_path: Path = typer.Option(None, '-subs'),
     tune: Optional[X265Tune] = typer.Option(None, '-t', case_sensitive=False)
 ) -> None:
     ffmpeg_args = ['-i', str(input_path)]
@@ -137,6 +138,10 @@ def x264(
         ffmpeg_args += ['-ss', time_from]
     if time_to:
         ffmpeg_args += ['-to', time_to]
+    if subtitles_path:
+        if video_filter:
+            video_filter += ','
+        video_filter += f'subtitles={str(subtitles_path)}:force_style=\'{SUBTITLES_OPTIONS}\''
     if video_filter:
         ffmpeg_args += ['-vf', video_filter]
     if audio_filter:
