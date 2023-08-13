@@ -166,7 +166,8 @@ return {
   -- Surrounding Pairs Actions
   {
     'kylechui/nvim-surround',
-    event = 'VeryLazy'
+    event = 'VeryLazy',
+    opts = {},
   },
 
   -- Comment Actions
