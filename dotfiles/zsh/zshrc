@@ -83,33 +83,6 @@ function zvm_after_select_vi_mode() {
   esac
 }
 
-
-if [ -x /usr/bin/dircolors ]; then
-	alias ls='ls --color=auto --group-directories-first'
-	alias dir='dir --color=auto'
-	alias vdir='vdir --color=auto'
-	alias grep='grep --color=auto'
-	alias fgrep='fgrep --color=auto'
-	alias egrep='egrep --color=auto'
-fi
-
-# GNU ls aliases
-# alias ll='ls -lFhX --time-style=long-iso'
-# alias la='ls -A'
-
-# LSDeluxe aliases
-alias ll='lsd -lFX'
-alias lla='lsd -lFXA'
-alias la='lsd -A'
-alias lsd='lsd -1'
-alias l='lsd'
-
-alias rm='rm -I'
-alias ranger='. ranger'
-
-alias 11="cd /tmp/1-imgs"
-alias 12="cd /tmp/0-screenshots"
-
 # Home and End
 bindkey "\e[1~" beginning-of-line
 bindkey "\e[4~" end-of-line
@@ -175,6 +148,32 @@ if [ -z "$SSH_AUTH_SOCK" ]; then
 	source "$SSH_AGENT_ENV_PATH" > /dev/null
 fi
 
+# Color aliases
+if [ -x /usr/bin/dircolors ]; then
+	alias ls='ls --color=auto --group-directories-first'
+	alias dir='dir --color=auto'
+	alias vdir='vdir --color=auto'
+	alias grep='grep --color=auto'
+	alias fgrep='fgrep --color=auto'
+	alias egrep='egrep --color=auto'
+fi
+
+# GNU ls aliases
+# alias ll='ls -lFhX --time-style=long-iso'
+# alias la='ls -A'
+
+# LSDeluxe aliases
+alias la='lsd -A'
+alias ll='lsd -lFX'
+alias lla='lsd -lFXA'
+alias lsd='lsd -1'
+alias l='lsd'
+
+alias rm='rm -I'
+alias ranger='. ranger'
+
+alias tt='cd /tmp'
+alias 11='cd /tmp/1-imgs'
 alias pwf='sudo poweroff'
 alias rbt='sudo reboot'
 alias psu='ps -lFww --ppid 2 -p 2 --deselect'
@@ -188,9 +187,11 @@ jp() {
 	convert "${1}" "${1%.*}.jpg"
 }
 
+# Zsh Vi Mode
 if [ $ENABLE_ZVM -ne 0 ]; then
 	source $HOME/.dotfiles/dotfiles/zsh/zsh-vi-mode/zsh-vi-mode.plugin.zsh
 fi
+
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source /usr/share/fzf/key-bindings.zsh
 source /usr/share/fzf/completion.zsh
