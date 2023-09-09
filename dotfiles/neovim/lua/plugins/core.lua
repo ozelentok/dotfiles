@@ -36,7 +36,7 @@ return {
       'MunifTanjim/nui.nvim',
     },
     keys = {
-      { '<leader>a', '<cmd>Neotree toggle<CR>', noremap = true },
+      { '<leader>a', '<cmd>Neotree toggle<CR>', noremap = true, desc = 'Neotree' },
     }
   },
 
@@ -125,8 +125,8 @@ return {
   {
     'folke/trouble.nvim',
     keys = {
-      { '<leader>t', '<cmd>TroubleToggle document_diagnostics<CR>',  noremap = true },
-      { '<leader>w', '<cmd>TroubleToggle workspace_diagnostics<CR>', noremap = true }
+      { '<leader>t', '<cmd>TroubleToggle document_diagnostics<CR>',  noremap = true, desc = 'Trouble Diagnostics' },
+      { '<leader>w', '<cmd>TroubleToggle workspace_diagnostics<CR>', noremap = true, desc = 'Trouble Workspace' }
     }
   },
 
@@ -204,7 +204,7 @@ return {
     'ellisonleao/glow.nvim',
     ft = 'markdown',
     keys = {
-      { '<leader>p', '<cmd>Glow!<CR>', noremap = true }
+      { '<leader>p', '<cmd>Glow!<CR>', noremap = true, desc = 'Markdown Glow' }
     },
     config = true,
   },
@@ -214,7 +214,7 @@ return {
     'salkin-mada/openscad.nvim',
     ft = 'openscad',
     keys = {
-      { '<leader>ms', function() require('openscad').exec_openscad() end, noremap = true },
+      { '<leader>ms', function() require('openscad').exec_openscad() end, noremap = true, desc = 'OpenSCAD' },
     }
   },
 }

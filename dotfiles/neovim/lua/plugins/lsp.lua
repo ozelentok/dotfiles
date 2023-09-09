@@ -11,7 +11,7 @@ return {
     build = ':TSUpdate',
     event = { 'BufReadPost', 'BufNewFile' },
     keys = {
-      { '<leader>v', vim.lsp.buf.format, noremap = true },
+      { '<leader>v', vim.lsp.buf.format, noremap = true, desc = 'LSP Format' },
     },
     config = function()
       local lspconfig = require('lspconfig')
