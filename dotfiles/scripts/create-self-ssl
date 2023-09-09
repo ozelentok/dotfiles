@@ -1,0 +1,61 @@
+#!/bin/sh
+
+set -e
+
+if [ "$#" -lt 2 ]; then
+	echo "create-self-ssl - Create self signed SSL"
+	echo "Usage: create-self-ssl [CA_NAME] [SERVER_NAME]"
+	echo ""
+	exit 1
+fi
+
+CA_NAME="$1"
+SERVER_NAME="$2"
+DAYS=3650
+BITS=4096
+
+openssl req -x509 -sha256 -days ${DAYS} -nodes -newkey rsa:4096 \
+	-subj "/CN=${CA_NAME}/C=US" -keyout rootCA.key -out rootCA.crt
+
+openssl genrsa -out server.key ${BITS}
+
+cat > csr.conf <<EOF
+[ req ]
+default_bits = ${BITS}
+prompt = no
+default_md = sha256
+req_extensions = req_ext
+distinguished_name = dn
+
+[ dn ]
+C = US
+ST = California
+L = San Fransisco
+CN = ${SERVER_NAME}
+
+[ req_ext ]
+subjectAltName = @alt_names
+
+[ alt_names ]
+DNS.1 = ${SERVER_NAME}
+DNS.2 = www.${SERVER_NAME}
+EOF
+
+openssl req -new -key server.key -config csr.conf \
+	-out server.csr
+
+cat > cert.conf <<EOF
+
+authorityKeyIdentifier=keyid,issuer
+basicConstraints=CA:FALSE
+keyUsage = digitalSignature, nonRepudiation, keyEncipherment, dataEncipherment
+subjectAltName = @alt_names
+
+[alt_names]
+DNS.1 = ${SERVER_NAME}
+EOF
+
+openssl x509 -req \
+	-in server.csr -CA rootCA.crt -CAkey rootCA.key \
+	-CAcreateserial -days ${DAYS} -sha256 -extfile cert.conf \
+	-out server.crt
