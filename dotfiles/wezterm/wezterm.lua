@@ -1,7 +1,7 @@
 local wezterm = require('wezterm')
 
 return {
-  font = wezterm.font_with_fallback({'Hack Nerd Font', 'Liberation Sans', 'Noto Color Emoji'}),
+  font = wezterm.font_with_fallback({ 'Hack Nerd Font', 'Liberation Sans', 'Noto Color Emoji' }),
   font_size = 10.5,
   colors = {
     foreground = 'white',
@@ -46,6 +46,13 @@ return {
       event = { Up = { streak = 1, button = 'Left' } },
       mods = 'CTRL',
       action = wezterm.action.OpenLinkAtMouseCursor,
+    },
+  },
+  keys = {
+    {
+      key = 'v',
+      mods = 'SUPER',
+      action = wezterm.action.Nop,
     },
   }
 }
