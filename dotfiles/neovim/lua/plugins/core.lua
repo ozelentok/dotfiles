@@ -104,11 +104,20 @@ return {
       { '<leader>r',  '<cmd>Telescope lsp_references initial_mode=normal<CR>',    noremap = true },
       { '<leader>d',  '<cmd>Telescope lsp_definitions initial_mode=normal<CR>',   noremap = true },
       { '<leader>n',  '<cmd>Telescope noice<CR>',                                 noremap = true },
+      { '<leader>x',  '<cmd>Telescope treesitter<CR>',                            noremap = true },
       { '<leader>mm', '<cmd>Telescope man_pages<CR>',                             noremap = true },
       { '<leader>md', '<cmd>Telescope gtags def initial_mode=normal<CR>',         noremap = true },
       { '<leader>mr', '<cmd>Telescope gtags ref initial_mode=normal<CR>',         noremap = true },
       { '<leader>mf', '<cmd>Telescope find_files follow=true no_ignore=true<CR>', noremap = true },
-      { '<leader>x',  '<cmd>Telescope treesitter<CR>',                            noremap = true },
+      {
+        '<leader>ms',
+        function()
+          require('telescope.builtin').live_grep({
+            additional_args = { '--no-ignore' }
+          })
+        end,
+        noremap = true
+      },
     },
     opts = {
       defaults = {
@@ -215,7 +224,7 @@ return {
     'salkin-mada/openscad.nvim',
     ft = 'openscad',
     keys = {
-      { '<leader>ms', function() require('openscad').exec_openscad() end, noremap = true, desc = 'OpenSCAD' },
+      { '<leader>mp', function() require('openscad').exec_openscad() end, noremap = true, desc = 'OpenSCAD' },
     }
   },
 }
