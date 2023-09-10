@@ -64,24 +64,41 @@ PROMPT=${PROMPT_START}
 RPROMPT='${vcs_info_msg_0_} %B%F{12}[%D{%H:%M:%S}]%b%f'
 
 function zvm_after_select_vi_mode() {
-  case $ZVM_MODE in
-    $ZVM_MODE_INSERT)
+	case $ZVM_MODE in
+		$ZVM_MODE_INSERT)
 			PROMPT="${PROMPT_START} I %k%F{235}%f"
-    ;;
-    $ZVM_MODE_NORMAL)
+			;;
+		$ZVM_MODE_NORMAL)
 			PROMPT="${PROMPT_START}%F{11}%B N %b%k%F{235}%f"
-    ;;
-    $ZVM_MODE_VISUAL)
+			;;
+		$ZVM_MODE_VISUAL)
 			PROMPT="${PROMPT_START}%F{208}%B V %b%k%F{235}%f"
-    ;;
-    $ZVM_MODE_VISUAL_LINE)
+			;;
+		$ZVM_MODE_VISUAL_LINE)
 			PROMPT="${PROMPT_START}%F{208}%B B %b%k%F{235}%f"
-    ;;
-    $ZVM_MODE_REPLACE)
+			;;
+		$ZVM_MODE_REPLACE)
 			PROMPT="${PROMPT_START}%F{1}%B R %b%k%F{235}%f"
-    ;;
-  esac
+			;;
+	esac
 }
+
+up-line-or-local-history() {
+	zle set-local-history 1
+	zle up-line-or-history
+	zle set-local-history 0
+}
+down-line-or-local-history() {
+	zle set-local-history 1
+	zle down-line-or-history
+	zle set-local-history 0
+}
+
+# Arrows local history
+bindkey "^[OA" up-line-or-local-history
+bindkey "^[OB" down-line-or-local-history
+zle -N up-line-or-local-history
+zle -N down-line-or-local-history
 
 # Home and End
 bindkey "\e[1~" beginning-of-line
@@ -131,7 +148,7 @@ man() {
 		LESS_TERMCAP_ue=$'\E[0m' \
 		LESS_TERMCAP_us=$'\E[04;38;5;146m' \
 		man "$@"
-}
+	}
 
 # SSH Agent
 if [ ! -z "$XDG_RUNTIME_DIR" ]; then
