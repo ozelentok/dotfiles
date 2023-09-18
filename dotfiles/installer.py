@@ -257,8 +257,10 @@ class Installer:
         utils.symlink_dotfile(Path('wezterm/wezterm.lua'), config_dir_path)
 
     def X11(self) -> None:
-        self._pm.install_packages(
-            ['xorg-server', 'xorg-xinit', 'xorg-xkill', 'xorg-xhost', 'xorg-xev'])
+        self._pm.install_packages([
+            'xorg-server', 'xorg-xinit', 'xorg-xkill', 'xorg-xhost', 'xorg-xev',
+            'xdg-utils', 'perl-file-mimeinfo'
+        ])
         config_dir_path = '/etc/X11/xorg.conf.d'
         utils.run_shell_command(f'sudo mkdir -p {config_dir_path}')
         utils.run_shell_command(f'sudo cp X11/00-keyboard.conf {config_dir_path}/')
