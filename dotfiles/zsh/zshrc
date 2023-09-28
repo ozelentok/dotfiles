@@ -56,11 +56,11 @@ PROMPT_START+=$'\n'
 PROMPT_START+='%K{22} %(!.#.$) %F{22}'
 if [ $ENABLE_ZVM -ne 0 ]; then
 	PROMPT_START+='%K{235}%f'
+	PROMPT="${PROMPT_START} I %k%F{235}%f"
 else
 	PROMPT_START+='%k%f'
+	PROMPT=${PROMPT_START}
 fi
-PROMPT=${PROMPT_START}
-
 RPROMPT='${vcs_info_msg_0_} %B%F{12}[%D{%H:%M:%S}]%b%f'
 
 function zvm_after_select_vi_mode() {
