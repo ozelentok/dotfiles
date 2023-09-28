@@ -34,7 +34,10 @@ class Installer:
 
             'pulseaudio', 'pulseaudio-alsa', 'pavucontrol', 'alsa-utils',
             'polkit', 'polkit-gnome',
+        ]) # yapf: disable
 
+    def desktop_programs(self) -> None:
+        self._pm.install_packages([
             'firefox-developer-edition',
             'chromium',
             'keepassxc',
@@ -46,6 +49,9 @@ class Installer:
             'libreoffice-fresh',
             'wine',
             'vlc',
+
+            'baobab',
+            'easytag',
         ]) # yapf: disable
 
     def deluge(self) -> None:
@@ -260,7 +266,8 @@ class Installer:
         self._pm.install_packages([
             'xorg-server', 'xorg-xinit', 'xorg-xkill', 'xorg-xhost', 'xorg-xev',
             'xdg-utils', 'perl-file-mimeinfo'
-        ])
+        ]) # yapf: disable
+
         config_dir_path = '/etc/X11/xorg.conf.d'
         utils.run_shell_command(f'sudo mkdir -p {config_dir_path}')
         utils.run_shell_command(f'sudo cp X11/00-keyboard.conf {config_dir_path}/')
@@ -273,7 +280,8 @@ class Installer:
             'zsh', 'zsh-completions', 'zsh-syntax-highlighting',
             'fzf',
             'lsd'
-         ]) # yapf: disable
+        ]) # yapf: disable
+
         config_dir_path = Path.home() / '.zsh'
         utils.mkdir(config_dir_path)
         utils.symlink_dotfile(Path('zsh/zshrc'), Path.home(), hidden=True)
@@ -286,6 +294,7 @@ class Installer:
 
     def all(self) -> None:
         self.base_packages()
+        self.desktop_programs()
         self.deluge()
         self.doublecmd()
         self.fontconfig()
