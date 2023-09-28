@@ -97,9 +97,9 @@ return {
   -- Indentation Guides
   {
     'lukas-reineke/indent-blankline.nvim',
+    main = 'ibl',
     opts = {
-      char_list = { '|', '¦', '┆' },
-      buftwhitespace_fgype_exclude = { 'terminal' }
+      indent = { char = { '|', '¦', '┆' } },
     }
   },
 }
