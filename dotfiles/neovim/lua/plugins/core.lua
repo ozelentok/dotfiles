@@ -227,4 +227,9 @@ return {
       { '<leader>mp', function() require('openscad').exec_openscad() end, noremap = true, desc = 'OpenSCAD' },
     }
   },
+  {
+    'sakhnik/nvim-gdb',
+    events = 'VeryLazy',
+    opts = {}
+  }
 }
