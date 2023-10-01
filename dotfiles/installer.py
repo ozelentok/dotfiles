@@ -58,6 +58,13 @@ class Installer:
             'playerctl',
         ]) # yapf: disable
 
+    def bluetooth(self) -> None:
+        self._pm.install_packages([
+            'pulseaudio-bluetooth', 'bluez', 'blueman', 'gst-plugins-bad',
+        ]) # yapf: disable
+        utils.copy_dotfile_as_root(Path('bluetooth/main.conf'), Path('/etc/bluetooth'))
+        utils.run_shell_command('sudo systemctl enable bluetooth')
+
     def deluge(self) -> None:
         self._pm.install_packages([
             'deluge', 'deluge-gtk', 'gtk3', 'python-gobject', 'python-cairo', 'librsvg',
@@ -301,6 +308,7 @@ class Installer:
     def all(self) -> None:
         self.base_packages()
         self.desktop_programs()
+        self.bluetooth()
         self.deluge()
         self.doublecmd()
         self.fontconfig()

@@ -70,6 +70,14 @@ def copy_dotfile(dotfile_path: Path, dst_path: Path, hidden: bool = False) -> No
     shutil.copy2(src_path, dst_path)
 
 
+def copy_dotfile_as_root(dotfile_path: Path, dst_path: Path, hidden: bool = False) -> None:
+    if dst_path.is_dir():
+        dst_path /= ('.' if hidden else '') + dotfile_path.name
+
+    src_path = __MOUDLE_PATH / dotfile_path
+    subprocess.check_call(['sudo', 'cp', src_path, dst_path], cwd=__MOUDLE_PATH)
+
+
 def extract_dotfile_tar(dotfile_tar_path: Path, dst_dir_path: Path):
     with tarfile.open(__MOUDLE_PATH / dotfile_tar_path) as tar_file:
         tar_file.extractall(dst_dir_path)
