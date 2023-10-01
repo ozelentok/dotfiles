@@ -44,7 +44,7 @@ class Installer:
             'firefox-developer-edition',
             'chromium',
             'keepassxc',
-            'eog',
+            # 'eog',
             'evince',
             'rdesktop',
             'audacity',
@@ -279,6 +279,10 @@ class Installer:
         utils.symlink_dotfile(Path('X11/xinitrc'), Path.home(), hidden=True)
         utils.symlink_dotfile(Path('X11/Xresources'), Path.home(), hidden=True)
 
+    def xnviewmp(self) -> None:
+        self.pikaur()
+        self._pm.install_aur_packages(['xnviewmp'])
+
     def zsh(self) -> None:
         self._pm.install_packages([
             'zsh', 'zsh-completions', 'zsh-syntax-highlighting',
@@ -319,6 +323,7 @@ class Installer:
         self.tmux()
         self.wezterm()
         self.X11()
+        self.xnviewmp()
         self.zsh()
 
     def upgrade(self) -> None:
