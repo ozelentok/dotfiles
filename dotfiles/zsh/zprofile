@@ -12,7 +12,7 @@ export DOTFILES_ROOT="$HOME/.dotfiles"
 ANDROID_PATHS="$ANDROID_SDK_ROOT/tools:$ANDROID_SDK_ROOT/tools/bin:$ANDROID_SDK_ROOT/platform-tools:$ANDROID_SDK_ROOT/emulator"
 
 if [[ ":$PATH:" != *":$ANDROID_PATHS:"* ]]; then
-	export PATH="$HOME/.local/bin:$HOME/.cargo/bin:$DOTFILES_ROOT/dotfiles/scripts:$ANDROID_PATHS:$PATH"
+	export PATH="$HOME/.local/bin:$HOME/.cargo/bin:$DOTFILES_ROOT/dotfiles/scripts:$HOME/Code/scripts:$ANDROID_PATHS:$PATH"
 fi
 
 [[ -f $HOME/.profile ]] && source $HOME/.profile
