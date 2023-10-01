@@ -138,6 +138,10 @@ class Installer:
         utils.mkdir(config_dir_path)
         utils.symlink_dotfile(Path('picom/picom.conf'), config_dir_path)
 
+    def mcomix(self) -> None:
+        self.pikaur()
+        self._pm.install_aur_packages(['mcomix'])
+
     def mount_utils(self) -> None:
         self._pm.install_packages(['sshfs', 'cifs-utils', 'fuse3'])
         utils.run_shell_command('sudo mkdir -p /mnt/sftp /mnt/cifs')
@@ -318,6 +322,7 @@ class Installer:
         self.pikaur()
         self.i3()
         self.picom()
+        self.mcomix()
         self.mount_utils()
         self.mpv()
         self.neovim()
