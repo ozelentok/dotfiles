@@ -27,6 +27,9 @@ class Installer:
             'net-tools',
             'bind-tools',
             'imagemagick',
+            'pdftk',
+            'chntpw',
+            'perl-image-exiftool',
 
             'python-pip',
             'nodejs', 'npm',
@@ -52,6 +55,7 @@ class Installer:
 
             'baobab',
             'easytag',
+            'playerctl',
         ]) # yapf: disable
 
     def deluge(self) -> None:
@@ -282,8 +286,6 @@ class Installer:
             'lsd'
         ]) # yapf: disable
 
-        config_dir_path = Path.home() / '.zsh'
-        utils.mkdir(config_dir_path)
         utils.symlink_dotfile(Path('zsh/zshrc'), Path.home(), hidden=True)
         utils.symlink_dotfile(Path('zsh/zprofile'), Path.home(), hidden=True)
         utils.run_shell_command('sudo usermod -s $(which zsh) ${USER}')
