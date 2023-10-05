@@ -8,6 +8,9 @@ SAVEHIST=100000
 HISTFILE=$HOME/.zsh_history
 setopt APPEND_HISTORY
 setopt PATH_DIRS
+setopt AUTO_CD
+setopt CORRECT
+setopt PROMPT_SUBST
 
 autoload -Uz compinit && compinit -i
 
@@ -42,10 +45,6 @@ zstyle ':vcs_info:git*+set-message:*' hooks git-status
 function precmd() {
 	vcs_info
 }
-
-setopt AUTO_CD
-setopt CORRECT
-setopt PROMPT_SUBST
 
 ZLE_RPROMPT_INDENT=0
 ZVM_INIT_MODE=sourcing
@@ -149,21 +148,6 @@ man() {
 		LESS_TERMCAP_us=$'\E[04;38;5;146m' \
 		man "$@"
 	}
-
-# SSH Agent
-if [ ! -z "$XDG_RUNTIME_DIR" ]; then
-	SSH_AGENT_ENV_PATH="${XDG_RUNTIME_DIR}/ssh-agent-${USER}.env"
-else
-	SSH_AGENT_ENV_PATH="/tmp/ssh-agent-${USER}.env"
-fi
-
-if ! pgrep -u "$USER" ssh-agent > /dev/null; then
-	ssh-agent > "$SSH_AGENT_ENV_PATH"
-	chmod 600 "$SSH_AGENT_ENV_PATH"
-fi
-if [ -z "$SSH_AUTH_SOCK" ]; then
-	source "$SSH_AGENT_ENV_PATH" > /dev/null
-fi
 
 # Color aliases
 if [ -x /usr/bin/dircolors ]; then
