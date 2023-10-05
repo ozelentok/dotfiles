@@ -60,7 +60,15 @@ return {
           { name = 'nvim_lsp' },
           { name = 'nvim_lua' },
           { name = 'buffer' },
-          { name = 'path',    option = { label_trailing_slash = false } },
+          {
+            name = 'path',
+            option = {
+              label_trailing_slash = false,
+              get_cwd = function()
+                return vim.fn.getcwd(vim.fn.winnr())
+              end,
+            }
+          },
         })
       })
       cmp.setup.cmdline('/', {
