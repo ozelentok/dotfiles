@@ -195,9 +195,44 @@ return {
     config = function()
       require('project_nvim').setup({
         scope_chdir = 'win',
-        ignore_lsp = { 'lua_ls' }
+        ignore_lsp = { 'lua_ls' },
+        manual_mode = true,
+        silent_chdir = false,
       })
-    end
+    end,
+    keys = {
+      {
+        '<leader><leader>j',
+        function()
+          vim.o.autochdir = false
+          require('project_nvim.project').on_buf_enter()
+          vim.print('ProjectRoot enabled')
+        end,
+        noremap = true,
+        desc = 'CD to project directory'
+      },
+      {
+        '<leader><leader>m',
+        function()
+          vim.cmd('lcd ' .. vim.fn.expand('%:p:h'))
+          vim.o.autochdir = true
+          vim.print('autochir enabled')
+        end,
+        noremap = true,
+        desc =
+        'Enable auto file working directory'
+      },
+      {
+        '<leader><leader>n',
+        function()
+          vim.o.autochdir = false
+          vim.print('autochir disabled')
+        end,
+        noremap = true,
+        desc =
+        'Disable auto file workspace directory'
+      },
+    }
   },
 
   -- Key Bindings Hinter
