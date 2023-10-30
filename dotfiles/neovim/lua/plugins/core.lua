@@ -116,7 +116,8 @@ return {
             additional_args = { '--no-ignore' }
           })
         end,
-        noremap = true
+        noremap = true,
+        desc = 'Telescope live_grep --no-ignore'
       },
     },
     opts = {
@@ -262,9 +263,38 @@ return {
       { '<leader>mp', function() require('openscad').exec_openscad() end, noremap = true, desc = 'OpenSCAD' },
     }
   },
+
+  -- GDB Integration
   {
     'sakhnik/nvim-gdb',
     events = 'VeryLazy',
     opts = {}
+  },
+
+  -- Copy over remote SSH connections
+  {
+    'ojroques/nvim-osc52',
+    config = function()
+      require('osc52').setup()
+    end,
+    keys = {
+      {
+        '<leader>y',
+        function()
+          return require('osc52').copy_operator()
+        end,
+        noremap = true,
+        expr = true,
+        desc = 'OSC52 Copy Operator'
+      },
+      {
+        '<leader>y',
+        function() require('osc52').copy_visual() end,
+        noremap = true,
+        mode = 'v',
+        desc = 'OSC52 Copy Line'
+      },
+      { '<leader>yy', '<leader>y_', remap = true, desc = 'OSC52 Copy Line' },
+    }
   }
 }
