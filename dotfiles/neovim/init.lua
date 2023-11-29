@@ -35,32 +35,42 @@ local map_vim = function(mode, lhs, rhs, opts)
   vim.api.nvim_set_keymap(mode, lhs, rhs, options)
 end
 
--- Disable copy of selected text during paste
-map_vim('x', 'p', "'pgv\"'.v:register.'y`>'", { expr = true })
-map_vim('x', 'P', "'Pgv\"'.v:register.'y`>'", { expr = true })
+-- Semicolon enters command-line mode
+map_vim('', ';', ':')
 
+-- Capital U redo
 map_vim('n', 'U', '<C-r>')
 
+-- Window movement
 map_vim('n', '<C-h>', '<C-w>h')
 map_vim('n', '<C-j>', '<C-w>j')
 map_vim('n', '<C-k>', '<C-w>k')
 map_vim('n', '<C-l>', '<C-w>l')
 
+-- Date insertion
 map_vim('n', '<F2>', '"=strftime("%Y-%m-%d")<CR>P')
 map_vim('i', '<F2>', '<C-R>=strftime("%Y-%m-%d")<CR>')
 map_vim('n', '<F3>', '"=strftime("%Y-%m-%d %H:%M:%S")<CR>P')
 map_vim('i', '<F3>', '<C-R>=strftime("%Y-%m-%d %H:%M:%S")<CR>')
+
+-- Diff two open windows
 map_vim('n', '<leader>f', '<cmd>diffthis<CR><C-w><C-w><cmd>diffthis<CR><C-w><C-w>')
 
-vim.keymap.set('c', '<C-e>', function()
+-- Disable copy of selected text during paste
+map_vim('x', 'p', "'pgv\"'.v:register.'y`>'", { expr = true })
+map_vim('x', 'P', "'Pgv\"'.v:register.'y`>'", { expr = true })
+
+-- Output command result to current buffer
+vim.keymap.set('c', '<C-o>', function()
   local escaped_command = string.gsub(vim.fn.getcmdline(), "'", "''")
   local wrapped_command = string.format("put=execute('%s')", escaped_command)
   vim.fn.setcmdline(wrapped_command)
 
   local enter_key = vim.api.nvim_replace_termcodes('<CR>', true, true, true)
   vim.api.nvim_feedkeys(enter_key, 'n', true)
-end)
+end, { noremap = true })
 
+-- Lazy.nvim bootstrap
 local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
 if not vim.loop.fs_stat(lazypath) then
   vim.fn.system({
