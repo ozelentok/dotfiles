@@ -56,6 +56,10 @@ map_vim('i', '<F3>', '<C-R>=strftime("%Y-%m-%d %H:%M:%S")<CR>')
 -- Diff two open windows
 map_vim('n', '<leader>f', '<cmd>diffthis<CR><C-w><C-w><cmd>diffthis<CR><C-w><C-w>')
 
+-- Quick exit
+map_vim('n', '<leader><leader>f', ':qa<CR>')
+map_vim('n', '<leader><leader><C-f>', ':qa!<CR>')
+
 -- Disable copy of selected text during paste
 map_vim('x', 'p', "'pgv\"'.v:register.'y`>'", { expr = true })
 map_vim('x', 'P', "'Pgv\"'.v:register.'y`>'", { expr = true })
