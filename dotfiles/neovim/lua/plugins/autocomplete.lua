@@ -22,12 +22,20 @@ return {
           end,
         },
         mapping = {
-          ['<Down>'] = cmp.mapping(function()
-            cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
-          end, { 'i', 's', 'c' }),
-          ['<Up>'] = cmp.mapping(function()
-            cmp.select_prev_item({ behavior = cmp.SelectBehavior.Select })
-          end, { 'i', 's', 'c' }),
+          ['<Down>'] = cmp.mapping(function(fallback)
+            if cmp.visible() then
+              cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
+            else
+              fallback()
+            end
+          end, { 'i', 's' }),
+          ['<Up>'] = cmp.mapping(function(fallback)
+            if cmp.visible() then
+              cmp.select_prev_item({ behavior = cmp.SelectBehavior.Select })
+            else
+              fallback()
+            end
+          end, { 'i', 's' }),
 
           ['<C-n>'] = cmp.mapping(function()
             if cmp.visible() then
@@ -64,20 +72,53 @@ return {
             c = cmp.mapping.close(),
           },
 
-          ['<Tab>'] = cmp.mapping(function(fallback)
-            if snippy.can_jump(1) then
-              snippy.next()
-            else
-              fallback()
-            end
-          end, { 'i', 's' }),
-          ['<S-Tab>'] = cmp.mapping(function(fallback)
-            if snippy.can_jump(-1) then
-              snippy.previous()
-            else
-              fallback()
-            end
-          end, { 'i', 's' }),
+          ['<Tab>'] = cmp.mapping({
+            i = function(fallback)
+              if snippy.can_jump(1) then
+                snippy.next()
+              else
+                fallback()
+              end
+            end,
+            s = function(fallback)
+              if snippy.can_jump(1) then
+                snippy.next()
+              else
+                fallback()
+              end
+            end,
+            c = function(fallback)
+              if cmp.visible() then
+                cmp.select_next_item({ behavior = cmp.SelectBehavior.Replace })
+              else
+                fallback()
+              end
+            end,
+          }),
+
+          ['<S-Tab>'] = cmp.mapping({
+            i = function(fallback)
+              if snippy.can_jump(-1) then
+                snippy.previous()
+              else
+                fallback()
+              end
+            end,
+            s = function(fallback)
+              if snippy.can_jump(-1) then
+                snippy.previous()
+              else
+                fallback()
+              end
+            end,
+            c = function(fallback)
+              if cmp.visible() then
+                cmp.select_prev_item({ behavior = cmp.SelectBehavior.Replace })
+              else
+                fallback()
+              end
+            end,
+          }),
 
           ['<C-d>'] = cmp.mapping.scroll_docs(-4),
           ['<C-f>'] = cmp.mapping.scroll_docs(4),
