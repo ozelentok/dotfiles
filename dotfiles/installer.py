@@ -118,7 +118,7 @@ class Installer:
             'i3-wm', 'i3lock', 'py3status',
             'dmenu', 'feh', 'autocutsel',
             'dunst', 'scrot',
-            'python-pytz', 'python-tzlocal', 'xorg-xset'
+            'python-pip', 'python-pytz', 'python-tzlocal', 'xorg-xset', 'xorg-xrandr'
         ]) # yapf: disable
         utils.run_shell_command('pip install --user --break-system-packages -U pulsectl')
 
