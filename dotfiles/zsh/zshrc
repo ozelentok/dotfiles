@@ -119,6 +119,10 @@ bindkey "\e\e[C" forward-word
 bindkey "\e\e[D" backward-word
 bindkey "\e[1;5C" forward-word
 bindkey "\e[1;5D" backward-word
+bindkey -M vicmd '^[[1;5C' forward-word
+bindkey -M vicmd '^[[1;5D' backward-word
+bindkey -M viins '^[[1;5C' forward-word
+bindkey -M viins '^[[1;5D' backward-word
 
 function zle-line-init () {
 	echoti smkx
