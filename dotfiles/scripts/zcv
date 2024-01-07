@@ -71,11 +71,13 @@ def x265hq(
     video_filter: str = typer.Option('', '-vf'),
     tune: Optional[X265Tune] = typer.Option(None, '-t', case_sensitive=False)
 ) -> None:
-    ffmpeg_args = ['-i', str(input_path)]
+    ffmpeg_args = []
     if time_from:
         ffmpeg_args += ['-ss', time_from]
     if time_to:
         ffmpeg_args += ['-to', time_to]
+    ffmpeg_args += ['-i', str(input_path)]
+
     if video_filter:
         ffmpeg_args += ['-vf', video_filter]
     ffmpeg_args += [
@@ -133,11 +135,13 @@ def x264(
     subtitles_path: Path = typer.Option(None, '-subs'),
     tune: Optional[X265Tune] = typer.Option(None, '-t', case_sensitive=False)
 ) -> None:
-    ffmpeg_args = ['-i', str(input_path)]
+    ffmpeg_args = []
     if time_from:
         ffmpeg_args += ['-ss', time_from]
     if time_to:
         ffmpeg_args += ['-to', time_to]
+    ffmpeg_args += ['-i', str(input_path)]
+
     if subtitles_path:
         if video_filter:
             video_filter += ','
@@ -156,8 +160,8 @@ def x264(
         '-map_metadata', '-1', '-map_chapters', '-1',
     ]
     # ffmpeg_args += ['-c:a', 'aac', '-ac', '2', '-b:a', '128K'] if with_audio else ['-an']
-    # ffmpeg_args += ['-c:a', 'aac', '-ac', '1', '-b:a', '96K'] if with_audio else ['-an']
-    ffmpeg_args += ['-c:a', 'copy'] if with_audio else ['-an']
+    ffmpeg_args += ['-c:a', 'aac', '-ac', '1', '-b:a', '96K'] if with_audio else ['-an']
+    # ffmpeg_args += ['-c:a', 'copy'] if with_audio else ['-an']
     if tune:
         ffmpeg_args += ['-tune', tune.name]
     call_ffmpeg(ffmpeg_args + [str(output_path)])
@@ -236,11 +240,13 @@ def images(
     time_to: str = typer.Option('', '-to'),
     video_filter: str = typer.Option('', '-vf')
 ) -> None:
-    ffmpeg_args = ['-i', str(input_path)]
+    ffmpeg_args = []
     if time_from:
         ffmpeg_args += ['-ss', time_from]
     if time_to:
         ffmpeg_args += ['-to', time_to]
+    ffmpeg_args += ['-i', str(input_path)]
+
     if video_filter:
         ffmpeg_args += ['-vf', video_filter]
 
@@ -266,13 +272,16 @@ def webm(
 ) -> None:
     size_bytes = humanfriendly.parse_size(output_size)
     duration = calculate_duration(input_path, time_from, time_to)
-    print(f'Duration: {duration}')
     bps = int(8.0 * size_bytes / duration)
-    ffmpeg_args = ['-i', str(input_path)]
+    print(f'Duration: {duration}\tVideo Bitrate: {bps}')
+
+    ffmpeg_args = []
     if time_from:
         ffmpeg_args += ['-ss', time_from]
     if time_to:
         ffmpeg_args += ['-to', time_to]
+    ffmpeg_args += ['-i', str(input_path)]
+
     if subtitles_path:
         if video_filter:
             video_filter += ','
@@ -309,13 +318,16 @@ def vp9webm(
 ) -> None:
     size_bytes = humanfriendly.parse_size(output_size)
     duration = calculate_duration(input_path, time_from, time_to)
-    print(f'Duration: {duration}')
     bps = int(8.0 * size_bytes / duration)
-    ffmpeg_args = ['-i', str(input_path)]
+    print(f'Duration: {duration}\tVideo Bitrate: {bps}')
+
+    ffmpeg_args = []
     if time_from:
         ffmpeg_args += ['-ss', time_from]
     if time_to:
         ffmpeg_args += ['-to', time_to]
+    ffmpeg_args += ['-i', str(input_path)]
+
     if subtitles_path:
         if video_filter:
             video_filter += ','
@@ -336,8 +348,6 @@ def vp9webm(
     call_ffmpeg(ffmpeg_args + ['-an', '-pass', '1'] + bitexact_params + ['-y', '-f', 'webm', '/dev/null'])
     ffmpeg_args += ['-c:a', 'libvorbis', '-ac', '2', '-b:a', '80K'] if with_audio else ['-an']
     call_ffmpeg(ffmpeg_args + ['-pass', '2' ] + bitexact_params + ['-y', str(output_path)])
-
-
 
 
 @app.command()
@@ -425,6 +435,7 @@ def copy(
         ffmpeg_args += ['-ss', time_from]
     if time_to:
         ffmpeg_args += ['-to', time_to]
+
     ffmpeg_args += [
         '-i', str(input_path),
         '-map', '0',
