@@ -200,6 +200,33 @@ def ix264(
 
     call_ffmpeg(ffmpeg_args + [str(output_path)])
 
+@app.command()
+def gif(
+    input_path: Path,
+    output_path: Path,
+    speed: float = typer.Option(1.0, '-speed'),
+    time_from: str = typer.Option('', '-from'),
+    time_to: str = typer.Option('', '-to'),
+    video_filter: str = typer.Option('', '-vf'),
+) -> None:
+    ffmpeg_args = []
+    if time_from:
+        ffmpeg_args += ['-ss', time_from]
+    if time_to:
+        ffmpeg_args += ['-to', time_to]
+    ffmpeg_args += ['-i', str(input_path)]
+
+    if video_filter:
+        video_filter += ','
+    video_filter += f'setpts={1/speed}*PTS,split[s0][s1];[s0]palettegen[p];[s1][p]paletteuse'
+    ffmpeg_args += ['-vf', video_filter]
+
+    ffmpeg_args += [
+        '-c:v', 'gif',
+        '-map_metadata', '-1', '-map_chapters', '-1',
+    ]
+
+    call_ffmpeg(ffmpeg_args + [str(output_path)])
 
 @app.command()
 def images(
