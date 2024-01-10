@@ -10,6 +10,15 @@ class Installer:
     def __init__(self, skip_upgrade=False):
         self._pm = utils.SystemPackageManager(skip_upgrade)
 
+    @utils.avoid_reinstall('pikaur')
+    def pikaur(self) -> None:
+        self._pm.install_packages(['base-devel', 'git'])
+        with tempfile.TemporaryDirectory() as tmp_build_path:
+            subprocess.check_call(
+                ['git', 'clone', 'https://aur.archlinux.org/pikaur.git', tmp_build_path])
+            subprocess.check_call(['makepkg', '-sci', '--needed', '--noconfirm'],
+                                  cwd=tmp_build_path)
+
     def base_packages(self) -> None:
         self._pm.install_packages([
             'htop',
@@ -20,23 +29,19 @@ class Installer:
             'strace',
             'lsof',
             'man',
-            'ntfs-3g',
-            'exfat-utils', 'fuse-exfat',
-            'udisks2',
+
             'inetutils',
             'net-tools',
             'bind-tools',
+
+            'perl-image-exiftool',
             'imagemagick',
             'pdftk',
-            'chntpw',
-            'perl-image-exiftool',
+            'polkit',
 
-            'python-pip',
-            'nodejs', 'npm',
-            'ctags',
-
-            'pulseaudio', 'pulseaudio-alsa', 'pavucontrol', 'alsa-utils',
-            'polkit', 'polkit-gnome',
+            'udisks2',
+            'ntfs-3g',
+            'exfat-utils', 'fuse-exfat',
         ]) # yapf: disable
 
     def desktop_programs(self) -> None:
@@ -44,7 +49,6 @@ class Installer:
             'firefox-developer-edition',
             'chromium',
             'keepassxc',
-            # 'eog',
             'evince',
             'rdesktop',
             'audacity',
@@ -58,10 +62,24 @@ class Installer:
             'playerctl',
         ]) # yapf: disable
 
+    def pulseaudio(self) -> None:
+        self._pm.install_packages([
+            'pulseaudio', 'pulseaudio-alsa',
+            'pavucontrol', 'alsa-utils',
+        ]) # yapf: disable
+
+        config_dir_path = Path.home() / '.config/pulse'
+        utils.mkdir(config_dir_path)
+        utils.symlink_dotfile(Path('pulseaudio/daemon.conf'), config_dir_path)
+
     def bluetooth(self) -> None:
         self._pm.install_packages([
-            'pulseaudio-bluetooth', 'bluez', 'blueman', 'gst-plugins-bad',
+            'pulseaudio-bluetooth', 'bluez',
+            'blueman',
+            'gst-plugins-bad', # For AptX suppport
+            'chntpw', # For extraction of pairing keys from Windows
         ]) # yapf: disable
+
         utils.copy_dotfile_as_root(Path('bluetooth/main.conf'), Path('/etc/bluetooth'))
         utils.run_shell_command('sudo systemctl enable bluetooth')
 
@@ -96,22 +114,13 @@ class Installer:
         utils.symlink_dotfile(Path('git/gitignore_global'), Path.home(), hidden=True)
 
     def gtk(self) -> None:
-        self._pm.install_packages(['gtk2', 'gtk3'])
+        self._pm.install_packages(['gtk2', 'gtk3', 'polkit-gnome'])
         config_dir_path = Path.home() / '.config/gtk-3.0'
         utils.mkdir(config_dir_path)
 
         utils.run_shell_command('dconf load / < gtk/dconf.ini')
         utils.symlink_dotfile(Path('gtk/gtk-3.0-settings.ini'), config_dir_path / 'settings.ini')
         utils.symlink_dotfile(Path('gtk/gtkrc-2.0'), Path.home(), hidden=True)
-
-    @utils.avoid_reinstall('pikaur')
-    def pikaur(self) -> None:
-        self._pm.install_packages(['base-devel', 'git'])
-        with tempfile.TemporaryDirectory() as tmp_build_path:
-            subprocess.check_call(
-                ['git', 'clone', 'https://aur.archlinux.org/pikaur.git', tmp_build_path])
-            subprocess.check_call(['makepkg', '-sci', '--needed', '--noconfirm'],
-                                  cwd=tmp_build_path)
 
     def i3(self) -> None:
         self._pm.install_packages([
@@ -162,9 +171,11 @@ class Installer:
     def neovim(self) -> None:
         self._pm.install_packages([
             'neovim', 'python-neovim', 'words',
+            'python-pip',
             'xsel', 'xclip',
             'nodejs', 'npm',
             'global', 'python-pygments',
+            'ctags',
             'yapf', 'tidy', 'python-isort',
             'pyright',
             'clang',
@@ -184,9 +195,9 @@ class Installer:
         utils.symlink_dotfile(Path('neovim/after'), config_dir_path)
         utils.symlink_dotfile(Path('neovim/globalrc'), Path.home(), hidden=True)
         utils.symlink_dotfile(Path('neovim/ctags.conf'), Path.home() / '.ctags')
-        self.upgrade_neovim_plugins(True)
+        self.neovim_plugins(True)
 
-    def upgrade_neovim_plugins(self, installation: bool = False):
+    def neovim_plugins(self, installation: bool = False):
         utils.run_shell_command('cargo install openscad-lsp')
         utils.run_shell_command('sudo npm install -g neovim eslint vscode-langservers-extracted')
         if installation:
@@ -231,7 +242,8 @@ class Installer:
             f'echo "{samba_user} = \"{samba_user}\"" | sudo tee -a /etc/samba/smbusers > /dev/null')
         utils.run_shell_command('sudo systemctl enable smb')
 
-    def upgrade_scripts_dependencies(self) -> None:
+    def scripts_dependencies(self) -> None:
+        self._pm.install_packages(['python-pip'])
         utils.run_shell_command(
             'pip install --user --break-system-packages -U -r scripts/requirements.txt')
 
@@ -312,6 +324,7 @@ class Installer:
     def all(self) -> None:
         self.base_packages()
         self.desktop_programs()
+        self.pulseaudio()
         self.bluetooth()
         self.deluge()
         self.doublecmd()
@@ -329,7 +342,7 @@ class Installer:
         self.qtconfig()
         self.ranger()
         self.samba()
-        self.upgrade_scripts_dependencies()
+        self.scripts_dependencies()
         self.sensors()
         self.smplayer()
         self.theme()
@@ -341,5 +354,5 @@ class Installer:
 
     def upgrade(self) -> None:
         utils.run_shell_command('pikaur -Syu')
-        self.upgrade_scripts_dependencies()
-        self.upgrade_neovim_plugins()
+        self.scripts_dependencies()
+        self.neovim_plugins()
