@@ -11,11 +11,24 @@
 
 ```bash
 sudo pacman -Syu python git
-git clone --recursive https://github.com/ozelentok/dotfiles.git ~/.dotfiles
-cd ~/.dotfiles && python -m dotfiles
+git clone --recursive https://github.com/ozelentok/dotfiles.git ~/.dotfiles && cd ~/.dotfiles
+python -m dotfiles profile [PROFILE]
+
+# Install Full profile
+python -m dotfiles profile Full
+
+# Install Minimal profile
+python -m dotfiles profile Minimal
+```
+
+## Upgrade
+```bash
+# Upgrade all packages relevant to current profile
+python -m dotfiles upgrade
 ```
 
 ## Install specific package
 ```bash
-cd ~/.dotfiles && python -m dotfiles [PACKAGE_NAME]
+# Install package with current profile settings
+python -m dotfiles [PACKAGE_NAME]
 ```

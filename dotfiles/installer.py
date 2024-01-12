@@ -1,3 +1,4 @@
+import inspect
 import subprocess
 import tempfile
 from pathlib import Path
@@ -7,8 +8,15 @@ from . import utils
 
 class Installer:
 
-    def __init__(self, skip_upgrade=False):
+    def __init__(self, skip_upgrade=False) -> None:
         self._pm = utils.SystemPackageManager(skip_upgrade)
+
+    @classmethod
+    def list_packages(cls) -> list[str]:
+        return [
+            m[0] for m in inspect.getmembers(cls, predicate=inspect.isfunction)
+            if not m[0].startswith('_')
+        ]
 
     @utils.avoid_reinstall('pikaur')
     def pikaur(self) -> None:
@@ -34,12 +42,8 @@ class Installer:
             'net-tools',
             'bind-tools',
 
-            'perl-image-exiftool',
-            'imagemagick',
-            'pdftk',
             'polkit',
 
-            'udisks2',
             'ntfs-3g',
             'exfat-utils', 'fuse-exfat',
         ]) # yapf: disable
@@ -62,15 +66,13 @@ class Installer:
             'playerctl',
         ]) # yapf: disable
 
-    def pulseaudio(self) -> None:
+    def media_processing(self) -> None:
         self._pm.install_packages([
-            'pulseaudio', 'pulseaudio-alsa',
-            'pavucontrol', 'alsa-utils',
+            'perl-image-exiftool',
+            'ffmpeg',
+            'imagemagick',
+            'pdftk',
         ]) # yapf: disable
-
-        config_dir_path = Path.home() / '.config/pulse'
-        utils.mkdir(config_dir_path)
-        utils.symlink_dotfile(Path('pulseaudio/daemon.conf'), config_dir_path)
 
     def bluetooth(self) -> None:
         self._pm.install_packages([
@@ -147,6 +149,16 @@ class Installer:
         utils.mkdir(config_dir_path)
         utils.symlink_dotfile(Path('picom/picom.conf'), config_dir_path)
 
+    def pulseaudio(self) -> None:
+        self._pm.install_packages([
+            'pulseaudio', 'pulseaudio-alsa',
+            'pavucontrol', 'alsa-utils',
+        ]) # yapf: disable
+
+        config_dir_path = Path.home() / '.config/pulse'
+        utils.mkdir(config_dir_path)
+        utils.symlink_dotfile(Path('pulseaudio/daemon.conf'), config_dir_path)
+
     def mcomix(self) -> None:
         self.pikaur()
         self._pm.install_aur_packages(['mcomix'])
@@ -168,24 +180,28 @@ class Installer:
         utils.mkdir(config_dir_path)
         utils.symlink_dotfile(Path('mpv/mpv.conf'), config_dir_path)
 
-    def neovim(self) -> None:
+    def neovim(self, developer: bool = True, x11: bool = True) -> None:
         self._pm.install_packages([
-            'neovim', 'python-neovim', 'words',
-            'python-pip',
-            'xsel', 'xclip',
-            'nodejs', 'npm',
-            'global', 'python-pygments',
-            'ctags',
-            'yapf', 'tidy', 'python-isort',
-            'pyright',
-            'clang',
-            'rust',
-            'lua-language-server',
-            'arduino-language-server',
-            'sqlfluff',
-        ]) # yapf: disable
-        utils.run_shell_command(
-            'pip install --user --break-system-packages -U cmakelang cmake-language-server')
+                'neovim',
+                'python-neovim',
+                'words',
+                'gcc' # For TreeSitter
+            ] + [
+                'nodejs', 'npm',
+                'global', 'python-pip', 'python-pygments',
+                'ctags',
+                'yapf', 'tidy', 'python-isort',
+                'pyright',
+                'clang',
+                'rust',
+                'lua-language-server',
+                'arduino-language-server',
+                'sqlfluff'
+            ] if developer else [] + [
+                'xsel'
+            ] if x11 else []
+        ) # yapf: disable
+
         utils.run_shell_command('sudo ln -s -f -r $(which nvim) /usr/local/bin/vim')
 
         config_dir_path = Path.home() / '.config/nvim'
@@ -193,13 +209,26 @@ class Installer:
         utils.symlink_dotfile(Path('neovim/init.lua'), config_dir_path)
         utils.symlink_dotfile(Path('neovim/lua'), config_dir_path)
         utils.symlink_dotfile(Path('neovim/after'), config_dir_path)
-        utils.symlink_dotfile(Path('neovim/globalrc'), Path.home(), hidden=True)
-        utils.symlink_dotfile(Path('neovim/ctags.conf'), Path.home() / '.ctags')
-        self.neovim_plugins(True)
 
-    def neovim_plugins(self, installation: bool = False):
-        utils.run_shell_command('cargo install openscad-lsp')
-        utils.run_shell_command('sudo npm install -g neovim eslint vscode-langservers-extracted')
+        if developer:
+            utils.symlink_dotfile(Path('neovim/globalrc'), Path.home(), hidden=True)
+            utils.symlink_dotfile(Path('neovim/ctags.conf'), Path.home() / '.ctags')
+            utils.symlink_dotfile(Path('neovim/developer_profile.lua'),
+                                  config_dir_path / 'profile.lua')
+        else:
+            utils.symlink_dotfile(Path('neovim/simple_profile.lua'),
+                                  config_dir_path / 'profile.lua')
+
+        self.neovim_plugins(developer, True)
+
+    def neovim_plugins(self, developer: bool = True, installation: bool = False):
+        if developer:
+            utils.run_shell_command(
+                'pip install --user --break-system-packages -U cmakelang cmake-language-server')
+            utils.run_shell_command('cargo install openscad-lsp')
+            utils.run_shell_command(
+                'sudo npm install -g neovim eslint vscode-langservers-extracted')
+
         if installation:
             utils.run_shell_command('nvim --headless "+Lazy! sync" "+qa"')
         else:
@@ -212,9 +241,10 @@ class Installer:
         utils.mkdir(config_dir_path)
         utils.symlink_dotfile(Path('qtconfig/Trolltech.conf'), config_dir_path)
 
-    def ranger(self) -> None:
-        self._pm.install_packages(['ranger', 'ffmpegthumbnailer'])
-        self.ueberzugpp()
+    def ranger(self, media_preview: bool = True) -> None:
+        self._pm.install_packages(['ranger'] + ['ffmpegthumbnailer'] if media_preview else [])
+        if media_preview:
+            self.ueberzugpp()
         config_dir_path = Path.home() / '.config/ranger'
         utils.mkdir(config_dir_path)
         utils.symlink_dotfile(Path('ranger/rc.conf'), config_dir_path)
@@ -246,6 +276,18 @@ class Installer:
         self._pm.install_packages(['python-pip'])
         utils.run_shell_command(
             'pip install --user --break-system-packages -U -r scripts/requirements.txt')
+
+    def vmic(self) -> None:
+        self._pm.install_packages(['python-pip'])
+        utils.run_shell_command('pip install --user --break-system-packages -U pulsectl')
+
+        bin_dir_path = Path.home() / '.local/bin'
+        utils.mkdir(bin_dir_path)
+        utils.symlink_dotfile(Path('pulseaudio/vmic'), bin_dir_path)
+
+    def yt_dlp(self) -> None:
+        self._pm.install_packages(['python-pip'])
+        utils.run_shell_command('pip install --user --break-system-packages -U yt_dlp')
 
     def sensors(self) -> None:
         self._pm.install_packages(['lm_sensors'])
@@ -310,7 +352,8 @@ class Installer:
         self._pm.install_packages([
             'zsh', 'zsh-completions', 'zsh-syntax-highlighting',
             'fzf',
-            'lsd'
+            'lsd',
+            'which'
         ]) # yapf: disable
 
         utils.symlink_dotfile(Path('zsh/zshrc'), Path.home(), hidden=True)
@@ -320,39 +363,3 @@ class Installer:
         lsd_config_dir_path = Path.home() / '.config/lsd'
         utils.mkdir(lsd_config_dir_path)
         utils.symlink_dotfile(Path('zsh/lsd-config.yaml'), lsd_config_dir_path / 'config.yaml')
-
-    def all(self) -> None:
-        self.base_packages()
-        self.desktop_programs()
-        self.pulseaudio()
-        self.bluetooth()
-        self.deluge()
-        self.doublecmd()
-        self.fontconfig()
-        self.git()
-        self.gimp()
-        self.gtk()
-        self.pikaur()
-        self.i3()
-        self.picom()
-        self.mcomix()
-        self.mount_utils()
-        self.mpv()
-        self.neovim()
-        self.qtconfig()
-        self.ranger()
-        self.samba()
-        self.scripts_dependencies()
-        self.sensors()
-        self.smplayer()
-        self.theme()
-        self.tmux()
-        self.wezterm()
-        self.X11()
-        self.xnviewmp()
-        self.zsh()
-
-    def upgrade(self) -> None:
-        utils.run_shell_command('pikaur -Syu')
-        self.scripts_dependencies()
-        self.neovim_plugins()

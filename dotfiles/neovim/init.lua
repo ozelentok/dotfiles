@@ -1,7 +1,8 @@
-io.popen('mkdir -p /tmp/nvim')
-vim.o.directory = '/tmp/nvim'
-vim.o.backupdir = '/tmp/nvim'
-vim.o.undodir = '/tmp/nvim'
+local tmp_dir = '/tmp/nvim'
+io.popen('mkdir -p ' .. tmp_dir)
+vim.o.directory = tmp_dir
+vim.o.backupdir = tmp_dir
+vim.o.undodir = tmp_dir
 vim.o.backup = true
 vim.o.undofile = true
 vim.o.inccommand = 'split'
@@ -28,6 +29,8 @@ vim.o.shada = '!,\'500,<10,s10,h'
 vim.o.showcmdloc = 'statusline'
 vim.g.mapleader = ','
 vim.diagnostic.config({ virtual_text = true })
+
+dofile(vim.fn.stdpath('config') .. '/profile.lua')
 
 local map_vim = function(mode, lhs, rhs, opts)
   local options = { noremap = true }

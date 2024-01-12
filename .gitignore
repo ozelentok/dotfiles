@@ -17,3 +17,6 @@ GRTAGS
 GTAGS
 __pycache__
 tags
+
+dotf_profile.lua
+.profile.json

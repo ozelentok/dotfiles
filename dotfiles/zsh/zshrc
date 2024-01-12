@@ -1,4 +1,4 @@
-[[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && which startx && exec startx
+[[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && which startx > /dev/null && exec startx
 
 setopt histignorealldups sharehistory
 bindkey -e
