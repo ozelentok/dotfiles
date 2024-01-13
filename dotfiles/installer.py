@@ -234,10 +234,13 @@ class Installer:
             utils.run_shell_command(
                 'sudo npm install -g neovim eslint vscode-langservers-extracted')
 
-        if installation:
-            utils.run_shell_command('nvim --headless "+Lazy! sync" "+qa"')
-        else:
-            utils.run_shell_command('nvim --headless "+Lazy! sync" "+TSUpdateSync" "+qa"')
+        try:
+            if installation:
+                utils.run_shell_command('nvim --headless "+Lazy! sync" "+qa"')
+            else:
+                utils.run_shell_command('nvim --headless "+Lazy! sync" "+TSUpdateSync" "+qa"')
+        except KeyboardInterrupt:
+            pass
 
     def qtconfig(self) -> None:
         self.pikaur()
