@@ -54,6 +54,7 @@ class Full(Profile):
         self._installer.yt_dlp()
 
         self._installer.desktop_programs()
+        self._installer.mimeapps()
         self._installer.deluge()
         self._installer.doublecmd()
         self._installer.gimp()

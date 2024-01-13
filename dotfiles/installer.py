@@ -175,6 +175,10 @@ class Installer:
         utils.symlink_dotfile(Path('mount-utils/sftpmount.sh'), user_bin_dir_path / 'sftpmount')
         utils.symlink_dotfile(Path('mount-utils/sftpumount.sh'), user_bin_dir_path / 'sftpumount')
 
+    def mimeapps(self) -> None:
+        config_dir_path = Path.home() / '.config'
+        utils.symlink_dotfile(Path('mimeapps/mimeapps.list'), config_dir_path)
+
     def mpv(self) -> None:
         self._pm.install_packages(['mpv'])
         config_dir_path = Path.home() / '.config/mpv'
