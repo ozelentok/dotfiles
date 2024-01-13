@@ -20,19 +20,17 @@ def load_profile_name() -> str:
 
 
 def main():
-    parser = argparse.ArgumentParser()
-    subparsers = parser.add_subparsers(required=True)
+    parser = argparse.ArgumentParser(prog='dotf')
+    subparsers = parser.add_subparsers(dest='action', required=True)
 
-    profile_parser = subparsers.add_parser('profile')
+    profile_parser = subparsers.add_parser('profile', help='Install profile')
     profile_parser.add_argument('profile',
-                                choices=[p.__name__ for p in profiles.Profile.__subclasses__()],
-                                help='Install profile')
+                                choices=[p.__name__ for p in profiles.Profile.__subclasses__()])
 
-    profile_parser = subparsers.add_parser('upgrade')
-    profile_parser.add_argument('upgrade', help='Upgrade system')
+    profile_parser = subparsers.add_parser('upgrade', help='Upgrade system')
 
-    package_parser = subparsers.add_parser('pkg')
-    package_parser.add_argument('pkg', choices=Installer.list_packages(), help='Package to install')
+    package_parser = subparsers.add_parser('pkg', help='Install package')
+    package_parser.add_argument('pkg', choices=Installer.list_packages())
     package_parser.add_argument(
         '--skip-upgrade',
         action='store_true',
@@ -40,18 +38,18 @@ def main():
 
     args = parser.parse_args()
 
-    if hasattr(args, 'profile'):
+    if args.action == 'profile':
         save_profile_name(args.profile)
         getattr(profiles, args.profile)().install()
         return
 
     profile_name = load_profile_name()
     profile: type = getattr(profiles, profile_name)
-    if hasattr(args, 'upgrade'):
+    if args.action == 'upgrade':
         profile().upgrade()
         return
 
-    if hasattr(args, 'pkg'):
+    if args.action == 'pkg':
         profile(args.skip_upgrade).install_package(args.pkg)
         return
 

@@ -1,6 +1,0 @@
-#!/bin/zsh
-
-(
-cd $DOTFILES_ROOT
-python -m dotfiles upgrade
-)
