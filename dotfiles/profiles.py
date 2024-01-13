@@ -68,7 +68,7 @@ class Full(Profile):
         utils.run_shell_command('pikaur -Syu')
         self._installer.scripts_dependencies()
         self._installer.yt_dlp()
-        self._installer.scripts_dependencies()
+        self._installer.neovim_plugins(False)
 
 
 class Minimal(Profile):
