@@ -1,6 +1,8 @@
+import getpass
 import inspect
 import subprocess
 import tempfile
+from os import environ
 from pathlib import Path
 
 from . import utils
@@ -65,6 +67,26 @@ class Installer:
             'easytag',
             'playerctl',
         ]) # yapf: disable
+
+    def tmpfs_programs_cache(self) -> None:
+        runtime_dir = Path(environ['XDG_RUNTIME_DIR'])
+        runtime_cache = runtime_dir / 'cache'
+        runtime_cache.mkdir(exist_ok=True)
+        links = [
+            Path.home() / '.cache/doublecmd',
+            Path.home() / '.cache/gimp',
+            Path.home() / '.cache/mozilla',
+            Path.home() / '.cache/nvim',
+            Path.home() / '.cache/thumbnails',
+            Path.home() / '.cache/pikaur/build',
+            Path.home() / '.mozilla/firefox/firefox-mpris',
+            Path.home() / '.wine/drive_c/users' / getpass.getuser() / 'Temp'
+        ]
+        for l in links:
+            c = runtime_cache / l.name
+            # Cache dirs are also created at login by $HOME/.profile
+            c.mkdir(exist_ok=True)
+            utils.symlink(c, l)
 
     def media_processing(self) -> None:
         self._pm.install_packages([
@@ -366,6 +388,7 @@ class Installer:
 
         utils.symlink_dotfile(Path('zsh/zshrc'), Path.home(), hidden=True)
         utils.symlink_dotfile(Path('zsh/zprofile'), Path.home(), hidden=True)
+        utils.symlink_dotfile(Path('zsh/profile'), Path.home(), hidden=True)
         utils.run_shell_command('sudo usermod -s $(which zsh) ${USER}')
 
         lsd_config_dir_path = Path.home() / '.config/lsd'

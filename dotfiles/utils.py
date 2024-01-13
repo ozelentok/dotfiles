@@ -33,6 +33,14 @@ def mkdir(path: Path) -> None:
     os.makedirs(path, exist_ok=True)
 
 
+def symlink(src_path: Path, dst_path: Path) -> None:
+    if dst_path.is_symlink() and dst_path.readlink() == src_path:
+        return
+    if dst_path.exists() or dst_path.is_symlink():
+        dst_path.unlink()
+    dst_path.symlink_to(src_path)
+
+
 def symlink_relative(src_path: Path, dst_path: Path, hidden: bool = False) -> None:
     if dst_path.is_dir() and not dst_path.is_symlink():
         dst_path /= ('.' if hidden else '') + src_path.name
