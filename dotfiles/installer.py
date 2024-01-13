@@ -126,9 +126,10 @@ class Installer:
 
     def i3(self) -> None:
         self._pm.install_packages([
-            'i3-wm', 'i3lock', 'py3status',
+            'i3-wm', 'py3status',
             'dmenu', 'feh', 'autocutsel',
             'dunst', 'scrot',
+            'meson', # For i3lock-git
             'python-pip', 'python-pytz', 'python-tzlocal', 'xorg-xset', 'xorg-xrandr'
         ]) # yapf: disable
         utils.run_shell_command('pip install --user --break-system-packages -U pulsectl')
@@ -141,7 +142,7 @@ class Installer:
         utils.symlink_dotfile(Path('i3/py3status'), config_dir_path)
 
         self.pikaur()
-        self._pm.install_aur_packages(['alttab-git', 'xkb-switch'])
+        self._pm.install_aur_packages(['i3lock-git', 'xkb-switch'])
 
     def picom(self) -> None:
         self._pm.install_packages(['picom'])
