@@ -62,9 +62,6 @@ class Installer:
             'libreoffice-fresh',
             'wine',
             'vlc',
-
-            'baobab',
-            'easytag',
             'playerctl',
         ]) # yapf: disable
 
@@ -94,6 +91,7 @@ class Installer:
             'ffmpeg',
             'imagemagick',
             'pdftk',
+            'easytag',
         ]) # yapf: disable
 
     def bluetooth(self) -> None:
