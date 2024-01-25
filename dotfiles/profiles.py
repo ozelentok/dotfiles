@@ -94,3 +94,12 @@ class Minimal(Profile):
     def upgrade(self) -> None:
         self._installer.scripts_dependencies()
         self._installer.neovim_plugins(False)
+
+
+class ShellOnly(Profile):
+
+    def install(self) -> None:
+        self._installer.zsh()
+
+    def upgrade(self) -> None:
+        pass
