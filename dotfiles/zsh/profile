@@ -10,9 +10,10 @@ export QT_QPA_PLATFORMTHEME=gtk2
 export TORCH_HOME="$HOME/.torch-home"
 
 # PATH
-if [ -d $ANDROID_SDK_ROOT ]; then
-	export ANDROID_SDK_ROOT="/opt/studio-android-sdk"
-	export ANDROID_NDK_ROOT="/opt/studio-android-sdk/ndk"
+ANDROID_SDK_ROOT="/opt/studio-android-sdk"
+if [ -d "$ANDROID_SDK_ROOT" ]; then
+	export ANDROID_SDK_ROOT="$ANDROID_SDK_ROOT"
+	export ANDROID_NDK_ROOT="$ANDROID_SDK_ROOT/ndk"
 	export ANDROID_HOME="$ANDROID_SDK_ROOT"
 	export ANDROID_NDK_HOME="$ANDROID_NDK_ROOT"
 
