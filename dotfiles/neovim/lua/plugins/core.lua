@@ -109,6 +109,7 @@ return {
       { '<leader>md', '<cmd>Telescope gtags def initial_mode=normal<CR>',         noremap = true },
       { '<leader>mr', '<cmd>Telescope gtags ref initial_mode=normal<CR>',         noremap = true },
       { '<leader>mf', '<cmd>Telescope find_files follow=true no_ignore=true<CR>', noremap = true },
+      { '<leader>mt', '<cmd>Telescope grep_string<CR>',                           noremap = true },
       {
         '<leader>ms',
         function()
