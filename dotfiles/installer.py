@@ -33,6 +33,7 @@ class Installer:
         self._pm.install_packages([
             'htop',
             'mlocate',
+            'fd',
             'ripgrep',
             'unrar', 'p7zip', 'unzip',
             'rsync',
