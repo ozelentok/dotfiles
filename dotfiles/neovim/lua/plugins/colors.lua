@@ -72,7 +72,7 @@ return {
         hls['@type.qualifier'] = { fg = main_colors.yellow, bold = true }
         hls['@operator'] = { fg = main_colors.cyan, bold = true }
         hls['@attribute'] = { fg = main_colors.paleblue, bold = false }
-        hls['@namespace'] = { fg = main_colors.pink, bold = false }
+        hls['@module'] = { fg = main_colors.pink, bold = false }
         hls['CursorLine'] = { bg = main_colors.darkgray, bold = true }
         hls['CursorColumn'] = { bg = main_colors.darkgray, bold = true }
         hls['DiffAdd'] = { bg = main_colors.darkgreen, reverse = false }
