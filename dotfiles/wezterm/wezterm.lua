@@ -29,6 +29,7 @@ return {
       '#ffffff',
     },
   },
+  check_for_updates = false,
   hide_tab_bar_if_only_one_tab = true,
   enable_scroll_bar = true,
   window_padding = {
