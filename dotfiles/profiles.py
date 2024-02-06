@@ -43,6 +43,7 @@ class Full(Profile):
 
         self._installer.X11()
         self._installer.i3()
+        self._installer.lxdm()
         self._installer.fontconfig()
         self._installer.gtk()
         self._installer.theme()

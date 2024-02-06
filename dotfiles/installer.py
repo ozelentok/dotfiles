@@ -169,6 +169,21 @@ class Installer:
         self.pikaur()
         self._pm.install_aur_packages(['i3lock-git', 'xkb-switch'])
 
+    def lxdm(self) -> None:
+        self._pm.install_packages(['lxdm-gtk3'])
+
+        config_dir_path = Path('/etc/lxdm')
+        themes_dir_path = Path('/usr/share/lxdm/themes')
+
+        utils.copy_dotfile_as_root(Path('lxdm/lxdm.conf'), config_dir_path)
+        utils.copy_dotfile_as_root(Path('lxdm/PostLogout'), config_dir_path)
+        utils.extract_dotfile_tar_as_root(Path('theme/LXDM-Arch-Darkest.tar.gz'), themes_dir_path)
+
+        self.pikaur()
+        self._pm.install_aur_packages(['xinit-xsession', 'xkb-switch'])
+
+        utils.run_shell_command('sudo systemctl enable lxdm')
+
     def picom(self) -> None:
         self._pm.install_packages(['picom'])
         config_dir_path = Path.home() / '.config'
@@ -335,8 +350,8 @@ class Installer:
     def theme(self) -> None:
         themes_dir_path = Path('/usr/share/themes/')
         icons_dir_path = Path('/usr/share/icons')
-        utils.mkdir(themes_dir_path)
-        utils.mkdir(icons_dir_path)
+        utils.run_shell_command(f'sudo mkdir -p {themes_dir_path}')
+        utils.run_shell_command(f'sudo mkdir -p {icons_dir_path}')
 
         utils.extract_dotfile_tar_as_root(Path('theme/Flat-Remix-GTK-Blue-Darkest-20220627.tar.gz'),
                                           themes_dir_path)
