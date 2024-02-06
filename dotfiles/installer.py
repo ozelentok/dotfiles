@@ -139,11 +139,15 @@ class Installer:
     def gtk(self) -> None:
         self._pm.install_packages(['gtk2', 'gtk3', 'polkit-gnome'])
         config_dir_path = Path.home() / '.config/gtk-3.0'
+        system_config_dir_path = Path('/etc/gtk-3.0')
         utils.mkdir(config_dir_path)
+        utils.run_shell_command(f'sudo mkdir -p "{system_config_dir_path}"')
 
-        utils.run_shell_command('dconf load / < gtk/dconf.ini')
         utils.symlink_dotfile(Path('gtk/gtk-3.0-settings.ini'), config_dir_path / 'settings.ini')
+        utils.copy_dotfile_as_root(Path('gtk/gtk-3.0-settings.ini'),
+                                   system_config_dir_path / 'settings.ini')
         utils.symlink_dotfile(Path('gtk/gtkrc-2.0'), Path.home(), hidden=True)
+        utils.run_shell_command('dconf load / < gtk/dconf.ini')
 
     def i3(self) -> None:
         self._pm.install_packages([
@@ -329,16 +333,15 @@ class Installer:
         utils.copy_dotfile(Path('smplayer/smplayer.ini'), config_dir_path)
 
     def theme(self) -> None:
-        themes_dir_path = Path.home() / '.themes'
-        icons_dir_path = Path.home() / '.local/share/icons'
+        themes_dir_path = Path('/usr/share/themes/')
+        icons_dir_path = Path('/usr/share/icons')
         utils.mkdir(themes_dir_path)
         utils.mkdir(icons_dir_path)
-        utils.symlink_relative(icons_dir_path, Path.home() / '.icons')
 
-        utils.extract_dotfile_tar(Path('theme/Flat-Remix-GTK-Blue-Darkest-20220627.tar.gz'),
-                                  themes_dir_path)
-        utils.extract_dotfile_tar(Path('theme/Arc-ICONS-1.5.7.tar.gz'), icons_dir_path)
-        utils.extract_dotfile_tar(Path('theme/Future-Cyan-20230405.tar.gz'), icons_dir_path)
+        utils.extract_dotfile_tar_as_root(Path('theme/Flat-Remix-GTK-Blue-Darkest-20220627.tar.gz'),
+                                          themes_dir_path)
+        utils.extract_dotfile_tar_as_root(Path('theme/Arc-ICONS-1.5.7.tar.gz'), icons_dir_path)
+        utils.extract_dotfile_tar_as_root(Path('theme/Future-Cyan-20230405.tar.gz'), icons_dir_path)
 
     def tmux(self) -> None:
         self._pm.install_packages(['tmux'])

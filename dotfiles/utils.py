@@ -91,6 +91,11 @@ def extract_dotfile_tar(dotfile_tar_path: Path, dst_dir_path: Path):
         tar_file.extractall(dst_dir_path)
 
 
+def extract_dotfile_tar_as_root(dotfile_tar_path: Path, dst_dir_path: Path):
+    src_path = __MOUDLE_PATH / dotfile_tar_path
+    subprocess.check_call(['sudo', 'tar', 'xf', src_path, '-C', dst_dir_path])
+
+
 def avoid_reinstall(executable: str):
 
     def decorator(f: Callable) -> Callable:
