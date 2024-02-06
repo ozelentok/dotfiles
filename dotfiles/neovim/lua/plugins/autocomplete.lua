@@ -52,21 +52,37 @@ return {
             end
           end, { 'i', 's', 'c' }),
 
-          ['<CR>'] = cmp.mapping(function(fallback)
-            if cmp.visible() then
-              if cmp.get_selected_entry() then
-                cmp.confirm({ select = false })
-              elseif snippy.can_expand_or_advance() then
-                snippy.expand_or_advance()
+          ['<CR>'] = cmp.mapping({
+            i = function(fallback)
+              if cmp.visible() then
+                if cmp.get_selected_entry() then
+                  cmp.confirm({ select = false })
+                elseif snippy.can_expand_or_advance() then
+                  snippy.expand_or_advance()
+                else
+                  fallback()
+                end
+              elseif snippy.can_jump(1) then
+                snippy.next()
               else
                 fallback()
               end
-            elseif snippy.can_jump(1) then
-              snippy.next()
-            else
-              fallback()
-            end
-          end, { 'i', 's', 'c' }),
+            end,
+            s = function(fallback)
+              if cmp.visible() and cmp.get_selected_entry() then
+                cmp.confirm({ select = false })
+              else
+                fallback()
+              end
+            end,
+            c = function(fallback)
+              if cmp.visible() and cmp.get_selected_entry() then
+                cmp.confirm({ select = false })
+              else
+                fallback()
+              end
+            end,
+          }),
 
           ['<ESC>'] = {
             c = cmp.mapping.close(),
