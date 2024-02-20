@@ -12,6 +12,7 @@ setopt AUTO_CD
 setopt CORRECT
 setopt PROMPT_SUBST
 
+fpath=($DOTFILES_ROOT/dotfiles/zsh/completions $fpath)
 autoload -Uz compinit && compinit -i
 
 zstyle ':completion:*' auto-description 'specify: %d'
@@ -198,7 +199,7 @@ jp() {
 
 # Zsh Vi Mode
 if [ $ENABLE_ZVM -ne 0 ]; then
-	source $HOME/.dotfiles/dotfiles/zsh/zsh-vi-mode/zsh-vi-mode.plugin.zsh
+	source $DOTFILES_ROOT/dotfiles/zsh/zsh-vi-mode/zsh-vi-mode.plugin.zsh
 fi
 
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh

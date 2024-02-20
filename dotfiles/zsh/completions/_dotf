@@ -1,0 +1,93 @@
+#compdef dotf
+
+_dotf() {
+  local line state
+
+  _arguments -C \
+     "1: :->cmds" \
+     "*::arg:->args"
+  case "$state" in
+    cmds)
+      _values "dotf" \
+        "profile[Install profile]" \
+        "upgrade[Upgrade system]" \
+        "pkg[Install package]"
+      ;;
+    args)
+      case $line[1] in
+        profile)
+          _dotf_profile
+          ;;
+        upgrade)
+          _dotf_upgrade
+          ;;
+        pkg)
+          _dotf_pkg
+          ;;
+      esac
+      ;;
+  esac
+}
+
+_dotf_profile() {
+  _values "dotf profile" \
+    "Full" \
+    "Minimal" \
+    "ShellOnly"
+
+  _arguments -s \
+    {-h,--help}"[Show help message]"
+}
+
+_dotf_upgrade() {
+  _arguments -s \
+    {-h,--help}"[Show help message]"
+}
+
+_dotf_pkg() {
+  _values "dotf pkg" \
+    "base_packages" \
+    "bluetooth" \
+    "deluge" \
+    "desktop_programs" \
+    "doublecmd" \
+    "fontconfig" \
+    "gimp" \
+    "git" \
+    "gtk" \
+    "i3" \
+    "lxdm" \
+    "mcomix" \
+    "media_processing" \
+    "mimeapps" \
+    "mount_utils" \
+    "mpv" \
+    "neovim" \
+    "neovim_plugins" \
+    "picom" \
+    "pikaur" \
+    "pulseaudio" \
+    "qtconfig" \
+    "ranger" \
+    "samba" \
+    "scripts_dependencies" \
+    "sensors" \
+    "smplayer" \
+    "theme" \
+    "tmpfs_programs_cache" \
+    "tmux" \
+    "ueberzugpp" \
+    "vifm" \
+    "vmic" \
+    "wezterm" \
+    "xnviewmp" \
+    "yt_dlp" \
+    "zsh" \
+    "X11"
+
+  _arguments -s \
+    {-s,--skip-upgrade}"[Skip upgrading existing system packages]" \
+    {-h,--help}"[Show help message]"
+}
+
+_dotf "$@"

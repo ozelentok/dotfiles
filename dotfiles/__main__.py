@@ -32,7 +32,7 @@ def main():
     package_parser = subparsers.add_parser('pkg', help='Install package')
     package_parser.add_argument('pkg', choices=Installer.list_packages())
     package_parser.add_argument(
-        '--skip-upgrade',
+        '-s', '--skip-upgrade',
         action='store_true',
         help='Skip upgrading existing system packages (for testing new packages)')
 
