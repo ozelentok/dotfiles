@@ -1,5 +1,5 @@
 if [ ! -z "$PROFILE_LOADED" ]; then
-	return
+  return
 fi
 export PROFILE_LOADED=1
 
@@ -12,42 +12,42 @@ export TORCH_HOME="$HOME/.torch-home"
 # PATH
 ANDROID_SDK_ROOT="/opt/studio-android-sdk"
 if [ -d "$ANDROID_SDK_ROOT" ]; then
-	export ANDROID_SDK_ROOT="$ANDROID_SDK_ROOT"
-	export ANDROID_NDK_ROOT="$ANDROID_SDK_ROOT/ndk"
-	export ANDROID_HOME="$ANDROID_SDK_ROOT"
-	export ANDROID_NDK_HOME="$ANDROID_NDK_ROOT"
+  export ANDROID_SDK_ROOT="$ANDROID_SDK_ROOT"
+  export ANDROID_NDK_ROOT="$ANDROID_SDK_ROOT/ndk"
+  export ANDROID_HOME="$ANDROID_SDK_ROOT"
+  export ANDROID_NDK_HOME="$ANDROID_NDK_ROOT"
 
-	ANDROID_PATHS="$ANDROID_SDK_ROOT/tools:$ANDROID_SDK_ROOT/tools/bin:$ANDROID_SDK_ROOT/platform-tools:$ANDROID_SDK_ROOT/emulator"
-	export PATH="$ANDROID_PATHS:$PATH"
+  ANDROID_PATHS="$ANDROID_SDK_ROOT/tools:$ANDROID_SDK_ROOT/tools/bin:$ANDROID_SDK_ROOT/platform-tools:$ANDROID_SDK_ROOT/emulator"
+  export PATH="$ANDROID_PATHS:$PATH"
 fi
 
 export PATH="$HOME/.local/bin:$HOME/.cargo/bin:$DOTFILES_ROOT/dotfiles/scripts:$HOME/Code/scripts:$PATH"
 
 # SSH Agent
 if [ ! -z "$XDG_RUNTIME_DIR" ]; then
-	SSH_AGENT_ENV_PATH="${XDG_RUNTIME_DIR}/ssh-agent-${USER}.env"
+  SSH_AGENT_ENV_PATH="${XDG_RUNTIME_DIR}/ssh-agent-${USER}.env"
 else
-	SSH_AGENT_ENV_PATH="/tmp/ssh-agent-${USER}.env"
+  SSH_AGENT_ENV_PATH="/tmp/ssh-agent-${USER}.env"
 fi
 
 if ! pgrep -u "$USER" ssh-agent > /dev/null; then
-	ssh-agent > "$SSH_AGENT_ENV_PATH"
-	chmod 600 "$SSH_AGENT_ENV_PATH"
+  ssh-agent > "$SSH_AGENT_ENV_PATH"
+  chmod 600 "$SSH_AGENT_ENV_PATH"
 fi
 if [ -z "$SSH_AUTH_SOCK" ]; then
-	source "$SSH_AGENT_ENV_PATH" > /dev/null
+  source "$SSH_AGENT_ENV_PATH" > /dev/null
 fi
 
 # Cache tmpfs directories
 if [ ! -z $XDG_RUNTIME_DIR ]; then
-	mkdir -p $XDG_RUNTIME_DIR/cache/doublecmd
-	mkdir -p $XDG_RUNTIME_DIR/cache/gimp
-	mkdir -p $XDG_RUNTIME_DIR/cache/mozilla
-	mkdir -p $XDG_RUNTIME_DIR/cache/nvim
-	mkdir -p $XDG_RUNTIME_DIR/cache/thumbnails
-	mkdir -p $XDG_RUNTIME_DIR/cache/pikaur/build
-	mkdir -p $XDG_RUNTIME_DIR/cache/firefox-mpris
-	mkdir -p $XDG_RUNTIME_DIR/cache/Temp
+  mkdir -p $XDG_RUNTIME_DIR/cache/doublecmd
+  mkdir -p $XDG_RUNTIME_DIR/cache/gimp
+  mkdir -p $XDG_RUNTIME_DIR/cache/mozilla
+  mkdir -p $XDG_RUNTIME_DIR/cache/nvim
+  mkdir -p $XDG_RUNTIME_DIR/cache/thumbnails
+  mkdir -p $XDG_RUNTIME_DIR/cache/pikaur/build
+  mkdir -p $XDG_RUNTIME_DIR/cache/firefox-mpris
+  mkdir -p $XDG_RUNTIME_DIR/cache/Temp
 fi
 
 # Machine Local .profile

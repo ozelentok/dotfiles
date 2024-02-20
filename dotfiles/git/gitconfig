@@ -1,17 +1,17 @@
 #[user]
-#	name = Oz Elentok
-#	email = oz.elen@gmail.com
+#  name = Oz Elentok
+#  email = oz.elen@gmail.com
 #[github]
-#	user = ozelentok
+#  user = ozelentok
 
 [merge]
-	tool = fugitive
+  tool = fugitive
 [core]
-	editor = /usr/bin/nvim
-	excludesfile = ~/.gitignore_global
+  editor = /usr/bin/nvim
+  excludesfile = ~/.gitignore_global
 [mergetool]
-	prompt = true
+  prompt = true
 [mergetool "fugitive"]
-	cmd = nvim -f -c \"Gdiffsplit!\" \"$MERGED\"
+  cmd = nvim -f -c \"Gdiffsplit!\" \"$MERGED\"
 [pull]
-	rebase = true
+  rebase = true
