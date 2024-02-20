@@ -28,6 +28,7 @@ video/x-matroska=smplayer.desktop
 x-scheme-handler/chrome=firefoxdeveloperedition.desktop
 x-scheme-handler/http=firefoxdeveloperedition.desktop
 x-scheme-handler/https=firefoxdeveloperedition.desktop
+x-scheme-handler/prusaslicer=PrusaSlicerURLProtocol.desktop
 
 [Added Associations]
 application/pdf=org.gnome.Evince.desktop
