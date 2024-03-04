@@ -66,6 +66,7 @@ return {
         sources = {
           null_ls.builtins.diagnostics.sqlfluff.with({ extra_args = { '--dialect', 'sqlite' } }),
           null_ls.builtins.diagnostics.trail_space,
+          null_ls.builtins.diagnostics.yamllint,
           null_ls.builtins.formatting.json_tool,
           null_ls.builtins.formatting.yapf,
           null_ls.builtins.formatting.isort,

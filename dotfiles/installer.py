@@ -241,6 +241,7 @@ class Installer:
                 'rust',
                 'lua-language-server',
                 'arduino-language-server',
+                'yamllint',
                 'sqlfluff'
             ] if developer else [] + [
                 'xsel'
