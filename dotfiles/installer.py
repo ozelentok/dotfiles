@@ -241,6 +241,7 @@ class Installer:
                 'nodejs', 'npm',
                 'eslint',
                 'lua-language-server',
+                'bash-language-server',
                 'arduino-language-server',
                 'yamllint',
                 'sqlfluff'

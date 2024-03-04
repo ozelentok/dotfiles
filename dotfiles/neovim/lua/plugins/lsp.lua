@@ -49,6 +49,11 @@ return {
       lspconfig.pyright.setup({ on_attach = on_lsp_attach, capabilities = capabilities })
       lspconfig.eslint.setup({ on_attach = on_lsp_attach, capabilities = capabilities })
       lspconfig.cmake.setup({ on_attach = on_lsp_attach, capabilities = capabilities })
+      lspconfig.bashls.setup({
+        filetypes = { 'sh', 'zsh' },
+        on_attach = on_lsp_attach,
+        capabilities = capabilities
+      })
       lspconfig.arduino_language_server.setup({ on_attach = on_lsp_attach, capabilities = capabilities })
       lspconfig.openscad_lsp.setup({
         cmd = { 'openscad-lsp', '--stdio', '--fmt-style', 'file' },

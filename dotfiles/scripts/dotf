@@ -2,5 +2,5 @@
 
 set -e
 
-cd $DOTFILES_ROOT
-exec python -m dotfiles $@
+cd "$DOTFILES_ROOT"
+exec python -m dotfiles "$@"
