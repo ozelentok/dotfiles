@@ -232,13 +232,14 @@ class Installer:
                 'words',
                 'gcc' # For TreeSitter
             ] + [
-                'nodejs', 'npm',
                 'global', 'python-pip', 'python-pygments',
                 'ctags',
                 'yapf', 'tidy', 'python-isort',
                 'pyright',
                 'clang',
                 'rust',
+                'nodejs', 'npm',
+                'eslint',
                 'lua-language-server',
                 'arduino-language-server',
                 'yamllint',
@@ -257,6 +258,7 @@ class Installer:
         utils.symlink_dotfile(Path('neovim/after'), config_dir_path)
 
         if developer:
+            self.nodejs()
             utils.symlink_dotfile(Path('neovim/globalrc'), Path.home(), hidden=True)
             utils.symlink_dotfile(Path('neovim/ctags.conf'), Path.home() / '.ctags')
             utils.symlink_dotfile(Path('neovim/developer_profile.lua'),
@@ -267,13 +269,12 @@ class Installer:
 
         self.neovim_plugins(developer, True)
 
-    def neovim_plugins(self, developer: bool = True, installation: bool = False):
+    def neovim_plugins(self, developer: bool = True, installation: bool = False) -> None:
         if developer:
             utils.run_shell_command(
                 'pip install --user --break-system-packages -U cmakelang cmake-language-server')
             utils.run_shell_command('cargo install openscad-lsp')
-            utils.run_shell_command(
-                'sudo npm install -g neovim eslint vscode-langservers-extracted')
+            utils.run_shell_command('npm install -g neovim vscode-langservers-extracted')
 
         try:
             if installation:
@@ -282,6 +283,10 @@ class Installer:
                 utils.run_shell_command('nvim --headless "+Lazy! sync" "+TSUpdateSync" "+qa"')
         except KeyboardInterrupt:
             pass
+
+    def nodejs(self) -> None:
+        self._pm.install_packages(['nodejs', 'npm'])
+        utils.symlink_dotfile(Path('nodejs/npmrc'), Path.home(), hidden=True)
 
     def qtconfig(self) -> None:
         self.pikaur()

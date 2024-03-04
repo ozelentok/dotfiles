@@ -8,6 +8,7 @@ export EDITOR="nvim"
 export GTAGSLABEL=pygments
 export QT_QPA_PLATFORMTHEME=gtk2
 export TORCH_HOME="$HOME/.torch-home"
+export NODE_PATH="$HOME/.local/lib/node_modules:$NODE_PATH"
 
 # PATH
 ANDROID_SDK_ROOT="/opt/studio-android-sdk"
