@@ -1,0 +1,6 @@
+#compdef sftpmount
+
+_arguments \
+  '-u[unmount]' \
+  '1:host:_hosts' \
+  '2:user:_users'

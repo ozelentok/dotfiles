@@ -14,7 +14,7 @@ _dotf() {
         "pkg[Install package]"
       ;;
     args)
-      case $line[1] in
+      case ${line[1]} in
         profile)
           _dotf_profile
           ;;

@@ -1,0 +1,5 @@
+#compdef wumount
+
+_arguments \
+  '1:host:_path_files -/ -W /mnt/cifs' \
+  "2:share:_path_files -/ -W /mnt/cifs/${words[2]}"

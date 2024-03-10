@@ -1,0 +1,7 @@
+#compdef wmount
+
+_arguments \
+  '-u[unmount]' \
+  '1:host:_hosts' \
+  '2:share:' \
+  '3:user:_users'
