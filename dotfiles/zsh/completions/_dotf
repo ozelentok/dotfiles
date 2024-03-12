@@ -64,6 +64,7 @@ _dotf_pkg() {
     "mpv" \
     "neovim" \
     "neovim_plugins" \
+    "nodejs" \
     "picom" \
     "pikaur" \
     "pulseaudio" \
@@ -80,6 +81,7 @@ _dotf_pkg() {
     "vifm" \
     "vmic" \
     "wezterm" \
+    "x11vnc" \
     "xnviewmp" \
     "yt_dlp" \
     "zsh" \

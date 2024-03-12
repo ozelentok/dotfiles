@@ -398,6 +398,10 @@ class Installer:
         utils.symlink_dotfile(Path('X11/xinitrc'), Path.home(), hidden=True)
         utils.symlink_dotfile(Path('X11/Xresources'), Path.home(), hidden=True)
 
+    def x11vnc(self) -> None:
+        self._pm.install_packages(['x11vnc'])
+        utils.run_shell_command('x11vnc -storepasswd')
+
     def xnviewmp(self) -> None:
         self.pikaur()
         self._pm.install_aur_packages(['xnviewmp'])
