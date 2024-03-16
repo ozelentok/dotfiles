@@ -207,7 +207,7 @@ class Installer:
     def mount_utils(self) -> None:
         self._pm.install_packages(['sshfs', 'cifs-utils', 'fuse3'])
         utils.run_shell_command('sudo mkdir -p /mnt/sftp /mnt/cifs')
-        utils.run_shell_command('sudo chown $USER:users /mnt/sftp /mnt/cifs')
+        utils.run_shell_command('sudo chown ${USER}:users /mnt/sftp /mnt/cifs')
         user_bin_dir_path = Path.home() / '.local/bin'
         utils.mkdir(user_bin_dir_path)
         utils.symlink_dotfile(Path('mount-utils/wmount.sh'), user_bin_dir_path / 'wmount')
@@ -262,11 +262,11 @@ class Installer:
             self.nodejs()
             utils.symlink_dotfile(Path('neovim/globalrc'), Path.home(), hidden=True)
             utils.symlink_dotfile(Path('neovim/ctags.conf'), Path.home() / '.ctags')
-            utils.symlink_dotfile(Path('neovim/developer_profile.lua'),
-                                  config_dir_path / 'profile.lua')
+            utils.symlink_dotfile(Path('neovim/settings_developer.lua'),
+                                  config_dir_path / 'dotfiles_settings.lua')
         else:
-            utils.symlink_dotfile(Path('neovim/simple_profile.lua'),
-                                  config_dir_path / 'profile.lua')
+            utils.symlink_dotfile(Path('neovim/settings_minimal.lua'),
+                                  config_dir_path / 'dotfiles_settings.lua')
 
         self.neovim_plugins(developer, True)
 
@@ -406,7 +406,7 @@ class Installer:
         self.pikaur()
         self._pm.install_aur_packages(['xnviewmp'])
 
-    def zsh(self) -> None:
+    def zsh(self, developer: bool = True) -> None:
         self._pm.install_packages([
             'zsh', 'zsh-completions', 'zsh-syntax-highlighting',
             'fzf',
@@ -417,6 +417,13 @@ class Installer:
         utils.symlink_dotfile(Path('zsh/zshrc'), Path.home(), hidden=True)
         utils.symlink_dotfile(Path('zsh/zprofile'), Path.home(), hidden=True)
         utils.symlink_dotfile(Path('zsh/profile'), Path.home(), hidden=True)
+        if developer:
+            utils.symlink_dotfile(Path('zsh/settings_developer'),
+                                  Path.home() / '.zsh_dotfiles_settings')
+        else:
+            utils.symlink_dotfile(Path('zsh/settings_minimal'),
+                                  Path.home() / '.zsh_dotfiles_settings')
+
         utils.run_shell_command('sudo usermod -s $(which zsh) ${USER}')
 
         lsd_config_dir_path = Path.home() / '.config/lsd'

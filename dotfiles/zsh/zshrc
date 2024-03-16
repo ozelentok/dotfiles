@@ -36,20 +36,40 @@ autoload -U url-quote-magic bracketed-paste-magic
 zle -N self-insert url-quote-magic
 zle -N bracketed-paste bracketed-paste-magic
 
-autoload -Uz vcs_info
-zstyle ':vcs_info:*' enable git
-zstyle ':vcs_info:*' check-for-changes true
-zstyle ':vcs_info:*' get-revision true
-zstyle ':vcs_info:*' use-simple true
-zstyle ':vcs_info:*' unstagedstr '%F{red}✗ %f'
-zstyle ':vcs_info:*' stagedstr '%F{blue}✓ %f'
-zstyle ':vcs_info:*' formats '%u%c%F{green}[%b]%f'
-zstyle ':vcs_info:*' actionformats ' %F{blue}%b%f %F{white}%.7i%f +%a%u'
-zstyle ':vcs_info:git*+set-message:*' hooks git-status
+if [ "$DOTFILES_IS_DEVELOPER" -eq 1 ]; then
+  autoload -Uz vcs_info
+  zstyle ':vcs_info:*' enable git
+  zstyle ':vcs_info:*' check-for-changes true
+  zstyle ':vcs_info:*' get-revision true
+  zstyle ':vcs_info:*' use-simple true
+  zstyle ':vcs_info:*' unstagedstr '%F{red}✗ %f'
+  zstyle ':vcs_info:*' stagedstr '%F{blue}✓ %f'
+  zstyle ':vcs_info:*' formats '%u%c%F{green}[%b]%f'
+  zstyle ':vcs_info:*' actionformats ' %F{blue}%b%f %F{white}%.7i%f +%a%u'
+  zstyle ':vcs_info:git*+set-message:*' hooks git-status
 
-function precmd() {
-  vcs_info
-}
+  function precmd() {
+    function clear_vcs_info() {
+      unset vcs_info_msg_0_
+    }
+
+    case $PWD/ in
+      /bin/*)   clear_vcs_info;;
+      /boot/*)  clear_vcs_info;;
+      /dev/*)   clear_vcs_info;;
+      /lib/*)   clear_vcs_info;;
+      /lib64/*) clear_vcs_info;;
+      /mnt/*)   clear_vcs_info;;
+      /proc/*)  clear_vcs_info;;
+      /run/*)   clear_vcs_info;;
+      /sbin/*)  clear_vcs_info;;
+      /sys/*)   clear_vcs_info;;
+      /usr/*)   clear_vcs_info;;
+      /var/*)   clear_vcs_info;;
+      *) vcs_info;;
+    esac
+  }
+fi
 
 ZLE_RPROMPT_INDENT=0
 ZVM_INIT_MODE=sourcing
@@ -65,7 +85,11 @@ else
   PROMPT_START+='%k%f'
   PROMPT=${PROMPT_START}
 fi
-RPROMPT='${vcs_info_msg_0_} %B%F{12}[%D{%H:%M:%S}]%b%f'
+if [ "$DOTFILES_IS_DEVELOPER" -eq 1 ]; then
+  RPROMPT='${vcs_info_msg_0_} %B%F{12}[%D{%H:%M:%S}]%b%f'
+else
+  RPROMPT='%B%F{12}[%D{%H:%M:%S}]%b%f'
+fi
 
 function zvm_after_select_vi_mode() {
   case $ZVM_MODE in

@@ -51,5 +51,7 @@ if [ ! -z $XDG_RUNTIME_DIR ]; then
   mkdir -p $XDG_RUNTIME_DIR/cache/Temp
 fi
 
+source $HOME/.zsh_dotfiles_settings
+
 # Machine Local .profile
 [[ -f $HOME/.profile_local ]] && source $HOME/.profile_local

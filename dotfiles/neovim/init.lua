@@ -30,7 +30,7 @@ vim.o.showcmdloc = 'statusline'
 vim.g.mapleader = ','
 vim.diagnostic.config({ virtual_text = true })
 
-dofile(vim.fn.stdpath('config') .. '/profile.lua')
+dofile(vim.fn.stdpath('config') .. '/dotfiles_settings.lua')
 
 local map_vim = function(mode, lhs, rhs, opts)
   local options = { noremap = true }

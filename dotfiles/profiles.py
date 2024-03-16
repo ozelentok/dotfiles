@@ -75,6 +75,9 @@ class Full(Profile):
 
 class Minimal(Profile):
 
+    def zsh(self) -> None:
+        self._installer.zsh(False)
+
     def neovim(self) -> None:
         self._installer.neovim(False, False)
 
@@ -83,7 +86,7 @@ class Minimal(Profile):
 
     def install(self) -> None:
         self._installer.base_packages()
-        self._installer.zsh()
+        self.zsh()
         self._installer.tmux()
         self._installer.mount_utils()
         self._installer.git()
@@ -101,8 +104,11 @@ class Minimal(Profile):
 
 class ShellOnly(Profile):
 
+    def zsh(self) -> None:
+        self._installer.zsh(False)
+
     def install(self) -> None:
-        self._installer.zsh()
+        self.zsh()
 
     def upgrade(self) -> None:
         pass
