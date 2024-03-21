@@ -87,13 +87,16 @@ def copy_dotfile_as_root(dotfile_path: Path, dst_path: Path, hidden: bool = Fals
 
 
 def extract_dotfile_tar(dotfile_tar_path: Path, dst_dir_path: Path):
-    with tarfile.open(__MOUDLE_PATH / dotfile_tar_path) as tar_file:
-        tar_file.extractall(dst_dir_path)
+    src_path = __MOUDLE_PATH / dotfile_tar_path
+    subprocess.check_call(['tar', '-xf', src_path, '-C', dst_dir_path])
 
 
 def extract_dotfile_tar_as_root(dotfile_tar_path: Path, dst_dir_path: Path):
     src_path = __MOUDLE_PATH / dotfile_tar_path
-    subprocess.check_call(['sudo', 'tar', 'xf', src_path, '-C', dst_dir_path])
+    subprocess.check_call([
+        'sudo', 'tar', '--no-same-owner', '--no-same-permissions', '-xf', src_path, '-C',
+        dst_dir_path
+    ])
 
 
 def avoid_reinstall(executable: str):
