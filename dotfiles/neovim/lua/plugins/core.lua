@@ -94,24 +94,24 @@ return {
     },
     keys = {
       { '<C-p>',      '<cmd>Telescope find_files follow=true<CR>',                noremap = true },
+      { '<C-p><C-p>', '<cmd>Telescope find_files follow=true no_ignore=true<CR>', noremap = true },
       { '<C-o>',      '<cmd>Telescope oldfiles<CR>',                              noremap = true },
       { '<C-g>',      '<cmd>Telescope git_files<CR>',                             noremap = true },
-      { '<C-s>',      '<cmd>Telescope live_grep<CR>',                             noremap = true },
       { '<C-b>',      '<cmd>Telescope buffers<CR>',                               noremap = true },
-      { '<leader>c',  '<cmd>Telescope command_history<CR>',                       noremap = true },
-      { '<leader>s',  '<cmd>Telescope search_history<CR>',                        noremap = true },
-      { '<leader>b',  '<cmd>Telescope spell_suggest initial_mode=normal<CR>',     noremap = true },
+      { '<C-s>',      '<cmd>Telescope live_grep<CR>',                             noremap = true },
+      { '<C-s><C-s>', '<cmd>Telescope grep_string<CR>',                           noremap = true },
+      { '<leader>s',  '<cmd>Telescope spell_suggest initial_mode=normal<CR>',     noremap = true },
       { '<leader>r',  '<cmd>Telescope lsp_references initial_mode=normal<CR>',    noremap = true },
       { '<leader>d',  '<cmd>Telescope lsp_definitions initial_mode=normal<CR>',   noremap = true },
       { '<leader>n',  '<cmd>Telescope noice<CR>',                                 noremap = true },
       { '<leader>x',  '<cmd>Telescope treesitter<CR>',                            noremap = true },
+      { '<leader>hc', '<cmd>Telescope command_history<CR>',                       noremap = true },
+      { '<leader>hs', '<cmd>Telescope search_history<CR>',                        noremap = true },
       { '<leader>mm', '<cmd>Telescope man_pages<CR>',                             noremap = true },
       { '<leader>md', '<cmd>Telescope gtags def initial_mode=normal<CR>',         noremap = true },
       { '<leader>mr', '<cmd>Telescope gtags ref initial_mode=normal<CR>',         noremap = true },
-      { '<leader>mf', '<cmd>Telescope find_files follow=true no_ignore=true<CR>', noremap = true },
-      { '<leader>mt', '<cmd>Telescope grep_string<CR>',                           noremap = true },
       {
-        '<leader>ms',
+        '<C-s><C-d>',
         function()
           require('telescope.builtin').live_grep({
             additional_args = { '--no-ignore' }
@@ -149,7 +149,8 @@ return {
       require('neoscroll').setup({
         mappings = { '<C-u>', '<C-d>' },
         hide_cursor = false,
-        respect_scrolloff = true
+        respect_scrolloff = true,
+        performance_mode = false,
       })
       require('neoscroll.config').set_mappings({
         ['<C-u>'] = { 'scroll', { '-vim.wo.scroll', 'true', '160' } },
@@ -204,7 +205,7 @@ return {
     end,
     keys = {
       {
-        '<leader><leader>j',
+        '<leader>i',
         function()
           vim.o.autochdir = false
           require('project_nvim.project').on_buf_enter()
@@ -214,7 +215,7 @@ return {
         desc = 'CD to project directory'
       },
       {
-        '<leader><leader>m',
+        '<leader>u',
         function()
           vim.cmd('lcd ' .. vim.fn.expand('%:p:h'))
           vim.o.autochdir = true
@@ -225,7 +226,7 @@ return {
         'Enable auto file working directory'
       },
       {
-        '<leader><leader>n',
+        '<leader>y',
         function()
           vim.o.autochdir = false
           vim.print('autochir disabled')
@@ -251,7 +252,7 @@ return {
     'ellisonleao/glow.nvim',
     ft = 'markdown',
     keys = {
-      { '<leader>p', '<cmd>Glow!<CR>', noremap = true, desc = 'Markdown Glow' }
+      { '<leader>p', '<cmd>Glow!<CR>', noremap = true, desc = 'Markdown Glow', ft = 'markdown' }
     },
     config = true,
   },
@@ -261,7 +262,13 @@ return {
     'salkin-mada/openscad.nvim',
     ft = 'openscad',
     keys = {
-      { '<leader>mp', function() require('openscad').exec_openscad() end, noremap = true, desc = 'OpenSCAD' },
+      {
+        '<leader>p',
+        function() require('openscad').exec_openscad() end,
+        noremap = true,
+        desc = 'OpenSCAD',
+        ft = 'openscad'
+      },
     }
   },
 

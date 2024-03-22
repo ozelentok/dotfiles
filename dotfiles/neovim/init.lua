@@ -60,8 +60,9 @@ map_vim('i', '<F3>', '<C-R>=strftime("%Y-%m-%d %H:%M:%S")<CR>')
 map_vim('n', '<leader>f', '<cmd>diffthis<CR><C-w><C-w><cmd>diffthis<CR><C-w><C-w>')
 
 -- Quick exit
-map_vim('n', '<leader><leader>f', ':qa<CR>')
-map_vim('n', '<leader><leader><C-f>', ':qa!<CR>')
+map_vim('n', '<leader>q', ':qa<CR>')
+map_vim('n', '<leader>x', ':xa<CR>')
+map_vim('n', '<leader><leader>q', ':qa!<CR>')
 
 -- Disable copy of selected text during paste
 map_vim('x', 'p', "'pgv\"'.v:register.'y`>'", { expr = true })
