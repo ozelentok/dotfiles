@@ -49,6 +49,8 @@ map_vim('n', '<C-h>', '<C-w>h')
 map_vim('n', '<C-j>', '<C-w>j')
 map_vim('n', '<C-k>', '<C-w>k')
 map_vim('n', '<C-l>', '<C-w>l')
+map_vim('n', '<C-Right>', 'gt')
+map_vim('n', '<C-Left>', 'gT')
 
 -- Date insertion
 map_vim('n', '<F2>', '"=strftime("%Y-%m-%d")<CR>P')
