@@ -1,17 +1,21 @@
-#[user]
-#  name = Oz Elentok
-#  email = oz.elen@gmail.com
-#[github]
-#  user = ozelentok
+# [user]
+#   name = Oz Elentok
+#   email = oz.elen@gmail.com
+# [github]
+#   user = ozelentok
 
-[merge]
-  tool = fugitive
 [core]
   editor = /usr/bin/nvim
   excludesfile = ~/.gitignore_global
+[merge]
+  tool = fugitive
 [mergetool]
   prompt = true
 [mergetool "fugitive"]
   cmd = nvim -f -c \"Gdiffsplit!\" \"$MERGED\"
 [pull]
   rebase = true
+[init]
+  defaultBranch = main
+[rebase]
+  instructionFormat = %s%nexec GIT_COMMITTER_DATE=\"%cD\" git commit --amend --no-edit --date=\"%cD\"
