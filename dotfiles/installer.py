@@ -371,6 +371,13 @@ class Installer:
         utils.mkdir(config_dir_path)
         utils.symlink_dotfile(Path('tmux/tmux.conf'), config_dir_path)
 
+        tpm_dir_path = config_dir_path / 'plugins/tpm'
+        if not tpm_dir_path.exists():
+            subprocess.check_call(
+                ['git', 'clone', 'https://github.com/tmux-plugins/tpm', tpm_dir_path])
+        tpm_installer_path = tpm_dir_path / 'bin/install_plugins'
+        subprocess.check_call([tpm_installer_path])
+
     def vifm(self) -> None:
         self._pm.install_packages(['vifm', 'python-pygments'])
         config_dir_path = Path.home() / '.config/vifm'
@@ -407,16 +414,19 @@ class Installer:
         self._pm.install_aur_packages(['xnviewmp'])
 
     def zsh(self, developer: bool = True) -> None:
+        self.pikaur()
         self._pm.install_packages([
             'zsh', 'zsh-completions', 'zsh-syntax-highlighting',
             'fzf',
             'lsd',
             'which'
         ]) # yapf: disable
+        self._pm.install_aur_packages(['zsh-theme-powerlevel10k-git'])
 
         utils.symlink_dotfile(Path('zsh/zshrc'), Path.home(), hidden=True)
         utils.symlink_dotfile(Path('zsh/zprofile'), Path.home(), hidden=True)
         utils.symlink_dotfile(Path('zsh/profile'), Path.home(), hidden=True)
+        utils.symlink_dotfile(Path('zsh/p10k.zsh'), Path.home(), hidden=True)
         if developer:
             utils.symlink_dotfile(Path('zsh/settings_developer'),
                                   Path.home() / '.zsh_dotfiles_settings')
