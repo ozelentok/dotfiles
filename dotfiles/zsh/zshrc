@@ -1,7 +1,15 @@
 [[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && which startx > /dev/null && exec startx
 
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "$HOME/.cache/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "$HOME/.cache/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 setopt histignorealldups sharehistory
 bindkey -e
+set -o vi
 
 HISTSIZE=100000
 SAVEHIST=100000
@@ -39,81 +47,6 @@ zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,cmd'
 autoload -U url-quote-magic bracketed-paste-magic
 zle -N self-insert url-quote-magic
 zle -N bracketed-paste bracketed-paste-magic
-
-if [ "$DOTFILES_IS_DEVELOPER" -eq 1 ]; then
-  autoload -Uz vcs_info
-  zstyle ':vcs_info:*' enable git
-  zstyle ':vcs_info:*' check-for-changes true
-  zstyle ':vcs_info:*' get-revision true
-  zstyle ':vcs_info:*' use-simple true
-  zstyle ':vcs_info:*' unstagedstr '%F{red}✗ %f'
-  zstyle ':vcs_info:*' stagedstr '%F{blue}✓ %f'
-  zstyle ':vcs_info:*' formats '%u%c%F{green}[%b]%f'
-  zstyle ':vcs_info:*' actionformats ' %F{blue}%b%f %F{white}%.7i%f +%a%u'
-  zstyle ':vcs_info:git*+set-message:*' hooks git-status
-
-  function precmd() {
-    function clear_vcs_info() {
-      unset vcs_info_msg_0_
-    }
-
-    case $PWD/ in
-      /bin/*)   clear_vcs_info;;
-      /boot/*)  clear_vcs_info;;
-      /dev/*)   clear_vcs_info;;
-      /lib/*)   clear_vcs_info;;
-      /lib64/*) clear_vcs_info;;
-      /mnt/*)   clear_vcs_info;;
-      /proc/*)  clear_vcs_info;;
-      /run/*)   clear_vcs_info;;
-      /sbin/*)  clear_vcs_info;;
-      /sys/*)   clear_vcs_info;;
-      /usr/*)   clear_vcs_info;;
-      /var/*)   clear_vcs_info;;
-      *) vcs_info;;
-    esac
-  }
-fi
-
-ZLE_RPROMPT_INDENT=0
-ZVM_INIT_MODE=sourcing
-ENABLE_ZVM=1
-
-PROMPT_START='%K{25} %n@%m %F{25}%K{235} %f%~ %k%F{235}%f'
-PROMPT_START+=$'\n'
-PROMPT_START+='%K{22} %(!.#.$) %F{22}'
-if [ $ENABLE_ZVM -ne 0 ]; then
-  PROMPT_START+='%K{235}%f'
-  PROMPT="${PROMPT_START} I %k%F{235}%f"
-else
-  PROMPT_START+='%k%f'
-  PROMPT=${PROMPT_START}
-fi
-if [ "$DOTFILES_IS_DEVELOPER" -eq 1 ]; then
-  RPROMPT='${vcs_info_msg_0_} %B%F{12}[%D{%H:%M:%S}]%b%f'
-else
-  RPROMPT='%B%F{12}[%D{%H:%M:%S}]%b%f'
-fi
-
-function zvm_after_select_vi_mode() {
-  case $ZVM_MODE in
-    $ZVM_MODE_INSERT)
-      PROMPT="${PROMPT_START} I %k%F{235}%f"
-      ;;
-    $ZVM_MODE_NORMAL)
-      PROMPT="${PROMPT_START}%F{11}%B N %b%k%F{235}%f"
-      ;;
-    $ZVM_MODE_VISUAL)
-      PROMPT="${PROMPT_START}%F{208}%B V %b%k%F{235}%f"
-      ;;
-    $ZVM_MODE_VISUAL_LINE)
-      PROMPT="${PROMPT_START}%F{208}%B B %b%k%F{235}%f"
-      ;;
-    $ZVM_MODE_REPLACE)
-      PROMPT="${PROMPT_START}%F{1}%B R %b%k%F{235}%f"
-      ;;
-  esac
-}
 
 up-line-or-local-history() {
   zle set-local-history 1
@@ -184,7 +117,7 @@ man() {
     LESS_TERMCAP_ue=$'\E[0m' \
     LESS_TERMCAP_us=$'\E[04;38;5;146m' \
     man "$@"
-  }
+}
 
 # Color aliases
 if [ -x /usr/bin/dircolors ]; then
@@ -225,12 +158,12 @@ jp() {
   convert "${1}" "${1%.*}.jpg"
 }
 
-# Zsh Vi Mode
-if [ $ENABLE_ZVM -ne 0 ]; then
-  source $DOTFILES_ROOT/dotfiles/zsh/zsh-vi-mode/zsh-vi-mode.plugin.zsh
-fi
-
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+ZLE_RPROMPT_INDENT=0
+source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
+source "$HOME/.p10k.zsh"
+
 source /usr/share/fzf/key-bindings.zsh
 source /usr/share/fzf/completion.zsh
 export FZF_COMPLETION_TRIGGER=''
