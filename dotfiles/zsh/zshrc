@@ -170,3 +170,4 @@ export FZF_COMPLETION_TRIGGER=''
 bindkey '^T' fzf-completion
 bindkey '^I' "$fzf_default_completion"
 
+[[ -f "$HOME/.zshrc_local" ]] && source "$HOME/.zshrc_local"
