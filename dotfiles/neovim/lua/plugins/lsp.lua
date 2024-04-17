@@ -47,6 +47,7 @@ return {
       lspconfig.cssls.setup({ on_attach = on_lsp_attach, capabilities = capabilities })
       lspconfig.clangd.setup({ on_attach = on_lsp_attach, capabilities = capabilities })
       lspconfig.pyright.setup({ on_attach = on_lsp_attach, capabilities = capabilities })
+      lspconfig.ruff_lsp.setup({ on_attach = on_lsp_attach, capabilities = capabilities })
       lspconfig.eslint.setup({ on_attach = on_lsp_attach, capabilities = capabilities })
       lspconfig.cmake.setup({ on_attach = on_lsp_attach, capabilities = capabilities })
       lspconfig.bashls.setup({
@@ -73,7 +74,6 @@ return {
           null_ls.builtins.diagnostics.trail_space,
           null_ls.builtins.diagnostics.yamllint,
           null_ls.builtins.formatting.json_tool,
-          null_ls.builtins.formatting.yapf,
           null_ls.builtins.formatting.isort,
           null_ls.builtins.formatting.tidy,
           null_ls.builtins.formatting.trim_whitespace,

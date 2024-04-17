@@ -24,17 +24,20 @@ def main():
     subparsers = parser.add_subparsers(dest='action', required=True)
 
     profile_parser = subparsers.add_parser('profile', help='Install profile')
-    profile_parser.add_argument('profile',
-                                choices=[p.__name__ for p in profiles.Profile.__subclasses__()])
+    profile_parser.add_argument(
+        'profile', choices=[p.__name__ for p in profiles.Profile.__subclasses__()]
+    )
 
     profile_parser = subparsers.add_parser('upgrade', help='Upgrade system')
 
     package_parser = subparsers.add_parser('pkg', help='Install package')
     package_parser.add_argument('pkg', choices=Installer.list_packages())
     package_parser.add_argument(
-        '-s', '--skip-upgrade',
+        '-s',
+        '--skip-upgrade',
         action='store_true',
-        help='Skip upgrading existing system packages (for testing new packages)')
+        help='Skip upgrading existing system packages (for testing new packages)',
+    )
 
     args = parser.parse_args()
 

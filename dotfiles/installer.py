@@ -9,14 +9,14 @@ from . import utils
 
 
 class Installer:
-
     def __init__(self, skip_upgrade=False) -> None:
         self._pm = utils.SystemPackageManager(skip_upgrade)
 
     @classmethod
     def list_packages(cls) -> list[str]:
         return [
-            m[0] for m in inspect.getmembers(cls, predicate=inspect.isfunction)
+            m[0]
+            for m in inspect.getmembers(cls, predicate=inspect.isfunction)
             if not m[0].startswith('_')
         ]
 
@@ -25,9 +25,11 @@ class Installer:
         self._pm.install_packages(['base-devel', 'git'])
         with tempfile.TemporaryDirectory() as tmp_build_path:
             subprocess.check_call(
-                ['git', 'clone', 'https://aur.archlinux.org/pikaur.git', tmp_build_path])
-            subprocess.check_call(['makepkg', '-sci', '--needed', '--noconfirm'],
-                                  cwd=tmp_build_path)
+                ['git', 'clone', 'https://aur.archlinux.org/pikaur.git', tmp_build_path]
+            )
+            subprocess.check_call(
+                ['makepkg', '-sci', '--needed', '--noconfirm'], cwd=tmp_build_path
+            )
 
     def base_packages(self) -> None:
         self._pm.install_packages([
@@ -49,7 +51,7 @@ class Installer:
 
             'ntfs-3g',
             'exfat-utils', 'fuse-exfat',
-        ]) # yapf: disable
+        ])  # fmt: off
 
     def desktop_programs(self) -> None:
         self._pm.install_packages([
@@ -64,7 +66,7 @@ class Installer:
             'wine',
             'vlc',
             'playerctl',
-        ]) # yapf: disable
+        ])  # fmt: off
 
     def tmpfs_programs_cache(self) -> None:
         runtime_dir = Path(environ['XDG_RUNTIME_DIR'])
@@ -78,7 +80,7 @@ class Installer:
             Path.home() / '.cache/thumbnails',
             Path.home() / '.cache/pikaur/build',
             Path.home() / '.mozilla/firefox/firefox-mpris',
-            Path.home() / '.wine/drive_c/users' / getpass.getuser() / 'Temp'
+            Path.home() / '.wine/drive_c/users' / getpass.getuser() / 'Temp',
         ]
         for l in links:
             c = runtime_cache / l.name
@@ -93,7 +95,7 @@ class Installer:
             'imagemagick',
             'pdftk',
             'easytag',
-        ]) # yapf: disable
+        ])  # fmt: off
 
     def bluetooth(self) -> None:
         self._pm.install_packages([
@@ -101,7 +103,7 @@ class Installer:
             'blueman',
             'gst-plugins-bad', # For AptX suppport
             'chntpw', # For extraction of pairing keys from Windows
-        ]) # yapf: disable
+        ])  # fmt: off
 
         utils.copy_dotfile_as_root(Path('bluetooth/main.conf'), Path('/etc/bluetooth'))
         utils.run_shell_command('sudo systemctl enable bluetooth')
@@ -110,7 +112,7 @@ class Installer:
         self._pm.install_packages([
             'deluge', 'deluge-gtk', 'gtk3', 'python-gobject', 'python-cairo', 'librsvg',
             'libappindicator-gtk3', 'libnotify'
-        ]) # yapf: disable
+        ])  # fmt: off
 
     def doublecmd(self):
         self._pm.install_packages(['doublecmd-gtk2'])
@@ -122,7 +124,7 @@ class Installer:
         self._pm.install_packages([
             'noto-fonts', 'noto-fonts-cjk', 'noto-fonts-emoji', 'ttf-hack-nerd', 'ttf-liberation',
             'ttf-roboto', 'fontconfig'
-        ]) # yapf: disable
+        ])  # fmt: off
 
         config_dir_path = Path.home() / '.config/fontconfig'
         utils.mkdir(config_dir_path)
@@ -144,8 +146,9 @@ class Installer:
         utils.run_shell_command(f'sudo mkdir -p "{system_config_dir_path}"')
 
         utils.symlink_dotfile(Path('gtk/gtk-3.0-settings.ini'), config_dir_path / 'settings.ini')
-        utils.copy_dotfile_as_root(Path('gtk/gtk-3.0-settings.ini'),
-                                   system_config_dir_path / 'settings.ini')
+        utils.copy_dotfile_as_root(
+            Path('gtk/gtk-3.0-settings.ini'), system_config_dir_path / 'settings.ini'
+        )
         utils.symlink_dotfile(Path('gtk/gtkrc-2.0'), Path.home(), hidden=True)
         utils.run_shell_command('dconf load / < gtk/dconf.ini')
 
@@ -156,7 +159,7 @@ class Installer:
             'dunst', 'scrot',
             'meson', # For i3lock-git
             'python-pip', 'python-pytz', 'python-tzlocal', 'xorg-xset', 'xorg-xrandr'
-        ]) # yapf: disable
+        ])  # fmt: off
         utils.run_shell_command('pip install --user --break-system-packages -U pulsectl')
 
         config_dir_path = Path.home() / '.config/i3'
@@ -194,7 +197,7 @@ class Installer:
         self._pm.install_packages([
             'pulseaudio', 'pulseaudio-alsa',
             'pavucontrol', 'alsa-utils',
-        ]) # yapf: disable
+        ])  # fmt: off
 
         config_dir_path = Path.home() / '.config/pulse'
         utils.mkdir(config_dir_path)
@@ -234,7 +237,7 @@ class Installer:
             ] + [
                 'global', 'python-pip', 'python-pygments',
                 'ctags',
-                'yapf', 'tidy', 'python-isort',
+                'ruff-lsp', 'tidy', 'python-isort',
                 'pyright',
                 'clang',
                 'rust',
@@ -248,7 +251,7 @@ class Installer:
             ] if developer else [] + [
                 'xsel'
             ] if x11 else []
-        ) # yapf: disable
+        )  # fmt: off
 
         utils.run_shell_command('sudo ln -s -f -r $(which nvim) /usr/local/bin/vim')
 
@@ -262,18 +265,21 @@ class Installer:
             self.nodejs()
             utils.symlink_dotfile(Path('neovim/globalrc'), Path.home(), hidden=True)
             utils.symlink_dotfile(Path('neovim/ctags.conf'), Path.home() / '.ctags')
-            utils.symlink_dotfile(Path('neovim/settings_developer.lua'),
-                                  config_dir_path / 'dotfiles_settings.lua')
+            utils.symlink_dotfile(
+                Path('neovim/settings_developer.lua'), config_dir_path / 'dotfiles_settings.lua'
+            )
         else:
-            utils.symlink_dotfile(Path('neovim/settings_minimal.lua'),
-                                  config_dir_path / 'dotfiles_settings.lua')
+            utils.symlink_dotfile(
+                Path('neovim/settings_minimal.lua'), config_dir_path / 'dotfiles_settings.lua'
+            )
 
         self.neovim_plugins(developer, True)
 
     def neovim_plugins(self, developer: bool = True, installation: bool = False) -> None:
         if developer:
             utils.run_shell_command(
-                'pip install --user --break-system-packages -U cmakelang cmake-language-server')
+                'pip install --user --break-system-packages -U cmakelang cmake-language-server'
+            )
             utils.run_shell_command('cargo install openscad-lsp')
             utils.run_shell_command('npm install -g neovim vscode-langservers-extracted')
 
@@ -318,19 +324,21 @@ class Installer:
         utils.run_shell_command('sudo mkdir -p /etc/samba')
         utils.symlink_dotfile_with_root(Path('samba/smb.conf'), Path('/etc/samba/smb.conf'))
         utils.run_shell_command(
-            'sudo sh -c "sed -e \"s/HOST_NAME/$(hostname)/\" samba/machine.conf > /etc/samba/machine.conf"'
+            'sudo sh -c "sed -e "s/HOST_NAME/$(hostname)/" samba/machine.conf > /etc/samba/machine.conf"'
         )
 
         utils.run_shell_command(f'sudo useradd {samba_user} -g users -s /bin/nologin')
         utils.run_shell_command(f'sudo smbpasswd -a {samba_user}')
         utils.run_shell_command(
-            f'echo "{samba_user} = \"{samba_user}\"" | sudo tee -a /etc/samba/smbusers > /dev/null')
+            f'echo "{samba_user} = "{samba_user}"" | sudo tee -a /etc/samba/smbusers > /dev/null'
+        )
         utils.run_shell_command('sudo systemctl enable smb')
 
     def scripts_dependencies(self) -> None:
         self._pm.install_packages(['python-pip'])
         utils.run_shell_command(
-            'pip install --user --break-system-packages -U -r scripts/requirements.txt')
+            'pip install --user --break-system-packages -U -r scripts/requirements.txt'
+        )
 
     def vmic(self) -> None:
         self._pm.install_packages(['python-pip'])
@@ -360,8 +368,9 @@ class Installer:
         utils.run_shell_command(f'sudo mkdir -p {themes_dir_path}')
         utils.run_shell_command(f'sudo mkdir -p {icons_dir_path}')
 
-        utils.extract_dotfile_tar_as_root(Path('theme/Flat-Remix-GTK-Blue-Darkest-20220627.tar.gz'),
-                                          themes_dir_path)
+        utils.extract_dotfile_tar_as_root(
+            Path('theme/Flat-Remix-GTK-Blue-Darkest-20220627.tar.gz'), themes_dir_path
+        )
         utils.extract_dotfile_tar_as_root(Path('theme/Arc-ICONS-1.5.7.tar.gz'), icons_dir_path)
         utils.extract_dotfile_tar_as_root(Path('theme/Future-Cyan-20230405.tar.gz'), icons_dir_path)
 
@@ -374,7 +383,8 @@ class Installer:
         tpm_dir_path = config_dir_path / 'plugins/tpm'
         if not tpm_dir_path.exists():
             subprocess.check_call(
-                ['git', 'clone', 'https://github.com/tmux-plugins/tpm', tpm_dir_path])
+                ['git', 'clone', 'https://github.com/tmux-plugins/tpm', tpm_dir_path]
+            )
         tpm_installer_path = tpm_dir_path / 'bin/install_plugins'
         subprocess.check_call([tpm_installer_path])
 
@@ -396,7 +406,7 @@ class Installer:
         self._pm.install_packages([
             'xorg-server', 'xorg-xinit', 'xorg-xkill', 'xorg-xhost', 'xorg-xev',
             'xdg-utils', 'perl-file-mimeinfo'
-        ]) # yapf: disable
+        ])  # fmt: off
 
         config_dir_path = '/etc/X11/xorg.conf.d'
         utils.run_shell_command(f'sudo mkdir -p {config_dir_path}')
@@ -420,7 +430,7 @@ class Installer:
             'fzf',
             'lsd',
             'which'
-        ]) # yapf: disable
+        ])  # fmt: off
         self._pm.install_aur_packages(['zsh-theme-powerlevel10k-git'])
 
         utils.symlink_dotfile(Path('zsh/zshrc'), Path.home(), hidden=True)
@@ -428,11 +438,13 @@ class Installer:
         utils.symlink_dotfile(Path('zsh/profile'), Path.home(), hidden=True)
         utils.symlink_dotfile(Path('zsh/p10k.zsh'), Path.home(), hidden=True)
         if developer:
-            utils.symlink_dotfile(Path('zsh/settings_developer'),
-                                  Path.home() / '.zsh_dotfiles_settings')
+            utils.symlink_dotfile(
+                Path('zsh/settings_developer'), Path.home() / '.zsh_dotfiles_settings'
+            )
         else:
-            utils.symlink_dotfile(Path('zsh/settings_minimal'),
-                                  Path.home() / '.zsh_dotfiles_settings')
+            utils.symlink_dotfile(
+                Path('zsh/settings_minimal'), Path.home() / '.zsh_dotfiles_settings'
+            )
 
         utils.run_shell_command('sudo usermod -s $(which zsh) ${USER}')
 

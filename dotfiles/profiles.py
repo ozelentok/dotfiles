@@ -5,7 +5,6 @@ from .installer import Installer
 
 
 class Profile(ABC):
-
     def __init__(self, skip_upgrade=False):
         self._installer = Installer(skip_upgrade)
 
@@ -25,7 +24,6 @@ class Profile(ABC):
 
 
 class Full(Profile):
-
     def install(self) -> None:
         self._installer.base_packages()
         self._installer.zsh()
@@ -74,7 +72,6 @@ class Full(Profile):
 
 
 class Minimal(Profile):
-
     def zsh(self) -> None:
         self._installer.zsh(False)
 
@@ -103,7 +100,6 @@ class Minimal(Profile):
 
 
 class ShellOnly(Profile):
-
     def zsh(self) -> None:
         self._installer.zsh(False)
 

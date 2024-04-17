@@ -2,7 +2,6 @@ import functools
 import os
 import shutil
 import subprocess
-import tarfile
 from pathlib import Path
 from typing import Callable
 
@@ -17,12 +16,14 @@ class SystemPackageManager:
             self._pacman_options = '-S'
 
     def install_packages(self, packages: list[str]) -> None:
-        subprocess.check_call(['sudo', 'pacman', self._pacman_options, '--needed', '--noconfirm'] +
-                              packages)
+        subprocess.check_call(
+            ['sudo', 'pacman', self._pacman_options, '--needed', '--noconfirm'] + packages
+        )
 
     def install_aur_packages(self, packages: list[str]) -> None:
-        subprocess.check_call(['pikaur', self._pacman_options, '--needed', '--noconfirm'] +
-                              packages)
+        subprocess.check_call(
+            ['pikaur', self._pacman_options, '--needed', '--noconfirm'] + packages
+        )
 
 
 def run_shell_command(command: str | list[str]) -> None:
@@ -60,9 +61,9 @@ def symlink_dotfile_with_root(dotfile_path: Path, dst_path: Path, hidden: bool =
     if dst_path.is_dir() and not dst_path.is_symlink():
         dst_path /= ('.' if hidden else '') + dotfile_path.name
     src_path = __MOUDLE_PATH / dotfile_path
-    run_shell_command(' '.join(['sudo', 'ln', '-s', '-f',
-                                src_path.as_posix(),
-                                dst_path.as_posix()]))
+    run_shell_command(
+        ' '.join(['sudo', 'ln', '-s', '-f', src_path.as_posix(), dst_path.as_posix()])
+    )
 
 
 def copy_dotfile(dotfile_path: Path, dst_path: Path, hidden: bool = False) -> None:
@@ -93,16 +94,22 @@ def extract_dotfile_tar(dotfile_tar_path: Path, dst_dir_path: Path):
 
 def extract_dotfile_tar_as_root(dotfile_tar_path: Path, dst_dir_path: Path):
     src_path = __MOUDLE_PATH / dotfile_tar_path
-    subprocess.check_call([
-        'sudo', 'tar', '--no-same-owner', '--no-same-permissions', '-xf', src_path, '-C',
-        dst_dir_path
-    ])
+    subprocess.check_call(
+        [
+            'sudo',
+            'tar',
+            '--no-same-owner',
+            '--no-same-permissions',
+            '-xf',
+            src_path,
+            '-C',
+            dst_dir_path,
+        ]
+    )
 
 
 def avoid_reinstall(executable: str):
-
     def decorator(f: Callable) -> Callable:
-
         @functools.wraps(f)
         def wrapper(*args, **kwargs):
             if shutil.which(executable) is None:
