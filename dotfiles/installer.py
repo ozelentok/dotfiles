@@ -232,9 +232,10 @@ class Installer:
         self._pm.install_packages([
                 'neovim',
                 'python-neovim',
-                'words',
-                'gcc' # For TreeSitter
+                'words'
             ] + [
+                'gcc',
+                'tree-sitter-cli',
                 'global', 'python-pip', 'python-pygments',
                 'ctags',
                 'ruff-lsp', 'tidy', 'python-isort',
@@ -284,7 +285,7 @@ class Installer:
             utils.run_shell_command('npm install -g neovim vscode-langservers-extracted')
 
         try:
-            if installation:
+            if installation or not developer:
                 utils.run_shell_command('nvim --headless "+Lazy! sync" "+qa"')
             else:
                 utils.run_shell_command('nvim --headless "+Lazy! sync" "+TSUpdateSync" "+qa"')
