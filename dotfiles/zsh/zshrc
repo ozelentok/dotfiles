@@ -156,7 +156,15 @@ rdp() {
 }
 
 jp() {
-  convert "${1}" "${1%.*}.jpg"
+  for f in "$@"; do
+    convert "${f}" "${f%.*}.jpg" && rm "${f}"
+  done
+}
+
+jpk() {
+  for f in "$@"; do
+    convert "${f}" "${f%.*}.jpg"
+  done
 }
 
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
