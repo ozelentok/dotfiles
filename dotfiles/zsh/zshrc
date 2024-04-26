@@ -89,6 +89,7 @@ bindkey -M vicmd '^[[1;5C' forward-word
 bindkey -M vicmd '^[[1;5D' backward-word
 bindkey -M viins '^[[1;5C' forward-word
 bindkey -M viins '^[[1;5D' backward-word
+bindkey -M viins '^?' backward-delete-char
 
 function zle-line-init () {
   echoti smkx
