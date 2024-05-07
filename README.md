@@ -10,7 +10,7 @@
 ## Installation
 
 ```bash
-sudo pacman -Syu python git
+sudo pacman -Syu --needed python git
 git clone --recursive https://github.com/ozelentok/dotfiles.git ~/.dotfiles && cd ~/.dotfiles
 python -m dotfiles profile [PROFILE]
 
@@ -19,6 +19,9 @@ python -m dotfiles profile Full
 
 # Install Minimal profile
 python -m dotfiles profile Minimal
+
+# Install ShellOnly profile
+python -m dotfiles profile ShellOnly
 ```
 
 ## Upgrade

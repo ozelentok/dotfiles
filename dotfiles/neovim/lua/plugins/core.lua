@@ -226,7 +226,7 @@ return {
         'Enable auto file working directory'
       },
       {
-        '<leader>y',
+        '<leader>U',
         function()
           vim.o.autochdir = false
           vim.print('autochir disabled')
