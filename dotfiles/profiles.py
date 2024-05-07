@@ -103,6 +103,12 @@ class ShellOnly(Profile):
     def zsh(self) -> None:
         self._installer.zsh(False)
 
+    def neovim(self) -> None:
+        self._installer.neovim(False, False)
+
+    def ranger(self) -> None:
+        self._installer.ranger(False)
+
     def install(self) -> None:
         self.zsh()
 
