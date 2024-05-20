@@ -2,7 +2,6 @@ return {
   'nvim-treesitter/nvim-treesitter',
   config = function()
     require('nvim-treesitter.configs').setup({
-      -- Arch Linux installs the basic tree-sitter parsers for neovim so no need to install through the plugin on non-developer profiles
       ensure_installed = not vim.g.dotfiles_is_developer and {} or
           { 'c', 'lua', 'vim', 'vimdoc', 'query',
             'bash', 'comment', 'cpp', 'diff', 'html', 'javascript',
@@ -11,6 +10,8 @@ return {
       auto_install = vim.g.dotfiles_is_developer,
       indent = { enable = true, disable = { 'python' } },
       highlight = { enable = true, additional_vim_regex_highlighting = false },
+      modules = {},
+      ignore_install = {},
     })
   end
 }

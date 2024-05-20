@@ -183,15 +183,6 @@ return {
     opts = {},
   },
 
-  -- Comment Actions
-  {
-    'numToStr/Comment.nvim',
-    event = 'VeryLazy',
-    config = function()
-      require('Comment').setup()
-    end
-  },
-
   -- Project Working Directory Management
   {
     'ahmedkhalf/project.nvim',
