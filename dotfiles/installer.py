@@ -139,15 +139,25 @@ class Installer:
         utils.symlink_dotfile(Path('git/gitignore_global'), Path.home(), hidden=True)
 
     def gtk(self) -> None:
-        self._pm.install_packages(['gtk2', 'gtk3', 'polkit-gnome'])
+        self._pm.install_packages(['gtk2', 'gtk3', 'gtk4', 'polkit-gnome'])
         config_dir_path = Path.home() / '.config/gtk-3.0'
+        config_4_dir_path = Path.home() / '.config/gtk-4.0'
+
         system_config_dir_path = Path('/etc/gtk-3.0')
+        system_config_4_dir_path = Path('/etc/gtk-4.0')
+
         utils.mkdir(config_dir_path)
+        utils.mkdir(config_4_dir_path)
         utils.run_shell_command(f'sudo mkdir -p "{system_config_dir_path}"')
+        utils.run_shell_command(f'sudo mkdir -p "{system_config_4_dir_path}"')
 
         utils.symlink_dotfile(Path('gtk/gtk-3.0-settings.ini'), config_dir_path / 'settings.ini')
+        utils.symlink_dotfile(Path('gtk/gtk-4.0-settings.ini'), config_4_dir_path / 'settings.ini')
         utils.copy_dotfile_as_root(
             Path('gtk/gtk-3.0-settings.ini'), system_config_dir_path / 'settings.ini'
+        )
+        utils.copy_dotfile_as_root(
+            Path('gtk/gtk-4.0-settings.ini'), system_config_4_dir_path / 'settings.ini'
         )
         utils.symlink_dotfile(Path('gtk/gtkrc-2.0'), Path.home(), hidden=True)
         utils.run_shell_command('dconf load / < gtk/dconf.ini')
