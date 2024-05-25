@@ -1,4 +1,4 @@
-if [ ! -z "$PROFILE_LOADED" ]; then
+if [ -n "$PROFILE_LOADED" ]; then
   return
 fi
 export PROFILE_LOADED=1
@@ -25,7 +25,7 @@ fi
 export PATH="$HOME/.local/bin:$HOME/.cargo/bin:$DOTFILES_ROOT/dotfiles/scripts:$HOME/Code/scripts:$PATH"
 
 # SSH Agent
-if [ ! -z "$XDG_RUNTIME_DIR" ]; then
+if [ -n "$XDG_RUNTIME_DIR" ]; then
   SSH_AGENT_ENV_PATH="${XDG_RUNTIME_DIR}/ssh-agent-${USER}.env"
 else
   SSH_AGENT_ENV_PATH="/tmp/ssh-agent-${USER}.env"
@@ -51,5 +51,5 @@ if [ ! -z $XDG_RUNTIME_DIR ]; then
   mkdir -p $XDG_RUNTIME_DIR/cache/Temp
 fi
 
-source $HOME/.zsh_dotfiles_settings
+source "$HOME/.zsh_dotfiles_settings"
 [[ -f "$HOME/.profile_local" ]] && source "$HOME/.profile_local"
