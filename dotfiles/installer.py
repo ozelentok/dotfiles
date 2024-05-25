@@ -391,14 +391,6 @@ class Installer:
         utils.mkdir(config_dir_path)
         utils.symlink_dotfile(Path('tmux/tmux.conf'), config_dir_path)
 
-        tpm_dir_path = config_dir_path / 'plugins/tpm'
-        if not tpm_dir_path.exists():
-            subprocess.check_call(
-                ['git', 'clone', 'https://github.com/tmux-plugins/tpm', tpm_dir_path]
-            )
-        tpm_installer_path = tpm_dir_path / 'bin/install_plugins'
-        subprocess.check_call([tpm_installer_path])
-
     def vifm(self) -> None:
         self._pm.install_packages(['vifm', 'python-pygments'])
         config_dir_path = Path.home() / '.config/vifm'
