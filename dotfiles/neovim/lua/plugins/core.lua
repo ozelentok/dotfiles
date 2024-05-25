@@ -90,7 +90,8 @@ return {
     'nvim-telescope/telescope.nvim',
     dependencies = {
       'nvim-lua/plenary.nvim',
-      'folke/noice.nvim'
+      'folke/noice.nvim',
+      'nvim-telescope/telescope-fzf-native.nvim',
     },
     keys = {
       { '<C-p>',      '<cmd>Telescope find_files follow=true<CR>',                noremap = true },
@@ -129,8 +130,31 @@ return {
     init = function()
       require('telescope').load_extension('noice')
       require('telescope').load_extension('gtags')
+      require('telescope').load_extension('fzf')
       vim.cmd [[autocmd User TelescopePreviewerLoaded setlocal number]]
     end,
+  },
+  {
+    'nvim-telescope/telescope-fzf-native.nvim',
+    build = 'make',
+  },
+
+  {
+    'Bekaboo/dropbar.nvim',
+    event = 'VeryLazy',
+    dependencies = {
+      'nvim-telescope/telescope-fzf-native.nvim'
+    },
+    keys = {
+      {
+        '<leader>e',
+        function()
+          require('dropbar.api').pick()
+        end,
+        noremap = true,
+        desc = 'Select dropbar'
+      },
+    },
   },
 
   -- Diagnostics
