@@ -424,7 +424,7 @@ class Installer:
 
     def xnviewmp(self) -> None:
         self.pikaur()
-        self._pm.install_aur_packages(['xnviewmp'])
+        self._pm.install_aur_packages(['xnviewmp-system-libs'])
 
     def zsh(self, developer: bool = True) -> None:
         self.pikaur()
