@@ -21,7 +21,6 @@ vim.o.iskeyword = 'a-z,A-Z,48-57,_,-'
 vim.o.dictionary = '/usr/share/dict/words'
 vim.o.modeline = false
 vim.o.termguicolors = true
-vim.o.clipboard = 'unnamed,unnamedplus'
 vim.o.completeopt = 'menu,menuone,noselect'
 vim.o.timeoutlen = 400
 vim.o.diffopt = 'filler,vertical,closeoff,internal'
@@ -29,6 +28,21 @@ vim.o.shada = '!,\'500,<10,s10,h'
 vim.o.showcmdloc = 'statusline'
 vim.g.mapleader = ','
 vim.diagnostic.config({ virtual_text = true })
+
+vim.o.clipboard = 'unnamed,unnamedplus'
+if os.getenv('SSH_TTY') then
+  vim.g.clipboard = {
+    name = 'OSC 52',
+    copy = {
+      ['+'] = require('vim.ui.clipboard.osc52').copy('+'),
+      ['*'] = require('vim.ui.clipboard.osc52').copy('*'),
+    },
+    paste = {
+      ['+'] = function() return 0 end,
+      ['*'] = function() return 0 end,
+    },
+  }
+end
 
 dofile(vim.fn.stdpath('config') .. '/dotfiles_settings.lua')
 
