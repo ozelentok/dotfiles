@@ -8,7 +8,6 @@ return {
       'hrsh7th/cmp-nvim-lsp',
       'hrsh7th/nvim-cmp',
     },
-    build = ':TSUpdate',
     event = { 'BufReadPost', 'BufNewFile' },
     keys = {
       { '<leader>v', vim.lsp.buf.format, noremap = true, desc = 'LSP Format' },
@@ -16,7 +15,7 @@ return {
     config = function()
       local lspconfig = require('lspconfig')
       local on_lsp_attach = function(_, bufnr)
-        vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+        vim.api.nvim_set_option_value('omnifunc', 'v:lua.vim.lsp.omnifunc', { buf = bufnr })
         require('lsp_signature').on_attach({ hint_enable = false, hi_parameter = 'MoreMsg' }, bufnr)
       end
 

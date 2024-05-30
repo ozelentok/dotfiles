@@ -3,7 +3,7 @@ return {
   config = function()
     require('nvim-treesitter.configs').setup({
       ensure_installed = not vim.g.dotfiles_is_developer and {} or
-          { 'c', 'lua', 'vim', 'vimdoc', 'query',
+          { 'c', 'lua', 'vim', 'vimdoc', 'query', 'regex',
             'bash', 'comment', 'cpp', 'diff', 'html', 'javascript',
             'json', 'markdown', 'python', 'yaml' },
       sync_install = true,
