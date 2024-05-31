@@ -91,7 +91,11 @@ return {
       vim.cmd [[colorscheme material]]
     end,
   },
-  'NvChad/nvim-colorizer.lua',
+  {
+    'NvChad/nvim-colorizer.lua',
+    events = 'VeryLazy',
+    opts = {},
+  },
   'nvim-tree/nvim-web-devicons',
 
   -- Indentation Guides
