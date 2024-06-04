@@ -160,9 +160,11 @@ return {
   -- Diagnostics
   {
     'folke/trouble.nvim',
+    opts = {},
+    cmd = 'Trouble',
     keys = {
-      { '<leader>t', '<cmd>TroubleToggle document_diagnostics<CR>',  noremap = true, desc = 'Trouble Diagnostics' },
-      { '<leader>w', '<cmd>TroubleToggle workspace_diagnostics<CR>', noremap = true, desc = 'Trouble Workspace' }
+      { '<leader>t', '<cmd>Trouble diagnostics toggle filter.buf=0<CR>',  noremap = true, desc = 'Trouble Diagnostics' },
+      { '<leader>w', '<cmd>Trouble diagnostics toggle<CR>', noremap = true, desc = 'Trouble Workspace' }
     }
   },
 
