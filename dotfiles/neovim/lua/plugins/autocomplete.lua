@@ -37,6 +37,13 @@ return {
             end
           end, { 'i', 's' }),
 
+          ['<C-Space>'] = cmp.mapping(function()
+            if cmp.visible() then
+              cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
+            else
+              cmp.complete()
+            end
+          end, { 'i', 's', 'c' }),
           ['<C-n>'] = cmp.mapping(function()
             if cmp.visible() then
               cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
