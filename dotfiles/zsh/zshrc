@@ -145,25 +145,33 @@ alias rm='rm -I'
 alias ranger='. ranger'
 
 alias tt='cd /tmp'
-alias 11='cd /tmp/1-imgs'
+alias 44='cd /tmp/1-imgs'
 alias pwf='sudo poweroff'
 alias rbt='sudo reboot'
 alias psu='ps -lFww --ppid 2 -p 2 --deselect'
 alias cpptags='ctags -R --c++-kinds=+p --fields=+iaS --extra=+q --language-force=C++'
 
+ei() {
+  if file_path="$(/usr/bin/which --skip-functions --skip-alias "$1" 2>/dev/null)"; then
+    nvim "$file_path"
+  else
+    echo "$1 not found"
+  fi
+}
+
 rdp() {
-  rdesktop $1 -g 1920x1060 -u $2 -z -0 -r clipboard:CLIPBOARD ${@:3}
+  rdesktop "$1" -g 1920x1060 -u "$2" -z -0 -r clipboard:CLIPBOARD ${@:3}
 }
 
 jp() {
   for f in "$@"; do
-    convert "${f}" "${f%.*}.jpg" && rm "${f}"
+    magick "${f}" "${f%.*}.jpg" && rm "${f}"
   done
 }
 
 jpk() {
   for f in "$@"; do
-    convert "${f}" "${f%.*}.jpg"
+    magick "${f}" "${f%.*}.jpg"
   done
 }
 
