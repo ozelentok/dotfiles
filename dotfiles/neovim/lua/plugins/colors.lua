@@ -30,6 +30,7 @@ return {
         CurSearch = { fg = colors.black, bg = colors.cyan, bold = true },
         Search = { fg = colors.black, bg = colors.yellow, bold = false },
         LineNr = { fg = colors.dark_cyan },
+        MatchParen = { fg = colors.black, bg = colors.purple },
       },
       diagnostics = {
         darker = false,
@@ -41,12 +42,13 @@ return {
       vim.cmd [[colorscheme onedark]]
     end,
   },
+  'hiphish/rainbow-delimiters.nvim',
+  'nvim-tree/nvim-web-devicons',
   {
     'NvChad/nvim-colorizer.lua',
     events = 'VeryLazy',
     opts = {},
   },
-  'nvim-tree/nvim-web-devicons',
 
   -- Indentation Guides
   {
