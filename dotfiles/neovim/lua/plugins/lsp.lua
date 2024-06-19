@@ -56,7 +56,7 @@ return {
       })
       lspconfig.arduino_language_server.setup({ on_attach = on_lsp_attach, capabilities = capabilities })
       lspconfig.openscad_lsp.setup({
-        cmd = { 'openscad-lsp', '--stdio', '--fmt-style', 'file' },
+        cmd = { 'openscad-lsp', '--stdio', '--fmt-style', 'LLVM' },
         on_attach = on_lsp_attach,
         capabilities = capabilities,
       })
