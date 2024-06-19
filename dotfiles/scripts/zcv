@@ -443,6 +443,33 @@ def ivp9webm(
 
 
 @app.command()
+def igif(
+    input_path: Path,
+    output_path: Path,
+    fps: float,
+    speed: float = typer.Option(1.0, '-speed'),
+    video_filter: str = typer.Option('', '-vf'),
+) -> None:
+    ffmpeg_args = [
+        '-framerate',
+        str(fps), '-f', 'image2', '-i',
+        str(input_path)
+    ]  # fmt: off
+
+    if video_filter:
+        ffmpeg_args += ['-vf', video_filter]
+    video_filter += f'setpts={1/speed}*PTS,split[s0][s1];[s0]palettegen[p];[s1][p]paletteuse'
+    ffmpeg_args += ['-vf', video_filter]
+
+    ffmpeg_args += [
+        '-c:v', 'gif',
+        '-map_metadata', '-1', '-map_chapters', '-1',
+    ]  # fmt: off
+
+    call_ffmpeg(ffmpeg_args + [str(output_path)])
+
+
+@app.command()
 def copy(
     input_path: Path,
     output_path: Path,
