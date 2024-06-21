@@ -1,0 +1,9 @@
+snippet mym
+  include <BOSL2/std.scad>
+
+  $fn = $preview ? 8 : 96;
+
+  module ${1:name}() {
+    ${0}
+  }
+  ${1}();

@@ -271,6 +271,7 @@ class Installer:
         utils.symlink_dotfile(Path('neovim/init.lua'), config_dir_path)
         utils.symlink_dotfile(Path('neovim/lua'), config_dir_path)
         utils.symlink_dotfile(Path('neovim/after'), config_dir_path)
+        utils.symlink_dotfile(Path('neovim/snippets'), config_dir_path)
 
         if developer:
             self.nodejs()
