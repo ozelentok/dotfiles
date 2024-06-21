@@ -72,17 +72,11 @@ return {
     }
   },
 
-  -- Drop Down Terminal
   {
-    'Lenovsky/nuake',
-    keys = {
-      { '<C-e>', ':Nuake<CR>',            noremap = true },
-      { '<C-e>', '<C-\\><C-n>:Nuake<CR>', noremap = true, mode = 'i' },
-      { '<C-e>', '<C-\\><C-n>:Nuake<CR>', noremap = true, mode = 't' },
-    },
-    init = function()
-      vim.g.nuake_position = 'top'
-    end
+    'akinsho/toggleterm.nvim',
+    opts = {
+      open_mapping = [[<c-e>]],
+    }
   },
 
   -- Fuzzy finder
@@ -163,8 +157,8 @@ return {
     opts = {},
     cmd = 'Trouble',
     keys = {
-      { '<leader>t', '<cmd>Trouble diagnostics toggle filter.buf=0<CR>',  noremap = true, desc = 'Trouble Diagnostics' },
-      { '<leader>w', '<cmd>Trouble diagnostics toggle<CR>', noremap = true, desc = 'Trouble Workspace' }
+      { '<leader>t', '<cmd>Trouble diagnostics toggle filter.buf=0<CR>', noremap = true, desc = 'Trouble Diagnostics' },
+      { '<leader>w', '<cmd>Trouble diagnostics toggle<CR>',              noremap = true, desc = 'Trouble Workspace' }
     }
   },
 
