@@ -62,7 +62,12 @@ return {
       })
     end
   },
-
+  {
+    'ray-x/lsp_signature.nvim',
+    keys = {
+      { '<C-,>', function() require('lsp_signature').toggle_float_win() end, mode = 'i', noremap = true },
+    }
+  },
   {
     'jose-elias-alvarez/null-ls.nvim',
     opts = function()
@@ -85,7 +90,7 @@ return {
   {
     'smjonas/inc-rename.nvim',
     config = function()
-      require('inc_rename').setup()
+      require('inc_rename').setup({})
     end,
   }
 }

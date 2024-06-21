@@ -145,6 +145,13 @@ return {
 
           ['<C-d>'] = cmp.mapping.scroll_docs(-4),
           ['<C-f>'] = cmp.mapping.scroll_docs(4),
+          ['<C-m>'] = function()
+            if cmp.visible_docs() then
+              cmp.close_docs()
+            else
+              cmp.open_docs()
+            end
+          end,
         },
         sources = cmp.config.sources({
           { name = 'snippy' },
