@@ -115,7 +115,7 @@ class Installer:
         ])  # fmt: off
 
     def doublecmd(self):
-        self._pm.install_packages(['doublecmd-gtk2'])
+        self._pm.install_packages(['doublecmd-qt5'])
         config_dir_path = Path.home() / '.config/doublecmd'
         utils.mkdir(config_dir_path)
         utils.copy_dotfile(Path('doublecmd/doublecmd.xml'), config_dir_path)
