@@ -2,7 +2,7 @@ local colors = {
   black       = '#000000',
   fg          = '#F0F0F0',
   purple      = '#D070F0',
-  green       = "#30F040",
+  green       = '#30F040',
   yellow      = '#F0D020',
   cyan        = '#50E0F9',
   grey        = '#708090',
@@ -50,8 +50,6 @@ return {
     events = 'VeryLazy',
     opts = {},
   },
-
-  -- Indentation Guides
   {
     'lukas-reineke/indent-blankline.nvim',
     main = 'ibl',

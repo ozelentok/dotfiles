@@ -39,8 +39,9 @@ def run_ffmpeg(input_path: Path, output_path: Path, output_bitrate: int) -> None
     try:
         args = [
             'ffmpeg', '-hide_banner', '-i', input_path, '-vn',
-            '-c:a', 'libvorbis', '-b:a', str(output_bitrate),
+            # '-af', 'pan=mono|c0=FR',
             # '-ar', '48000',
+            '-c:a', 'libvorbis', '-b:a', str(output_bitrate),
         ]  # fmt: off
         args += ['-y', output_path]
         subprocess.run(args, check=True)
