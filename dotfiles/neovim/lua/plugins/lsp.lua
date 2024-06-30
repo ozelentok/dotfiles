@@ -19,10 +19,6 @@ return {
         require('lsp_signature').on_attach({ hint_enable = false, hi_parameter = 'MoreMsg' }, bufnr)
       end
 
-      local lua_rpath = vim.split(package.path, ';')
-      table.insert(lua_rpath, 'lua/?.lua')
-      table.insert(lua_rpath, 'lua/?/init.lua')
-
       local capabilities = require('cmp_nvim_lsp').default_capabilities()
       capabilities = vim.tbl_extend('force', capabilities, { offsetEncoding = 'utf-8' })
       lspconfig.lua_ls.setup {
@@ -30,9 +26,15 @@ return {
         capabilities = capabilities,
         settings = {
           Lua = {
-            runtime = { version = 'LuaJIT', path = lua_rpath },
+            runtime = { version = 'LuaJIT', },
             diagnostics = { globals = { 'vim' } },
-            workspace = { library = vim.api.nvim_get_runtime_file('', true), checkThirdParty = false },
+            workspace = {
+              checkThirdParty = false,
+              library = {
+                vim.env.VIMRUNTIME,
+                '${3rd}/luv/library'
+              }
+            },
             telemetry = { enable = false },
             format = {
               enable = true,
