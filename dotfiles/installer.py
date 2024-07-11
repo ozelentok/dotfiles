@@ -55,7 +55,7 @@ class Installer:
 
     def desktop_programs(self) -> None:
         self._pm.install_packages([
-            'firefox-developer-edition',
+            'firefox',
             'chromium',
             'keepassxc',
             'evince',
