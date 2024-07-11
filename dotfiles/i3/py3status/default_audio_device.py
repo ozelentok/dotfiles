@@ -26,10 +26,12 @@ class Py3status:
         try:
             with pulsectl.Pulse() as pulse:
                 default_sink = pulse.server_info().default_sink_name  # type: ignore
-                name = pulse.get_sink_by_name(default_sink).description  # type: ignore
+                name: str = pulse.get_sink_by_name(default_sink).description  # type: ignore
 
             if name.startswith('Built-in Audio Analog'):
                 name = 'Line Out'
+            elif 'Digital Stereo (HDMI)' in name:
+                name = 'HDMI Out'
 
             return {
                 'full_text': self.py3.safe_format(self.format, {"name": name}),

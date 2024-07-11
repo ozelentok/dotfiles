@@ -10,7 +10,7 @@ import pulsectl
 
 MIC_SOURCE = 'alsa_input.usb-Jieli_Technology_UACDemoV1.0_FFFFFFFFFFFFFFFF-00.mono-fallback'
 MIC2_SOURCE = 'alsa_input.pci-0000_00_1f.3.analog-stereo'
-HARDWARE_SINK = 'alsa_output.pci-0000_00_1f.3.analog-stereo'
+HARDWARE_SINK = 'alsa_output.pci-0000_01_00.1.hdmi-stereo'
 SOUNDBOARD_SINK = 'SoundboardSink'
 SOUNDBOARD_AND_MIC_SINK = 'MixedSink'
 SOUNDBOARD_AND_MIC_VIRTUAL_SOURCE = 'VirtualMic'
