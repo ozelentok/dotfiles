@@ -56,5 +56,6 @@ return {
       mods = 'SUPER',
       action = wezterm.action.Nop,
     },
-  }
+  },
+  mux_enable_ssh_agent = false
 }
