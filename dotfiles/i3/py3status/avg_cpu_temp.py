@@ -31,10 +31,11 @@ class Py3status:
 
     def post_config_hook(self):
         if not self.py3.check_commands('sensors'):
-            raise Exception('Failed to find \'sensors\' command')
+            raise RuntimeError('No \'sensors\' command')
 
         self.sensor_name, self.input_key_pairs = self._find_sensor_params(
-            self._get_lm_sensors_json())
+            self._get_lm_sensors_json()
+        )
 
     def _get_lm_sensors_json(self) -> Dict:
         return json.loads(self.py3.command_output('sensors -j -A'))
@@ -54,7 +55,7 @@ class Py3status:
             if input_key_pairs:
                 return sensor_name, input_key_pairs
 
-        raise Exception('Failed to find cores temperature')
+        raise ValueError('Failed to find cores temperature')
 
     def avg_cpu_temp(self):
         sensors_output = self._get_lm_sensors_json()
@@ -71,7 +72,7 @@ class Py3status:
             color = self.py3.COLOR_BAD
 
         return {
-            'full_text': self.py3.safe_format(self.format, {"temperature": temperature}),
+            'full_text': self.py3.safe_format(self.format, {'temperature': temperature}),
             'color': color,
             'cached_until': self.py3.time_in(self.cache_timeout),
         }
@@ -80,7 +81,7 @@ class Py3status:
         self.py3.update()
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     from py3status.module_test import module_test
 
     module_test(Py3status)
