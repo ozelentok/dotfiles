@@ -82,11 +82,13 @@ class Installer:
             Path.home() / '.mozilla/firefox/firefox-mpris',
             Path.home() / '.wine/drive_c/users' / getpass.getuser() / 'Temp',
         ]
-        for l in links:
-            c = runtime_cache / l.name
+        for link_path in links:
+            parent_path = link_path.parent
+            parent_path.mkdir(parents=True, exist_ok=True)
+            cache_path = runtime_cache / link_path.name
             # Cache dirs are also created at login by $HOME/.profile
-            c.mkdir(exist_ok=True)
-            utils.symlink(c, l)
+            cache_path.mkdir(exist_ok=True)
+            utils.symlink(cache_path, link_path)
 
     def media_processing(self) -> None:
         self._pm.install_packages([
