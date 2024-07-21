@@ -168,7 +168,7 @@ class Installer:
         self._pm.install_packages([
             'i3-wm', 'py3status',
             'i3lock',
-            'dmenu', 'feh', 'autocutsel',
+            'dmenu', 'feh',
             'dunst', 'scrot',
             'python-pip', 'python-pytz', 'python-tzlocal', 'xorg-xset', 'xorg-xrandr'
         ])  # fmt: off
