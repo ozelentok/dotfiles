@@ -411,7 +411,8 @@ class Installer:
     def X11(self) -> None:
         self._pm.install_packages([
             'xorg-server', 'xorg-xinit', 'xorg-xkill', 'xorg-xhost', 'xorg-xev',
-            'xdg-utils', 'perl-file-mimeinfo'
+            'xdg-utils', 'perl-file-mimeinfo',
+            'xterm'
         ])  # fmt: off
 
         config_dir_path = '/etc/X11/xorg.conf.d'
