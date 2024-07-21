@@ -21,8 +21,14 @@ class SystemPackageManager:
         )
 
     def install_aur_packages(self, packages: list[str]) -> None:
+        # When running as root, avoid reinstalling existing AUR packages
+        pacman_options = self._pacman_options
+        if os.geteuid() == 0:
+            packages = [p for p in packages if subprocess.run(['pacman', '-Q', p]).returncode != 0]
+            pacman_options = '-S'
+
         subprocess.check_call(
-            ['pikaur', self._pacman_options, '--needed', '--noconfirm'] + packages
+            ['pikaur', pacman_options, '--needed', '--noconfirm'] + packages
         )
 
 
