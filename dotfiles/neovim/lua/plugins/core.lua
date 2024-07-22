@@ -88,25 +88,25 @@ return {
       'nvim-telescope/telescope-fzf-native.nvim',
     },
     keys = {
-      { '<C-p>',      '<cmd>Telescope find_files follow=true<CR>',                noremap = true },
-      { '<C-p><C-p>', '<cmd>Telescope find_files follow=true no_ignore=true<CR>', noremap = true },
-      { '<C-o>',      '<cmd>Telescope oldfiles<CR>',                              noremap = true },
-      { '<C-g>',      '<cmd>Telescope git_files<CR>',                             noremap = true },
-      { '<C-b>',      '<cmd>Telescope buffers<CR>',                               noremap = true },
-      { '<C-s>',      '<cmd>Telescope live_grep<CR>',                             noremap = true },
-      { '<C-s><C-s>', '<cmd>Telescope grep_string<CR>',                           noremap = true },
-      { '<leader>s',  '<cmd>Telescope spell_suggest initial_mode=normal<CR>',     noremap = true },
-      { '<leader>r',  '<cmd>Telescope lsp_references initial_mode=normal<CR>',    noremap = true },
-      { '<leader>d',  '<cmd>Telescope lsp_definitions initial_mode=normal<CR>',   noremap = true },
-      { '<leader>n',  '<cmd>Telescope noice<CR>',                                 noremap = true },
-      { '<leader>x',  '<cmd>Telescope treesitter<CR>',                            noremap = true },
-      { '<leader>hc', '<cmd>Telescope command_history<CR>',                       noremap = true },
-      { '<leader>hs', '<cmd>Telescope search_history<CR>',                        noremap = true },
-      { '<leader>mm', '<cmd>Telescope man_pages<CR>',                             noremap = true },
-      { '<leader>md', '<cmd>Telescope gtags def initial_mode=normal<CR>',         noremap = true },
-      { '<leader>mr', '<cmd>Telescope gtags ref initial_mode=normal<CR>',         noremap = true },
+      { '<C-i>',      '<cmd>Telescope find_files follow=true<CR>',                            noremap = true },
+      { '<C-p>',      '<cmd>Telescope find_files follow=true no_ignore=true hidden=true<CR>', noremap = true },
+      { '<C-o>',      '<cmd>Telescope oldfiles<CR>',                                          noremap = true },
+      { '<C-g>',      '<cmd>Telescope git_files<CR>',                                         noremap = true },
+      { '<C-b>',      '<cmd>Telescope buffers<CR>',                                           noremap = true },
+      { '<C-s>',      '<cmd>Telescope live_grep<CR>',                                         noremap = true },
+      { '<leader>ss', '<cmd>Telescope grep_string<CR>',                                       noremap = true },
+      { '<leader>r',  '<cmd>Telescope lsp_references initial_mode=normal<CR>',                noremap = true },
+      { '<leader>d',  '<cmd>Telescope lsp_definitions initial_mode=normal<CR>',               noremap = true },
+      { '<leader>sf', '<cmd>Telescope spell_suggest initial_mode=normal<CR>',                 noremap = true },
+      { '<leader>nn', '<cmd>Telescope noice<CR>',                                             noremap = true },
+      { '<leader>nt', '<cmd>Telescope treesitter<CR>',                                        noremap = true },
+      { '<leader>nc', '<cmd>Telescope command_history<CR>',                                   noremap = true },
+      { '<leader>ns', '<cmd>Telescope search_history<CR>',                                    noremap = true },
+      { '<leader>mm', '<cmd>Telescope man_pages<CR>',                                         noremap = true },
+      { '<leader>md', '<cmd>Telescope gtags def initial_mode=normal<CR>',                     noremap = true },
+      { '<leader>mr', '<cmd>Telescope gtags ref initial_mode=normal<CR>',                     noremap = true },
       {
-        '<C-s><C-d>',
+        '<leader>sd',
         function()
           require('telescope.builtin').live_grep({
             additional_args = { '--no-ignore' }
@@ -185,7 +185,7 @@ return {
     event = 'VeryLazy',
     cmd = { 'Git', 'Gdiffsplit', 'Gvdiffsplit' },
     keys = {
-      { '<leader>g', '<cmd>Git|20wincmd_<CR>' },
+      { '<leader>g', '<cmd>Git|20wincmd_<CR>', noremap = true },
     }
   },
 

@@ -59,7 +59,7 @@ map_vim('', ';', ':')
 map_vim('n', 'U', '<C-r>')
 
 -- Replace current word
-map_vim('n', '<leader>b', ':%s/<C-r><C-w>/', { desc = 'Replace current word'})
+map_vim('n', '<leader>b', ':%s/<C-r><C-w>/', { desc = 'Replace current word' })
 
 -- Window movement
 map_vim('n', '<C-h>', '<C-w>h')
@@ -79,6 +79,7 @@ map_vim('i', '<F3>', '<C-R>=strftime("%Y-%m-%d %H:%M:%S")<CR>')
 map_vim('n', '<leader>f', '<cmd>diffthis<CR><C-w><C-w><cmd>diffthis<CR><C-w><C-w>')
 
 -- Quick exit
+map_vim('n', '<C-q>', ':q<CR>')
 map_vim('n', '<leader>q', ':qa<CR>')
 map_vim('n', '<leader>x', ':xa<CR>')
 map_vim('n', '<leader><leader>q', ':qa!<CR>')
