@@ -250,7 +250,7 @@ class Installer:
                 'tree-sitter-cli',
                 'global', 'python-pip', 'python-pygments',
                 'ctags',
-                'ruff-lsp', 'tidy', 'python-isort',
+                'ruff', 'tidy', 'python-isort',
                 'pyright',
                 'clang',
                 'rust',

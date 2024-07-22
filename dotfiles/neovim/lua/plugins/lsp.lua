@@ -20,7 +20,6 @@ return {
       end
 
       local capabilities = require('cmp_nvim_lsp').default_capabilities()
-      capabilities = vim.tbl_extend('force', capabilities, { offsetEncoding = 'utf-8' })
       lspconfig.lua_ls.setup {
         on_attach = on_lsp_attach,
         capabilities = capabilities,
@@ -48,7 +47,7 @@ return {
       lspconfig.cssls.setup({ on_attach = on_lsp_attach, capabilities = capabilities })
       lspconfig.clangd.setup({ on_attach = on_lsp_attach, capabilities = capabilities })
       lspconfig.pyright.setup({ on_attach = on_lsp_attach, capabilities = capabilities })
-      lspconfig.ruff_lsp.setup({ on_attach = on_lsp_attach, capabilities = capabilities })
+      lspconfig.ruff.setup({ on_attach = on_lsp_attach, capabilities = capabilities })
       lspconfig.eslint.setup({ on_attach = on_lsp_attach, capabilities = capabilities })
       lspconfig.cmake.setup({ on_attach = on_lsp_attach, capabilities = capabilities })
       lspconfig.bashls.setup({
