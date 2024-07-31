@@ -12,6 +12,10 @@ class Installer:
     def __init__(self, skip_upgrade=False) -> None:
         self._pm = utils.SystemPackageManager(skip_upgrade)
 
+    def install_aur_packages(self, packages: list[str]) -> None:
+        self.pikaur()
+        self._pm.install_aur_packages(packages)
+
     @classmethod
     def list_packages(cls) -> list[str]:
         return [
@@ -181,8 +185,7 @@ class Installer:
         utils.symlink_dotfile(Path('i3/i3status.conf'), config_dir_path)
         utils.symlink_dotfile(Path('i3/py3status'), config_dir_path)
 
-        self.pikaur()
-        self._pm.install_aur_packages(['xkb-switch'])
+        self.install_aur_packages(['xkb-switch'])
 
     def lxdm(self) -> None:
         self._pm.install_packages(['lxdm-gtk3'])
@@ -194,8 +197,7 @@ class Installer:
         utils.copy_dotfile_as_root(Path('lxdm/PostLogout'), config_dir_path)
         utils.extract_dotfile_tar_as_root(Path('theme/LXDM-Arch-Darkest.tar.gz'), themes_dir_path)
 
-        self.pikaur()
-        self._pm.install_aur_packages(['xinit-xsession', 'xkb-switch'])
+        self.install_aur_packages(['xinit-xsession', 'xkb-switch'])
 
         utils.run_shell_command('sudo systemctl enable lxdm')
 
@@ -216,8 +218,7 @@ class Installer:
         utils.symlink_dotfile(Path('pulseaudio/daemon.conf'), config_dir_path)
 
     def mcomix(self) -> None:
-        self.pikaur()
-        self._pm.install_aur_packages(['mcomix'])
+        self.install_aur_packages(['mcomix'])
 
     def mount_utils(self) -> None:
         self._pm.install_packages(['sshfs', 'cifs-utils', 'fuse3'])
@@ -310,8 +311,7 @@ class Installer:
         utils.symlink_dotfile(Path('nodejs/npmrc'), Path.home(), hidden=True)
 
     def qtconfig(self) -> None:
-        self.pikaur()
-        self._pm.install_aur_packages(['qt5-styleplugins'])
+        self.install_aur_packages(['qt5-styleplugins'])
         config_dir_path = Path.home() / '.config'
         utils.mkdir(config_dir_path)
         utils.symlink_dotfile(Path('qtconfig/Trolltech.conf'), config_dir_path)
@@ -326,8 +326,7 @@ class Installer:
         utils.symlink_dotfile(Path('ranger/scope.sh'), config_dir_path)
 
     def ueberzugpp(self) -> None:
-        self.pikaur()
-        self._pm.install_aur_packages(['ueberzugpp'])
+        self.install_aur_packages(['ueberzugpp'])
         config_dir_path = Path.home() / '.config/ueberzugpp'
         utils.mkdir(config_dir_path)
         utils.symlink_dotfile(Path('ueberzugpp/config.json'), config_dir_path)
@@ -427,18 +426,16 @@ class Installer:
         utils.run_shell_command('x11vnc -storepasswd')
 
     def xnviewmp(self) -> None:
-        self.pikaur()
-        self._pm.install_aur_packages(['xnviewmp-system-libs'])
+        self.install_aur_packages(['xnviewmp-system-libs'])
 
     def zsh(self, developer: bool = True) -> None:
-        self.pikaur()
         self._pm.install_packages([
             'zsh', 'zsh-completions', 'zsh-syntax-highlighting',
             'fzf',
             'lsd',
             'which'
         ])  # fmt: off
-        self._pm.install_aur_packages(['zsh-theme-powerlevel10k-git'])
+        self.install_aur_packages(['zsh-theme-powerlevel10k-git'])
 
         utils.symlink_dotfile(Path('zsh/zshrc'), Path.home(), hidden=True)
         utils.symlink_dotfile(Path('zsh/zprofile'), Path.home(), hidden=True)
