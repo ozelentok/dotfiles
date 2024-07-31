@@ -159,6 +159,13 @@ ei() {
   fi
 }
 
+edit-current-script() {
+  ei "$(echo "${BUFFER}" | awk '{print $1}')"
+}
+
+zle -N edit-current-script
+bindkey '^X^V' edit-current-script
+
 rdp() {
   rdesktop "$1" -g 1920x1060 -u "$2" -z -0 -r clipboard:CLIPBOARD ${@:3}
 }
