@@ -137,7 +137,8 @@ class Installer:
         utils.symlink_dotfile(Path('fontconfig/fonts.conf'), config_dir_path)
 
     def gimp(self) -> None:
-        self._pm.install_packages(['gimp', 'xsane', 'xsane-gimp'])
+        self._pm.install_packages(['gimp'])
+        self.install_aur_packages(['xsane', 'xsane-gimp'])
 
     def git(self) -> None:
         self._pm.install_packages(['git'])
