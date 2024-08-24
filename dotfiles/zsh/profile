@@ -46,6 +46,7 @@ if [ ! -z $XDG_RUNTIME_DIR ]; then
   mkdir -p $XDG_RUNTIME_DIR/cache/mozilla
   mkdir -p $XDG_RUNTIME_DIR/cache/nvim
   mkdir -p $XDG_RUNTIME_DIR/cache/thumbnails
+  mkdir -p $XDG_RUNTIME_DIR/cache/ueberzugpp
   mkdir -p $XDG_RUNTIME_DIR/cache/pikaur/build
   mkdir -p $XDG_RUNTIME_DIR/cache/firefox-mpris
   mkdir -p $XDG_RUNTIME_DIR/cache/Temp

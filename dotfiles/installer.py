@@ -82,6 +82,7 @@ class Installer:
             Path.home() / '.cache/mozilla',
             Path.home() / '.cache/nvim',
             Path.home() / '.cache/thumbnails',
+            Path.home() / '.cache/ueberzugpp',
             Path.home() / '.cache/pikaur/build',
             Path.home() / '.mozilla/firefox/firefox-mpris',
             Path.home() / '.wine/drive_c/users' / getpass.getuser() / 'Temp',
