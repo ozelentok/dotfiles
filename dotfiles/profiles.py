@@ -35,6 +35,7 @@ class Full(Profile):
 
         self._installer.neovim()
         self._installer.ranger()
+        self._installer.vifm()
         self._installer.scripts_dependencies()
         self._installer.sensors()
         self._installer.media_processing()
@@ -81,6 +82,9 @@ class Minimal(Profile):
     def ranger(self) -> None:
         self._installer.ranger(False)
 
+    def vifm(self) -> None:
+        self._installer.vifm(False)
+
     def install(self) -> None:
         self._installer.base_packages()
         self.zsh()
@@ -91,6 +95,7 @@ class Minimal(Profile):
 
         self.neovim()
         self.ranger()
+        self.vifm()
         self._installer.sensors()
 
     def upgrade(self) -> None:
@@ -108,6 +113,9 @@ class ShellOnly(Profile):
 
     def ranger(self) -> None:
         self._installer.ranger(False)
+
+    def vifm(self) -> None:
+        self._installer.vifm(False)
 
     def install(self) -> None:
         self.zsh()

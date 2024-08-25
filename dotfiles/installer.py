@@ -327,6 +327,7 @@ class Installer:
         utils.symlink_dotfile(Path('ranger/rc.conf'), config_dir_path)
         utils.symlink_dotfile(Path('ranger/scope.sh'), config_dir_path)
 
+    @utils.avoid_reinstall('ueberzugpp')
     def ueberzugpp(self) -> None:
         self.install_aur_packages(['ueberzugpp'])
         config_dir_path = Path.home() / '.config/ueberzugpp'
@@ -378,7 +379,7 @@ class Installer:
         utils.copy_dotfile(Path('smplayer/smplayer.ini'), config_dir_path)
 
     def theme(self) -> None:
-        themes_dir_path = Path('/usr/share/themes/')
+        themes_dir_path = Path('/usr/share/themes')
         icons_dir_path = Path('/usr/share/icons')
         utils.run_shell_command(f'sudo mkdir -p {themes_dir_path}')
         utils.run_shell_command(f'sudo mkdir -p {icons_dir_path}')
@@ -395,13 +396,27 @@ class Installer:
         utils.mkdir(config_dir_path)
         utils.symlink_dotfile(Path('tmux/tmux.conf'), config_dir_path)
 
-    def vifm(self) -> None:
+    def vifm(self, media_preview: bool = True) -> None:
         self._pm.install_packages(['vifm', 'python-pygments'])
+        if media_preview:
+            self.ueberzugpp()
         config_dir_path = Path.home() / '.config/vifm'
+
         colors_dir_path = config_dir_path / 'colors'
         utils.mkdir(colors_dir_path)
         utils.symlink_dotfile(Path('vifm/vifmrc'), config_dir_path)
         utils.symlink_dotfile(Path('vifm/dircolors.vifm'), colors_dir_path)
+
+        plugins_dir_path = config_dir_path / 'plugins'
+        for plugin in ['devicons', 'ueberzugpp']:
+            plug_dir_path = plugins_dir_path / plugin
+            utils.mkdir(plug_dir_path)
+            utils.symlink_dotfile(Path(f'vifm/{plugin}.lua'), plug_dir_path / 'init.lua')
+
+        if media_preview:
+            user_bin_dir_path = Path.home() / '.local/bin'
+            utils.mkdir(user_bin_dir_path)
+            utils.symlink_dotfile(Path('vifm/vifm-ueberzugpp-wrapper'), user_bin_dir_path / 'vifm')
 
     def wezterm(self) -> None:
         self._pm.install_packages(['wezterm'])

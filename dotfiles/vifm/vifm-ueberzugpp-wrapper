@@ -1,0 +1,50 @@
+#!/usr/bin/env bash
+
+# Wrapper script to initalize ueberzugpp and communication pipe between vifm and ueberzugpp
+# Rename or symlink to $HOME/.local/bin/vifm to mask over system vifm
+# If masked, invoke as vifm or with an absolute path, relative path may not work
+
+VIFM_PATH=""
+PATH_ORIGINAL="$PATH"
+XDG_RUNTIME_DIR="${XDG_RUNTIME_DIR:-/tmp}"
+RUNTIME_DIR_PATH="$XDG_RUNTIME_DIR/ueberzugpp"
+mkdir -p "$RUNTIME_DIR_PATH"
+
+remove_script_dir_from_path() {
+  SCRIPT_DIR=$(dirname "$0")
+  PATH=$(echo "$PATH" | sed -e "s|$SCRIPT_DIR:||" -e "s|:$SCRIPT_DIR||" -e "s|$SCRIPT_DIR||")
+  export PATH="$PATH"
+}
+
+find_vifm_real_path() {
+  remove_script_dir_from_path
+  VIFM_PATH=$(command -v vifm)
+  if [ -z "$VIFM_PATH" ]; then
+    echo >&2 "vifm not found"
+    exit 1
+  fi
+  export PATH="$PATH_ORIGINAL"
+}
+
+remove_pipe_on_exit() {
+  exec 3>&- rm "$PIPE_PATH"
+}
+
+if [ -n "$UBERZUGPP_PIPE_PATH" ]; then
+  echo >&2 "Execution loop detected, unable to find real vifm, aborting"
+  exit 1
+fi
+
+find_vifm_real_path
+if [ -z "$(command -v ueberzugpp)" ]; then
+	exec "$VIFM_PATH" "$@"
+fi
+
+PIPE_PATH="$RUNTIME_DIR_PATH/vifm-$(date +%s)-$$.pipe"
+if ! mkfifo -m 600 "$PIPE_PATH"; then
+  echo >&2 "Failed to create pipe for vifm and ueberzugpp"
+  exit 1
+fi
+ueberzugpp layer -s < "$PIPE_PATH" & exec 3>"$PIPE_PATH"
+trap remove_pipe_on_exit EXIT
+UBERZUGPP_PIPE_PATH="$PIPE_PATH" "$VIFM_PATH" "$@" 3>&-

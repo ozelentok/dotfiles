@@ -47,6 +47,7 @@ nnoremap o :!vim %f<CR>
 nnoremap gb :file &<CR>l
 
 nnoremap zz ZZ
+nnoremap <C-q> :quit<CR>
 
 " Interaction with system clipboard
 if has('win')
@@ -140,17 +141,23 @@ command! reload :write | restart full
 " You can also add %CLEAR if you want to clear screen before running FUSE
 " program.
 
-fileviewer {*.pdf},<application/pdf> pdftotext -nopgbrk %c -
-fileviewer {*.mp3},<audio/mpeg> mp3info
-fileviewer {*.flac},<audio/flac> soxi
-fileviewer {*.avi,*.mp4,*.wmv,*.dat,*.3gp,*.ogv,*.mkv,*.mpg,*.mpeg,*.vob,
-           \*.fl[icv],*.m2v,*.mov,*.webm,*.ts,*.mts,*.m4v,*.r[am],*.qt,*.divx,
-           \*.as[fx]},
-          \<video/*>
-         \ ffprobe -pretty %c 2>&1
 fileviewer {*.[1-8]},<text/troff> man ./%c | col -b
-fileviewer {*.bmp,*.jpg,*.jpeg,*.png,*.gif,*.xpm},<image/*>
-         \ identify %f
+fileviewer {*.pdf},<application/pdf> pdftotext -nopgbrk %c -
+fileviewer *.aac ffprobe -hide_banner -pretty %c 2>&1
+fileviewer <audio/*> soxi
+
+fileviewer <image/*>
+         \ #ueberzugpp#image_no_cache %px %py %pw %ph
+         \ %pc
+         \ #ueberzugpp#clear
+         " \ identify %f
+
+fileviewer <video/*>
+         \ #ueberzugpp#video %px %py %pw %ph
+         \ %pc
+         \ #ueberzugpp#clear
+         " \ ffprobe -hide_banner -pretty %c 2>&1
+
 fileviewer *.tgz,*.tar.gz tar -tzf %c
 fileviewer *.tar.bz2,*.tbz2 tar -tjf %c
 fileviewer *.tar.xz,*.txz tar -tJf %c
