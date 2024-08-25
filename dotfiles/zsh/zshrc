@@ -191,6 +191,7 @@ source "$HOME/.p10k.zsh"
 source /usr/share/fzf/key-bindings.zsh
 source /usr/share/fzf/completion.zsh
 export FZF_COMPLETION_TRIGGER=''
+export FZF_ALT_C_OPTS="${FZF_ALT_C_OPTS:+$FZF_ALT_C_OPTS} --walker dir,follow"
 bindkey '^T' fzf-completion
 bindkey '^I' "$fzf_default_completion"
 
