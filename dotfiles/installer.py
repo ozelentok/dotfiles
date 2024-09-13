@@ -38,7 +38,7 @@ class Installer:
     def base_packages(self) -> None:
         self._pm.install_packages([
             'htop',
-            'mlocate',
+            'plocate',
             'fd',
             'ripgrep',
             'unrar', 'p7zip', 'unzip',
