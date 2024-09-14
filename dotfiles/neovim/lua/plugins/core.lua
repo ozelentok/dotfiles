@@ -171,10 +171,7 @@ return {
         hide_cursor = false,
         respect_scrolloff = true,
         performance_mode = false,
-      })
-      require('neoscroll.config').set_mappings({
-        ['<C-u>'] = { 'scroll', { '-vim.wo.scroll', 'true', '160' } },
-        ['<C-d>'] = { 'scroll', { 'vim.wo.scroll', 'true', '160' } },
+        easing = 'circular'
       })
     end
   },
