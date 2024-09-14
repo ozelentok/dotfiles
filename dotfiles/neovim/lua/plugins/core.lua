@@ -176,16 +176,6 @@ return {
     end
   },
 
-  -- Git
-  {
-    'tpope/vim-fugitive',
-    event = 'VeryLazy',
-    cmd = { 'Git', 'Gdiffsplit', 'Gvdiffsplit' },
-    keys = {
-      { '<leader>g', '<cmd>Git|20wincmd_<CR>', noremap = true },
-    }
-  },
-
   -- Automatic Brackets Closer
   {
     'windwp/nvim-autopairs',

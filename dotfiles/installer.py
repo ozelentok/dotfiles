@@ -252,6 +252,7 @@ class Installer:
                 'gcc',
                 'tree-sitter-cli',
                 'global', 'python-pip', 'python-pygments',
+                'libgit2',
                 'ctags',
                 'ruff', 'tidy', 'python-isort',
                 'pyright',
