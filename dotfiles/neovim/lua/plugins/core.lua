@@ -245,14 +245,18 @@ return {
     end
   },
 
-  -- MarkdownGlow Reader
   {
-    'ellisonleao/glow.nvim',
-    ft = 'markdown',
+    'MeanderingProgrammer/render-markdown.nvim',
+    opts = {},
+    ft = { 'markdown' },
     keys = {
-      { '<leader>p', '<cmd>Glow!<CR>', noremap = true, desc = 'Markdown Glow', ft = 'markdown' }
+      {
+        '<leader>p',
+        function() require('render-markdown').toggle() end,
+        noremap = true,
+        ft = 'markdown'
+      }
     },
-    config = true,
   },
 
   -- OpenSCAD Support With Auto Rendering
