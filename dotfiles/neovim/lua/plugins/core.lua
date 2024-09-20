@@ -57,9 +57,7 @@ return {
       { 'sl', '<cmd>HopPatternMW<CR>', noremap = true },
       { 's;', '<cmd>HopChar1MW<CR>',   noremap = true },
     },
-    config = function()
-      require('hop').setup()
-    end
+    opts = {}
   },
 
   -- Ranger Intergration
@@ -165,15 +163,13 @@ return {
   -- Smooth Scrolling
   {
     'karb94/neoscroll.nvim',
-    config = function()
-      require('neoscroll').setup({
-        mappings = { '<C-u>', '<C-d>' },
-        hide_cursor = false,
-        respect_scrolloff = true,
-        performance_mode = false,
-        easing = 'circular'
-      })
-    end
+    opts = {
+      mappings = { '<C-u>', '<C-d>' },
+      hide_cursor = false,
+      respect_scrolloff = true,
+      performance_mode = false,
+      easing = 'circular'
+    }
   },
 
   -- Automatic Brackets Closer
@@ -240,9 +236,6 @@ return {
   {
     'folke/which-key.nvim',
     event = 'VeryLazy',
-    config = function()
-      require('which-key').setup()
-    end
   },
 
   {
