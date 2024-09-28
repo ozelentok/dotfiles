@@ -248,7 +248,7 @@ class Installer:
                 'neovim',
                 'python-neovim',
                 'words'
-            ] + [
+            ] + ([
                 'gcc',
                 'tree-sitter-cli',
                 'global', 'python-pip', 'python-pygments',
@@ -267,7 +267,7 @@ class Installer:
                 'sqlfluff'
             ] if developer else [] + [
                 'xsel'
-            ] if x11 else []
+            ] if x11 else [])
         )  # fmt: off
 
         utils.run_shell_command('sudo ln -s -f -r $(which nvim) /usr/local/bin/vim')
