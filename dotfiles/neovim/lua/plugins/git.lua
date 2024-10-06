@@ -4,25 +4,7 @@ return {
     event = 'VeryLazy',
     cmd = { 'Git', 'Gdiffsplit', 'Gvdiffsplit' },
     keys = {
-      -- { '<leader>g', '<cmd>Git|20wincmd_<CR>', noremap = true },
-    }
-  },
-
-  {
-    'SuperBo/fugit2.nvim',
-    opts = {
-      width = '90%',
-      height = '80%',
-      external_diffview = true,
-    },
-    dependencies = {
-      'MunifTanjim/nui.nvim',
-      'nvim-tree/nvim-web-devicons',
-      'nvim-lua/plenary.nvim',
-    },
-    cmd = { 'Fugit2', 'Fugit2Diff', 'Fugit2Graph', 'Fugit2Blame' },
-    keys = {
-      { '<leader>g', mode = 'n', '<cmd>Fugit2<CR>', noremap = true, desc = 'Fugit2' }
+      { '<leader>c', '<cmd>Git|20wincmd_<CR>', noremap = true },
     }
   },
 
@@ -33,7 +15,7 @@ return {
       'sindrets/diffview.nvim',
     },
     keys = {
-      { '<leader>c', '<cmd>Neogit<CR>', noremap = true },
+      { '<leader>g', '<cmd>Neogit<CR>', noremap = true },
     },
     opts = {}
   },
