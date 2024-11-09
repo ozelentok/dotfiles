@@ -7,6 +7,9 @@
 [core]
   editor = /usr/bin/nvim
   excludesfile = ~/.gitignore_global
+  pager = delta
+[interactive]
+  diffFilter = delta --color-only
 [merge]
   tool = diffview
 [mergetool]
@@ -15,6 +18,11 @@
   cmd = nvim -f -c \"Gdiffsplit!\" \"$MERGED\"
 [mergetool "diffview"]
   cmd = nvim -f -c \"DiffviewOpen\" \"$MERGED\"
+[delta]
+  navigate = true
+  line-numbers = true
+  side-by-side = true
+  hyperlinks = true
 [pull]
   rebase = true
 [init]

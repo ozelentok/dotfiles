@@ -142,7 +142,7 @@ class Installer:
         self.install_aur_packages(['xsane', 'xsane-gimp'])
 
     def git(self) -> None:
-        self._pm.install_packages(['git'])
+        self._pm.install_packages(['git', 'git-delta'])
         utils.copy_dotfile(Path('git/gitconfig'), Path.home(), hidden=True)
         utils.symlink_dotfile(Path('git/gitignore_global'), Path.home(), hidden=True)
 
