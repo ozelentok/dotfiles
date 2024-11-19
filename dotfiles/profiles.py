@@ -25,9 +25,9 @@ class Profile(ABC):
 
 class Full(Profile):
     def install(self) -> None:
+        self._installer.tmpfs_programs_cache()
         self._installer.base_packages()
         self._installer.zsh()
-        self._installer.tmpfs_programs_cache()
         self._installer.tmux()
         self._installer.mount_utils()
         self._installer.pikaur()
