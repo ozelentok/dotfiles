@@ -10,9 +10,9 @@ import gi
 gi.require_version('Gtk', '3.0')
 gi.require_version('Gdk', '3.0')
 gi.require_version('Gst', '1.0')
-from gi.repository import Gdk, Gst, Gtk  # pyright: ignore
+from gi.repository import Gdk, Gst, Gtk  # pyright: ignore # noqa: E402
 
-ALLOWED_SOUND_FILES = ['.ogg', '.aac', '.mp3']
+ALLOWED_SOUND_FILES = ['.ogg', '.aac', '.mp3', '.mp4']
 
 
 class MyWindow(Gtk.Window):
