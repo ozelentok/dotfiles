@@ -319,7 +319,7 @@ class Installer:
         utils.symlink_dotfile(Path('qtconfig/Trolltech.conf'), config_dir_path)
 
     def ranger(self, media_preview: bool = True) -> None:
-        self._pm.install_packages(['ranger'] + ['ffmpegthumbnailer'] if media_preview else [])
+        self._pm.install_packages(['ranger'] + (['ffmpegthumbnailer'] if media_preview else []))
         if media_preview:
             self.ueberzugpp()
         config_dir_path = Path.home() / '.config/ranger'
