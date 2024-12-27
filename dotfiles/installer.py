@@ -313,7 +313,7 @@ class Installer:
         utils.symlink_dotfile(Path('nodejs/npmrc'), Path.home(), hidden=True)
 
     def qtconfig(self) -> None:
-        self.install_aur_packages(['qt5-styleplugins'])
+        self.install_aur_packages(['qt5-styleplugins', 'qt6gtk2'])
         config_dir_path = Path.home() / '.config'
         utils.mkdir(config_dir_path)
         utils.symlink_dotfile(Path('qtconfig/Trolltech.conf'), config_dir_path)
