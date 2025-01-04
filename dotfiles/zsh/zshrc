@@ -201,6 +201,8 @@ export FZF_COMPLETION_OPTS="--header-first --header 'Keymap: Ctrl-O(rifle), Ctrl
   --bind 'ctrl-h:execute-silent(echo -n \$(realpath -s {}) | xsel -i -b)'"
 export FZF_CTRL_T_OPTS="${FZF_COMPLETION_OPTS}"
 
+eval "$(zoxide init zsh --cmd j)"
+
 flc() {
   local cd_path
   cd_path=$(locate -i "$1" | fzf \

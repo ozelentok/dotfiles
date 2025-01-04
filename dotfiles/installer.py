@@ -449,6 +449,7 @@ class Installer:
         self._pm.install_packages([
             'zsh', 'zsh-completions', 'zsh-syntax-highlighting',
             'fzf',
+            'zoxide',
             'lsd',
             'which'
         ])  # fmt: off
@@ -472,3 +473,4 @@ class Installer:
         lsd_config_dir_path = Path.home() / '.config/lsd'
         utils.mkdir(lsd_config_dir_path)
         utils.symlink_dotfile(Path('zsh/lsd-config.yaml'), lsd_config_dir_path / 'config.yaml')
+
