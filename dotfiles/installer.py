@@ -327,6 +327,16 @@ class Installer:
         utils.symlink_dotfile(Path('ranger/rc.conf'), config_dir_path)
         utils.symlink_dotfile(Path('ranger/scope.sh'), config_dir_path)
 
+    def yazi(self, media_preview: bool = True) -> None:
+        self._pm.install_packages(['yazi'])
+        if media_preview:
+            self.ueberzugpp()
+        config_dir_path = Path.home() / '.config/yazi'
+        utils.mkdir(config_dir_path)
+        utils.symlink_dotfile(Path('yazi/yazi.toml'), config_dir_path)
+        utils.symlink_dotfile(Path('yazi/theme.toml'), config_dir_path)
+        utils.symlink_dotfile(Path('yazi/init.lua'), config_dir_path)
+
     @utils.avoid_reinstall('ueberzugpp')
     def ueberzugpp(self) -> None:
         self.install_aur_packages(['ueberzugpp'])
@@ -473,4 +483,3 @@ class Installer:
         lsd_config_dir_path = Path.home() / '.config/lsd'
         utils.mkdir(lsd_config_dir_path)
         utils.symlink_dotfile(Path('zsh/lsd-config.yaml'), lsd_config_dir_path / 'config.yaml')
-

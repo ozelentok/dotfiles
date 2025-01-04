@@ -34,6 +34,7 @@ class Full(Profile):
         self._installer.git()
 
         self._installer.neovim()
+        self._installer.yazi()
         self._installer.ranger()
         self._installer.vifm()
         self._installer.scripts_dependencies()
@@ -79,6 +80,9 @@ class Minimal(Profile):
     def neovim(self) -> None:
         self._installer.neovim(False, False)
 
+    def yazi(self):
+        self._installer.yazi(False)
+
     def ranger(self) -> None:
         self._installer.ranger(False)
 
@@ -94,6 +98,7 @@ class Minimal(Profile):
         self._installer.pikaur()
 
         self.neovim()
+        self.yazi()
         self.ranger()
         self.vifm()
         self._installer.sensors()
@@ -110,6 +115,9 @@ class ShellOnly(Profile):
 
     def neovim(self) -> None:
         self._installer.neovim(False, False)
+
+    def yazi(self):
+        self._installer.yazi(False)
 
     def ranger(self) -> None:
         self._installer.ranger(False)

@@ -1,0 +1,37 @@
+[manager]
+cwd =          { fg = "#F0C020" }
+border_style = { fg = "#404040" }
+
+[status]
+perm_read =    { fg = "#00FF00" }
+perm_write =   { fg = "#D0B000" }
+perm_exec =    { fg = "#E10000" }
+
+[filetype]
+rules = [
+    # Images
+    { mime = "image/*", fg = "#FFFF00" },
+
+    # Media
+    { mime = "{audio,video}/*", fg = "#FF00FF" },
+
+    # Archives
+    { mime = "application/{zip,rar,7z*,tar,gzip,xz,zstd,bzip*,lzma,compress,archive,cpio,arj,xar,ms-cab*}", fg = "#F0C020" },
+
+    # Documents
+    { mime = "application/{pdf,doc,rtf}", fg = "#00FFFF" },
+
+    # Empty files
+    { mime = "inode/empty", fg = "red" },
+
+    # Special files
+    { name = "*", is = "orphan", bg = "red" },
+    { name = "*", is = "exec"  , fg = "#00FF00" },
+
+    # Dummy files
+    { name = "*", is = "dummy", bg = "red" },
+    { name = "*/", is = "dummy", bg = "red" },
+
+    { name = "*", fg = "#FFFFFF" },
+    { name = "*/", fg = "#00B0FF", bold = true }
+]
