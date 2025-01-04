@@ -144,6 +144,7 @@ def x264(
     with_audio: bool = typer.Option(False, '-audio/-no-audio'),
     audio_filter: str = typer.Option('', '-af'),
     subtitles_path: Path = typer.Option(None, '-subs'),
+    subtitles_force_style: bool = typer.Option(False, '-subs-force-style'),
     tune: Optional[X265Tune] = typer.Option(None, '-t', case_sensitive=False),
 ) -> None:
     ffmpeg_args = []
@@ -156,7 +157,11 @@ def x264(
     if subtitles_path:
         if video_filter:
             video_filter += ','
-        video_filter += f'subtitles={str(subtitles_path)}:force_style=\'{SUBTITLES_OPTIONS}\''
+        if subtitles_force_style:
+            video_filter += f'subtitles={str(subtitles_path)}:force_style=\'{SUBTITLES_OPTIONS}\''
+        else:
+            video_filter += f'subtitles={str(subtitles_path)}'
+
     if video_filter:
         ffmpeg_args += ['-vf', video_filter]
     if audio_filter:
@@ -279,6 +284,7 @@ def webm(
     video_filter: str = typer.Option('', '-vf'),
     with_audio: bool = typer.Option(False, '-audio/-no-audio'),
     subtitles_path: Path = typer.Option(None, '-subs'),
+    subtitles_force_style: bool = typer.Option(False, '-subs-force-style'),
     fps: str = typer.Option('', '-fps'),
     bitexact: bool = typer.Option(False, '-bitexact'),
 ) -> None:
@@ -297,7 +303,11 @@ def webm(
     if subtitles_path:
         if video_filter:
             video_filter += ','
-        video_filter += f'subtitles={str(subtitles_path)}:force_style=\'{SUBTITLES_OPTIONS}\''
+        if subtitles_force_style:
+            video_filter += f'subtitles={str(subtitles_path)}:force_style=\'{SUBTITLES_OPTIONS}\''
+        else:
+            video_filter += f'subtitles={str(subtitles_path)}'
+
     if video_filter:
         ffmpeg_args += ['-vf', video_filter]
     ffmpeg_args += [
@@ -328,6 +338,7 @@ def vp9webm(
     video_filter: str = typer.Option('', '-vf'),
     with_audio: bool = typer.Option(False, '-audio/-no-audio'),
     subtitles_path: Path = typer.Option(None, '-subs'),
+    subtitles_force_style: bool = typer.Option(False, '-subs-force-style'),
     bitexact: bool = typer.Option(False, '-bitexact'),
 ) -> None:
     size_bytes = humanfriendly.parse_size(output_size)
@@ -345,7 +356,11 @@ def vp9webm(
     if subtitles_path:
         if video_filter:
             video_filter += ','
-        video_filter += f'subtitles={str(subtitles_path)}:force_style=\'{SUBTITLES_OPTIONS}\''
+        if subtitles_force_style:
+            video_filter += f'subtitles={str(subtitles_path)}:force_style=\'{SUBTITLES_OPTIONS}\''
+        else:
+            video_filter += f'subtitles={str(subtitles_path)}'
+
     if video_filter:
         ffmpeg_args += ['-vf', video_filter]
     ffmpeg_args += [
