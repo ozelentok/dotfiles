@@ -275,7 +275,7 @@ def images(
 
 
 @app.command()
-def webm(
+def vp8(
     input_path: Path,
     output_path: Path,
     output_size: str,
@@ -322,14 +322,14 @@ def webm(
         ffmpeg_args += ['-r', fps]
     bitexact_params = ['-bitexact'] if bitexact else []
     call_ffmpeg(
-        ffmpeg_args + ['-an', '-pass', '1'] + bitexact_params + ['-y', '-f', 'webm', '/dev/null']
+        ffmpeg_args + ['-an', '-pass', '1'] + bitexact_params + ['-y', '-f', output_path.suffix[1:], '/dev/null']
     )
     ffmpeg_args += ['-c:a', 'libvorbis', '-ac', '2', '-b:a', '80K'] if with_audio else ['-an']
     call_ffmpeg(ffmpeg_args + ['-pass', '2'] + bitexact_params + ['-y', str(output_path)])
 
 
 @app.command()
-def vp9webm(
+def vp9(
     input_path: Path,
     output_path: Path,
     output_size: str,
@@ -375,14 +375,14 @@ def vp9webm(
     ]  # fmt: off
     bitexact_params = ['-bitexact'] if bitexact else []
     call_ffmpeg(
-        ffmpeg_args + ['-an', '-pass', '1'] + bitexact_params + ['-y', '-f', 'webm', '/dev/null']
+        ffmpeg_args + ['-an', '-pass', '1'] + bitexact_params + ['-y', '-f', output_path.suffix[1:], '/dev/null']
     )
     ffmpeg_args += ['-c:a', 'libvorbis', '-ac', '2', '-b:a', '80K'] if with_audio else ['-an']
     call_ffmpeg(ffmpeg_args + ['-pass', '2'] + bitexact_params + ['-y', str(output_path)])
 
 
 @app.command()
-def iwebm(
+def ivp8(
     input_path: Path,
     output_path: Path,
     output_size: str,
@@ -411,7 +411,7 @@ def iwebm(
     ]  # fmt: off
     bitexact_params = ['-bitexact'] if bitexact else []
     call_ffmpeg(
-        ffmpeg_args + ['-an', '-pass', '1'] + bitexact_params + ['-y', '-f', 'webm', '/dev/null']
+        ffmpeg_args + ['-an', '-pass', '1'] + bitexact_params + ['-y', '-f', output_path.suffix[1:], '/dev/null']
     )
     if audio_path:
         ffmpeg_args += ['-c:a', 'libvorbis', '-b:a', '128K']
@@ -419,7 +419,7 @@ def iwebm(
 
 
 @app.command()
-def ivp9webm(
+def ivp9(
     input_path: Path,
     output_path: Path,
     output_size: str,
@@ -450,7 +450,7 @@ def ivp9webm(
     ]  # fmt: off
     bitexact_params = ['-bitexact'] if bitexact else []
     call_ffmpeg(
-        ffmpeg_args + ['-an', '-pass', '1'] + bitexact_params + ['-y', '-f', 'webm', '/dev/null']
+        ffmpeg_args + ['-an', '-pass', '1'] + bitexact_params + ['-y', '-f', output_path.suffix[1:], '/dev/null']
     )
     if audio_path:
         ffmpeg_args += ['-c:a', 'libvorbis', '-b:a', '128K']
