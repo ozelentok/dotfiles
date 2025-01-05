@@ -374,6 +374,10 @@ class Installer:
         utils.mkdir(bin_dir_path)
         utils.symlink_dotfile(Path('pulseaudio/vmic'), bin_dir_path)
 
+        config_dir_path = Path.home() / '.config/pulse'
+        utils.mkdir(config_dir_path)
+        utils.symlink_dotfile(Path('pulseaudio/default-with-vmic.pa'), config_dir_path / 'default.pa')
+
     def yt_dlp(self) -> None:
         self._pm.install_packages(['python-pip'])
         utils.run_shell_command('pip install --user --break-system-packages -U yt_dlp')

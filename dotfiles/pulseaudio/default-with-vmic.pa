@@ -1,0 +1,5 @@
+.include /etc/pulse/default.pa
+
+load-module module-null-sink sink_name=SoundboardSink sink_properties=device.description=SoundboardSink channels=2 format=float32le
+load-module module-null-sink sink_name=MixedSink sink_properties=device.description=MixedSink channels=2 format=float32le
+load-module module-virtual-source source_name=VirtualMic source_properties=device.description=VirtualMic master=MixedSink.monitor channels=2 format=float32le
