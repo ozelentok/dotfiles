@@ -81,6 +81,8 @@ def x265hq(
     time_from: str = typer.Option('', '-from'),
     time_to: str = typer.Option('', '-to'),
     video_filter: str = typer.Option('', '-vf'),
+    with_audio: bool = typer.Option(False, '-audio/-no-audio'),
+    audio_filter: str = typer.Option('', '-af'),
     tune: Optional[X265Tune] = typer.Option(None, '-t', case_sensitive=False),
 ) -> None:
     ffmpeg_args = []
@@ -92,15 +94,16 @@ def x265hq(
 
     if video_filter:
         ffmpeg_args += ['-vf', video_filter]
+    if audio_filter:
+        ffmpeg_args += ['-af', audio_filter]
     ffmpeg_args += [
         '-c:v', 'libx265', '-crf',
         str(crf), '-preset', preset.name, '-pix_fmt', 'yuv420p10le', '-x265-params', X265_HQ_PARAMS,
         '-c:s', 'copy',
-        '-c:a', 'aac', '-b:a', '128k'
-        '-map', '0:0',
         '-map_metadata', '0', '-map_chapters', '0',
         '-movflags', 'use_metadata_tags',
     ]  # fmt: off
+    ffmpeg_args += ['-c:a', 'copy'] if with_audio else ['-an']
     if tune:
         ffmpeg_args += ['-tune', tune.name]
     call_ffmpeg(ffmpeg_args + [str(output_path)])
