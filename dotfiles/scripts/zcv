@@ -2,7 +2,7 @@
 
 import subprocess
 from datetime import datetime
-from enum import Enum
+from enum import StrEnum, auto
 from pathlib import Path
 from typing import Optional, cast
 
@@ -54,85 +54,156 @@ def calculate_duration(input_path: Path, time_from: str, time_to: str) -> float:
     return extract_duration(input_path)
 
 
+def calc_target_bitrate(input_path: Path, output_size: str, time_from: str, time_to: str) -> int:
+    size_bytes = humanfriendly.parse_size(output_size)
+    duration = calculate_duration(input_path, time_from, time_to)
+    return int(8.0 * size_bytes / duration)
+
+
+def calc_target_bitrate_from_frames(input_path: Path, output_size: str, fps: float) -> int:
+    size_bytes = humanfriendly.parse_size(output_size)
+    frames_count = len([1 for i in input_path.parent.iterdir() if i.is_file()])
+    return int(8.0 * size_bytes * fps / frames_count)
+
+
+def hardcode_subtitles_filter(
+    video_filter: str, subtitles_path: Optional[Path], force_style: bool
+) -> str:
+    if not subtitles_path:
+        return video_filter
+
+    if video_filter:
+        video_filter += ','
+    video_filter += f'subtitles={subtitles_path}'
+    if force_style:
+        video_filter += f':force_style=\'{SUBTITLES_OPTIONS}\''
+    return video_filter
+
+
 def call_ffmpeg(args: list) -> None:
     args = ['ffmpeg', '-hide_banner'] + [str(i) for i in args]
     print(' '.join(args))
     subprocess.check_call(args)
 
 
-class Preset(str, Enum):
-    slow = 'slow'
-    medium = 'medium'
-    fast = 'fast'
-    veryfast = 'veryfast'
+class Preset(StrEnum):
+    slow = auto()
+    medium = auto()
+    fast = auto()
+    veryfast = auto()
 
 
-class X265Tune(str, Enum):
-    animation = 'animation'
-    grain = 'grain'
+class Audio(StrEnum):
+    none = auto()
+    copy = auto()
+    mono = auto()
+    stereo = auto()
+
+
+class AudioCodec(StrEnum):
+    aac = auto()
+    vorbis = 'libvorbis'
+
+
+class VideoTune(StrEnum):
+    animation = auto()
+    grain = auto()
+
+
+def add_input(cmd: list, input_path: Optional[Path]):
+    if input_path:
+        cmd += ['-i', input_path]
+
+
+def set_timestamps(cmd: list, time_from: str, time_to: str):
+    if time_from:
+        cmd += ['-ss', time_from]
+    if time_to:
+        cmd += ['-to', time_to]
+
+
+def apply_filters(cmd: list, video_filter: str, audio_filter: str = ''):
+    if video_filter:
+        cmd += ['-vf', video_filter]
+    if audio_filter:
+        cmd += ['-af', audio_filter]
+
+
+def set_audio(cmd: list, audio: Audio, codec: AudioCodec):
+    if audio == Audio.none:
+        cmd += ['-an']
+    elif audio == Audio.copy:
+        cmd += ['-c:a', 'copy']
+    elif audio == Audio.mono:
+        cmd += ['-c:a', codec.value, '-ac', '1', '-b:a', '96K']
+    elif audio == Audio.stereo:
+        cmd += ['-c:a', codec.value, '-ac', '2', '-b:a', '128K']
+
+
+def set_video_tune(cmd: list, tune: Optional[VideoTune]):
+    if tune:
+        cmd += ['-tune', tune.name]
 
 
 @app.command()
-def x265hq(
+def x265(
     input_path: Path,
     output_path: Path,
     crf: float,
-    preset: Preset = typer.Option(Preset.slow, '-p', case_sensitive=False),
     time_from: str = typer.Option('', '-from'),
     time_to: str = typer.Option('', '-to'),
     video_filter: str = typer.Option('', '-vf'),
-    with_audio: bool = typer.Option(False, '-audio/-no-audio'),
+    audio: Audio = typer.Option(Audio.none, '-a', case_sensitive=False),
     audio_filter: str = typer.Option('', '-af'),
-    tune: Optional[X265Tune] = typer.Option(None, '-t', case_sensitive=False),
+    preset: Preset = typer.Option(Preset.slow, '-p', case_sensitive=False),
+    tune: Optional[VideoTune] = typer.Option(None, '-t', case_sensitive=False),
 ) -> None:
-    ffmpeg_args = []
-    if time_from:
-        ffmpeg_args += ['-ss', time_from]
-    if time_to:
-        ffmpeg_args += ['-to', time_to]
-    ffmpeg_args += ['-i', str(input_path)]
+    cmd = []
+    set_timestamps(cmd, time_from, time_to)
+    add_input(cmd, input_path)
+    apply_filters(cmd, video_filter, audio_filter)
 
-    if video_filter:
-        ffmpeg_args += ['-vf', video_filter]
-    if audio_filter:
-        ffmpeg_args += ['-af', audio_filter]
-    ffmpeg_args += [
-        '-c:v', 'libx265', '-crf',
-        str(crf), '-preset', preset.name, '-pix_fmt', 'yuv420p10le', '-x265-params', X265_HQ_PARAMS,
+    cmd += [
+        '-c:v', 'libx265', '-crf', crf,
+        '-preset', preset.name,
+        '-pix_fmt', 'yuv420p10le', '-x265-params', X265_HQ_PARAMS,
         '-c:s', 'copy',
         '-map_metadata', '0', '-map_chapters', '0',
         '-movflags', 'use_metadata_tags',
     ]  # fmt: off
-    ffmpeg_args += ['-c:a', 'copy'] if with_audio else ['-an']
-    if tune:
-        ffmpeg_args += ['-tune', tune.name]
-    call_ffmpeg(ffmpeg_args + [str(output_path)])
+
+    set_video_tune(cmd, tune)
+    set_audio(cmd, audio, AudioCodec.aac)
+    call_ffmpeg(cmd + [output_path])
 
 
 @app.command()
-def ix265hq(
+def ix265(
     input_path: Path,
     output_path: Path,
     crf: float,
     fps: float,
     video_filter: str = typer.Option('', '-vf'),
+    audio_path: Path = typer.Option(None, '-audio'),
+    audio: Audio = typer.Option(Audio.none, '-a', case_sensitive=False),
+    audio_filter: str = typer.Option('', '-af'),
     preset: Preset = typer.Option(Preset.slow, '-p', case_sensitive=False),
-    tune: Optional[X265Tune] = typer.Option(None, '-t', case_sensitive=False),
+    tune: Optional[VideoTune] = typer.Option(None, '-t', case_sensitive=False),
 ) -> None:
-    ffmpeg_args = [
-        '-framerate', str(fps),
-        '-f', 'image2', '-i', str(input_path)
+    cmd = ['-framerate', fps, '-f', 'image2']
+    add_input(cmd, input_path)
+    add_input(cmd, audio_path)
+
+    apply_filters(cmd, video_filter, audio_filter)
+    cmd += [
+        '-c:v', 'libx265', '-crf', crf,
+        '-preset', preset.name,
+        '-pix_fmt', 'yuv420p10le', '-x265-params', X265_HQ_PARAMS,
     ]  # fmt: off
-    if video_filter:
-        ffmpeg_args += ['-vf', video_filter]
-    ffmpeg_args += [
-        '-c:v', 'libx265', '-crf',
-        str(crf), '-preset', preset.name, '-pix_fmt', 'yuv420p10le', '-x265-params', X265_HQ_PARAMS,
-        '-an'
-    ]  # fmt: off
-    if tune:
-        ffmpeg_args += ['-tune', tune.name]
-    call_ffmpeg(ffmpeg_args + [str(output_path)])
+
+    set_video_tune(cmd, tune)
+    set_audio(cmd, audio, AudioCodec.vorbis)
+    call_ffmpeg(cmd + [output_path])
 
 
 @app.command()
@@ -140,50 +211,34 @@ def x264(
     input_path: Path,
     output_path: Path,
     crf: float,
-    preset: Preset = typer.Option(Preset.slow, '-p', case_sensitive=False),
     time_from: str = typer.Option('', '-from'),
     time_to: str = typer.Option('', '-to'),
     video_filter: str = typer.Option('', '-vf'),
-    with_audio: bool = typer.Option(False, '-audio/-no-audio'),
+    audio: Audio = typer.Option(Audio.none, '-a', case_sensitive=False),
     audio_filter: str = typer.Option('', '-af'),
-    subtitles_path: Path = typer.Option(None, '-subs'),
+    subtitles_path: Optional[Path] = typer.Option(None, '-subs'),
     subtitles_force_style: bool = typer.Option(False, '-subs-force-style'),
-    tune: Optional[X265Tune] = typer.Option(None, '-t', case_sensitive=False),
+    preset: Preset = typer.Option(Preset.slow, '-p', case_sensitive=False),
+    tune: Optional[VideoTune] = typer.Option(None, '-t', case_sensitive=False),
 ) -> None:
-    ffmpeg_args = []
-    if time_from:
-        ffmpeg_args += ['-ss', time_from]
-    if time_to:
-        ffmpeg_args += ['-to', time_to]
-    ffmpeg_args += ['-i', str(input_path)]
+    cmd = []
+    set_timestamps(cmd, time_from, time_to)
+    add_input(cmd, input_path)
 
-    if subtitles_path:
-        if video_filter:
-            video_filter += ','
-        if subtitles_force_style:
-            video_filter += f'subtitles={str(subtitles_path)}:force_style=\'{SUBTITLES_OPTIONS}\''
-        else:
-            video_filter += f'subtitles={str(subtitles_path)}'
-
-    if video_filter:
-        ffmpeg_args += ['-vf', video_filter]
-    if audio_filter:
-        ffmpeg_args += ['-af', audio_filter]
-    ffmpeg_args += [
-        '-c:v', 'libx264', '-crf',
-        str(crf), '-preset', preset.name,
-        # '-profile:v', 'baseline',
+    video_filter = hardcode_subtitles_filter(video_filter, subtitles_path, subtitles_force_style)
+    apply_filters(cmd, video_filter, audio_filter)
+    cmd += [
+        '-c:v', 'libx264', '-crf', crf,
+        '-preset', preset.name,
         '-profile:v', 'high',
         '-pix_fmt', 'yuv420p',
         '-sn',
         '-map_metadata', '-1', '-map_chapters', '-1',
     ]  # fmt: off
-    # ffmpeg_args += ['-c:a', 'aac', '-ac', '2', '-b:a', '128K'] if with_audio else ['-an']
-    # ffmpeg_args += ['-c:a', 'aac', '-ac', '1', '-b:a', '96K'] if with_audio else ['-an']
-    ffmpeg_args += ['-c:a', 'copy'] if with_audio else ['-an']
-    if tune:
-        ffmpeg_args += ['-tune', tune.name]
-    call_ffmpeg(ffmpeg_args + [str(output_path)])
+
+    set_video_tune(cmd, tune)
+    set_audio(cmd, audio, AudioCodec.aac)
+    call_ffmpeg(cmd + [output_path])
 
 
 @app.command()
@@ -193,34 +248,183 @@ def ix264(
     crf: float,
     fps: float,
     video_filter: str = typer.Option('', '-vf'),
+    audio_path: Path = typer.Option(None, '-audio'),
+    audio: Audio = typer.Option(Audio.none, '-a', case_sensitive=False),
+    audio_filter: str = typer.Option('', '-af'),
     preset: Preset = typer.Option(Preset.slow, '-p', case_sensitive=False),
-    audio: Optional[Path] = typer.Option(None),
-    tune: Optional[X265Tune] = typer.Option(None, '-t', case_sensitive=False),
+    tune: Optional[VideoTune] = typer.Option(None, '-t', case_sensitive=False),
 ) -> None:
-    ffmpeg_args = [
-        '-framerate', str(fps),
-        '-f', 'image2', '-i', str(input_path)
-    ]  # fmt: off
-    if audio:
-        ffmpeg_args += ['-i', str(audio)]
-    if video_filter:
-        ffmpeg_args += ['-vf', video_filter]
-    ffmpeg_args += [
-        '-c:v', 'libx264', '-crf',
-        str(crf), '-preset', preset.name,
-        '-profile:v', 'baseline',
+    cmd = ['-framerate', fps, '-f', 'image2']
+    add_input(cmd, input_path)
+    add_input(cmd, audio_path)
+
+    apply_filters(cmd, video_filter, audio_filter)
+    cmd += [
+        '-c:v', 'libx264', '-crf', crf,
+        '-preset', preset.name,
+        '-profile:v', 'high',
         '-pix_fmt', 'yuv420p',
         '-sn',
     ]  # fmt: off
-    if tune:
-        ffmpeg_args += ['-tune', tune.name]
-    if audio:
-        ffmpeg_args += ['-c:a', 'copy']
-        # ffmpeg_args += ['-c:a', 'aac', '-ac', '2', '-b:a', '128K']
-    else:
-        ffmpeg_args += ['-an']
 
-    call_ffmpeg(ffmpeg_args + [str(output_path)])
+    set_video_tune(cmd, tune)
+    set_audio(cmd, audio, AudioCodec.vorbis)
+    call_ffmpeg(cmd + [output_path])
+
+
+@app.command()
+def vp9(
+    input_path: Path,
+    output_path: Path,
+    output_size: str,
+    time_from: str = typer.Option('', '-from'),
+    time_to: str = typer.Option('', '-to'),
+    video_filter: str = typer.Option('', '-vf'),
+    audio: Audio = typer.Option(Audio.none, '-a', case_sensitive=False),
+    audio_filter: str = typer.Option('', '-af'),
+    subtitles_path: Path = typer.Option(None, '-subs'),
+    subtitles_force_style: bool = typer.Option(False, '-subs-force-style'),
+) -> None:
+    cmd = []
+
+    set_timestamps(cmd, time_from, time_to)
+    add_input(cmd, input_path)
+
+    video_filter = hardcode_subtitles_filter(video_filter, subtitles_path, subtitles_force_style)
+    apply_filters(cmd, video_filter, audio_filter)
+    bps = calc_target_bitrate(input_path, output_size, time_from, time_to)
+    cmd += [
+        '-c:v', 'libvpx-vp9', '-b:v', bps,
+        '-row-mt', '1',
+        '-threads', '4',
+        '-cpu-used', '2',
+        '-pix_fmt', 'yuv420p',
+        '-deadline', 'good', '-sn',
+        '-map_metadata', '-1', '-map_chapters', '-1', '-map_metadata:s:v', '-1',
+    ]  # fmt: off
+    call_ffmpeg(cmd + ['-an', '-pass', '1'] + ['-y', '-f', output_path.suffix[1:], '/dev/null'])
+
+    set_audio(cmd, audio, AudioCodec.vorbis)
+    call_ffmpeg(cmd + ['-pass', '2'] + ['-y', output_path])
+
+
+@app.command()
+def ivp9(
+    input_path: Path,
+    output_path: Path,
+    output_size: str,
+    fps: float,
+    video_filter: str = typer.Option('', '-vf'),
+    audio_path: Path = typer.Option(None, '-audio'),
+    audio: Audio = typer.Option(Audio.none, '-a', case_sensitive=False),
+    audio_filter: str = typer.Option('', '-af'),
+) -> None:
+    cmd = ['-framerate', fps, '-f', 'image2']
+    add_input(cmd, input_path)
+    add_input(cmd, audio_path)
+
+    apply_filters(cmd, video_filter, audio_filter)
+    bps = calc_target_bitrate_from_frames(input_path, output_size, fps)
+    cmd += [
+        '-c:v', 'libvpx-vp9', '-b:v', bps,
+        '-row-mt', '1',
+        '-threads', '4',
+        '-cpu-used', '2',
+        '-pix_fmt', 'yuv420p',
+        '-deadline', 'good', '-sn',
+        '-map_metadata', '-1', '-map_chapters', '-1', '-map_metadata:s:v', '-1',
+    ]  # fmt: off
+    call_ffmpeg(cmd + ['-an', '-pass', '1'] + ['-y', '-f', output_path.suffix[1:], '/dev/null'])
+
+    set_audio(cmd, audio, AudioCodec.vorbis)
+    call_ffmpeg(cmd + ['-pass', '2'] + ['-y', output_path])
+
+
+@app.command()
+def vp8(
+    input_path: Path,
+    output_path: Path,
+    output_size: str,
+    time_from: str = typer.Option('', '-from'),
+    time_to: str = typer.Option('', '-to'),
+    video_filter: str = typer.Option('', '-vf'),
+    audio: Audio = typer.Option(Audio.none, '-a', case_sensitive=False),
+    audio_filter: str = typer.Option('', '-af'),
+    subtitles_path: Path = typer.Option(None, '-subs'),
+    subtitles_force_style: bool = typer.Option(False, '-subs-force-style'),
+    fps: str = typer.Option('', '-fps'),
+) -> None:
+    cmd = []
+    set_timestamps(cmd, time_from, time_to)
+    add_input(cmd, input_path)
+
+    video_filter = hardcode_subtitles_filter(video_filter, subtitles_path, subtitles_force_style)
+    apply_filters(cmd, video_filter, audio_filter)
+    bps = calc_target_bitrate(input_path, output_size, time_from, time_to)
+    cmd += [
+        '-c:v', 'libvpx', '-b:v', bps,
+        # '-pix_fmt', 'yuva420p',
+        '-deadline', 'best', '-sn',
+        '-map_metadata', '-1', '-map_chapters', '-1', '-map_metadata:s:v', '-1',
+    ]  # fmt: off
+    if input_path.suffix.lower() == '.gif':
+        cmd += ['-auto-alt-ref', '0']
+    if fps:
+        cmd += ['-r', fps]
+
+    call_ffmpeg(cmd + ['-an', '-pass', '1'] + ['-y', '-f', output_path.suffix[1:], '/dev/null'])
+
+    set_audio(cmd, audio, AudioCodec.vorbis)
+    call_ffmpeg(cmd + ['-pass', '2'] + ['-y', output_path])
+
+
+@app.command()
+def ivp8(
+    input_path: Path,
+    output_path: Path,
+    output_size: str,
+    fps: float,
+    video_filter: str = typer.Option('', '-vf'),
+    audio_path: Path = typer.Option(None, '-audio'),
+    audio: Audio = typer.Option(Audio.none, '-a', case_sensitive=False),
+    audio_filter: str = typer.Option('', '-af'),
+) -> None:
+    cmd = ['-framerate', fps, '-f', 'image2']
+    add_input(cmd, input_path)
+    add_input(cmd, audio_path)
+
+    apply_filters(cmd, video_filter, audio_filter)
+    bps = calc_target_bitrate_from_frames(input_path, output_size, fps)
+    cmd += [
+        '-c:v', 'libvpx', '-b:v', bps,
+        '-deadline', 'best', '-sn',
+        '-map_metadata', '-1', '-map_chapters', '-1', '-map_metadata:s:v', '-1',
+    ]  # fmt: off
+    call_ffmpeg(cmd + ['-an', '-pass', '1'] + ['-y', '-f', output_path.suffix[1:], '/dev/null'])
+
+    set_audio(cmd, audio, AudioCodec.vorbis)
+    call_ffmpeg(cmd + ['-pass', '2'] + ['-y', output_path])
+
+
+@app.command()
+def images(
+    input_path: Path,
+    output_path: Path,
+    time_from: str = typer.Option('', '-from'),
+    time_to: str = typer.Option('', '-to'),
+    video_filter: str = typer.Option('', '-vf'),
+) -> None:
+    cmd = []
+    set_timestamps(cmd, time_from, time_to)
+    add_input(cmd, input_path)
+
+    apply_filters(cmd, video_filter)
+    if output_path.suffix.lower() in ('.jpg', '.jpeg'):
+        cmd += ['-pix_fmt', 'yuvj444p']
+    cmd += ['-qscale:v', '2', output_path]
+    output_path.parent.mkdir(exist_ok=True)
+
+    call_ffmpeg(cmd)
 
 
 @app.command()
@@ -232,232 +436,21 @@ def gif(
     time_to: str = typer.Option('', '-to'),
     video_filter: str = typer.Option('', '-vf'),
 ) -> None:
-    ffmpeg_args = []
-    if time_from:
-        ffmpeg_args += ['-ss', time_from]
-    if time_to:
-        ffmpeg_args += ['-to', time_to]
-    ffmpeg_args += ['-i', str(input_path)]
+    cmd = []
+    set_timestamps(cmd, time_from, time_to)
+    add_input(cmd, input_path)
 
     if video_filter:
         video_filter += ','
-    video_filter += f'setpts={1/speed}*PTS,split[s0][s1];[s0]palettegen[p];[s1][p]paletteuse'
-    ffmpeg_args += ['-vf', video_filter]
+    video_filter += f'setpts={1 / speed}*PTS,split[s0][s1];[s0]palettegen[p];[s1][p]paletteuse'
+    apply_filters(cmd, video_filter)
 
-    ffmpeg_args += [
+    cmd += [
         '-c:v', 'gif',
         '-map_metadata', '-1', '-map_chapters', '-1',
     ]  # fmt: off
 
-    call_ffmpeg(ffmpeg_args + [str(output_path)])
-
-
-@app.command()
-def images(
-    input_path: Path,
-    output_path: Path,
-    time_from: str = typer.Option('', '-from'),
-    time_to: str = typer.Option('', '-to'),
-    video_filter: str = typer.Option('', '-vf'),
-) -> None:
-    ffmpeg_args = []
-    if time_from:
-        ffmpeg_args += ['-ss', time_from]
-    if time_to:
-        ffmpeg_args += ['-to', time_to]
-    ffmpeg_args += ['-i', str(input_path)]
-
-    if video_filter:
-        ffmpeg_args += ['-vf', video_filter]
-
-    if output_path.suffix.lower() in ('.jpg', '.jpeg'):
-        ffmpeg_args += ['-pix_fmt', 'yuvj444p']
-    ffmpeg_args += ['-qscale:v', '2', str(output_path)]
-    output_path.parent.mkdir(exist_ok=True)
-    call_ffmpeg(ffmpeg_args)
-
-
-@app.command()
-def vp8(
-    input_path: Path,
-    output_path: Path,
-    output_size: str,
-    time_from: str = typer.Option('', '-from'),
-    time_to: str = typer.Option('', '-to'),
-    video_filter: str = typer.Option('', '-vf'),
-    with_audio: bool = typer.Option(False, '-audio/-no-audio'),
-    subtitles_path: Path = typer.Option(None, '-subs'),
-    subtitles_force_style: bool = typer.Option(False, '-subs-force-style'),
-    fps: str = typer.Option('', '-fps'),
-    bitexact: bool = typer.Option(False, '-bitexact'),
-) -> None:
-    size_bytes = humanfriendly.parse_size(output_size)
-    duration = calculate_duration(input_path, time_from, time_to)
-    bps = int(8.0 * size_bytes / duration)
-    print(f'Duration: {duration}\tVideo Bitrate: {bps}')
-
-    ffmpeg_args = []
-    if time_from:
-        ffmpeg_args += ['-ss', time_from]
-    if time_to:
-        ffmpeg_args += ['-to', time_to]
-    ffmpeg_args += ['-i', str(input_path)]
-
-    if subtitles_path:
-        if video_filter:
-            video_filter += ','
-        if subtitles_force_style:
-            video_filter += f'subtitles={str(subtitles_path)}:force_style=\'{SUBTITLES_OPTIONS}\''
-        else:
-            video_filter += f'subtitles={str(subtitles_path)}'
-
-    if video_filter:
-        ffmpeg_args += ['-vf', video_filter]
-    ffmpeg_args += [
-        '-c:v', 'libvpx', '-b:v', str(bps),
-        # '-pix_fmt', 'yuva420p',
-        '-deadline', 'best', '-sn',
-        '-map_metadata', '-1', '-map_chapters', '-1', '-map_metadata:s:v', '-1',
-    ]  # fmt: off
-    if input_path.suffix.lower() == '.gif':
-        ffmpeg_args += ['-auto-alt-ref', '0']
-    if fps:
-        ffmpeg_args += ['-r', fps]
-    bitexact_params = ['-bitexact'] if bitexact else []
-    call_ffmpeg(
-        ffmpeg_args + ['-an', '-pass', '1'] + bitexact_params + ['-y', '-f', output_path.suffix[1:], '/dev/null']
-    )
-    ffmpeg_args += ['-c:a', 'libvorbis', '-ac', '2', '-b:a', '80K'] if with_audio else ['-an']
-    call_ffmpeg(ffmpeg_args + ['-pass', '2'] + bitexact_params + ['-y', str(output_path)])
-
-
-@app.command()
-def vp9(
-    input_path: Path,
-    output_path: Path,
-    output_size: str,
-    time_from: str = typer.Option('', '-from'),
-    time_to: str = typer.Option('', '-to'),
-    video_filter: str = typer.Option('', '-vf'),
-    with_audio: bool = typer.Option(False, '-audio/-no-audio'),
-    subtitles_path: Path = typer.Option(None, '-subs'),
-    subtitles_force_style: bool = typer.Option(False, '-subs-force-style'),
-    bitexact: bool = typer.Option(False, '-bitexact'),
-) -> None:
-    size_bytes = humanfriendly.parse_size(output_size)
-    duration = calculate_duration(input_path, time_from, time_to)
-    bps = int(8.0 * size_bytes / duration)
-    print(f'Duration: {duration}\tVideo Bitrate: {bps}')
-
-    ffmpeg_args = []
-    if time_from:
-        ffmpeg_args += ['-ss', time_from]
-    if time_to:
-        ffmpeg_args += ['-to', time_to]
-    ffmpeg_args += ['-i', str(input_path)]
-
-    if subtitles_path:
-        if video_filter:
-            video_filter += ','
-        if subtitles_force_style:
-            video_filter += f'subtitles={str(subtitles_path)}:force_style=\'{SUBTITLES_OPTIONS}\''
-        else:
-            video_filter += f'subtitles={str(subtitles_path)}'
-
-    if video_filter:
-        ffmpeg_args += ['-vf', video_filter]
-    ffmpeg_args += [
-        '-c:v', 'libvpx-vp9', '-b:v', str(bps),
-        '-row-mt', '1',
-        '-threads', '4',
-        '-cpu-used', '2',
-        '-pix_fmt', 'yuv420p',
-        #'-auto-alt-ref', '0',
-        '-deadline', 'good', '-sn',
-        '-map_metadata', '-1', '-map_chapters', '-1', '-map_metadata:s:v', '-1',
-    ]  # fmt: off
-    bitexact_params = ['-bitexact'] if bitexact else []
-    call_ffmpeg(
-        ffmpeg_args + ['-an', '-pass', '1'] + bitexact_params + ['-y', '-f', output_path.suffix[1:], '/dev/null']
-    )
-    ffmpeg_args += ['-c:a', 'libvorbis', '-ac', '2', '-b:a', '80K'] if with_audio else ['-an']
-    call_ffmpeg(ffmpeg_args + ['-pass', '2'] + bitexact_params + ['-y', str(output_path)])
-
-
-@app.command()
-def ivp8(
-    input_path: Path,
-    output_path: Path,
-    output_size: str,
-    fps: float,
-    video_filter: str = typer.Option('', '-vf'),
-    audio_path: Path = typer.Option(None, '-audio'),
-    bitexact: bool = typer.Option(False, '-bitexact'),
-) -> None:
-    size_bytes = humanfriendly.parse_size(output_size)
-    frames_count = len([1 for i in input_path.parent.iterdir() if i.is_file()])
-    bps = int(8.0 * size_bytes * fps / frames_count)
-    ffmpeg_args = [
-        '-framerate',
-        str(fps), '-f', 'image2', '-i',
-        str(input_path)
-    ]  # fmt: off
-    if audio_path:
-        ffmpeg_args += ['-i', str(audio_path)]
-    if video_filter:
-        ffmpeg_args += ['-vf', video_filter]
-    ffmpeg_args += [
-        '-auto-alt-ref', '0',
-        '-c:v', 'libvpx', '-b:v',
-        str(bps), '-deadline', 'best', '-sn',
-        '-map_metadata', '-1', '-map_chapters', '-1', '-map_metadata:s:v', '-1',
-    ]  # fmt: off
-    bitexact_params = ['-bitexact'] if bitexact else []
-    call_ffmpeg(
-        ffmpeg_args + ['-an', '-pass', '1'] + bitexact_params + ['-y', '-f', output_path.suffix[1:], '/dev/null']
-    )
-    if audio_path:
-        ffmpeg_args += ['-c:a', 'libvorbis', '-b:a', '128K']
-    call_ffmpeg(ffmpeg_args + ['-pass', '2'] + bitexact_params + ['-y', str(output_path)])
-
-
-@app.command()
-def ivp9(
-    input_path: Path,
-    output_path: Path,
-    output_size: str,
-    fps: float,
-    video_filter: str = typer.Option('', '-vf'),
-    audio_path: Path = typer.Option(None, '-audio'),
-    bitexact: bool = typer.Option(False, '-bitexact'),
-) -> None:
-    size_bytes = humanfriendly.parse_size(output_size)
-    frames_count = len([1 for i in input_path.parent.iterdir() if i.is_file()])
-    bps = int(8.0 * size_bytes * fps / frames_count)
-    ffmpeg_args = [
-        '-framerate', str(fps),
-        '-f', 'image2', '-i', str(input_path)
-    ]  # fmt: off
-    if audio_path:
-        ffmpeg_args += ['-i', str(audio_path)]
-    if video_filter:
-        ffmpeg_args += ['-vf', video_filter]
-    ffmpeg_args += [
-        '-c:v', 'libvpx-vp9', '-b:v', str(bps),
-        '-row-mt', '1',
-        '-threads', '4',
-        '-cpu-used', '2',
-        '-pix_fmt', 'yuv444p', #'-auto-alt-ref', '0',
-        '-deadline', 'good', '-sn',
-        '-map_metadata', '-1', '-map_chapters', '-1', '-map_metadata:s:v', '-1',
-    ]  # fmt: off
-    bitexact_params = ['-bitexact'] if bitexact else []
-    call_ffmpeg(
-        ffmpeg_args + ['-an', '-pass', '1'] + bitexact_params + ['-y', '-f', output_path.suffix[1:], '/dev/null']
-    )
-    if audio_path:
-        ffmpeg_args += ['-c:a', 'libvorbis', '-b:a', '128K']
-    call_ffmpeg(ffmpeg_args + ['-pass', '2'] + bitexact_params + ['-y', str(output_path)])
+    call_ffmpeg(cmd + [output_path])
 
 
 @app.command()
@@ -468,23 +461,20 @@ def igif(
     speed: float = typer.Option(1.0, '-speed'),
     video_filter: str = typer.Option('', '-vf'),
 ) -> None:
-    ffmpeg_args = [
-        '-framerate',
-        str(fps), '-f', 'image2', '-i',
-        str(input_path)
-    ]  # fmt: off
+    cmd = ['-framerate', fps, '-f', 'image2']
+    add_input(cmd, input_path)
 
     if video_filter:
-        ffmpeg_args += ['-vf', video_filter]
-    video_filter += f'setpts={1/speed}*PTS,split[s0][s1];[s0]palettegen[p];[s1][p]paletteuse'
-    ffmpeg_args += ['-vf', video_filter]
+        video_filter += ','
+    video_filter += f'setpts={1 / speed}*PTS,split[s0][s1];[s0]palettegen[p];[s1][p]paletteuse'
+    apply_filters(cmd, video_filter)
 
-    ffmpeg_args += [
+    cmd += [
         '-c:v', 'gif',
         '-map_metadata', '-1', '-map_chapters', '-1',
     ]  # fmt: off
 
-    call_ffmpeg(ffmpeg_args + [str(output_path)])
+    call_ffmpeg(cmd + [output_path])
 
 
 @app.command()
@@ -494,20 +484,17 @@ def copy(
     time_from: str = typer.Option('', '-from'),
     time_to: str = typer.Option('', '-to'),
 ) -> None:
-    ffmpeg_args = []
-    if time_from:
-        ffmpeg_args += ['-ss', time_from]
-    if time_to:
-        ffmpeg_args += ['-to', time_to]
+    cmd = []
+    set_timestamps(cmd, time_from, time_to)
+    add_input(cmd, input_path)
 
-    ffmpeg_args += [
-        '-i', str(input_path),
+    cmd += [
         '-map', '0',
         '-c:v', 'copy',
         '-c:a', 'copy',
         '-c:s', 'copy',
     ]  # fmt: off
-    call_ffmpeg(ffmpeg_args + ['-y', str(output_path)])
+    call_ffmpeg(cmd + ['-y', output_path])
 
 
 if __name__ == "__main__":
