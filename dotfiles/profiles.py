@@ -70,7 +70,7 @@ class Full(Profile):
         utils.run_shell_command('pikaur -Syu')
         self._installer.scripts_dependencies()
         self._installer.yt_dlp()
-        self._installer.neovim_plugins(False)
+        self._installer.neovim_plugins(True, False)
 
 
 class Minimal(Profile):
@@ -106,7 +106,7 @@ class Minimal(Profile):
     def upgrade(self) -> None:
         utils.run_shell_command('pikaur -Syu')
         self._installer.scripts_dependencies()
-        self._installer.neovim_plugins(False)
+        self._installer.neovim_plugins(False, False)
 
 
 class ShellOnly(Profile):
