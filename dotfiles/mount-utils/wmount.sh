@@ -4,7 +4,7 @@ set -e
 
 if [ "$#" -lt 3 ]; then
   echo "wmount - Mount CIFS Share on /mnt/cifs"
-  echo "Usage: wmount [HOST] [SHARE] [USER] [OPTIONS]"
+  echo "Usage: wmount [HOST] [SHARE] [USER] [-u] [OPTIONS]"
   echo ""
   exit 1
 fi
@@ -15,7 +15,7 @@ REMOTE_SHARE=$2
 REMOTE_USER=$3
 set +e
 
-if [[ "$*" == *-u* ]]; then
+if [[ "$4" == "-u" ]]; then
   sudo umount /mnt/cifs/$REMOTE_HOST/$REMOTE_SHARE ${@:5}
   rmdir /mnt/cifs/$REMOTE_HOST/$REMOTE_SHARE
   rmdir --ignore-fail-on-non-empty /mnt/cifs/$REMOTE_HOST

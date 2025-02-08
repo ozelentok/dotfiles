@@ -4,7 +4,7 @@ set -e
 
 if [ "$#" -lt 2 ]; then
   echo "sftpmount - Mount SFTP Share on /mnt/sftp"
-  echo "Usage: sftpmount [HOST] [USER] [OPTIONS]"
+  echo "Usage: sftpmount [HOST] [USER] [-u] [OPTIONS]"
   echo ""
   exit 1
 fi
@@ -12,7 +12,7 @@ REMOTE_HOST=$1
 REMOTE_USER=$2
 set +e
 
-if [[ "$*" == *-u* ]]; then
+if [[ "$3" == "-u*" ]]; then
   fusermount -u /mnt/sftp/$REMOTE_HOST
   rmdir /mnt/sftp/$REMOTE_HOST
   echo "Share dismounted from /mnt/sftp/$REMOTE_HOST"
