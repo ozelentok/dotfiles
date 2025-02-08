@@ -83,6 +83,7 @@ _dotf_pkg() {
     "wezterm" \
     "x11vnc" \
     "xnviewmp" \
+    "yazi" \
     "yt_dlp" \
     "zsh" \
     "X11"
