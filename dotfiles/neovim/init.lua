@@ -1,4 +1,4 @@
-local tmp_dir = '/tmp/nvim'
+local tmp_dir = (vim.env.XDG_RUNTIME_DIR or '/tmp') .. '/nvim'
 io.popen('mkdir -p ' .. tmp_dir)
 vim.o.directory = tmp_dir
 vim.o.backupdir = tmp_dir
