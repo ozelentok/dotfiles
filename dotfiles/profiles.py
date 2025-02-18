@@ -50,7 +50,7 @@ class Full(Profile):
         self._installer.wezterm()
 
         self._installer.picom()
-        self._installer.pulseaudio()
+        self._installer.pipewire()
         self._installer.bluetooth()
         self._installer.vmic()
         self._installer.yt_dlp()

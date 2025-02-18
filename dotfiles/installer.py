@@ -106,9 +106,8 @@ class Installer:
 
     def bluetooth(self) -> None:
         self._pm.install_packages([
-            'pulseaudio-bluetooth', 'bluez',
+            'bluez',
             'blueman',
-            'gst-plugins-bad', # For AptX suppport
             'chntpw', # For extraction of pairing keys from Windows
         ])  # fmt: off
 
@@ -209,15 +208,15 @@ class Installer:
         utils.mkdir(config_dir_path)
         utils.symlink_dotfile(Path('picom/picom.conf'), config_dir_path)
 
-    def pulseaudio(self) -> None:
+    def pipewire(self) -> None:
         self._pm.install_packages([
-            'pulseaudio', 'pulseaudio-alsa',
+            'pipewire', 'pipewire-audio', 'pipewire-alsa', 'pipewire-pulse',
             'pavucontrol', 'alsa-utils',
         ])  # fmt: off
 
-        config_dir_path = Path.home() / '.config/pulse'
+        config_dir_path = Path.home() / '.config/pipewire/client.conf.d'
         utils.mkdir(config_dir_path)
-        utils.symlink_dotfile(Path('pulseaudio/daemon.conf'), config_dir_path)
+        utils.symlink_dotfile(Path('pipewire/client.conf.d/resample.conf'), config_dir_path)
 
     def mcomix(self) -> None:
         self.install_aur_packages(['mcomix'])
@@ -372,11 +371,11 @@ class Installer:
 
         bin_dir_path = Path.home() / '.local/bin'
         utils.mkdir(bin_dir_path)
-        utils.symlink_dotfile(Path('pulseaudio/vmic'), bin_dir_path)
+        utils.symlink_dotfile(Path('vmic/vmic'), bin_dir_path)
 
-        config_dir_path = Path.home() / '.config/pulse'
+        config_dir_path = Path.home() / '.config/pipewire/pipewire.conf.d'
         utils.mkdir(config_dir_path)
-        utils.symlink_dotfile(Path('pulseaudio/default-with-vmic.pa'), config_dir_path / 'default.pa')
+        utils.symlink_dotfile(Path('vmic/10-virtual-sinks.conf'), config_dir_path)
 
     def yt_dlp(self) -> None:
         self._pm.install_packages(['python-pip'])

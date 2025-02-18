@@ -12,8 +12,7 @@ MIC_SOURCE = "alsa_input.usb-Jieli_Technology_UACDemoV1.0_FFFFFFFFFFFFFFFF-00.mo
 MIC2_SOURCE = "alsa_input.pci-0000_00_1f.3.analog-stereo"
 HARDWARE_SINK = "alsa_output.pci-0000_01_00.1.hdmi-stereo"
 SOUNDBOARD_SINK = "SoundboardSink"
-SOUNDBOARD_AND_MIC_SINK = "MixedSink"
-SOUNDBOARD_AND_MIC_VIRTUAL_SOURCE = "VirtualMic"
+SOUNDBOARD_AND_MIC_SINK = "VirtualMic"
 MODULE_IDS_PATH = os.environ["XDG_RUNTIME_DIR"] + "/virtual-mic-ids"
 
 
@@ -43,10 +42,13 @@ def main() -> None:
 
 def create_virtual_mic() -> None:
     modules_ids: list[int] = []
-    modules_ids.append(create_loopback(sink_monitor(SOUNDBOARD_SINK), HARDWARE_SINK))
-    modules_ids.append(create_loopback(sink_monitor(SOUNDBOARD_SINK), SOUNDBOARD_AND_MIC_SINK))
-    modules_ids.append(create_loopback(MIC_SOURCE, SOUNDBOARD_AND_MIC_SINK))
-    modules_ids.append(create_loopback(MIC2_SOURCE, SOUNDBOARD_AND_MIC_SINK))
+    descriptions = get_device_descriptions()
+    modules_ids.append(create_loopback(descriptions, SOUNDBOARD_SINK, HARDWARE_SINK, True))
+    modules_ids.append(
+        create_loopback(descriptions, SOUNDBOARD_SINK, SOUNDBOARD_AND_MIC_SINK, True)
+    )
+    modules_ids.append(create_loopback(descriptions, MIC_SOURCE, SOUNDBOARD_AND_MIC_SINK))
+    modules_ids.append(create_loopback(descriptions, MIC2_SOURCE, SOUNDBOARD_AND_MIC_SINK))
     save_module_ids(modules_ids)
     set_loopbacks_volumes()
 
@@ -57,20 +59,23 @@ def remove_virtual_mic() -> None:
         remove_module(module_id)
 
 
-def create_loopback(source: str, sink: str) -> int:
-    return int(
-        subprocess.check_output(
-            [
-                "pactl",
-                "load-module",
-                "module-loopback",
-                f"source={source}",
-                f"sink={sink}",
-                "channels=2",
-                "format=float32le",
-            ]
-        )
-    )
+def create_loopback(
+    descriptions: dict, source: str, sink: str, monitor_source: bool = False
+) -> int:
+    actual_source = sink_monitor(source) if monitor_source else source
+    args = [
+        "pactl",
+        "load-module",
+        "module-loopback",
+        f"source={actual_source}",
+        f"sink={sink}",
+        f"source_output_properties=device.description='Loopback\\ to\\ {descriptions[sink]}'",
+        f"sink_input_properties=device.description='Loopback\\ from\\ {descriptions[source]}'",
+        "sink_dont_move=false",
+        "channels=2",
+        "format=float32le",
+    ]
+    return int(subprocess.check_output(args))
 
 
 def remove_module(module_id: int) -> None:
@@ -83,12 +88,25 @@ def remove_module(module_id: int) -> None:
     )
 
 
+def get_device_descriptions() -> dict:
+    descriptions = {}
+    with pulsectl.Pulse("virtual-mic") as pulse:
+        sinks = pulse.sink_list()
+        for s in sinks:
+            descriptions[s.name] = s.description.replace(' ', '\\ ')
+        srcs = pulse.source_list()
+        for s in srcs:
+            descriptions[s.name] = s.description.replace(' ', '\\ ')
+
+    return descriptions
+
+
 def set_loopbacks_volumes() -> None:
     with pulsectl.Pulse("virtual-mic") as pulse:
         volume_base = 0
         for sink_input in pulse.sink_input_list():
             name = sink_input.name
-            if f"Loopback from Monitor of {SOUNDBOARD_SINK}" == name:
+            if f"Loopback from {SOUNDBOARD_SINK}" in name:
                 sink_input.volume.value_flat = 0.50 - volume_base
                 pulse.volume_set(sink_input, sink_input.volume)
                 volume_base += 0.10
