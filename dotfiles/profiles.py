@@ -32,6 +32,7 @@ class Full(Profile):
         self._installer.mount_utils()
         self._installer.pikaur()
         self._installer.git()
+        self._installer.systemd_config()
 
         self._installer.neovim()
         self._installer.yazi()

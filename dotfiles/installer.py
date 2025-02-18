@@ -336,6 +336,19 @@ class Installer:
         utils.symlink_dotfile(Path('yazi/theme.toml'), config_dir_path)
         utils.symlink_dotfile(Path('yazi/init.lua'), config_dir_path)
 
+    def systemd_config(self) -> None:
+        config_dir_path = Path('/etc/systemd/system')
+        utils.copy_dotfile_as_root(Path('systemd/system/pre-sleep@.service'), config_dir_path)
+        utils.copy_dotfile_as_root(Path('systemd/system/post-sleep@.service'), config_dir_path)
+
+        config_dir_path = Path.home() / '.config/systemd/user'
+        utils.mkdir(config_dir_path)
+        utils.symlink_dotfile(Path('systemd/user/pre-sleep.target'), config_dir_path)
+        utils.symlink_dotfile(Path('systemd/user/post-sleep.target'), config_dir_path)
+
+        u = getpass.getuser()
+        utils.run_shell_command(f'sudo systemctl enable pre-sleep@{u} post-sleep@{u}')
+
     @utils.avoid_reinstall('ueberzugpp')
     def ueberzugpp(self) -> None:
         self.install_aur_packages(['ueberzugpp'])

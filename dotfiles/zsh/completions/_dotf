@@ -67,13 +67,14 @@ _dotf_pkg() {
     "nodejs" \
     "picom" \
     "pikaur" \
-    "pulseaudio" \
+    "pipewire" \
     "qtconfig" \
     "ranger" \
     "samba" \
     "scripts_dependencies" \
     "sensors" \
     "smplayer" \
+    "systemd_config" \
     "theme" \
     "tmpfs_programs_cache" \
     "tmux" \
