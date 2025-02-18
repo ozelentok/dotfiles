@@ -1,0 +1,6 @@
+[Service]
+ExecStart=/usr/bin/systemctl --user stop picom
+Type=exec
+
+[Install]
+WantedBy=pre-sleep.target

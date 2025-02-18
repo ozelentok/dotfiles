@@ -208,6 +208,12 @@ class Installer:
         utils.mkdir(config_dir_path)
         utils.symlink_dotfile(Path('picom/picom.conf'), config_dir_path)
 
+        self.systemd_config()
+        systemd_dir_path = Path.home() / '.config/systemd/user'
+        utils.symlink_dotfile(Path('picom/picom.service'), systemd_dir_path)
+        utils.symlink_dotfile(Path('picom/stop-picom.service'), systemd_dir_path)
+        utils.run_shell_command('systemctl --user enable picom stop-picom')
+
     def pipewire(self) -> None:
         self._pm.install_packages([
             'pipewire', 'pipewire-audio', 'pipewire-alsa', 'pipewire-pulse',
