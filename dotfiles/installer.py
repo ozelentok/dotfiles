@@ -1,5 +1,6 @@
 import getpass
 import inspect
+import shutil
 import subprocess
 import tempfile
 from os import environ
@@ -89,10 +90,13 @@ class Installer:
         ]
         for link_path in links:
             parent_path = link_path.parent
-            parent_path.mkdir(parents=True, exist_ok=True)
+            utils.mkdir(parent_path)
             cache_path = runtime_cache / link_path.name
             # Cache dirs are also created at login by $HOME/.profile
             cache_path.mkdir(exist_ok=True)
+            if link_path.exists() and not link_path.is_symlink():
+                print(f'Deleting non-tmpfs linked cache directory: {link_path}')
+                shutil.rmtree(link_path)
             utils.symlink(cache_path, link_path)
 
     def media_processing(self) -> None:

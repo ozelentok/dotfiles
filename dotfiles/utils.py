@@ -21,15 +21,14 @@ class SystemPackageManager:
         )
 
     def install_aur_packages(self, packages: list[str]) -> None:
-        # When running as root, avoid reinstalling existing AUR packages
         pacman_options = self._pacman_options
+
+        # When running as root, avoid reinstalling existing AUR packages
         if os.geteuid() == 0:
             packages = [p for p in packages if subprocess.run(['pacman', '-Q', p]).returncode != 0]
             pacman_options = '-S'
 
-        subprocess.check_call(
-            ['pikaur', pacman_options, '--needed', '--noconfirm'] + packages
-        )
+        subprocess.check_call(['pikaur', pacman_options, '--needed', '--noconfirm'] + packages)
 
 
 def run_shell_command(command: str | list[str]) -> None:
@@ -37,7 +36,7 @@ def run_shell_command(command: str | list[str]) -> None:
 
 
 def mkdir(path: Path) -> None:
-    os.makedirs(path, exist_ok=True)
+    path.mkdir(parents=True, exist_ok=True)
 
 
 def symlink(src_path: Path, dst_path: Path) -> None:
