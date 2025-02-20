@@ -1,0 +1,9 @@
+[Unit]
+Description=Notifer for bluetooth connections
+
+[Service]
+ExecStart=%h/.dotfiles/dotfiles/bluetooth/bt-connection-notifier
+Type=exec
+
+[Install]
+WantedBy=default.target

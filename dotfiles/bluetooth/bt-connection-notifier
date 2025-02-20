@@ -1,0 +1,80 @@
+#!/usr/bin/env python3
+
+import dbus
+import dbus.mainloop.glib
+from gi.repository import GLib  # pyright: ignore
+
+
+class Notifier:
+    __BUS_NAME = "org.freedesktop.Notifications"
+    __OBJ_PATH = "/org/freedesktop/Notifications"
+    __URGENCY_NORMAL = 1
+
+    def __init__(self) -> None:
+        obj = dbus.SessionBus().get_object(self.__BUS_NAME, self.__OBJ_PATH)
+        self._if = dbus.Interface(obj, self.__BUS_NAME)
+
+    def notify(self, title: str, body: str) -> None:
+        self._if.Notify(
+            "",
+            0,
+            "bluetooth-active",
+            title,
+            body,
+            [],
+            {"urgency": self.__URGENCY_NORMAL},
+            -1,
+        )
+
+
+class BluetoothConnectionMonitor:
+    __BUS_NAME = "org.bluez"
+    __DEVICE_INTERFACE_NAME = "org.bluez.Device1"
+
+    def __init__(self) -> None:
+        self._bus = dbus.SystemBus()
+        self._bus.add_signal_receiver(
+            self.property_changed,
+            bus_name=self.__BUS_NAME,
+            dbus_interface="org.freedesktop.DBus.Properties",
+            signal_name="PropertiesChanged",
+            path_keyword="path",
+        )
+        self._notifier = Notifier()
+
+    def _resolve_device_name(self, path: dbus.types.String) -> str:
+        try:
+            obj = self._bus.get_object(self.__BUS_NAME, path)
+            iface = dbus.Interface(obj, "org.freedesktop.DBus.Properties")
+            return iface.Get(self.__DEVICE_INTERFACE_NAME, "Name")
+        except Exception:
+            return "Unknown Device"
+
+    def property_changed(
+        self,
+        interface: dbus.types.String,
+        changed: dbus.types.Dictionary,
+        invalidated: dbus.types.Array,
+        path: dbus.types.String,
+    ):
+        if interface != self.__DEVICE_INTERFACE_NAME:
+            return
+
+        connected = changed.get("Connected")
+        if connected is None:
+            return
+
+        device_name = self._resolve_device_name(path)
+        connected_text = "Connected" if connected else "Disconnected"
+        self._notifier.notify(device_name, connected_text)
+
+
+def main():
+    dbus.mainloop.glib.DBusGMainLoop(set_as_default=True)
+    monitor = BluetoothConnectionMonitor()  # noqa: F841
+    loop = GLib.MainLoop()
+    loop.run()
+
+
+if __name__ == "__main__":
+    main()

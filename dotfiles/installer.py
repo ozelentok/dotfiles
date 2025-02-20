@@ -107,9 +107,14 @@ class Installer:
     def bluetooth(self) -> None:
         self._pm.install_packages([
             'bluez',
-            'blueman',
+            'bluetui',
             'chntpw', # For extraction of pairing keys from Windows
         ])  # fmt: off
+
+        systemd_dir_path = Path.home() / '.config/systemd/user'
+        utils.mkdir(systemd_dir_path)
+        utils.symlink_dotfile(Path('bluetooth/bt-connection-notifier.service'), systemd_dir_path)
+        utils.run_shell_command('systemctl --user enable bt-connection-notifier')
 
         utils.copy_dotfile_as_root(Path('bluetooth/main.conf'), Path('/etc/bluetooth'))
         utils.run_shell_command('sudo systemctl enable bluetooth')
