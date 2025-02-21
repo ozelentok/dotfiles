@@ -4,16 +4,85 @@ import argparse
 import json
 import os
 import subprocess
-import sys
+from pathlib import Path
 
 import pulsectl
 
 MIC_SOURCE = "alsa_input.usb-Jieli_Technology_UACDemoV1.0_FFFFFFFFFFFFFFFF-00.mono-fallback"
 MIC2_SOURCE = "alsa_input.pci-0000_00_1f.3.analog-stereo"
-HARDWARE_SINK = "alsa_output.pci-0000_01_00.1.hdmi-stereo"
 SOUNDBOARD_SINK = "SoundboardSink"
-SOUNDBOARD_AND_MIC_SINK = "VirtualMic"
-MODULE_IDS_PATH = os.environ["XDG_RUNTIME_DIR"] + "/virtual-mic-ids"
+VIRTUAL_MIC = "VirtualMic"
+MODULE_IDS_PATH = Path(os.environ["XDG_RUNTIME_DIR"], "virtual-mic-ids")
+
+
+class VirtualMicLoader:
+    _device_descriptions: dict[str, str]
+    _loaded_modules_ids: list[int]
+
+    def __init__(self):
+        self._descriptions = {}
+        self._loaded_modules_ids = []
+        with pulsectl.Pulse() as pulse:
+            for s in pulse.sink_list() + pulse.source_list():
+                self._descriptions[s.name] = s.description.replace(" ", "\\ ")
+
+    def load(self) -> None:
+        if MODULE_IDS_PATH.exists():
+            raise RuntimeError("VirutalMic loopback modules are already registered")
+
+        with pulsectl.Pulse() as p:
+            default_sink = p.server_info().default_sink_name  # type: ignore
+
+        self._load_loopback(SOUNDBOARD_SINK, default_sink, True)
+        self._load_loopback(SOUNDBOARD_SINK, VIRTUAL_MIC, True)
+        self._load_loopback(MIC_SOURCE, VIRTUAL_MIC)
+        self._load_loopback(MIC2_SOURCE, VIRTUAL_MIC)
+
+        with open(MODULE_IDS_PATH, "w") as ids_file:
+            json.dump(self._loaded_modules_ids, ids_file)
+
+        self._set_loopbacks_volumes()
+
+    def _load_loopback(self, source: str, sink: str, monitor_source: bool = False) -> None:
+        actual_source = f"{source}.monitor" if monitor_source else source
+        args = [
+            "pactl",
+            "load-module",
+            "module-loopback",
+            f"source={actual_source}",
+            f"sink={sink}",
+            f"source_output_properties=device.description='Loopback\\ to\\ {self._descriptions[sink]}'",
+            f"sink_input_properties=device.description='Loopback\\ from\\ {self._descriptions[source]}'",
+            "sink_dont_move=false",
+            "channels=2",
+            "format=float32le",
+        ]
+        module_id = int(subprocess.check_output(args))
+        self._loaded_modules_ids.append(module_id)
+
+    def _set_loopbacks_volumes(self) -> None:
+        with pulsectl.Pulse() as pulse:
+            volume_base = 0
+            for sink_input in pulse.sink_input_list():
+                name = sink_input.name
+                if f"Loopback from {SOUNDBOARD_SINK}" in name:
+                    sink_input.volume.value_flat = 0.50 - volume_base
+                    pulse.volume_set(sink_input, sink_input.volume)
+                    volume_base += 0.10
+                elif "Loopback from UAC" in name or "Loopback from Built-in" in name:
+                    sink_input.volume.value_flat = 1
+                    pulse.volume_set(sink_input, sink_input.volume)
+
+
+def remove_loopbacks() -> None:
+    if not MODULE_IDS_PATH.exists():
+        raise RuntimeError("VirutalMic loopback modules are not registered")
+
+    with open(MODULE_IDS_PATH, "r") as ids_file:
+        module_ids = json.load(ids_file)
+    for module_id in reversed(module_ids):
+        subprocess.run(["pactl", "unload-module", str(module_id)])
+    MODULE_IDS_PATH.unlink()
 
 
 def main() -> None:
@@ -21,115 +90,13 @@ def main() -> None:
     subparsers = parser.add_subparsers(dest="command")
     subparsers.add_parser("create")
     subparsers.add_parser("remove")
-    subparsers.add_parser("volume")
     args = parser.parse_args()
     if args.command == "create":
-        if os.path.exists(MODULE_IDS_PATH):
-            print("VirtualMic already exists", file=sys.stderr)
-            return
-        create_virtual_mic()
+        VirtualMicLoader().load()
     elif args.command == "remove":
-        if not os.path.exists(MODULE_IDS_PATH):
-            print("VirtualMic does not exist", file=sys.stderr)
-            return
-        remove_virtual_mic()
-        os.remove(MODULE_IDS_PATH)
-    elif args.command == "volume":
-        set_loopbacks_volumes()
+        remove_loopbacks()
     else:
         parser.print_usage()
-
-
-def create_virtual_mic() -> None:
-    modules_ids: list[int] = []
-    descriptions = get_device_descriptions()
-    modules_ids.append(create_loopback(descriptions, SOUNDBOARD_SINK, HARDWARE_SINK, True))
-    modules_ids.append(
-        create_loopback(descriptions, SOUNDBOARD_SINK, SOUNDBOARD_AND_MIC_SINK, True)
-    )
-    modules_ids.append(create_loopback(descriptions, MIC_SOURCE, SOUNDBOARD_AND_MIC_SINK))
-    modules_ids.append(create_loopback(descriptions, MIC2_SOURCE, SOUNDBOARD_AND_MIC_SINK))
-    save_module_ids(modules_ids)
-    set_loopbacks_volumes()
-
-
-def remove_virtual_mic() -> None:
-    module_ids = load_module_ids()
-    for module_id in reversed(module_ids):
-        remove_module(module_id)
-
-
-def create_loopback(
-    descriptions: dict, source: str, sink: str, monitor_source: bool = False
-) -> int:
-    actual_source = sink_monitor(source) if monitor_source else source
-    args = [
-        "pactl",
-        "load-module",
-        "module-loopback",
-        f"source={actual_source}",
-        f"sink={sink}",
-        f"source_output_properties=device.description='Loopback\\ to\\ {descriptions[sink]}'",
-        f"sink_input_properties=device.description='Loopback\\ from\\ {descriptions[source]}'",
-        "sink_dont_move=false",
-        "channels=2",
-        "format=float32le",
-    ]
-    return int(subprocess.check_output(args))
-
-
-def remove_module(module_id: int) -> None:
-    subprocess.run(
-        [
-            "pactl",
-            "unload-module",
-            f"{module_id}",
-        ]
-    )
-
-
-def get_device_descriptions() -> dict:
-    descriptions = {}
-    with pulsectl.Pulse("virtual-mic") as pulse:
-        sinks = pulse.sink_list()
-        for s in sinks:
-            descriptions[s.name] = s.description.replace(' ', '\\ ')
-        srcs = pulse.source_list()
-        for s in srcs:
-            descriptions[s.name] = s.description.replace(' ', '\\ ')
-
-    return descriptions
-
-
-def set_loopbacks_volumes() -> None:
-    with pulsectl.Pulse("virtual-mic") as pulse:
-        volume_base = 0
-        for sink_input in pulse.sink_input_list():
-            name = sink_input.name
-            if f"Loopback from {SOUNDBOARD_SINK}" in name:
-                sink_input.volume.value_flat = 0.50 - volume_base
-                pulse.volume_set(sink_input, sink_input.volume)
-                volume_base += 0.10
-            elif "Loopback from UAC" in name or "Loopback from Built-in" in name:
-                sink_input.volume.value_flat = 1
-                pulse.volume_set(sink_input, sink_input.volume)
-
-
-def sink_monitor(sink: str) -> str:
-    return f"{sink}.monitor"
-
-
-def save_module_ids(module_ids: list[int]) -> None:
-    with open(MODULE_IDS_PATH, "w") as ids_file:
-        json.dump(module_ids, ids_file)
-
-
-def load_module_ids() -> list[int]:
-    with open(MODULE_IDS_PATH, "r") as ids_file:
-        module_ids = json.load(ids_file)
-    if type(module_ids) is not list:
-        raise SystemError(f"Invalid module ids in {MODULE_IDS_PATH}")
-    return module_ids
 
 
 if __name__ == "__main__":
