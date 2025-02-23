@@ -3,9 +3,6 @@ return {
     'tpope/vim-fugitive',
     event = 'VeryLazy',
     cmd = { 'Git', 'Gdiffsplit', 'Gvdiffsplit' },
-    keys = {
-      { '<leader>c', '<cmd>Git|20wincmd_<CR>', noremap = true },
-    }
   },
 
   {

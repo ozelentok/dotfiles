@@ -91,7 +91,7 @@ return {
       { '<C-p>',      '<cmd>Telescope find_files follow=true no_ignore=true hidden=true<CR>', noremap = true },
       { '<C-o>',      '<cmd>Telescope oldfiles<CR>',                                          noremap = true },
       { '<C-g>',      '<cmd>Telescope git_files<CR>',                                         noremap = true },
-      { '<C-b>',      '<cmd>Telescope buffers<CR>',                                           noremap = true },
+      { '<C-y>',      '<cmd>Telescope buffers<CR>',                                           noremap = true },
       { '<C-s>',      '<cmd>Telescope live_grep<CR>',                                         noremap = true },
       { '<leader>ss', '<cmd>Telescope grep_string<CR>',                                       noremap = true },
       { '<leader>r',  '<cmd>Telescope lsp_references initial_mode=normal<CR>',                noremap = true },
