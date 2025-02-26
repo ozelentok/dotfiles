@@ -239,6 +239,12 @@ return {
     event = 'VeryLazy',
   },
 
+  -- Search Replace
+  {
+    'nvim-pack/nvim-spectre',
+    event = 'VeryLazy',
+  },
+
   {
     'MeanderingProgrammer/render-markdown.nvim',
     opts = {},
