@@ -6,7 +6,7 @@ return {
   },
 
   {
-    'NeogitOrg/neogit',
+    'ozelentok/neogit',
     dependencies = {
       'nvim-lua/plenary.nvim',
       'sindrets/diffview.nvim',
