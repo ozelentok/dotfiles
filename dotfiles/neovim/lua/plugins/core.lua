@@ -37,6 +37,26 @@ return {
     },
     keys = {
       { '<leader>a', '<cmd>Neotree toggle<CR>', noremap = true, desc = 'Neotree' },
+    },
+    opts = {
+      default_component_configs = {
+        indent = {
+          with_expanders = true,
+        },
+      },
+      filesystem = {
+        follow_current_file = {
+          enabled = true,
+          leave_dirs_open = true,
+          use_libuv_file_watcher = true,
+        },
+        window = {
+          mappings = {
+            ["h"] = "close_node",
+            ["l"] = "open",
+          }
+        }
+      }
     }
   },
 
