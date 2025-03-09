@@ -226,7 +226,9 @@ class Installer:
     def pipewire(self) -> None:
         self._pm.install_packages([
             'pipewire', 'pipewire-audio', 'pipewire-alsa', 'pipewire-pulse',
-            'pavucontrol', 'alsa-utils',
+            'alsa-utils',
+            'rtkit',
+            'pavucontrol',
         ])  # fmt: off
 
         config_dir_path = Path.home() / '.config/pipewire/client.conf.d'
