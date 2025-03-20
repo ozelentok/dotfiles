@@ -113,6 +113,7 @@ class Installer:
             'bluez',
             'bluetui',
             'chntpw', # For extraction of pairing keys from Windows
+            'python-dbus', # For bt-connection-notifier
         ])  # fmt: off
 
         systemd_dir_path = Path.home() / '.config/systemd/user'
