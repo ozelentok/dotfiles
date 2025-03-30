@@ -246,9 +246,7 @@ class Installer:
         user_bin_dir_path = Path.home() / '.local/bin'
         utils.mkdir(user_bin_dir_path)
         utils.symlink_dotfile(Path('mount-utils/wmount.sh'), user_bin_dir_path / 'wmount')
-        utils.symlink_dotfile(Path('mount-utils/wumount.sh'), user_bin_dir_path / 'wumount')
         utils.symlink_dotfile(Path('mount-utils/sftpmount.sh'), user_bin_dir_path / 'sftpmount')
-        utils.symlink_dotfile(Path('mount-utils/sftpumount.sh'), user_bin_dir_path / 'sftpumount')
 
     def mimeapps(self) -> None:
         config_dir_path = Path.home() / '.config'

@@ -1,37 +1,51 @@
-#!/bin/bash
-
-set -e
+#!/usr/bin/env bash
 
 if [ "$#" -lt 2 ]; then
-  echo "sftpmount - Mount SFTP Share on /mnt/sftp"
+  echo "sftpmount - Mount SFTP on /mnt/sftp"
   echo "Usage: sftpmount [HOST] [USER] [-u] [OPTIONS]"
   echo ""
   exit 1
 fi
+
 REMOTE_HOST=$1
 REMOTE_USER=$2
-set +e
 
-if [[ "$3" == "-u*" ]]; then
-  fusermount -u /mnt/sftp/$REMOTE_HOST
-  rmdir /mnt/sftp/$REMOTE_HOST
-  echo "Share dismounted from /mnt/sftp/$REMOTE_HOST"
+MOUNTPOINT="/mnt/sftp/$REMOTE_HOST"
+
+if [[ "$3" == "-u" ]]; then
+  if mountpoint -q "$MOUNTPOINT"; then
+    fusermount -u "$MOUNTPOINT" || exit 1
+  fi
+  if [ -d "$MOUNTPOINT" ]; then
+    rmdir "$MOUNTPOINT" || exit 1
+  else
+    echo "$MOUNTPOINT is not mounted"; exit 2
+  fi
+
   exit 0
 fi
 
-mkdir -p /mnt/sftp/$REMOTE_HOST
+if mountpoint -q "$MOUNTPOINT"; then
+  echo "$MOUNTPOINT is already mounted"; exit 1
+fi
+
+if ! mkdir -p "$MOUNTPOINT"; then
+  echo "Failed to create directory $MOUNTPOINT"; exit 2
+fi
+
+# shellcheck disable=SC2199
 if [[ "${@:3}" != *directport* ]]; then
-  sshfs $REMOTE_USER@$REMOTE_HOST:/ \
-    /mnt/sftp/$REMOTE_HOST ${@:3}
+  # shellcheck disable=SC2068
+  sshfs "$REMOTE_USER@$REMOTE_HOST:/" "$MOUNTPOINT" ${@:3}
 else
-  sshfs $REMOTE_HOST:/ \
-    /mnt/sftp/$REMOTE_HOST ${@:3}
+  # shellcheck disable=SC2068
+  sshfs "$REMOTE_HOST:/" "$MOUNTPOINT" ${@:3}
 fi
 
 MOUNT_EXIT_CODE=$?
-set -e
 if [ $MOUNT_EXIT_CODE -ne 0 ]; then
-  rmdir /mnt/sftp/$REMOTE_HOST
+  rmdir "$MOUNTPOINT"
+  exit $MOUNT_EXIT_CODE
 else
-  echo "Share mounted on /mnt/sftp/$REMOTE_HOST"
+  echo "Mounted on $MOUNTPOINT"
 fi
