@@ -148,7 +148,11 @@ class Installer:
 
     def gimp(self) -> None:
         self._pm.install_packages(['gimp'])
-        self.install_aur_packages(['xsane', 'xsane-gimp'])
+        self.install_aur_packages(['xsane'])
+
+        plugin_dir_path = Path.home() / '.config/GIMP/3.0/plug-ins/xsane'
+        utils.mkdir(plugin_dir_path)
+        utils.symlink_dotfile(Path('gimp/xsane.py'), plugin_dir_path)
 
     def git(self) -> None:
         self._pm.install_packages(['git', 'git-delta'])
