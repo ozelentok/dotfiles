@@ -135,9 +135,9 @@ def set_audio(cmd: list, audio: Audio, codec: AudioCodec):
     elif audio == Audio.copy:
         cmd += ['-c:a', 'copy']
     elif audio == Audio.mono:
-        cmd += ['-c:a', codec.value, '-ac', '1', '-b:a', '96K']
+        cmd += ['-c:a', codec.value, '-ar', 48000, '-ac', '1', '-b:a', '96K']
     elif audio == Audio.stereo:
-        cmd += ['-c:a', codec.value, '-ac', '2', '-b:a', '128K']
+        cmd += ['-c:a', codec.value, '-ar', 48000, '-ac', '2', '-b:a', '128K']
 
 
 def set_video_tune(cmd: list, tune: Optional[VideoTune]):
