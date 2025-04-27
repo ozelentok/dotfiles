@@ -12,7 +12,7 @@ return {
       'sindrets/diffview.nvim',
     },
     keys = {
-      { '<leader>g', '<cmd>Neogit<CR>', noremap = true },
+      { '<leader>gg', '<cmd>Neogit<CR>', noremap = true, desc = 'Neogit' },
     },
     opts = {}
   },

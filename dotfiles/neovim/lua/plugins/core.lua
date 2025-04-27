@@ -27,39 +27,6 @@ return {
     },
   },
 
-  {
-    'nvim-neo-tree/neo-tree.nvim',
-    branch = 'v3.x',
-    dependencies = {
-      'nvim-lua/plenary.nvim',
-      'nvim-tree/nvim-web-devicons',
-      'MunifTanjim/nui.nvim',
-    },
-    keys = {
-      { '<leader>a', '<cmd>Neotree toggle<CR>', noremap = true, desc = 'Neotree' },
-    },
-    opts = {
-      default_component_configs = {
-        indent = {
-          with_expanders = true,
-        },
-      },
-      filesystem = {
-        follow_current_file = {
-          enabled = true,
-          leave_dirs_open = true,
-          use_libuv_file_watcher = true,
-        },
-        window = {
-          mappings = {
-            ["h"] = "close_node",
-            ["l"] = "open",
-          }
-        }
-      }
-    }
-  },
-
   -- Movement
   {
     'phaazon/hop.nvim',
@@ -97,67 +64,9 @@ return {
     }
   },
 
-  -- Fuzzy finder
-  {
-    'nvim-telescope/telescope.nvim',
-    event = 'VeryLazy',
-    dependencies = {
-      'nvim-lua/plenary.nvim',
-      'folke/noice.nvim',
-      'nvim-telescope/telescope-fzf-native.nvim',
-    },
-    keys = {
-      { '<C-i>',      '<cmd>Telescope find_files follow=true<CR>',                            noremap = true },
-      { '<C-p>',      '<cmd>Telescope find_files follow=true no_ignore=true hidden=true<CR>', noremap = true },
-      { '<C-o>',      '<cmd>Telescope oldfiles<CR>',                                          noremap = true },
-      { '<C-g>',      '<cmd>Telescope git_files<CR>',                                         noremap = true },
-      { '<C-y>',      '<cmd>Telescope buffers<CR>',                                           noremap = true },
-      { '<C-s>',      '<cmd>Telescope live_grep<CR>',                                         noremap = true },
-      { '<leader>ss', '<cmd>Telescope grep_string<CR>',                                       noremap = true },
-      { '<leader>r',  '<cmd>Telescope lsp_references initial_mode=normal<CR>',                noremap = true },
-      { '<leader>d',  '<cmd>Telescope lsp_definitions initial_mode=normal<CR>',               noremap = true },
-      { '<leader>sf', '<cmd>Telescope spell_suggest initial_mode=normal<CR>',                 noremap = true },
-      { '<leader>nn', '<cmd>Telescope noice<CR>',                                             noremap = true },
-      { '<leader>nt', '<cmd>Telescope treesitter<CR>',                                        noremap = true },
-      { '<leader>nc', '<cmd>Telescope command_history<CR>',                                   noremap = true },
-      { '<leader>ns', '<cmd>Telescope search_history<CR>',                                    noremap = true },
-      { '<leader>mm', '<cmd>Telescope man_pages<CR>',                                         noremap = true },
-      { '<leader>md', '<cmd>Telescope gtags def initial_mode=normal<CR>',                     noremap = true },
-      { '<leader>mr', '<cmd>Telescope gtags ref initial_mode=normal<CR>',                     noremap = true },
-      {
-        '<leader>sd',
-        function()
-          require('telescope.builtin').live_grep({
-            additional_args = { '--no-ignore' }
-          })
-        end,
-        noremap = true,
-        desc = 'Telescope live_grep --no-ignore'
-      },
-    },
-    opts = {
-      defaults = {
-        layout_strategy = 'bottom_pane'
-      }
-    },
-    init = function()
-      require('telescope').load_extension('noice')
-      require('telescope').load_extension('gtags')
-      require('telescope').load_extension('fzf')
-      vim.cmd [[autocmd User TelescopePreviewerLoaded setlocal number]]
-    end,
-  },
-  {
-    'nvim-telescope/telescope-fzf-native.nvim',
-    build = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release'
-  },
-
   {
     'Bekaboo/dropbar.nvim',
     event = 'VeryLazy',
-    dependencies = {
-      'nvim-telescope/telescope-fzf-native.nvim'
-    },
     keys = {
       {
         '<leader>e',
@@ -176,20 +85,8 @@ return {
     opts = {},
     cmd = 'Trouble',
     keys = {
-      { '<leader>t', '<cmd>Trouble diagnostics toggle filter.buf=0<CR>', noremap = true, desc = 'Trouble Diagnostics' },
-      { '<leader>w', '<cmd>Trouble diagnostics toggle<CR>',              noremap = true, desc = 'Trouble Workspace' }
-    }
-  },
-
-  -- Smooth Scrolling
-  {
-    'karb94/neoscroll.nvim',
-    opts = {
-      mappings = { '<C-u>', '<C-d>' },
-      hide_cursor = false,
-      respect_scrolloff = true,
-      performance_mode = false,
-      easing = 'circular'
+      { '<leader>tt', '<cmd>Trouble diagnostics toggle filter.buf=0<CR>', noremap = true, desc = 'Trouble Diagnostics' },
+      { '<leader>ww', '<cmd>Trouble diagnostics toggle<CR>',              noremap = true, desc = 'Trouble Workspace' }
     }
   },
 

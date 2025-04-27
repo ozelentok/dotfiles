@@ -1,21 +1,21 @@
 local colors = {
-  black        = '#000000',
-  fg           = '#F0F0F0',
-  red          = '#F85060',
-  purple       = '#D070F0',
-  green        = '#30F040',
-  blue         = '#41a7fc',
-  yellow       = '#F0D020',
-  cyan         = '#50E0F9',
-  grey         = '#708090',
-  light_grey   = '#A0C0C0',
-  dark_cyan    = '#008090',
-  dark_orange  = '#B09000',
-  float_border = '#101010',
-  diff_add     = '#003010',
-  diff_delete  = '#700000',
-  diff_change  = '#000060',
-  diff_text    = '#500060',
+  black       = '#000000',
+  fg          = '#F0F0F0',
+  red         = '#F85060',
+  purple      = '#D070F0',
+  green       = '#30F040',
+  blue        = '#41a7fc',
+  yellow      = '#F0D020',
+  cyan        = '#50E0F9',
+  grey        = '#708090',
+  light_grey  = '#A0C0C0',
+  dark_cyan   = '#008090',
+  dark_orange = '#B09000',
+  float_bg    = '#101010',
+  diff_add    = '#003010',
+  diff_delete = '#700000',
+  diff_change = '#000060',
+  diff_text   = '#500060',
 }
 
 return {
@@ -35,7 +35,8 @@ return {
         LineNr      = { fg = colors.dark_cyan },
         MatchParen  = { fg = colors.black, bg = colors.purple },
         Folded      = { fg = colors.cyan },
-        FloatBorder = { bg = colors.float_border }
+        FloatBorder = { bg = colors.float_bg },
+        NormalFloat = { bg = colors.float_bg }
       },
       diagnostics = {
         darker = false,
@@ -78,12 +79,5 @@ return {
     'NvChad/nvim-colorizer.lua',
     events = 'VeryLazy',
     opts = {},
-  },
-  {
-    'lukas-reineke/indent-blankline.nvim',
-    main = 'ibl',
-    opts = {
-      indent = { char = { '|', '¦', '┆' } },
-    }
   },
 }

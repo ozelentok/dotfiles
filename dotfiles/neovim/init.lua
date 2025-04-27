@@ -27,6 +27,7 @@ vim.o.diffopt = 'filler,vertical,closeoff,internal,indent-heuristic,linematch:60
 vim.o.shada = '!,\'500,<10,s10,h,rfugitive:,rzipfile:,rterm:'
 vim.o.showcmdloc = 'statusline'
 vim.g.mapleader = ','
+vim.g.no_python_maps = false
 vim.diagnostic.config({ virtual_text = true })
 
 vim.o.clipboard = 'unnamed,unnamedplus'
@@ -76,7 +77,7 @@ map_vim('n', '<F3>', '"=strftime("%Y-%m-%d %H:%M:%S")<CR>P')
 map_vim('i', '<F3>', '<C-R>=strftime("%Y-%m-%d %H:%M:%S")<CR>')
 
 -- Diff two open windows
-map_vim('n', '<leader>f', '<cmd>diffthis<CR><C-w><C-w><cmd>diffthis<CR><C-w><C-w>')
+map_vim('n', '<leader>df', '<cmd>diffthis<CR><C-w><C-w><cmd>diffthis<CR><C-w><C-w>')
 
 -- Quick exit
 map_vim('n', '<C-q>', ':q<CR>')

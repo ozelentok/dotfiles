@@ -27,7 +27,7 @@ return {
         settings = {
           Lua = {
             runtime = { version = 'LuaJIT', },
-            diagnostics = { globals = { 'vim', 'vifm' } },
+            diagnostics = { globals = { 'vim', 'vifm', 'Snacks' } },
             workspace = {
               checkThirdParty = false,
               library = {
