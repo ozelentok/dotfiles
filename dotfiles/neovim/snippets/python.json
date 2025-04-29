@@ -1,0 +1,11 @@
+{
+  "mym": {
+    "prefix": "mym",
+    "body": "import argparse\nimport sys\n\n\ndef main() -> int:\n    parser = argparse.ArgumentParser()\n    parser.add_argument(${1})\n\n    args = parser.parse_args()\n    ${0}\n\n    return 0\n\n\nif __name__ == \"__main__\":\n    sys.exit(main())\n",
+    "description": "Main with argparse"
+  },
+  "#3": {
+    "prefix": "#3",
+    "body": "#!/usr/bin/env python3"
+  }
+}

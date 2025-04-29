@@ -1,0 +1,7 @@
+{
+  "mym": {
+    "prefix": "mym",
+    "body": "include <BOSL2/std.scad>\n\n$fn = $preview ? 8 : 96;\n\nmodule ${1:name}() {\n  ${0}\n}\n${1}();\n",
+    "description": "Main with bosl2"
+  }
+}
