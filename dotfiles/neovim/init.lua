@@ -28,7 +28,7 @@ vim.o.shada = '!,\'500,<10,s10,h,rfugitive:,rzipfile:,rterm:'
 vim.o.showcmdloc = 'statusline'
 vim.g.mapleader = ','
 vim.g.no_python_maps = false
-vim.diagnostic.config({ virtual_text = true })
+vim.diagnostic.config({ virtual_text = true, virtual_lines = false })
 
 vim.o.clipboard = 'unnamed,unnamedplus'
 if os.getenv('SSH_TTY') then
@@ -88,6 +88,19 @@ map_vim('n', '<leader><leader>q', ':qa!<CR>')
 -- Disable copy of selected text during paste
 map_vim('x', 'p', "'pgv\"'.v:register.'y`>'", { expr = true })
 map_vim('x', 'P', "'Pgv\"'.v:register.'y`>'", { expr = true })
+
+-- Toggle between virtual_text and virtual_lines
+vim.keymap.set('n', '<leader>th', function()
+  local conf = vim.diagnostic.config()
+  if (conf == nil) then
+    vim.notify('Unable to toggle diagnostic, vim.diagnostic.config() returned nil', vim.log.levels.ERROR)
+    return
+  end
+
+  conf.virtual_text = not conf.virtual_text
+  conf.virtual_lines = not conf.virtual_lines
+  vim.diagnostic.config(conf)
+end, { noremap = true, desc = 'Toggle diagnostic between virtual_text and virtual_lines' })
 
 -- Output command result to current buffer
 vim.keymap.set('c', '<C-o>', function()
