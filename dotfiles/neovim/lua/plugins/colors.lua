@@ -73,7 +73,10 @@ return {
       end
     end,
   },
-  'hiphish/rainbow-delimiters.nvim',
+  {
+    'hiphish/rainbow-delimiters.nvim',
+    submodules = false,
+  },
   'nvim-tree/nvim-web-devicons',
   {
     'NvChad/nvim-colorizer.lua',
