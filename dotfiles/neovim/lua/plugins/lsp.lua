@@ -9,7 +9,6 @@ return {
       { '<leader>c', vim.lsp.buf.code_action, noremap = true, desc = 'LSP Code Action' },
     },
     config = function()
-      vim.lsp.enable('lua_ls')
       vim.lsp.config('lua_ls', {
         settings = {
           Lua = {
@@ -29,20 +28,23 @@ return {
           }
         }
       })
-
-      vim.lsp.enable('clangd')
-      vim.lsp.enable('pyright')
-      vim.lsp.enable('ruff')
-      vim.lsp.enable('eslint')
-      vim.lsp.enable('cmake')
-      vim.lsp.enable('html')
-      vim.lsp.enable('jsonls')
-      vim.lsp.enable('cssls')
-      vim.lsp.enable('arduino_language_server')
-      vim.lsp.enable('bashls')
-      vim.lsp.enable('openscad_lsp')
       vim.lsp.config('bashls', { filetypes = { 'bash', 'sh', 'zsh' } })
       vim.lsp.config('openscad_lsp', { cmd = { 'openscad-lsp', '--stdio', '--fmt-style', 'LLVM' } })
+
+      vim.lsp.enable({
+        'lua_ls',
+        'clangd',
+        'pyright',
+        'ruff',
+        'eslint',
+        'cmake',
+        'html',
+        'jsonls',
+        'cssls',
+        'arduino_language_server',
+        'bashls',
+        'openscad_lsp',
+      })
     end
   },
   {
