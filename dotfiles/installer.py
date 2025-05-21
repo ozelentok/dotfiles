@@ -42,7 +42,9 @@ class Installer:
             'plocate',
             'fd',
             'ripgrep',
-            'unrar', 'p7zip', 'unzip',
+            'unrar',
+            '7zip',
+            'unzip',
             'rsync',
             'strace',
             'lsof',
@@ -50,7 +52,7 @@ class Installer:
 
             'inetutils',
             'net-tools',
-            'bind-tools',
+            'bind',
 
             'polkit',
 
@@ -138,8 +140,13 @@ class Installer:
 
     def fontconfig(self) -> None:
         self._pm.install_packages([
-            'noto-fonts', 'noto-fonts-cjk', 'noto-fonts-emoji', 'ttf-hack-nerd', 'ttf-liberation',
-            'ttf-roboto', 'fontconfig'
+            'noto-fonts',
+            'noto-fonts-cjk',
+            'noto-fonts-emoji',
+            'ttf-hack-nerd',
+            'ttf-liberation',
+            'ttf-roboto',
+            'fontconfig'
         ])  # fmt: off
 
         config_dir_path = Path.home() / '.config/fontconfig'
