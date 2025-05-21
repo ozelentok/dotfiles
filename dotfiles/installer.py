@@ -146,7 +146,8 @@ class Installer:
             'ttf-hack-nerd',
             'ttf-liberation',
             'ttf-roboto',
-            'fontconfig'
+            'cantarell-fonts',
+            'fontconfig',
         ])  # fmt: off
 
         config_dir_path = Path.home() / '.config/fontconfig'
