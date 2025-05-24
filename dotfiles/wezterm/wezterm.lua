@@ -1,7 +1,7 @@
 local wezterm = require('wezterm')
 
 return {
-  font = wezterm.font_with_fallback({ 'Hack Nerd Font', 'Liberation Sans', 'Noto Color Emoji' }),
+  font = wezterm.font_with_fallback({ 'Hack', 'Liberation Mono', 'Symbols Nerd Font', 'Noto Color Emoji' }),
   font_size = 10.5,
   front_end = 'WebGpu',
   max_fps = 120,
