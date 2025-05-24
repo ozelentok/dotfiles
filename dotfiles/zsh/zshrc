@@ -146,6 +146,7 @@ alias ranger='. ranger'
 
 alias tt='cd /tmp'
 alias 44='cd /tmp/1-imgs'
+alias bt='bluetui'
 alias pwf='sudo poweroff'
 alias rbt='sudo reboot'
 alias psu='ps -lFww --ppid 2 -p 2 --deselect'
