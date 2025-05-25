@@ -48,7 +48,7 @@ class Full(Profile):
         self._installer.fontconfig()
         self._installer.gtk()
         self._installer.theme()
-        self._installer.wezterm()
+        self._installer.kitty()
 
         self._installer.picom()
         self._installer.pipewire()

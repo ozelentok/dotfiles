@@ -479,6 +479,12 @@ class Installer:
         utils.mkdir(config_dir_path)
         utils.symlink_dotfile(Path('wezterm/wezterm.lua'), config_dir_path)
 
+    def kitty(self) -> None:
+        self._pm.install_packages(['kitty'])
+        config_dir_path = Path.home() / '.config/kitty'
+        utils.mkdir(config_dir_path)
+        utils.symlink_dotfile(Path('kitty/kitty.conf'), config_dir_path)
+
     def X11(self) -> None:
         self._pm.install_packages([
             'xorg-server', 'xorg-xinit', 'xorg-xkill', 'xorg-xhost', 'xorg-xev',
@@ -506,7 +512,8 @@ class Installer:
             'fzf',
             'zoxide',
             'lsd',
-            'which'
+            'which',
+            'kitty-terminfo',
         ])  # fmt: off
         self.install_aur_packages(['zsh-theme-powerlevel10k-git'])
 
