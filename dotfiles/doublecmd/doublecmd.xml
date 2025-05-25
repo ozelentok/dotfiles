@@ -411,19 +411,19 @@
       <Quality>0</Quality>
     </Main>
     <Editor>
-      <Name>Hack</Name>
+      <Name>Fira Code</Name>
       <Size>9</Size>
       <Style>0</Style>
       <Quality>0</Quality>
     </Editor>
     <Viewer>
-      <Name>Hack</Name>
+      <Name>Fira Code</Name>
       <Size>11</Size>
       <Style>0</Style>
       <Quality>0</Quality>
     </Viewer>
     <Log>
-      <Name>Hack</Name>
+      <Name>Fira Code</Name>
       <Size>11</Size>
       <Style>0</Style>
       <Quality>0</Quality>
@@ -435,7 +435,7 @@
       <Quality>0</Quality>
     </ViewerBook>
     <Console>
-      <Name>Hack</Name>
+      <Name>Fira Code</Name>
       <Size>11</Size>
       <Style>0</Style>
       <Quality>0</Quality>

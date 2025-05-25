@@ -144,7 +144,7 @@ class Installer:
             'noto-fonts-cjk',
             'noto-fonts-emoji',
             'ttf-nerd-fonts-symbols',
-            'ttf-hack',
+            'ttf-fira-code',
             'ttf-liberation',
             'ttf-roboto',
             'cantarell-fonts',
