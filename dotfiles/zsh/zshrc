@@ -8,8 +8,7 @@ if [[ -r "$HOME/.cache/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
 fi
 
 setopt histignorealldups sharehistory
-bindkey -e
-set -o vi
+bindkey -v
 
 HISTSIZE=100000
 SAVEHIST=100000
