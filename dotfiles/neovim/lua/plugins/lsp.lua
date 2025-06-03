@@ -29,7 +29,6 @@ return {
         }
       })
       vim.lsp.config('bashls', { filetypes = { 'bash', 'sh', 'zsh' } })
-      vim.lsp.config('openscad_lsp', { cmd = { 'openscad-lsp', '--stdio', '--fmt-style', 'LLVM' } })
 
       vim.lsp.enable({
         'lua_ls',
