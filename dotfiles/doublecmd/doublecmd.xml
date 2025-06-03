@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<doublecmd DCVersion="1.1.15 gamma" ConfigVersion="15">
+<doublecmd DCVersion="1.1.24 gamma" ConfigVersion="15">
   <Configuration Save="True" SortOrder="0" TreeType="0">
     <FolderTabs Save="True"/>
   </Configuration>
@@ -333,12 +333,12 @@
     <GoToRoot>False</GoToRoot>
     <ShowCurDirTitleBar>False</ShowCurDirTitleBar>
     <ActiveRight>False</ActiveRight>
-    <RunInTerminalStayOpenCmd>wezterm</RunInTerminalStayOpenCmd>
-    <RunInTerminalStayOpenParams>start --cwd %D -- {command}</RunInTerminalStayOpenParams>
-    <RunInTerminalCloseCmd>wezterm</RunInTerminalCloseCmd>
-    <RunInTerminalCloseParams>start --cwd %D -- {command}</RunInTerminalCloseParams>
-    <JustRunTerminal>wezterm</JustRunTerminal>
-    <JustRunTermParams>start --cwd %D</JustRunTermParams>
+    <RunInTerminalStayOpenCmd>kitty</RunInTerminalStayOpenCmd>
+    <RunInTerminalStayOpenParams>-d %D -- {command}</RunInTerminalStayOpenParams>
+    <RunInTerminalCloseCmd>kitty</RunInTerminalCloseCmd>
+    <RunInTerminalCloseParams>-d %D -- {command}</RunInTerminalCloseParams>
+    <JustRunTerminal>kitty</JustRunTerminal>
+    <JustRunTermParams>-d %D</JustRunTermParams>
     <OnlyOneAppInstance>False</OnlyOneAppInstance>
     <LynxLike>True</LynxLike>
     <FileSizeFormat>0</FileSizeFormat>
@@ -625,7 +625,7 @@
     <MultiRename>
       <MulRenShowMenuBarOnTop>True</MulRenShowMenuBarOnTop>
       <MulRenInvalidCharReplacement>.</MulRenInvalidCharReplacement>
-      <MulRenLaunchBehavor>1</MulRenLaunchBehavor>
+      <MulRenLaunchBehavor>0</MulRenLaunchBehavor>
       <MulRenExitModifiedPreset>0</MulRenExitModifiedPreset>
       <MulRenSaveRenamingLog>0</MulRenSaveRenamingLog>
       <MulRenLogFilename>%DC_CONFIG_PATH%/multirename.log</MulRenLogFilename>
@@ -633,6 +633,7 @@
       <MulRenFilenameWithFullPathInLog>False</MulRenFilenameWithFullPathInLog>
       <MulRenPathRangeSeparator>- </MulRenPathRangeSeparator>
     </MultiRename>
+    <DefaultDropEffect>True</DefaultDropEffect>
   </FileOperations>
   <Tabs>
     <Options>49937</Options>
@@ -979,7 +980,7 @@
     <AutoCompare>True</AutoCompare>
     <KeepScrolling>True</KeepScrolling>
     <PaintBackground>True</PaintBackground>
-    <LineDifferences>False</LineDifferences>
+    <LineDifferences>True</LineDifferences>
     <IgnoreWhiteSpace>False</IgnoreWhiteSpace>
     <Colors>
       <Added>11206570</Added>
