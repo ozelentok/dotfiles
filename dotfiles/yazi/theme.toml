@@ -1,4 +1,4 @@
-[manager]
+[mgr]
 cwd =          { fg = "#F0C020" }
 border_style = { fg = "#404040" }
 
