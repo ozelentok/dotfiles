@@ -8,7 +8,7 @@ return {
       { '<leader>v', vim.lsp.buf.format,      noremap = true, desc = 'LSP Format' },
       { '<leader>c', vim.lsp.buf.code_action, noremap = true, desc = 'LSP Code Action' },
     },
-    config = function()
+    init = function()
       vim.lsp.config('lua_ls', {
         settings = {
           Lua = {
@@ -22,9 +22,7 @@ return {
               }
             },
             telemetry = { enable = false },
-            format = {
-              enable = true,
-            }
+            format = { enable = true }
           }
         }
       })
