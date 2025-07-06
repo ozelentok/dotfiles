@@ -11,7 +11,7 @@
 [interactive]
   diffFilter = delta --color-only
 [merge]
-  conflictStyle = zdiff3
+  conflictStyle = merge
   tool = diffview
 [mergetool]
   prompt = true
