@@ -9,6 +9,15 @@
       {
         "language": "openscad",
         "path": "./openscad.json"
+      },
+      {
+        "language": [
+          "shellscript",
+          "shell",
+          "sh",
+          "zsh"
+        ],
+        "path": "./shell.json"
       }
     ]
   }
