@@ -378,9 +378,8 @@ class Installer:
         u = getpass.getuser()
         utils.run_shell_command(f'sudo systemctl enable pre-sleep@{u} post-sleep@{u}')
 
-    @utils.avoid_reinstall('ueberzugpp')
     def ueberzugpp(self) -> None:
-        self.install_aur_packages(['ueberzugpp'])
+        self._pm.install_packages(['ueberzugpp'])
         config_dir_path = Path.home() / '.config/ueberzugpp'
         utils.mkdir(config_dir_path)
         utils.symlink_dotfile(Path('ueberzugpp/config.json'), config_dir_path)
