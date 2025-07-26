@@ -1,4 +1,4 @@
-'''
+"""
 Display default PulseAudio device name
 
 Configuration parameters:
@@ -8,7 +8,7 @@ Configuration parameters:
 
 Format placeholders:
     {name}   default audio device name
-'''
+"""
 
 import time
 import traceback
@@ -21,7 +21,7 @@ import pulsectl
 class Py3status:
     # available configuration parameters
     cache_timeout = 600
-    format = '{name}'
+    format = "{name}"
     reconnection_interval = 10
 
     py3: Any
@@ -42,14 +42,14 @@ class Py3status:
                         ):
                             self.py3.update()
 
-                    pulse.event_mask_set('sink')
+                    pulse.event_mask_set("sink")
                     pulse.event_callback_set(event_callback)
                     pulse.event_listen()
 
             except pulsectl.PulseDisconnected:
                 pass
             except Exception:
-                self.py3.error(f'Error registring to pulseaudio changes\n{traceback.format_exc()}')
+                self.py3.error(f"Error registring to pulseaudio changes\n{traceback.format_exc()}")
             time.sleep(self.reconnection_interval)
 
     def default_audio_device(self) -> Dict:
@@ -58,22 +58,22 @@ class Py3status:
             name = p.get_sink_by_name(default_sink).description  # type: ignore
 
         if not name:
-            name = 'No Audio Out'
-        elif name.startswith('Built-in Audio Analog'):
-            name = 'Line Out'
-        elif 'Digital Stereo (HDMI)' in name:
-            name = 'HDMI Out'
+            name = "No Audio Out"
+        elif name.startswith("Built-in Audio Analog"):
+            name = "Line Out"
+        elif "Digital Stereo (HDMI)" in name:
+            name = "HDMI Out"
 
         return {
-            'full_text': self.py3.safe_format(self.format, {'name': name}),
-            'cached_until': self.py3.time_in(self.cache_timeout),
+            "full_text": self.py3.safe_format(self.format, {"name": name}),
+            "cached_until": self.py3.time_in(self.cache_timeout),
         }
 
     def on_click(self, _):
         self.py3.update()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     from py3status.module_test import module_test
 
     module_test(Py3status)

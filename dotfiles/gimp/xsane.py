@@ -10,7 +10,7 @@ from tempfile import TemporaryDirectory
 import gi
 
 gi.require_version("Gimp", "3.0")
-from gi.repository import Gimp, Gio, GLib, GObject # noqa: E402 # pyright: ignore
+from gi.repository import Gimp, Gio, GLib, GObject  # noqa: E402 # pyright: ignore
 
 
 def run_xsane(procedure, config, run_data: Path, *args) -> Gimp.ValueArray:

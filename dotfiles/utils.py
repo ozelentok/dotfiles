@@ -9,15 +9,15 @@ __MOUDLE_PATH = Path(os.path.dirname(os.path.abspath(__file__)))
 
 
 class SystemPackageManager:
-    _pacman_options = '-Syu'
+    _pacman_options = "-Syu"
 
     def __init__(self, skip_upgrade=False):
         if skip_upgrade:
-            self._pacman_options = '-S'
+            self._pacman_options = "-S"
 
     def install_packages(self, packages: list[str]) -> None:
         subprocess.check_call(
-            ['sudo', 'pacman', self._pacman_options, '--needed', '--noconfirm'] + packages
+            ["sudo", "pacman", self._pacman_options, "--needed", "--noconfirm"] + packages
         )
 
     def install_aur_packages(self, packages: list[str]) -> None:
@@ -25,10 +25,10 @@ class SystemPackageManager:
 
         # When running as root, avoid reinstalling existing AUR packages
         if os.geteuid() == 0:
-            packages = [p for p in packages if subprocess.run(['pacman', '-Q', p]).returncode != 0]
-            pacman_options = '-S'
+            packages = [p for p in packages if subprocess.run(["pacman", "-Q", p]).returncode != 0]
+            pacman_options = "-S"
 
-        subprocess.check_call(['pikaur', pacman_options, '--needed', '--noconfirm'] + packages)
+        subprocess.check_call(["pikaur", pacman_options, "--needed", "--noconfirm"] + packages)
 
 
 def run_shell_command(command: str | list[str]) -> None:
@@ -49,7 +49,7 @@ def symlink(src_path: Path, dst_path: Path) -> None:
 
 def symlink_relative(src_path: Path, dst_path: Path, hidden: bool = False) -> None:
     if dst_path.is_dir() and not dst_path.is_symlink():
-        dst_path /= ('.' if hidden else '') + src_path.name
+        dst_path /= ("." if hidden else "") + src_path.name
     rel_target_path = os.path.relpath(src_path, dst_path.parent)
     if dst_path.is_symlink() and dst_path.readlink() == rel_target_path:
         return
@@ -64,16 +64,16 @@ def symlink_dotfile(dotfile_path: Path, dst_path: Path, hidden: bool = False) ->
 
 def symlink_dotfile_with_root(dotfile_path: Path, dst_path: Path, hidden: bool = False) -> None:
     if dst_path.is_dir() and not dst_path.is_symlink():
-        dst_path /= ('.' if hidden else '') + dotfile_path.name
+        dst_path /= ("." if hidden else "") + dotfile_path.name
     src_path = __MOUDLE_PATH / dotfile_path
     run_shell_command(
-        ' '.join(['sudo', 'ln', '-s', '-f', src_path.as_posix(), dst_path.as_posix()])
+        " ".join(["sudo", "ln", "-s", "-f", src_path.as_posix(), dst_path.as_posix()])
     )
 
 
 def copy_dotfile(dotfile_path: Path, dst_path: Path, hidden: bool = False) -> None:
     if dst_path.is_dir():
-        dst_path /= ('.' if hidden else '') + dotfile_path.name
+        dst_path /= ("." if hidden else "") + dotfile_path.name
 
     src_path = __MOUDLE_PATH / dotfile_path
     if dst_path.exists():
@@ -86,28 +86,28 @@ def copy_dotfile(dotfile_path: Path, dst_path: Path, hidden: bool = False) -> No
 
 def copy_dotfile_as_root(dotfile_path: Path, dst_path: Path, hidden: bool = False) -> None:
     if dst_path.is_dir():
-        dst_path /= ('.' if hidden else '') + dotfile_path.name
+        dst_path /= ("." if hidden else "") + dotfile_path.name
 
     src_path = __MOUDLE_PATH / dotfile_path
-    subprocess.check_call(['sudo', 'cp', src_path, dst_path], cwd=__MOUDLE_PATH)
+    subprocess.check_call(["sudo", "cp", src_path, dst_path], cwd=__MOUDLE_PATH)
 
 
 def extract_dotfile_tar(dotfile_tar_path: Path, dst_dir_path: Path):
     src_path = __MOUDLE_PATH / dotfile_tar_path
-    subprocess.check_call(['tar', '-xf', src_path, '-C', dst_dir_path])
+    subprocess.check_call(["tar", "-xf", src_path, "-C", dst_dir_path])
 
 
 def extract_dotfile_tar_as_root(dotfile_tar_path: Path, dst_dir_path: Path):
     src_path = __MOUDLE_PATH / dotfile_tar_path
     subprocess.check_call(
         [
-            'sudo',
-            'tar',
-            '--no-same-owner',
-            '--no-same-permissions',
-            '-xf',
+            "sudo",
+            "tar",
+            "--no-same-owner",
+            "--no-same-permissions",
+            "-xf",
             src_path,
-            '-C',
+            "-C",
             dst_dir_path,
         ]
     )
