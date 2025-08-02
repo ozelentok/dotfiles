@@ -1,30 +1,10 @@
 #!/usr/bin/env python3
 
+import subprocess
+
 import dbus
 import dbus.mainloop.glib
 from gi.repository import GLib  # pyright: ignore
-
-
-class Notifier:
-    __BUS_NAME = "org.freedesktop.Notifications"
-    __OBJ_PATH = "/org/freedesktop/Notifications"
-    __URGENCY_NORMAL = 1
-
-    def __init__(self) -> None:
-        obj = dbus.SessionBus().get_object(self.__BUS_NAME, self.__OBJ_PATH)
-        self._if = dbus.Interface(obj, self.__BUS_NAME)
-
-    def notify(self, title: str, body: str) -> None:
-        self._if.Notify(
-            "",
-            0,
-            "bluetooth-active",
-            title,
-            body,
-            [],
-            {"urgency": self.__URGENCY_NORMAL},
-            -1,
-        )
 
 
 class BluetoothConnectionMonitor:
@@ -40,7 +20,6 @@ class BluetoothConnectionMonitor:
             signal_name="PropertiesChanged",
             path_keyword="path",
         )
-        self._notifier = Notifier()
 
     def _resolve_device_name(self, path: dbus.types.String) -> str:
         try:
@@ -66,7 +45,19 @@ class BluetoothConnectionMonitor:
 
         device_name = self._resolve_device_name(path)
         connected_text = "Connected" if connected else "Disconnected"
-        self._notifier.notify(device_name, connected_text)
+        subprocess.check_call(
+            [
+                "notify-send",
+                "-a",
+                "Bluetooth Connections",
+                "-i",
+                "bluetooth-active",
+                "-c",
+                "normal",
+                device_name,
+                connected_text,
+            ]
+        )
 
 
 def main():
