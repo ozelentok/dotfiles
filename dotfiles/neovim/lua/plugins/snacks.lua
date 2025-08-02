@@ -148,7 +148,7 @@ return {
       { '<leader>S',       function() Snacks.scratch.select() end,                                                desc = 'Select Scratch Buffer' },
       { '<leader>nn',      function() Snacks.notifier.show_history() end,                                         desc = 'Notification History' },
       { '<leader>nt',      function() Snacks.notifier.hide() end,                                                 desc = 'Dismiss All Notifications' },
-      { '<leader>cR',      function() Snacks.rename.rename_file() end,                                            desc = 'Rename File' },
+      { '<leader>cr',      function() Snacks.rename.rename_file() end,                                            desc = 'Rename File' },
       { '<leader>gB',      function() Snacks.gitbrowse() end,                                                     desc = 'Git Browse',               mode = { 'n', 'v' } },
       { ']]',              function() Snacks.words.jump(vim.v.count1) end,                                        desc = 'Next Reference',           mode = { 'n', 't' } },
       { '[[',              function() Snacks.words.jump(-vim.v.count1) end,                                       desc = 'Prev Reference',           mode = { 'n', 't' } },

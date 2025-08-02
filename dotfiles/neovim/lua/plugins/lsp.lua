@@ -6,7 +6,7 @@ return {
     event = { 'BufReadPost', 'BufNewFile' },
     keys = {
       { '<leader>v', vim.lsp.buf.format,      noremap = true, desc = 'LSP Format' },
-      { '<leader>c', vim.lsp.buf.code_action, noremap = true, desc = 'LSP Code Action' },
+      { '<leader>cc', vim.lsp.buf.code_action, noremap = true, desc = 'LSP Code Action' },
     },
     init = function()
       vim.lsp.config('lua_ls', {
