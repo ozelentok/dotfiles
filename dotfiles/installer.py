@@ -353,11 +353,14 @@ class Installer:
         self._pm.install_packages(["nodejs", "npm"])
         utils.symlink_dotfile("nodejs/npmrc", Path.home(), hidden=True)
 
-    def qtconfig(self) -> None:
-        self.install_aur_packages(["qt5-styleplugins", "qt6gtk2"])
-        config_dir_path = Path.home() / ".config"
-        utils.mkdir(config_dir_path)
-        utils.symlink_dotfile(Path("qtconfig/Trolltech.conf"), config_dir_path)
+    def qt(self) -> None:
+        self._pm.install_packages(["qt5ct", "qt6ct"])
+        for v in (5, 6):
+            colors_dir_path = self._mkdir(f"qt{v}ct/colors", "/usr/share")
+            utils.copy_dotfile_as_root("qt/darkest.conf", colors_dir_path)
+
+            config_dir_path = self._mkdir(f"qt{v}ct")
+            utils.symlink_dotfile(f"qt/qt{v}ct.conf", config_dir_path)
 
     def qbittorrent(self) -> None:
         self._pm.install_packages(["qbittorrent"])

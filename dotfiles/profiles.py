@@ -65,7 +65,7 @@ class Full(Profile):
         self._installer.mpv()
         self._installer.smplayer()
         self._installer.xnviewmp()
-        self._installer.qtconfig()
+        self._installer.qt()
 
     def upgrade(self) -> None:
         utils.run_command(["pikaur", "-Syu"])

@@ -67,7 +67,7 @@ _dotf_pkg() {
     "picom" \
     "pikaur" \
     "pipewire" \
-    "qtconfig" \
+    "qt" \
     "qbittorrent" \
     "ranger" \
     "samba" \

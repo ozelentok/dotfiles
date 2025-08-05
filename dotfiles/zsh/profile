@@ -6,7 +6,7 @@ export PROFILE_LOADED=1
 export DOTFILES_ROOT="$HOME/.dotfiles"
 export EDITOR="nvim"
 export GTAGSLABEL=pygments
-export QT_QPA_PLATFORMTHEME=gtk2
+export QT_QPA_PLATFORMTHEME=qt5ct
 export TORCH_HOME="$HOME/.torch-home"
 export NODE_PATH="$HOME/.local/lib/node_modules:$NODE_PATH"
 
