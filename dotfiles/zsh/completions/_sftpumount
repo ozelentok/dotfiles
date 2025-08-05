@@ -1,4 +1,0 @@
-#compdef sftpumount
-
-_arguments \
-  '1:host:_path_files -/ -W /mnt/sftp'

@@ -54,6 +54,7 @@ _dotf_pkg() {
     "gimp" \
     "git" \
     "gtk" \
+    "kitty" \
     "i3" \
     "lxdm" \
     "mcomix" \
