@@ -5,10 +5,13 @@ export PROFILE_LOADED=1
 
 export DOTFILES_ROOT="$HOME/.dotfiles"
 export EDITOR="nvim"
-export GTAGSLABEL=pygments
+
+export GTK_THEME=Flat-Remix-GTK-Blue-Darkest
 export QT_QPA_PLATFORMTHEME=qt5ct
+
 export TORCH_HOME="$HOME/.torch-home"
 export NODE_PATH="$HOME/.local/lib/node_modules:$NODE_PATH"
+export GTAGSLABEL=pygments
 
 # PATH
 ANDROID_SDK_ROOT="/opt/studio-android-sdk"
