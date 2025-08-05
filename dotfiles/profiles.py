@@ -68,7 +68,7 @@ class Full(Profile):
         self._installer.qtconfig()
 
     def upgrade(self) -> None:
-        utils.run_shell_command("pikaur -Syu")
+        utils.run_command(["pikaur", "-Syu"])
         self._installer.scripts_dependencies()
         self._installer.yt_dlp()
         self._installer.neovim_plugins(True, False)
@@ -105,7 +105,7 @@ class Minimal(Profile):
         self._installer.sensors()
 
     def upgrade(self) -> None:
-        utils.run_shell_command("pikaur -Syu")
+        utils.run_command(["pikaur", "-Syu"])
         self._installer.scripts_dependencies()
         self._installer.neovim_plugins(False, False)
 

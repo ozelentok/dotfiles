@@ -1,9 +1,7 @@
-import functools
 import os
 import shutil
 import subprocess
 from pathlib import Path
-from typing import Callable
 
 __MOUDLE_PATH = Path(os.path.dirname(os.path.abspath(__file__)))
 
@@ -20,19 +18,13 @@ class SystemPackageManager:
             ["sudo", "pacman", self._pacman_options, "--needed", "--noconfirm"] + packages
         )
 
-    def install_aur_packages(self, packages: list[str]) -> None:
-        pacman_options = self._pacman_options
 
-        # When running as root, avoid reinstalling existing AUR packages
-        if os.geteuid() == 0:
-            packages = [p for p in packages if subprocess.run(["pacman", "-Q", p]).returncode != 0]
-            pacman_options = "-S"
-
-        subprocess.check_call(["pikaur", pacman_options, "--needed", "--noconfirm"] + packages)
+def run_command(command: list[str], **kwargs) -> None:
+    subprocess.check_call(command, shell=False, cwd=__MOUDLE_PATH, **kwargs)
 
 
-def run_shell_command(command: str | list[str]) -> None:
-    subprocess.check_call(command, shell=True, cwd=__MOUDLE_PATH)
+def run_shell(command: str, **kwargs) -> None:
+    subprocess.check_call(command, shell=True, cwd=__MOUDLE_PATH, **kwargs)
 
 
 def mkdir(path: Path) -> None:
@@ -58,22 +50,26 @@ def symlink_relative(src_path: Path, dst_path: Path, hidden: bool = False) -> No
     dst_path.symlink_to(rel_target_path)
 
 
-def symlink_dotfile(dotfile_path: Path, dst_path: Path, hidden: bool = False) -> None:
+def symlink_dotfile(dotfile_path: str | Path, dst_path: str | Path, hidden: bool = False) -> None:
+    dst_path = Path(dst_path)
     symlink_relative(__MOUDLE_PATH / dotfile_path, dst_path, hidden)
 
 
-def symlink_dotfile_with_root(dotfile_path: Path, dst_path: Path, hidden: bool = False) -> None:
+def symlink_dotfile_with_root(
+    dotfile_path: str | Path, dst_path: Path, hidden: bool = False
+) -> None:
+    dotfile_path = Path(dotfile_path)
+    dst_path = Path(dst_path)
     if dst_path.is_dir() and not dst_path.is_symlink():
         dst_path /= ("." if hidden else "") + dotfile_path.name
     src_path = __MOUDLE_PATH / dotfile_path
-    run_shell_command(
-        " ".join(["sudo", "ln", "-s", "-f", src_path.as_posix(), dst_path.as_posix()])
-    )
+    run_command(["sudo", "ln", "-s", "-f", src_path.as_posix(), dst_path.as_posix()])
 
 
-def copy_dotfile(dotfile_path: Path, dst_path: Path, hidden: bool = False) -> None:
+def copy_dotfile(dotfile_path: str | Path, dst_path: Path, hidden: bool = False) -> None:
+    dst_path = Path(dst_path)
     if dst_path.is_dir():
-        dst_path /= ("." if hidden else "") + dotfile_path.name
+        dst_path /= ("." if hidden else "") + Path(dotfile_path).name
 
     src_path = __MOUDLE_PATH / dotfile_path
     if dst_path.exists():
@@ -84,20 +80,23 @@ def copy_dotfile(dotfile_path: Path, dst_path: Path, hidden: bool = False) -> No
     shutil.copy2(src_path, dst_path)
 
 
-def copy_dotfile_as_root(dotfile_path: Path, dst_path: Path, hidden: bool = False) -> None:
+def copy_dotfile_as_root(
+    dotfile_path: str | Path, dst_path: str | Path, hidden: bool = False
+) -> None:
+    dst_path = Path(dst_path)
     if dst_path.is_dir():
-        dst_path /= ("." if hidden else "") + dotfile_path.name
+        dst_path /= ("." if hidden else "") + Path(dotfile_path).name
 
     src_path = __MOUDLE_PATH / dotfile_path
     subprocess.check_call(["sudo", "cp", src_path, dst_path], cwd=__MOUDLE_PATH)
 
 
-def extract_dotfile_tar(dotfile_tar_path: Path, dst_dir_path: Path):
+def extract_dotfile_tar(dotfile_tar_path: str | Path, dst_dir_path: Path):
     src_path = __MOUDLE_PATH / dotfile_tar_path
     subprocess.check_call(["tar", "-xf", src_path, "-C", dst_dir_path])
 
 
-def extract_dotfile_tar_as_root(dotfile_tar_path: Path, dst_dir_path: Path):
+def extract_dotfile_tar_as_root(dotfile_tar_path: str | Path, dst_dir_path: str | Path):
     src_path = __MOUDLE_PATH / dotfile_tar_path
     subprocess.check_call(
         [
@@ -113,13 +112,10 @@ def extract_dotfile_tar_as_root(dotfile_tar_path: Path, dst_dir_path: Path):
     )
 
 
-def avoid_reinstall(executable: str):
-    def decorator(f: Callable) -> Callable:
-        @functools.wraps(f)
-        def wrapper(*args, **kwargs):
-            if shutil.which(executable) is None:
-                return f(*args, **kwargs)
-
-        return wrapper
-
-    return decorator
+def is_installed(package: str) -> bool:
+    result = subprocess.run(
+        ["pacman", "-Q", package],
+        stdout=subprocess.DEVNULL,
+        stderr=subprocess.DEVNULL,
+    )
+    return result.returncode == 0
