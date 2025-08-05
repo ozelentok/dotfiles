@@ -126,12 +126,6 @@ class Installer:
         utils.copy_dotfile_as_root(Path("bluetooth/main.conf"), Path("/etc/bluetooth"))
         utils.run_shell_command("sudo systemctl enable bluetooth")
 
-    def deluge(self) -> None:
-        self._pm.install_packages([
-            'deluge', 'deluge-gtk', 'gtk3', 'python-gobject', 'python-cairo', 'librsvg',
-            'libappindicator-gtk3', 'libnotify'
-        ])  # fmt: off
-
     def doublecmd(self):
         self._pm.install_packages(["doublecmd-qt5"])
         config_dir_path = Path.home() / ".config/doublecmd"
@@ -345,6 +339,9 @@ class Installer:
         config_dir_path = Path.home() / ".config"
         utils.mkdir(config_dir_path)
         utils.symlink_dotfile(Path("qtconfig/Trolltech.conf"), config_dir_path)
+
+    def qbittorrent(self) -> None:
+        self._pm.install_packages(["qbittorrent"])
 
     def ranger(self, media_preview: bool = True) -> None:
         self._pm.install_packages(["ranger"] + (["ffmpegthumbnailer"] if media_preview else []))

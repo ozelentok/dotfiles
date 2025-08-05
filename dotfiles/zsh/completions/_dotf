@@ -48,7 +48,6 @@ _dotf_pkg() {
   _values "dotf pkg" \
     "base_packages" \
     "bluetooth" \
-    "deluge" \
     "desktop_programs" \
     "doublecmd" \
     "fontconfig" \
@@ -69,6 +68,7 @@ _dotf_pkg() {
     "pikaur" \
     "pipewire" \
     "qtconfig" \
+    "qbittorrent" \
     "ranger" \
     "samba" \
     "scripts_dependencies" \

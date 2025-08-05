@@ -58,7 +58,7 @@ class Full(Profile):
 
         self._installer.desktop_programs()
         self._installer.mimeapps()
-        self._installer.deluge()
+        self._installer.qbittorrent()
         self._installer.doublecmd()
         self._installer.gimp()
         self._installer.mcomix()
