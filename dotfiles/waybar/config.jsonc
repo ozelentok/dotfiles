@@ -1,0 +1,278 @@
+// -*- mode: jsonc -*
+{
+  "layer": "top",
+  "position": "top",
+  "height": 28,
+  "mode": "dock",
+  "start_hidden": true,
+  "exclusive": true,
+  "reload_style_on_change": false,
+  "ipc": true,
+  "spacing": 4,
+  "modules-left": [
+    "custom/power",
+    "clock",
+    "battery",
+    "cpu",
+    "memory",
+    "temperature",
+    "sway/scratchpad",
+    "idle_inhibitor",
+    "sway/window"
+  ],
+  "modules-center": [
+    "sway/workspaces",
+    "sway/mode"
+  ],
+  "modules-right": [
+    "privacy",
+    "pulseaudio",
+    "wireplumber",
+    "custom/volume_status#usb_mic",
+    "custom/volume_status#aux_mic",
+    "bluetooth",
+    "network",
+    "keyboard-state",
+    "sway/language",
+    "tray",
+    "custom/notifications"
+  ],
+  "sway/workspaces": {
+    "warp-on-scroll": false
+  },
+  "sway/mode": {
+    "format": "{}"
+  },
+  "custom/power": {
+    "format": "⏻",
+    "tooltip": false,
+    "menu": "on-click",
+    "menu-file": "$HOME/.dotfiles/dotfiles/waybar/power_menu.xml",
+    "menu-actions": {
+      "reboot": "systemctl reboot",
+      "shutdown": "systemctl poweroff",
+      "logout": "swaymsg exit",
+      "hibernate": "systemctl hibernate",
+      "suspend": "systemctl suspend"
+    }
+  },
+  "battery": {
+    "states": {
+      "warning": 30,
+      "critical": 10
+    },
+    "format": "{icon} {capacity}%",
+    "format-full": "{icon} {capacity}%",
+    "format-charging": "󰂄 {capacity}%",
+    "format-plugged": " {capacity}%",
+    "format-alt": "{icon} {time}",
+    "format-icons": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  "clock": {
+    "interval": 5,
+    "format": "{:%a %d %b %H:%M}",
+    "format-alt": "{:%a %Y-%m-%d %H:%M:%S}",
+    "tooltip-format": "<big>{:%Y %B}</big>\n<tt>{calendar}</tt>",
+    "calendar": {
+      "weeks-pos": "right",
+      "mode-mon-col": 3,
+      "format": {
+        "months": "<span color='#60f0ff'><b>{}</b></span>",
+        "days": "<span color='#ecc6d9'><b>{}</b></span>",
+        "weeks": "<span color='#0080ff'><b>W{}</b></span>",
+        "weekdays": "<span color='#ffcc66'><b>{}</b></span>",
+        "today": "<span background='#d03000' color='#f0f0f0'><b><u>{}</u></b></span>"
+      }
+    },
+    "actions": {
+      "on-click-right": "mode",
+      "on-scroll-up": "shift_up",
+      "on-scroll-down": "shift_down"
+    }
+  },
+  "cpu": {
+    "format": " {usage:02}%",
+    "tooltip": true,
+    "states": {
+      "critical": 80,
+      "warning": 50
+    }
+  },
+  "memory": {
+    "format": " {percentage:02}%",
+    "states": {
+      "critical": 80,
+      "warning": 50
+    }
+  },
+  "temperature": {
+    "thermal-zone": 3,
+    "critical-threshold": 70,
+    "format": "{icon} {temperatureC}°C",
+    "format-icons": [
+      "",
+      "",
+      ""
+    ]
+  },
+  "sway/scratchpad": {
+    "format": "{icon} {count}",
+    "show-empty": false,
+    "format-icons": [
+      "",
+      ""
+    ],
+    "tooltip": true,
+    "tooltip-format": "{app}: {title}"
+  },
+  "idle_inhibitor": {
+    "format": "{icon}",
+    "format-icons": {
+      "activated": "",
+      "deactivated": ""
+    }
+  },
+  "sway/window": {
+    "icon": true,
+    "swap-icon-label": false
+  },
+  "privacy": {
+    "icon-size": 20
+  },
+  "pulseaudio": {
+    "format": "{icon} {volume}% {format_source}",
+    "format-muted": "󰖁 {format_source}",
+    "format-bluetooth": "{icon}  {volume}% {format_source}",
+    "format-bluetooth-muted": "󰖁  {format_source}",
+    "format-source": " {volume}%",
+    "format-source-muted": "",
+    "format-icons": {
+      "headphone": "",
+      "hands-free": "󱡒",
+      "headset": "󱡏",
+      "phone": "",
+      "portable": "",
+      "car": "",
+      "default": [
+        "",
+        "",
+        ""
+      ]
+    },
+    "states": {
+      "warning": 20,
+      "critical": 1
+    },
+    "scroll-step": 2,
+    "max-volume": 100,
+    "on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
+    "on-click-right": "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle",
+    "on-click-middle": "pavucontrol"
+  },
+  "wireplumber": {
+    "format": "{node_name}",
+    "format-muted": "{node_name}",
+    "tooltip": false,
+    "scroll-step": 0
+  },
+  "custom/volume_status#usb_mic": {
+    "return-type": "json",
+    "format": "{icon} {text}",
+    "format-icons": {
+      "muted": "",
+      "default": ""
+    },
+    "exec": "$HOME/.dotfiles/dotfiles/waybar/volume_status.py alsa_input.usb-Jieli_Technology_UACDemoV1.0_FFFFFFFFFFFFFFFF-00.mono-fallback source 5 40 ",
+    "on-click": "pactl set-source-mute alsa_input.usb-Jieli_Technology_UACDemoV1.0_FFFFFFFFFFFFFFFF-00.mono-fallback toggle",
+    "on-scroll-up": "pactl set-source-volume alsa_input.usb-Jieli_Technology_UACDemoV1.0_FFFFFFFFFFFFFFFF-00.mono-fallback +1%",
+    "on-scroll-down": "pactl set-source-volume alsa_input.usb-Jieli_Technology_UACDemoV1.0_FFFFFFFFFFFFFFFF-00.mono-fallback -1%"
+  },
+  "custom/volume_status#aux_mic": {
+    "return-type": "json",
+    "format": "{icon} {text}",
+    "format-icons": {
+      "muted": "",
+      "default": ""
+    },
+    "exec": "$HOME/.dotfiles/dotfiles/waybar/volume_status.py alsa_input.pci-0000_00_1f.3.analog-stereo source 1 6 ",
+    "on-click": "pactl set-source-mute alsa_input.pci-0000_00_1f.3.analog-stereo toggle",
+    "on-scroll-up": "pactl set-source-volume alsa_input.pci-0000_00_1f.3.analog-stereo +1%",
+    "on-scroll-down": "pactl set-source-volume alsa_input.pci-0000_00_1f.3.analog-stereo -1%"
+  },
+  "bluetooth": {
+    "format": "{icon}",
+    "format-connected": "{icon} {device_alias}",
+    "format-connected-battery": "{icon} {device_alias} 󰥉 {device_battery_percentage}%",
+    "tooltip-format": "{controller_alias}\t{controller_address}\n{num_connections} connected",
+    "tooltip-format-connected": "{controller_alias}\t{controller_address}\n{num_connections} connected\n\n{device_enumerate}",
+    "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
+    "tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_address}\t󰥉 {device_battery_percentage}%",
+    "format-icons": {
+      "default": "󰂱",
+      "off": "󰂲",
+      "no-controller": ""
+    },
+    "on-click": "bluetoothctl show | grep 'Powered: yes' >/dev/null && bluetoothctl power off >/dev/null || bluetoothctl power on>/dev/null",
+    "on-click-right": "kitty bluetui",
+    "on-click-middle": "kitty bluetui"
+  },
+  "network": {
+    "interval": 30,
+    "format": "{icon}",
+    "tooltip-format": "{status}",
+    "tooltip-format-ethernet": "{ifname}: {ipaddr}/{cidr} gw {gwaddr}",
+    "tooltip-format-wifi": "{essid} ({signalStrength}%) {signalStrengthApp} ({signaldBm} dBm)\n{ifname}: {ipaddr}/{cidr} gw {gwaddr}",
+    "format-alt": "{icon} {ipaddr}",
+    "format-icons": {
+      "default": "",
+      "disconnected": "󰈀",
+      "disabled": "󰈀",
+      "wifi": [
+        "󰤯",
+        "󰤟",
+        "󰤢",
+        "󰤥",
+        "󰤨"
+      ]
+    }
+  },
+  "keyboard-state": {
+    "numlock": true,
+    "capslock": true,
+    "format": "{name}"
+  },
+  "sway/language": {
+    "format": "{flag} {short}",
+    "on-click": "swaymsg input type:keyboard xkb_switch_layout next"
+  },
+  "tray": {
+    "icon-size": 24,
+    "show-passive-items": true,
+    "spacing": 4
+  },
+  "custom/notifications": {
+    "tooltip": false,
+    "format": "{icon}",
+    "format-icons": {
+      "notification": "<span foreground='red'><sup></sup></span>",
+      "none": "",
+      "dnd-notification": "<span foreground='red'><sup></sup></span>",
+      "dnd-none": "",
+      "inhibited-notification": "<span foreground='red'><sup></sup></span>",
+      "inhibited-none": "",
+      "dnd-inhibited-notification": "<span foreground='red'><sup></sup></span>",
+      "dnd-inhibited-none": ""
+    },
+    "return-type": "json",
+    "exec": "swaync-client -swb",
+    "on-click": "swaync-client -t -sw",
+    "on-click-right": "swaync-client -d -sw",
+    "escape": true
+  }
+}

@@ -194,49 +194,53 @@ class Installer:
         utils.symlink_dotfile("gtk/gtkrc-2.0", Path.home(), hidden=True)
         utils.run_shell("dconf load / < gtk/dconf.ini")
 
-    def i3(self) -> None:
+    def sway(self) -> None:
         self._pm.install_packages([
-            "i3-wm", "py3status",
-            "i3lock",
-            "dmenu", "feh",
-            "dunst", "scrot",
-            "python-pip", "python-pytz", "python-tzlocal", "xorg-xset", "xorg-xrandr"
+            "sway", "swaybg", "swayidle", "swaylock",
+            "wmenu",
+            "j4-dmenu-desktop",
+            "swaync",
+            "grim", "slurp",
+            "waybar",
+            "foot",
+            "xdg-desktop-portal-wlr",
+            "wlr-randr",
+            "xorg-xwayland",
         ])  # fmt: off
         utils.run_command(["pip", "install", "--user", "--break-system-packages", "-U", "pulsectl"])
 
-        config_dir_path = self._mkdir("i3")
-        utils.symlink_dotfile("i3/i3.config", config_dir_path / "config")
-        utils.symlink_dotfile("i3/i3-session", config_dir_path)
-        utils.symlink_dotfile("i3/i3status.conf", config_dir_path)
-        utils.symlink_dotfile("i3/py3status", config_dir_path)
+        utils.copy_dotfile_as_root("sway/sway-wrapper", "/usr/local/bin/sway")
+        utils.copy_dotfile_as_root("sway/swayidle-wrapper", "/usr/local/bin/swayidle")
 
-        self.install_aur_packages(["xkb-switch"])
+        config_dir_path = self._mkdir("sway")
+        utils.symlink_dotfile("sway/config", config_dir_path)
 
-    def lxdm(self) -> None:
-        self._pm.install_packages(["lxdm-gtk3"])
+        config_dir_path = self._mkdir("xdg-desktop-portal")
+        utils.symlink_dotfile("sway/portals.conf", config_dir_path)
 
-        config_dir_path = Path("/etc/lxdm")
-        themes_dir_path = Path("/usr/share/lxdm/themes")
+        config_dir_path = self._mkdir("swaync")
+        utils.symlink_dotfile("swaync/config.json", config_dir_path)
+        utils.symlink_dotfile("swaync/style.css", config_dir_path)
 
-        utils.copy_dotfile_as_root("lxdm/lxdm.conf", config_dir_path)
-        utils.copy_dotfile_as_root("lxdm/PostLogout", config_dir_path)
-        utils.extract_dotfile_tar_as_root("theme/LXDM-Arch-Darkest.tar.gz", themes_dir_path)
+        config_dir_path = self._mkdir("waybar")
+        utils.symlink_dotfile("waybar/config.jsonc", config_dir_path)
+        utils.symlink_dotfile("waybar/style.css", config_dir_path)
 
-        self.install_aur_packages(["xinit-xsession", "xkb-switch"])
+        config_dir_path = self._mkdir("foot")
+        utils.symlink_dotfile("foot/foot.ini", config_dir_path)
 
-        utils.run_command(["sudo", "systemctl", "enable", "lxdm"])
-
-    def picom(self) -> None:
-        self._pm.install_packages(["picom"])
-        config_dir_path = Path.home() / ".config"
-        utils.mkdir(config_dir_path)
-        utils.symlink_dotfile("picom/picom.conf", config_dir_path)
-
-        self.systemd_config()
         systemd_dir_path = self._mkdir("systemd/user")
-        utils.symlink_dotfile("picom/picom.service", systemd_dir_path)
-        utils.symlink_dotfile("picom/stop-picom.service", systemd_dir_path)
-        utils.run_command(["systemctl", "--user", "enable", "picom", "stop-picom"])
+        utils.symlink_dotfile("waybar/waybar-reload.service", systemd_dir_path)
+        utils.run_command(["systemctl", "--user", "enable", "waybar-reload"])
+
+    def greetd(self) -> None:
+        self._pm.install_packages(["greetd", "greetd-regreet"])
+        config_dir_path = self._mkdir("greetd", "/etc")
+        utils.copy_dotfile_as_root("greetd/config.toml", config_dir_path)
+        utils.copy_dotfile_as_root("greetd/sway-config", config_dir_path)
+        utils.copy_dotfile_as_root("greetd/regreet.toml", config_dir_path)
+        utils.copy_dotfile_as_root("greetd/regreet.css", config_dir_path)
+        utils.run_command(["sudo", "systemctl", "enable", "greetd"])
 
     def pipewire(self) -> None:
         self._pm.install_packages([
@@ -273,7 +277,7 @@ class Installer:
         config_dir_path = self._mkdir("mpv")
         utils.symlink_dotfile("mpv/mpv.conf", config_dir_path)
 
-    def neovim(self, developer: bool = True, x11: bool = True) -> None:
+    def neovim(self, developer: bool = True, wayland: bool = True) -> None:
         packages = ["neovim", "python-neovim", "words"]
         if developer:
             packages.extend(
@@ -300,8 +304,8 @@ class Installer:
                     "sqlfluff",
                 ]
             )
-        if x11:
-            packages.append("xsel")
+        if wayland:
+            packages.append("wl-clipboard")
 
         utils.run_command(["sudo", "ln", "-s", "-f", "-r", "/usr/bin/nvim", "/usr/local/bin/vim"])
 
@@ -354,7 +358,10 @@ class Installer:
         utils.symlink_dotfile("nodejs/npmrc", Path.home(), hidden=True)
 
     def qt(self) -> None:
-        self._pm.install_packages(["qt5ct", "qt6ct"])
+        self._pm.install_packages([
+            "qt5ct", "qt6ct",
+            "qt5-wayland", "qt6-wayland"
+        ])  # fmt: off
         for v in (5, 6):
             colors_dir_path = self._mkdir(f"qt{v}ct/colors", "/usr/share")
             utils.copy_dotfile_as_root("qt/darkest.conf", colors_dir_path)
@@ -500,22 +507,6 @@ class Installer:
         self._pm.install_packages(["kitty"])
         config_dir_path = self._mkdir("kitty")
         utils.symlink_dotfile("kitty/kitty.conf", config_dir_path)
-
-    def X11(self) -> None:
-        self._pm.install_packages([
-            "xorg-server", "xorg-xinit", "xorg-xkill", "xorg-xhost", "xorg-xev",
-            "xdg-utils", "perl-file-mimeinfo",
-            "xterm"
-        ])  # fmt: off
-
-        config_dir_path = self._mkdir("X11/xorg.conf.d", "/etc")
-        utils.copy_dotfile_as_root("X11/00-keyboard.conf", config_dir_path)
-        utils.symlink_dotfile(Path("X11/xinitrc"), Path.home(), hidden=True)
-        utils.symlink_dotfile(Path("X11/Xresources"), Path.home(), hidden=True)
-
-    def x11vnc(self) -> None:
-        self._pm.install_packages(["x11vnc"])
-        utils.run_command(["x11vnc", "-storepasswd"])
 
     def xnviewmp(self) -> None:
         self.install_aur_packages(["xnviewmp-system-libs"])

@@ -1,0 +1,19 @@
+exec "regreet; swaymsg exit"
+
+exec_always swayidle -w \
+  timeout 300 'swaymsg "output * power off"' \
+    resume 'swaymsg "output * power on"' \
+
+seat seat0 xcursor_theme Future-Cyan 32
+output DP-1 {
+  mode 2560x1440@120Hz
+}
+
+bindsym Mod4+shift+e exec swaynag \
+  -t warning \
+  -m 'What do you want to do?' \
+  -b 'Poweroff' 'systemctl poweroff' \
+  -b 'Reboot' 'systemctl reboot' \
+  -b 'Suspend' 'systemctl suspend'
+
+include /etc/sway/config.d/*

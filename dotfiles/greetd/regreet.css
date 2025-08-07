@@ -1,0 +1,8 @@
+window>overlay>frame.top {
+  margin-top: 12px;
+  border: none;
+}
+
+window>overlay>frame.top>label {
+  font-size: 12pt;
+}

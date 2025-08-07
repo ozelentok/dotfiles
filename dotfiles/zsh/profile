@@ -11,6 +11,7 @@ export QT_QPA_PLATFORMTHEME=qt5ct
 
 export TORCH_HOME="$HOME/.torch-home"
 export NODE_PATH="$HOME/.local/lib/node_modules:$NODE_PATH"
+export GRIM_DEFAULT_DIR=/tmp/0-screenshots
 export GTAGSLABEL=pygments
 
 # PATH
@@ -54,6 +55,8 @@ if [ ! -z $XDG_RUNTIME_DIR ]; then
   mkdir -p $XDG_RUNTIME_DIR/cache/firefox-mpris
   mkdir -p $XDG_RUNTIME_DIR/cache/Temp
 fi
+
+mkdir -p /tmp/1-imgs $GRIM_DEFAULT_DIR
 
 source "$HOME/.zsh_dotfiles_settings"
 [[ -f "$HOME/.profile_local" ]] && source "$HOME/.profile_local"

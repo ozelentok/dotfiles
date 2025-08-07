@@ -1,0 +1,14 @@
+[Unit]
+ConditionEnvironment=WAYLAND_DISPLAY
+
+[Service]
+# Waits for sway inputs to initiate before reloading waybar
+# An initialized output from get_inputs will have at least 150 characters
+
+ExecStart=/usr/bin/udevadm settle
+ExecStart=/usr/bin/bash -c 'for i in $$(seq 1 20); do out=$$(swaymsg -t get_inputs 2>/dev/null); code=$$?; [ $$code -eq 0 ] && [ $${#out} -gt 150 ] && echo "Sway inputs initialized, reloading waybar" && exit 0; sleep 0.5; done; echo "Sway inputs are not initialized yet, aborting reload"; exit 1'
+ExecStart=/usr/bin/killall -SIGUSR2 waybar
+Type=oneshot
+
+[Install]
+WantedBy=post-sleep.target

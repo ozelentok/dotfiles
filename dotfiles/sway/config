@@ -1,0 +1,189 @@
+set $mod Mod4
+floating_modifier $mod
+default_border pixel 1
+font pango: Adwaita Sans SemiBold 13
+hide_edge_borders smart
+focus_follows_mouse no
+
+# Setup environment variables
+exec systemctl --user set-environment XDG_CURRENT_DESKTOP=sway
+exec systemctl --user import-environment DISPLAY SWAYSOCK WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
+exec dbus-update-activation-environment --systemd DISPLAY SWAYSOCK WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
+
+# Change focus
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+
+# Move focused window
+bindsym $mod+Shift+H move left
+bindsym $mod+Shift+J move down
+bindsym $mod+Shift+K move up
+bindsym $mod+Shift+L move right
+
+# Split horizontally/vertically
+bindsym $mod+o split h
+bindsym $mod+i split v
+
+# Enter fullscreen mode for the focused container
+bindsym $mod+f fullscreen
+
+# Change container layout
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout default
+
+# Toggle tiling / floating
+bindsym $mod+Shift+space floating toggle
+
+# Change focus between tiling/floating windows
+bindsym $mod+space focus mode_toggle
+
+# Change focus between parent/child container
+bindsym $mod+a focus parent
+bindsym $mod+z focus child
+
+# Switch to workspace
+bindsym $mod+1     workspace 1
+bindsym $mod+2     workspace 2
+bindsym $mod+3     workspace 3
+bindsym $mod+4     workspace 4
+bindsym $mod+5     workspace 5
+bindsym $mod+6     workspace 6
+bindsym $mod+7     workspace 7
+bindsym $mod+8     workspace 8
+bindsym $mod+9     workspace 9
+bindsym $mod+0     workspace 10
+bindsym $mod+Left  workspace prev
+bindsym $mod+Right workspace next
+bindsym $mod+Tab   workspace back_and_forth
+
+# Move focused container to workspace
+bindsym $mod+Shift+1     move workspace 1
+bindsym $mod+Shift+2     move workspace 2
+bindsym $mod+Shift+3     move workspace 3
+bindsym $mod+Shift+4     move workspace 4
+bindsym $mod+Shift+5     move workspace 5
+bindsym $mod+Shift+6     move workspace 6
+bindsym $mod+Shift+7     move workspace 7
+bindsym $mod+Shift+8     move workspace 8
+bindsym $mod+Shift+9     move workspace 9
+bindsym $mod+Shift+0     move workspace 10
+bindsym $mod+Shift+Left  move workspace prev
+bindsym $mod+Shift+Right move workspace next
+
+bindsym $mod+Shift+C reload
+bindsym $mod+Shift+R restart
+bindsym $mod+Shift+Pause exit
+
+# Resize mode
+mode "resize" {
+  bindsym h resize grow left 5 px or 2 ppt
+  bindsym j resize grow down 5 px or 2 ppt
+  bindsym k resize grow up 5 px or 2 ppt
+  bindsym l resize grow right 5 px or 2 ppt
+  bindsym Left resize grow left 5 px or 2 ppt
+  bindsym Down resize grow down 5 px or 2 ppt
+  bindsym Up resize grow up 5 px or 2 ppt
+  bindsym Right resize grow right 5 px or 2 ppt
+
+  bindsym Shift+H resize shrink left 5 px or 2 ppt
+  bindsym Shift+J resize shrink down 5 px or 2 ppt
+  bindsym Shift+K resize shrink up 5 px or 2 ppt
+  bindsym Shift+L resize shrink right 5 px or 2 ppt
+  bindsym Shift+Left resize shrink left 5 px or 2 ppt
+  bindsym Shift+Down resize shrink down 5 px or 2 ppt
+  bindsym Shift+Up resize shrink up 5 px or 2 ppt
+  bindsym Shift+Right resize shrink right 5 px or 2 ppt
+
+  bindsym Return mode "default"
+  bindsym Escape mode "default"
+}
+bindsym $mod+r mode "resize"
+
+# Colors
+client.focused          #505050 #303030 #ffffff #111111
+client.focused_inactive #000000 #000000 #ffffff #111111
+client.unfocused        #303030 #000000 #888888 #111111
+client.urgent           #000000 #e0a000 #000000 #111111
+
+# Floating windows
+for_window [app_id="doublecmd" title="^Double Commander$"] floating enable
+for_window [app_id="doublecmd" title="^doublecmd$"] floating enable
+for_window [app_id="doublecmd" title="(?i:Copying|Moving|Packing|Unpacking|Deleting|Testing\sArchive)"] floating enable
+for_window [app_id="doublecmd" floating] opacity set 0.95
+
+for_window [app_id="firefox" title="Picture-in-Picture"] floating enable, opacity set 0.9
+for_window [class="smplayer" title="Find Subtitles"] floating enable
+
+bindsym $mod+Shift+q          kill
+
+bindsym $mod+d                exec wmenu-run -i -f 'Fira Code Bold 13' -N \#000000B0 -n \#00F0FF
+bindsym $mod+Shift+D          exec j4-dmenu-desktop --dmenu="wmenu -i -f 'Fira Code Bold 13' -N \#000000B0 -n \#00F0FF"
+
+bindsym $mod+Return           exec kitty
+bindsym $mod+n                exec doublecmd
+bindsym $mod+c                exec firefox
+
+# Media
+bindsym --locked XF86AudioLowerVolume exec "pactl set-sink-volume @DEFAULT_SINK@ -5%"
+bindsym --locked XF86AudioRaiseVolume exec "pactl set-sink-volume @DEFAULT_SINK@ +5%"
+bindsym --locked XF86AudioMute        exec "pactl set-sink-mute @DEFAULT_SINK@ toggle"
+bindsym --locked XF86AudioMicMute     exec "pactl set-source-mute @DEFAULT_SOURCE@ toggle"
+bindsym --locked XF86AudioPlay        exec "playerctl play-pause"
+bindsym --locked XF86AudioPause       exec "playerctl play-pause"
+bindsym --locked XF86AudioNext        exec "playerctl next"
+bindsym --locked XF86AudioPrev        exec "playerctl previous"
+bindsym --locked XF86AudioStop        exec "playerctl stop"
+
+# Toggle Microphones using F13-F16
+bindcode 191                  exec "pactl set-source-mute alsa_input.usb-Jieli_Technology_UACDemoV1.0_FFFFFFFFFFFFFFFF-00.mono-fallback 1"
+bindcode 192                  exec "pactl set-source-mute alsa_input.pci-0000_00_1f.3.analog-stereo 1"
+bindcode 193                  exec "pactl set-source-mute alsa_input.usb-Jieli_Technology_UACDemoV1.0_FFFFFFFFFFFFFFFF-00.mono-fallback 0"
+bindcode 194                  exec "pactl set-source-mute alsa_input.pci-0000_00_1f.3.analog-stereo 0"
+
+# Screenshot
+set $screenshot_notify_options -e -u low -t 300
+bindsym Print                 exec "grim && notify-send $screenshot_notify_options 'Screenshot'"
+bindsym Control+Print         exec "slurp | grim -g - && notify-send $screenshot_notify_options 'Screenshot'"
+bindsym Shift+Print           exec "slurp | grim -g - - | wl-copy && notify-send $screenshot_notify_options 'Screenshot in Clipboard'"
+
+# Bar
+bar {
+  swaybar_command waybar
+  mode hide
+}
+
+# Notifications
+exec_always systemctl --user start swaync && systemctl --user reload swaync.service
+bindsym $mod+p                exec swaync-client -t
+
+# Screen control
+bindsym $mod+Insert           bar mode toggle
+bindsym $mod+Control+o        output DP-1 power toggle
+
+set $swaylock_options -e -k -l \
+  --font "Noto Sans Bold" --font-size 16 -c 000000 \
+  --indicator-radius 100 --indicator-thickness 12
+
+bindsym $mod+Control+l        exec  swaylock $swaylock_options
+
+# Idle
+exec_always swayidle -w \
+  timeout 300 'swaymsg "output * power off"' \
+    resume 'swaymsg "output * power on"' \
+  timeout 600 'swaylock -f $swaylock_options'
+
+# Keyboard
+input type:keyboard {
+  xkb_layout "us,il"
+  xkb_options "grp:alt_shift_toggle"
+}
+
+# Display
+seat seat0 xcursor_theme Future-Cyan 32
+output DP-1 {
+  bg "$HOME/Pictures/wallpaper.png" stretch
+  mode 2560x1440@120Hz
+}

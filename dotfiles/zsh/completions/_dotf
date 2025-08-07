@@ -53,10 +53,9 @@ _dotf_pkg() {
     "fontconfig" \
     "gimp" \
     "git" \
+    "greetd" \
     "gtk" \
     "kitty" \
-    "i3" \
-    "lxdm" \
     "mcomix" \
     "media_processing" \
     "mimeapps" \
@@ -65,7 +64,6 @@ _dotf_pkg() {
     "neovim" \
     "neovim_plugins" \
     "nodejs" \
-    "picom" \
     "pikaur" \
     "pipewire" \
     "qt" \
@@ -75,6 +73,7 @@ _dotf_pkg() {
     "scripts_dependencies" \
     "sensors" \
     "smplayer" \
+    "sway" \
     "systemd_config" \
     "theme" \
     "tmpfs_programs_cache" \
@@ -83,12 +82,10 @@ _dotf_pkg() {
     "vifm" \
     "vmic" \
     "wezterm" \
-    "x11vnc" \
     "xnviewmp" \
     "yazi" \
     "yt_dlp" \
-    "zsh" \
-    "X11"
+    "zsh"
 
   _arguments -s \
     {-s,--skip-upgrade}"[Skip upgrading existing system packages]" \

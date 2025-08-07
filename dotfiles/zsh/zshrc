@@ -1,5 +1,3 @@
-[[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && which startx > /dev/null && exec startx
-
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -191,8 +189,8 @@ export FZF_COMPLETION_OPTS="--header-first --header 'Keymap: Ctrl-O(rifle), Ctrl
   --bind 'ctrl-o:execute(rifle {})+abort'
   --bind 'ctrl-u:execute-silent(doublecmd -C {} &)+abort'
   --bind 'ctrl-e:execute(vim {})+abort'
-  --bind 'ctrl-y:execute-silent(echo -n {} | xsel -i -b)'
-  --bind 'ctrl-h:execute-silent(echo -n \$(realpath -s {}) | xsel -i -b)'"
+  --bind 'ctrl-y:execute-silent(echo -n {} | wl-copy)'
+  --bind 'ctrl-h:execute-silent(echo -n \$(realpath -s {}) | wl-copy)'"
 export FZF_CTRL_T_OPTS="${FZF_COMPLETION_OPTS}"
 
 eval "$(zoxide init zsh --cmd j)"
@@ -206,8 +204,8 @@ flc() {
     --bind 'ctrl-o:execute(rifle {})+abort' \
     --bind 'ctrl-u:execute-silent(doublecmd -C {} &)+abort' \
     --bind 'ctrl-e:execute(vim {})+abort' \
-    --bind 'ctrl-y:execute-silent(echo -n {} | xsel -i -b)' \
-    --bind 'ctrl-h:execute-silent(echo -n $(realpath -s {}) | xsel -i -b)')
+    --bind 'ctrl-y:execute-silent(echo -n {} | wl-copy)' \
+    --bind 'ctrl-h:execute-silent(echo -n $(realpath -s {}) | wl-copy)')
   if [ -z "${cd_path}" ]; then
     return
   elif [ -d "${cd_path}" ]; then

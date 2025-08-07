@@ -1,10 +1,11 @@
 # Oz Elentok Dotfiles
 
 - Distribution: Arch Linux
-- Window Manager: i3wm + py3status
-- Program Launcher: dmenu
+- Desktop Environment: Sway + Waybar + SwayNotificationCenter
+- Dark Theme for GTK and QT
+- Program Launcher: wmenu
 - Browser: Firefox
-- File Manager: Double Commander / Ranger
+- File Manager: Double Commander / Yazi
 - IDE / Text Editor: Neovim
 
 ## Installation
