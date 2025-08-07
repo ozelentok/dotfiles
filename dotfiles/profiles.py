@@ -42,15 +42,14 @@ class Full(Profile):
         self._installer.sensors()
         self._installer.media_processing()
 
-        self._installer.X11()
-        self._installer.i3()
-        self._installer.lxdm()
-        self._installer.fontconfig()
-        self._installer.gtk()
-        self._installer.theme()
+        self._installer.sway()
+        self._installer.greetd()
         self._installer.kitty()
+        self._installer.fontconfig()
+        self._installer.theme()
+        self._installer.gtk()
+        self._installer.qt()
 
-        self._installer.picom()
         self._installer.pipewire()
         self._installer.bluetooth()
         self._installer.vmic()
@@ -65,7 +64,6 @@ class Full(Profile):
         self._installer.mpv()
         self._installer.smplayer()
         self._installer.xnviewmp()
-        self._installer.qt()
 
     def upgrade(self) -> None:
         utils.run_command(["pikaur", "-Syu"])

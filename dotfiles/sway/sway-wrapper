@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+export XDG_SESSION_DESKTOP=sway
+export XDG_CURRENT_DESKTOP=sway
+
+if [ -n "$XDG_RUNTIME_DIR" ]; then
+  LOG_PATH="${XDG_RUNTIME_DIR}/sway-$$.log"
+else
+  LOG_PATH="/tmp/sway-$$-${USER}.log"
+fi
+
+exec /usr/bin/sway --unsupported-gpu "${@}" &> "$LOG_PATH"
