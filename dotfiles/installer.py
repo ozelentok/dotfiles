@@ -468,9 +468,9 @@ class Installer:
         icons_dir_path = self._mkdir("icons", "/usr/share")
 
         utils.extract_dotfile_tar_as_root(
-            "theme/Flat-Remix-GTK-Blue-Darkest-20220627.tar.gz", themes_dir_path
+            "theme/Flat-Remix-GTK-Blue-20240730.tar.xz", themes_dir_path
         )
-        utils.extract_dotfile_tar_as_root("theme/Arc-ICONS-1.5.7.tar.gz", icons_dir_path)
+        utils.extract_dotfile_tar_as_root("theme/Flat-Remix-Blue-20250709.tar.xz", icons_dir_path)
         utils.extract_dotfile_tar_as_root("theme/Future-Cyan-20230405.tar.gz", icons_dir_path)
 
     def tmux(self) -> None:
