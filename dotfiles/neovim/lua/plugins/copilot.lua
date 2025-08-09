@@ -1,10 +1,8 @@
-if not vim.g.dotfiles_is_developer then
-  return {}
-end
-
 return {
   {
     'zbirenbaum/copilot.lua',
+    enabled = vim.g.dotfiles_is_developer,
+    cond = vim.g.dotfiles_is_developer,
     cmd = 'Copilot',
     event = 'InsertEnter',
     opts = {

@@ -45,16 +45,21 @@ local sections = {
   lualine_a = { 'mode' },
   lualine_b = { 'branch', 'diff', 'diagnostics' },
   lualine_c = { { 'filename', path = 3 }, '%S' },
-  lualine_x = { 'encoding', 'fileformat', 'filetype' },
+  lualine_x = { 'copilot', 'encoding', 'fileformat', 'filetype' },
   lualine_y = { 'progress' },
   lualine_z = { 'location' }
 }
 
 return {
-  'nvim-lualine/lualine.nvim',
-  opts = {
-    options = { theme = theme },
-    sections = sections,
-    inactive_sections = sections,
-  }
+  {
+    'nvim-lualine/lualine.nvim',
+    opts = {
+      options = { theme = theme },
+      sections = sections,
+      inactive_sections = sections,
+    }
+  },
+  {
+    'AndreM222/copilot-lualine'
+  },
 }
