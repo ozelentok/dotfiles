@@ -515,6 +515,7 @@ class Installer:
         self._pm.install_packages([
             "zsh", "zsh-completions", "zsh-syntax-highlighting",
             "fzf",
+            "bat",
             "zoxide",
             "lsd",
             "which",
