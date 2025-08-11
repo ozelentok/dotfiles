@@ -128,6 +128,7 @@ class Installer:
     def bluetooth(self) -> None:
         self._pm.install_packages([
             "bluez",
+            "bluez-utils",
             "bluetui",
             "chntpw", # For extraction of pairing keys from Windows
             "python-dbus", # For bt-connection-notifier
