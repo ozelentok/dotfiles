@@ -5,7 +5,7 @@ fit = "Fill"
 [GTK]
 application_prefer_dark_theme = true
 cursor_theme_name = "Future-Cyan"
-font_name = "Cantarell 11"
+font_name = "Adwaita Sans 10.5"
 icon_theme_name = "Flat-Remix-Blue-Dark"
 theme_name = "Flat-Remix-GTK-Blue-Darkest"
 

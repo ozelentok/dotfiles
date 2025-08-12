@@ -155,7 +155,7 @@ class Installer:
             "ttf-fira-code",
             "ttf-liberation",
             "ttf-roboto",
-            "cantarell-fonts",
+            "adwaita-fonts",
             "fontconfig",
         ])  # fmt: off
 

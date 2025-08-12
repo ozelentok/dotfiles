@@ -164,7 +164,7 @@ bindsym $mod+Insert           bar mode toggle
 bindsym $mod+Control+o        output DP-1 power toggle
 
 set $swaylock_options -e -k -l \
-  --font "Noto Sans Bold" --font-size 16 -c 000000 \
+  --font "Adwaita Sans" --font-size 16 -c 000000 \
   --indicator-radius 100 --indicator-thickness 12
 
 bindsym $mod+Control+l        exec  swaylock $swaylock_options

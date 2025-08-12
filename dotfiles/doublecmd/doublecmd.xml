@@ -406,13 +406,13 @@
   <Fonts>
     <Main>
       <Name>Liberation Sans</Name>
-      <Size>10</Size>
+      <Size>11</Size>
       <Style>1</Style>
       <Quality>0</Quality>
     </Main>
     <Editor>
       <Name>Fira Code</Name>
-      <Size>9</Size>
+      <Size>11</Size>
       <Style>0</Style>
       <Quality>0</Quality>
     </Editor>
@@ -430,7 +430,7 @@
     </Log>
     <ViewerBook>
       <Name>default</Name>
-      <Size>12</Size>
+      <Size>11</Size>
       <Style>1</Style>
       <Quality>0</Quality>
     </ViewerBook>
@@ -460,7 +460,7 @@
     </SearchResults>
     <PathEdit>
       <Name>Liberation Sans</Name>
-      <Size>10</Size>
+      <Size>11</Size>
       <Style>1</Style>
       <Quality>0</Quality>
     </PathEdit>
