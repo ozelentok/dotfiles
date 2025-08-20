@@ -473,6 +473,9 @@ class Installer:
         )
         utils.extract_dotfile_tar_as_root("theme/Flat-Remix-Blue-20250709.tar.xz", icons_dir_path)
         utils.extract_dotfile_tar_as_root("theme/Future-Cyan-20230405.tar.gz", icons_dir_path)
+        for icon_dir in icons_dir_path.iterdir():
+            if icon_dir.is_dir():
+                utils.run_command(["sudo", "gtk-update-icon-cache", "-t", "-f", "-q", str(icon_dir)])
 
     def tmux(self) -> None:
         self._pm.install_packages(["tmux"])

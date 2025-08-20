@@ -42,13 +42,13 @@ class Full(Profile):
         self._installer.sensors()
         self._installer.media_processing()
 
+        self._installer.gtk()
+        self._installer.qt()
+        self._installer.theme()
+        self._installer.fontconfig()
         self._installer.sway()
         self._installer.greetd()
         self._installer.kitty()
-        self._installer.fontconfig()
-        self._installer.theme()
-        self._installer.gtk()
-        self._installer.qt()
 
         self._installer.pipewire()
         self._installer.bluetooth()
