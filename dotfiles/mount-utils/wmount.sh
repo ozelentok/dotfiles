@@ -50,5 +50,5 @@ if [ $MOUNT_EXIT_CODE -ne 0 ]; then
   rmdir "$MOUNTPOINT"
   rmdir --ignore-fail-on-non-empty "$REMOTE_HOST_DIR"
 else
-  echo "Munted on $MOUNTPOINT"
+  echo "Mounted on $MOUNTPOINT"
 fi
