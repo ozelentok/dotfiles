@@ -90,8 +90,9 @@ return {
       { '<leader>a',       function() Snacks.explorer() end,                                                      desc = 'File Explorer' },
       -- find
       { '<leader>fb',      function() Snacks.picker.buffers() end,                                                desc = 'Buffers' },
-      { '<leader>fc',      function() Snacks.picker.files({ cwd = vim.fn.stdpath('config'), follow = true }) end, desc = 'Find Config File' },
       { '<leader>ff',      function() Snacks.picker.files() end,                                                  desc = 'Find Files' },
+      { '<leader>fc',      function() Snacks.picker.files({ cwd = vim.fn.stdpath('config'), follow = true }) end, desc = 'Find Config File' },
+      { '<leader>fd',      function() Snacks.picker.files({ cwd = vim.env.HOME .. '/.dotfiles', follow = true }) end, desc = 'Find Dotfiles File' },
       { '<leader>fg',      function() Snacks.picker.git_files() end,                                              desc = 'Find Git Files' },
       { '<leader>fp',      function() Snacks.picker.projects() end,                                               desc = 'Projects' },
       { '<leader>fr',      function() Snacks.picker.recent() end,                                                 desc = 'Recent' },
