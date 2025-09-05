@@ -348,9 +348,9 @@ class Installer:
 
         try:
             if installation or not developer:
-                utils.run_command(["nvim", "--headless", "+Lazy!", "sync", "+qa"])
+                utils.run_command(["nvim", "--headless", "+Lazy! sync", "+qa"])
             else:
-                utils.run_command(["nvim", "--headless", "+Lazy!", "sync", "+TSUpdateSync", "+qa"])
+                utils.run_command(["nvim", "--headless", "+Lazy! sync", "+TSUpdateSync", "+qa"])
         except KeyboardInterrupt:
             pass
 
