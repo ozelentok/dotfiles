@@ -328,9 +328,9 @@ class Installer:
                 "neovim/settings_minimal.lua", config_dir_path / "dotfiles_settings.lua"
             )
 
-        self.neovim_plugins(developer, True)
+        self.neovim_plugins(developer)
 
-    def neovim_plugins(self, developer: bool = True, installation: bool = False) -> None:
+    def neovim_plugins(self, developer: bool = True) -> None:
         if developer:
             utils.run_command(
                 [
@@ -347,10 +347,7 @@ class Installer:
             utils.run_command(["npm", "install", "-g", "neovim", "vscode-langservers-extracted"])
 
         try:
-            if installation or not developer:
-                utils.run_command(["nvim", "--headless", "+Lazy! sync", "+qa"])
-            else:
-                utils.run_command(["nvim", "--headless", "+Lazy! sync", "+TSUpdateSync", "+qa"])
+            utils.run_command(["nvim", "--headless", "+Lazy! sync", "+qa"])
         except KeyboardInterrupt:
             pass
 
