@@ -22,4 +22,20 @@ return {
       }
     },
   },
+  {
+    'yetone/avante.nvim',
+    enabled = vim.g.dotfiles_is_developer,
+    cond = vim.g.dotfiles_is_developer,
+    build = 'make',
+    event = 'VeryLazy',
+    version = false,
+    opts = {
+      instructions_file = 'avante.md',
+      provider = 'copilot',
+    },
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+      'MunifTanjim/nui.nvim',
+    }
+  }
 }
