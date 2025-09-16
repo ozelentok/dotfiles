@@ -341,6 +341,7 @@ class Installer:
                     "-U",
                     "cmakelang",
                     "cmake-language-server",
+                    "pyrefly",
                 ]
             )
             utils.run_command(["cargo", "install", "openscad-lsp"])

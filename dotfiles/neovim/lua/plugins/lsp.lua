@@ -32,6 +32,7 @@ return {
         'lua_ls',
         'clangd',
         'pyright',
+        'pyrefly',
         'ruff',
         'eslint',
         'cmake',
