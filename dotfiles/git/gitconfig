@@ -1,8 +1,8 @@
-# [user]
-#   name = Oz Elentok
-#   email = oz.elen@gmail.com
-# [github]
-#   user = ozelentok
+[user]
+  name = Oz Elentok
+  email = oz.elen@gmail.com
+[github]
+  user = ozelentok
 
 [core]
   editor = /usr/bin/nvim
