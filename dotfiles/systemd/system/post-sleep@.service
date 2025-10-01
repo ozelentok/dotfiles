@@ -1,6 +1,6 @@
 [Unit]
-Description=Call user's sleep target after system sleep
-After=sleep.target
+Description=Call user sleep target after system sleep
+After=systemd-suspend.service systemd-hybrid-sleep.service systemd-suspend-then-hibernate.service systemd-hibernate.service
 
 [Service]
 Type=oneshot

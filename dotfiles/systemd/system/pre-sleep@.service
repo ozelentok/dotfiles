@@ -1,5 +1,5 @@
 [Unit]
-Description=Call user's sleep target before system sleep
+Description=Call user sleep target before system sleep
 Before=sleep.target
 
 [Service]
