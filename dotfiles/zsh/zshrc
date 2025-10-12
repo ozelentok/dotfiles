@@ -196,6 +196,16 @@ export FZF_COMPLETION_OPTS="--header-first --header 'Keymap: Ctrl-O(rifle), Ctrl
 export FZF_CTRL_T_OPTS="${FZF_COMPLETION_OPTS}"
 
 eval "$(zoxide init zsh --cmd j)"
+function __zoxide_insert_dir() {
+  local dir
+  dir=$(zoxide query -i) || return 1
+
+  LBUFFER+="$dir"
+  zle reset-prompt
+}
+
+zle -N __zoxide_insert_dir
+bindkey '^G' __zoxide_insert_dir
 
 flc() {
   local cd_path
