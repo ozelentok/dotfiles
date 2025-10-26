@@ -47,7 +47,17 @@ local sections = {
   lualine_c = { { 'filename', path = 3 }, '%S' },
   lualine_x = { 'copilot', 'encoding', 'fileformat', 'filetype' },
   lualine_y = { 'progress' },
-  lualine_z = { 'location' }
+  lualine_z = { 'location',
+    {
+      function()
+        local reg = vim.fn.reg_recording()
+        return reg ~= '' and 'recording @' .. reg or ''
+      end,
+      cond = function()
+        return vim.fn.reg_recording() ~= ''
+      end
+    }
+  }
 }
 
 return {
