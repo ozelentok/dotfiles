@@ -308,6 +308,7 @@ class Installer:
         if wayland:
             packages.append("wl-clipboard")
 
+        self._pm.install_packages(packages)
         utils.run_command(["sudo", "ln", "-s", "-f", "-r", "/usr/bin/nvim", "/usr/local/bin/vim"])
 
         config_dir_path = self._mkdir("nvim")
