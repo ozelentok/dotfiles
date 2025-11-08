@@ -67,6 +67,8 @@ return {
         NeogitChangeDeleted        = { fg = colors.red, bold = true },
         NeogitChangeAdded          = { fg = colors.green, bold = true },
         NeogitChangeRenamed        = { fg = colors.yellow, italic = true },
+        ["@nospell"]               = { fg = nil },
+        ["@spell"]                 = { fg = nil },
       }
       for g, hl in pairs(hls) do
         vim.api.nvim_set_hl(0, g, hl);
