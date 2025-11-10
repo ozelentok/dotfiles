@@ -165,7 +165,8 @@ rdp() {
 
 jp() {
   for f in "$@"; do
-    magick "${f}" "${f%.*}.jpg" && rm "${f}"
+    local out_f="${f%.*}.jpg"
+    magick "$f" "$out_f" && [[ "$f" != "$out_f" ]] && rm "$f"
   done
 }
 
