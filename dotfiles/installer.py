@@ -451,8 +451,18 @@ class Installer:
         utils.symlink_dotfile("vmic/10-virtual-sinks.conf", config_dir_path)
 
     def yt_dlp(self) -> None:
-        self._pm.install_packages(["python-pip"])
-        utils.run_command(["pip", "install", "--user", "--break-system-packages", "-U", "yt_dlp"])
+        self._pm.install_packages(["python-pip", "deno"])
+        utils.run_command(
+            [
+                "pip",
+                "install",
+                "--user",
+                "--break-system-packages",
+                "-U",
+                "yt-dlp",
+                "yt-dlp-ejs",
+            ]
+        )
 
     def sensors(self) -> None:
         self._pm.install_packages(["lm_sensors"])
