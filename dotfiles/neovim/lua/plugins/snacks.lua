@@ -5,9 +5,8 @@ local gtags_picker = function(name, gtags_option)
       if ctx.filter.search ~= "" then
         tag = ctx.filter.search
       end
-      return require('snacks.picker.source.proc').proc({
-        opts,
-        {
+      return require('snacks.picker.source.proc').proc(
+        ctx:opts({
           cmd = 'global',
           args = { '-q', gtags_option, '--result=ctags-mod', '--', tag },
           transform = function(item)
@@ -17,8 +16,7 @@ local gtags_picker = function(name, gtags_option)
             item.file = path
             item.pos = { tonumber(line_number, 10), col_number - 1 }
           end,
-        },
-      }, ctx)
+        }), ctx)
     end
 
     Snacks.picker.pick({
