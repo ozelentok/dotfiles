@@ -1,0 +1,57 @@
+#!/usr/bin/env bash
+
+# fzf-preview - Preview images and videos using kitty icat and preview text using bat/cat inside FZF preview pane
+# Images are displayed directly, videos require image frame extraction via ffmpegthumbnailer or ffmpeg,
+# Text files are previewed with bat if available, otherwise with cat
+
+if [ ! -f "$1" ]; then
+  exit 0
+fi
+
+MIME=$(file --mime-type -b "${1}")
+KITTEN_ICAT="kitten icat --clear --transfer-mode=memory --unicode-placeholder \
+  --stdin=no --place ${FZF_PREVIEW_COLUMNS}x${FZF_PREVIEW_LINES}@0x0"
+
+if [[ "${MIME}" == image/* ]]; then
+  ${KITTEN_ICAT} "${1}"
+  exit 0
+fi
+
+if [[ "${MIME}" == video/* ]]; then
+  HAS_FFMPEG_THUMBNAILER=0
+  HAS_FFMPEG=0
+
+  if command -v ffmpegthumbnailer &>/dev/null; then
+    HAS_FFMPEG_THUMBNAILER=1
+  elif command -v ffmpeg &>/dev/null; then
+    HAS_FFMPEG=1
+  fi
+
+  if [ "${HAS_FFMPEG}" -eq 0 ] && [ "${HAS_FFMPEG_THUMBNAILER}" -eq 0 ]; then
+    echo "Neither ffmpegthumbnailer nor ffmpeg is available. Unable to preview video"
+    exit 1
+  fi
+
+  PREVIEW_TMP_DIR="${XDG_RUNTIME_DIR:-/tmp}/preview"
+  mkdir -p "${PREVIEW_TMP_DIR}"
+  VIDEO_FRAME_FILE="$(mktemp --tmpdir="${PREVIEW_TMP_DIR}" fzf_preview_XXXX.jpg)"
+
+  if [ "${HAS_FFMPEG_THUMBNAILER}" -eq 1 ]; then
+    ffmpegthumbnailer -q 6 -i "${1}" -o "${VIDEO_FRAME_FILE}" -s 600 -t 0 &>/dev/null
+  else
+    ffmpeg -v quiet -threads 1 -hwaccel auto -skip_frame nokey -an -sn -dn \
+      -i "${1}" -vf "scale='min(600,iw)':'min(900,ih)':force_original_aspect_ratio=decrease:flags=fast_bilinear" \
+      -vframes 1 -q:v 30 -f image2 -y "${VIDEO_FRAME_FILE}" &>/dev/null
+  fi
+
+  ${KITTEN_ICAT} "${VIDEO_FRAME_FILE}"
+  rm -f "${VIDEO_FRAME_FILE}"
+  exit 0
+fi
+
+if command -v bat &>/dev/null; then
+  bat --color=always -- "${1}"
+  exit 0
+fi
+
+cat "${1}"

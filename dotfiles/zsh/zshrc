@@ -192,8 +192,9 @@ export FZF_COMPLETION_OPTS="--header-first --header 'Keymap: Ctrl-O(rifle), Ctrl
   --bind 'ctrl-e:execute(vim {})+abort'
   --bind 'ctrl-y:execute-silent(echo -n {} | wl-copy)'
   --bind 'ctrl-h:execute-silent(echo -n \$(realpath -s {}) | wl-copy)'
-  --preview 'bat --color=always -- {}'
-  --bind 'shift-up:preview-page-up,shift-down:preview-page-down'"
+  --bind 'shift-up:preview-page-up,shift-down:preview-page-down'
+  --preview 'fzf-preview {}'
+"
 export FZF_CTRL_T_OPTS="${FZF_COMPLETION_OPTS}"
 
 eval "$(zoxide init zsh --cmd j)"
@@ -219,8 +220,9 @@ flc() {
     --bind 'ctrl-e:execute(vim {})+abort' \
     --bind 'ctrl-y:execute-silent(echo -n {} | wl-copy)' \
     --bind 'ctrl-h:execute-silent(echo -n \$(realpath -s {}) | wl-copy)' \
-    --preview 'bat --color=always -- {}' \
-    --bind 'shift-up:preview-page-up,shift-down:preview-page-down')
+    --bind 'shift-up:preview-page-up,shift-down:preview-page-down' \
+    --preview 'fzf-preview {}'
+  )
   if [ -z "${cd_path}" ]; then
     return
   elif [ -d "${cd_path}" ]; then
