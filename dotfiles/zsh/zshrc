@@ -166,13 +166,14 @@ rdp() {
 jp() {
   for f in "$@"; do
     local out_f="${f%.*}.jpg"
-    magick "$f" "$out_f" && [[ "$f" != "$out_f" ]] && rm "$f"
+    magick "${f}" -depth 8 "${out_f}" && [[ "$f" != "$out_f" ]] && rm "$f"
   done
 }
 
 jpk() {
   for f in "$@"; do
-    magick "${f}" "${f%.*}.jpg"
+    local out_f="${f%.*}.jpg"
+    magick "${f}" -depth 8 "${out_f}"
   done
 }
 
