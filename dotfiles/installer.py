@@ -102,6 +102,7 @@ class Installer:
             Path.home() / ".cache/thumbnails",
             Path.home() / ".cache/ueberzugpp",
             Path.home() / ".cache/pikaur/build",
+            Path.home() / ".cache/android-studio",
             Path.home() / ".mozilla/firefox/firefox-mpris",
             Path.home() / ".wine/drive_c/users" / getpass.getuser() / "Temp",
         ]
