@@ -5,49 +5,56 @@ import subprocess
 from pathlib import Path
 
 BIT_RATES = {
-    '320k': 320000,
-    '256k': 256000,
-    '224k': 224000,
-    '192k': 192000,
-    '160k': 160000,
-    '128k': 128000,
-    '96k': 96000,
-    '64k': 64000,
+    "320k": 320000,
+    "256k": 256000,
+    "224k": 224000,
+    "192k": 192000,
+    "160k": 160000,
+    "128k": 128000,
+    "96k": 96000,
+    "64k": 64000,
 }
 
 
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument('input_dir', type=Path)
-    parser.add_argument('bitrate', choices=BIT_RATES.keys())
+    parser.add_argument("input_dir", type=Path)
+    parser.add_argument("bitrate", choices=BIT_RATES.keys())
+    parser.add_argument("--opus", action="store_true", help="Encode as opus instead of vorbis")
+
     args = parser.parse_args()
 
     input_dir: Path = args.input_dir.absolute()
-    output_dir: Path = input_dir.parent / 'ogg' / input_dir.name.replace(' ', '_')
+    output_dir: Path = input_dir.parent / "ogg" / input_dir.name.replace(" ", "_")
     output_dir.mkdir(parents=True, exist_ok=True)
     output_bitrate = BIT_RATES[args.bitrate]
 
     for p in sorted(input_dir.iterdir(), key=lambda p: p.name):
         file_ext = p.suffix.lower()
-        if file_ext in ['.mp3', '.flac', '.wav', '.m4a']:
-            output_path = output_dir / f'{p.stem}.ogg'
-            print(f'Converting {p} to {output_path.name} on {output_bitrate} bitrate')
-            run_ffmpeg(p, output_path, output_bitrate)
+        if file_ext in [".mp3", ".flac", ".wav", ".m4a"]:
+            output_path = output_dir / f"{p.stem}.ogg"
+            print(f"Converting {p} to {output_path.name} on {output_bitrate} bitrate")
+            run_ffmpeg(p, output_path, output_bitrate, args.opus)
 
 
-def run_ffmpeg(input_path: Path, output_path: Path, output_bitrate: int) -> None:
+def run_ffmpeg(
+    input_path: Path, output_path: Path, output_bitrate: int, opus: bool = False
+) -> None:
     try:
         args = [
-            'ffmpeg', '-hide_banner', '-i', input_path, '-vn',
+            "ffmpeg", "-hide_banner",
+            "-i", input_path,
             # '-af', 'pan=mono|c0=FR',
             # '-ar', '48000',
-            '-c:a', 'libvorbis', '-b:a', str(output_bitrate),
+            "-vn",
+            "-b:a", str(output_bitrate),
+            "-c:a", "libvorbis" if not opus else "libopus",
+            "-y", output_path,
         ]  # fmt: off
-        args += ['-y', output_path]
         subprocess.run(args, check=True)
     except Exception:
         pass
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
