@@ -60,7 +60,7 @@ map_vim('', ';', ':')
 map_vim('n', 'U', '<C-r>')
 
 -- Replace current word
-map_vim('n', '<leader>b', ':%s/<C-r><C-w>/', { desc = 'Replace current word' })
+map_vim('n', '<leader>rw', ':%s/<C-r><C-w>/', { desc = 'Replace current word' })
 
 -- Window movement
 map_vim('n', '<C-h>', '<C-w>h')
