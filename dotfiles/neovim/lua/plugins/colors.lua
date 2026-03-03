@@ -79,8 +79,14 @@ return {
   },
   'nvim-tree/nvim-web-devicons',
   {
-    'NvChad/nvim-colorizer.lua',
-    events = 'VeryLazy',
-    opts = {},
+    'catgoose/nvim-colorizer.lua',
+    event = 'BufReadPre',
+    opts = {
+      options = {
+        parsers = {
+          css = true,
+        },
+      }
+    },
   },
 }
