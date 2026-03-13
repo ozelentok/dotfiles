@@ -45,7 +45,7 @@ local sections = {
   lualine_a = { 'mode' },
   lualine_b = { 'branch', 'diff', 'diagnostics' },
   lualine_c = { { 'filename', path = 3 }, '%S' },
-  lualine_x = { 'copilot', 'encoding', 'fileformat', 'filetype' },
+  lualine_x = { 'encoding', 'fileformat', 'filetype' },
   lualine_y = { 'progress' },
   lualine_z = { 'location',
     {
@@ -68,8 +68,5 @@ return {
       sections = sections,
       inactive_sections = sections,
     }
-  },
-  {
-    'AndreM222/copilot-lualine'
   },
 }
