@@ -85,8 +85,8 @@ return {
     opts = {},
     cmd = 'Trouble',
     keys = {
-      { '<leader>tt', '<cmd>Trouble diagnostics toggle filter.buf=0<CR>', noremap = true, desc = 'Trouble Diagnostics' },
-      { '<leader>ww', '<cmd>Trouble diagnostics toggle<CR>',              noremap = true, desc = 'Trouble Workspace' }
+      { '<leader>nt', '<cmd>Trouble diagnostics toggle filter.buf=0<CR>', noremap = true, desc = 'Trouble Diagnostics' },
+      { '<leader>nw', '<cmd>Trouble diagnostics toggle<CR>',              noremap = true, desc = 'Trouble Workspace' }
     }
   },
 
