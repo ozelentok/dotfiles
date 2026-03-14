@@ -70,6 +70,7 @@ if [ ! -z "$XDG_RUNTIME_DIR" ]; then
   mkdir -p "$XDG_RUNTIME_DIR"/cache/android-studio
   mkdir -p "$XDG_RUNTIME_DIR"/cache/firefox-mpris
   mkdir -p "$XDG_RUNTIME_DIR"/cache/chromium
+  mkdir -p "$XDG_RUNTIME_DIR"/cache/Temp
 fi
 
 mkdir -p /tmp/1-imgs $GRIM_DEFAULT_DIR
