@@ -44,6 +44,8 @@ def run_ffmpeg(
         args = [
             "ffmpeg", "-hide_banner",
             "-i", input_path,
+            "-map_metadata", "0",
+            "-map_metadata", "0:s:a:0",
             # '-af', 'pan=mono|c0=FR',
             # '-ar', '48000',
             "-vn",
