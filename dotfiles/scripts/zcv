@@ -234,6 +234,7 @@ def x264(
         "-pix_fmt", "yuv420p",
         "-sn",
         "-map_metadata", "-1", "-map_chapters", "-1",
+        "-movflags", "+faststart",
     ]  # fmt: off
 
     set_video_tune(cmd, tune)
@@ -265,6 +266,7 @@ def ix264(
         "-profile:v", "high",
         "-pix_fmt", "yuv420p",
         "-sn",
+        "-movflags", "+faststart",
     ]  # fmt: off
 
     set_video_tune(cmd, tune)
