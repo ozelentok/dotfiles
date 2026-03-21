@@ -1,3 +1,5 @@
+# style(scripts): Format python scripts
+b689e39b517c4c04663f547782ca9812a5104733
 # style(nvim): Format snacks.lua
 d11f4981fa99493856ba382f0e7de1fdb0d76d74
 # style(python): Format all strings with double quotes instead of single quotes
