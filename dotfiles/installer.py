@@ -104,7 +104,7 @@ class Installer:
             Path.home() / ".cache/pikaur/build",
             Path.home() / ".cache/android-studio",
             Path.home() / ".cache/chromium",
-            Path.home() / ".mozilla/firefox/firefox-mpris",
+            Path.home() / ".config/mozilla/firefox/firefox-mpris",
             Path.home() / ".wine/drive_c/users" / getpass.getuser() / "Temp",
         ]
         for link_path in links:
