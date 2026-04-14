@@ -104,6 +104,7 @@ class Installer:
             Path.home() / ".cache/pikaur/build",
             Path.home() / ".cache/android-studio",
             Path.home() / ".cache/chromium",
+            Path.home() / f".cache/p10k-{getpass.getuser()}",
             Path.home() / ".config/mozilla/firefox/firefox-mpris",
             Path.home() / ".wine/drive_c/users" / getpass.getuser() / "Temp",
         ]
