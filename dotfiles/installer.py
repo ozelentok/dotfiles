@@ -210,6 +210,7 @@ class Installer:
             "xdg-desktop-portal-wlr",
             "wlr-randr",
             "xorg-xwayland",
+            "python-pip",
         ])  # fmt: off
         utils.run_command(["pip", "install", "--user", "--break-system-packages", "-U", "pulsectl"])
 
