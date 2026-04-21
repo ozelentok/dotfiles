@@ -344,8 +344,6 @@ class Installer:
                     "--user",
                     "--break-system-packages",
                     "-U",
-                    "cmakelang",
-                    "cmake-language-server",
                     "pyrefly",
                 ]
             )

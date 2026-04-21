@@ -35,7 +35,6 @@ return {
         'pyrefly',
         'ruff',
         'eslint',
-        'cmake',
         'html',
         'jsonls',
         'cssls',
