@@ -73,6 +73,7 @@ _dotf_pkg() {
     "scripts_dependencies" \
     "sensors" \
     "smplayer" \
+    "speech_dispatcher" \
     "sway" \
     "systemd_config" \
     "theme" \

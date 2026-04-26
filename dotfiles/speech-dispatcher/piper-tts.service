@@ -1,0 +1,10 @@
+[Unit]
+Description=Piper TTS HTTP Server
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/python3 -m piper.http_server --data-dir %h/.config/speech-dispatcher/voices -m default --host localhost --port 9010
+Type=exec
+
+[Install]
+WantedBy=default.target

@@ -258,6 +258,66 @@ class Installer:
         config_dir_path = self._mkdir("pipewire/client.conf.d")
         utils.symlink_dotfile("pipewire/client.conf.d/resample.conf", config_dir_path)
 
+    def speech_dispatcher(self) -> None:
+        self._pm.install_packages([
+            "speech-dispatcher",
+            "pipewire-audio",
+        ])  # fmt: off
+
+        utils.run_command(
+            ["pip", "install", "--user", "--break-system-packages", "-U", "piper-tts"]
+        )
+        systemd_dir_path = self._mkdir("systemd/user")
+        utils.symlink_dotfile("speech-dispatcher/piper-tts.service", systemd_dir_path)
+        utils.run_command(["systemctl", "--user", "enable", "piper-tts"])
+
+        config_dir_path = self._mkdir("speech-dispatcher")
+        utils.symlink_dotfile("speech-dispatcher/speechd.conf", config_dir_path)
+
+        def register_voices() -> None:
+            voices_dir_path = self._mkdir("voices", config_dir_path)
+            voices = [f.stem for f in voices_dir_path.iterdir() if f.suffix.endswith("onnx")]
+
+            modules_dir_path = self._mkdir("modules", config_dir_path)
+            piper_client_config_path = modules_dir_path / "piper-tts.conf"
+
+            speech_variants = ["male1", "male2", "male3", "female1", "female2", "female3"]
+            default_voice = "default"
+
+            with open(piper_client_config_path, "w") as f:
+                f.write(
+                    'GenericExecuteSynth "~/.dotfiles/dotfiles/speech-dispatcher/piper_tts_client.py '
+                    '-s $RATE -v \\"$VOICE\\" \\"$DATA\\""\n'
+                )
+                f.write(f'DefaultVoice "{default_voice}"\n')
+                for n, v in zip(speech_variants, voices):
+                    f.write(f'AddVoice "en-US" "{n}" "{v}"\n')
+
+            if not voices:
+                print(
+                    "To complete Piper TTS setup, download voices "
+                    "from https://rhasspy.github.io/piper-samples\n"
+                    f"Place them in {voices_dir_path} and re-run the speech-dispatcher installer"
+                )
+                return
+
+            # Register default voice required for piper-tts server startup
+            if default_voice not in voices:
+                for suffix in (".onnx", ".onnx.json"):
+                    utils.symlink_relative(
+                        voices_dir_path / f"{voices[0]}{suffix}",
+                        voices_dir_path / f"{default_voice}{suffix}",
+                    )
+
+            print(
+                f"Piper TTS setup completed, voices "
+                f"registered in {piper_client_config_path}\n"
+                f"Please edit configuration file to set the correct voice genders\n"
+                f"The default voice on startup is set by {voices_dir_path}/{default_voice}.onnx symlink"
+            )
+
+        register_voices()
+
     def mcomix(self) -> None:
         self.install_aur_packages(["mcomix"])
 
