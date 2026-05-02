@@ -29,7 +29,7 @@ return {
 
   -- Movement
   {
-    'phaazon/hop.nvim',
+    'smoka7/hop.nvim',
     keys = {
       { 'sf', '<cmd>HopWord<CR>',      noremap = true },
       { 'sd', '<cmd>HopLine<CR>',      noremap = true },
