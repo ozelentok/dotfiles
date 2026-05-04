@@ -103,6 +103,8 @@ class Audio(StrEnum):
 class AudioCodec(StrEnum):
     aac = auto()
     vorbis = "libvorbis"
+    opus = "libopus"
+    flac = auto()
 
 
 class VideoTune(StrEnum):
@@ -154,6 +156,7 @@ def x265(
     time_to: str = typer.Option("", "-to"),
     video_filter: str = typer.Option("", "-vf"),
     audio: Audio = typer.Option(Audio.none, "-a", case_sensitive=False),
+    audio_codec: AudioCodec = typer.Option(AudioCodec.aac, "-ac", case_sensitive=False),
     audio_filter: str = typer.Option("", "-af"),
     preset: Preset = typer.Option(Preset.slow, "-p", case_sensitive=False),
     tune: Optional[VideoTune] = typer.Option(None, "-t", case_sensitive=False),
@@ -173,7 +176,7 @@ def x265(
     ]  # fmt: off
 
     set_video_tune(cmd, tune)
-    set_audio(cmd, audio, AudioCodec.aac)
+    set_audio(cmd, audio, audio_codec)
     call_ffmpeg(cmd + [output_path])
 
 
@@ -186,6 +189,7 @@ def ix265(
     video_filter: str = typer.Option("", "-vf"),
     audio_path: Path = typer.Option(None, "-audio"),
     audio: Audio = typer.Option(Audio.none, "-a", case_sensitive=False),
+    audio_codec: AudioCodec = typer.Option(AudioCodec.aac, "-ac", case_sensitive=False),
     audio_filter: str = typer.Option("", "-af"),
     preset: Preset = typer.Option(Preset.slow, "-p", case_sensitive=False),
     tune: Optional[VideoTune] = typer.Option(None, "-t", case_sensitive=False),
@@ -202,7 +206,7 @@ def ix265(
     ]  # fmt: off
 
     set_video_tune(cmd, tune)
-    set_audio(cmd, audio, AudioCodec.vorbis)
+    set_audio(cmd, audio, audio_codec)
     call_ffmpeg(cmd + [output_path])
 
 
@@ -215,6 +219,7 @@ def x264(
     time_to: str = typer.Option("", "-to"),
     video_filter: str = typer.Option("", "-vf"),
     audio: Audio = typer.Option(Audio.none, "-a", case_sensitive=False),
+    audio_codec: AudioCodec = typer.Option(AudioCodec.aac, "-ac", case_sensitive=False),
     audio_filter: str = typer.Option("", "-af"),
     subtitles_path: Optional[Path] = typer.Option(None, "-subs"),
     subtitles_force_style: bool = typer.Option(False, "-subs-force-style"),
@@ -238,7 +243,7 @@ def x264(
     ]  # fmt: off
 
     set_video_tune(cmd, tune)
-    set_audio(cmd, audio, AudioCodec.aac)
+    set_audio(cmd, audio, audio_codec)
     call_ffmpeg(cmd + [output_path])
 
 
@@ -251,6 +256,7 @@ def ix264(
     video_filter: str = typer.Option("", "-vf"),
     audio_path: Path = typer.Option(None, "-audio"),
     audio: Audio = typer.Option(Audio.none, "-a", case_sensitive=False),
+    audio_codec: AudioCodec = typer.Option(AudioCodec.aac, "-ac", case_sensitive=False),
     audio_filter: str = typer.Option("", "-af"),
     preset: Preset = typer.Option(Preset.slow, "-p", case_sensitive=False),
     tune: Optional[VideoTune] = typer.Option(None, "-t", case_sensitive=False),
@@ -270,7 +276,7 @@ def ix264(
     ]  # fmt: off
 
     set_video_tune(cmd, tune)
-    set_audio(cmd, audio, AudioCodec.vorbis)
+    set_audio(cmd, audio, audio_codec)
     call_ffmpeg(cmd + [output_path])
 
 
@@ -283,6 +289,7 @@ def vp9(
     time_to: str = typer.Option("", "-to"),
     video_filter: str = typer.Option("", "-vf"),
     audio: Audio = typer.Option(Audio.none, "-a", case_sensitive=False),
+    audio_codec: AudioCodec = typer.Option(AudioCodec.vorbis, "-ac", case_sensitive=False),
     audio_filter: str = typer.Option("", "-af"),
     subtitles_path: Path = typer.Option(None, "-subs"),
     subtitles_force_style: bool = typer.Option(False, "-subs-force-style"),
@@ -306,7 +313,7 @@ def vp9(
     ]  # fmt: off
     call_ffmpeg(cmd + ["-an", "-pass", "1"] + ["-y", "-f", output_path.suffix[1:], "/dev/null"])
 
-    set_audio(cmd, audio, AudioCodec.vorbis)
+    set_audio(cmd, audio, audio_codec)
     call_ffmpeg(cmd + ["-pass", "2"] + ["-y", output_path])
 
 
@@ -319,6 +326,7 @@ def ivp9(
     video_filter: str = typer.Option("", "-vf"),
     audio_path: Path = typer.Option(None, "-audio"),
     audio: Audio = typer.Option(Audio.none, "-a", case_sensitive=False),
+    audio_codec: AudioCodec = typer.Option(AudioCodec.vorbis, "-ac", case_sensitive=False),
     audio_filter: str = typer.Option("", "-af"),
 ) -> None:
     cmd = ["-framerate", fps, "-f", "image2"]
@@ -338,7 +346,7 @@ def ivp9(
     ]  # fmt: off
     call_ffmpeg(cmd + ["-an", "-pass", "1"] + ["-y", "-f", output_path.suffix[1:], "/dev/null"])
 
-    set_audio(cmd, audio, AudioCodec.vorbis)
+    set_audio(cmd, audio, audio_codec)
     call_ffmpeg(cmd + ["-pass", "2"] + ["-y", output_path])
 
 
@@ -351,6 +359,7 @@ def vp8(
     time_to: str = typer.Option("", "-to"),
     video_filter: str = typer.Option("", "-vf"),
     audio: Audio = typer.Option(Audio.none, "-a", case_sensitive=False),
+    audio_codec: AudioCodec = typer.Option(AudioCodec.vorbis, "-ac", case_sensitive=False),
     audio_filter: str = typer.Option("", "-af"),
     subtitles_path: Path = typer.Option(None, "-subs"),
     subtitles_force_style: bool = typer.Option(False, "-subs-force-style"),
@@ -376,7 +385,7 @@ def vp8(
 
     call_ffmpeg(cmd + ["-an", "-pass", "1"] + ["-y", "-f", output_path.suffix[1:], "/dev/null"])
 
-    set_audio(cmd, audio, AudioCodec.vorbis)
+    set_audio(cmd, audio, audio_codec)
     call_ffmpeg(cmd + ["-pass", "2"] + ["-y", output_path])
 
 
@@ -389,6 +398,7 @@ def ivp8(
     video_filter: str = typer.Option("", "-vf"),
     audio_path: Path = typer.Option(None, "-audio"),
     audio: Audio = typer.Option(Audio.none, "-a", case_sensitive=False),
+    audio_codec: AudioCodec = typer.Option(AudioCodec.vorbis, "-ac", case_sensitive=False),
     audio_filter: str = typer.Option("", "-af"),
 ) -> None:
     cmd = ["-framerate", fps, "-f", "image2"]
@@ -404,7 +414,7 @@ def ivp8(
     ]  # fmt: off
     call_ffmpeg(cmd + ["-an", "-pass", "1"] + ["-y", "-f", output_path.suffix[1:], "/dev/null"])
 
-    set_audio(cmd, audio, AudioCodec.vorbis)
+    set_audio(cmd, audio, audio_codec)
     call_ffmpeg(cmd + ["-pass", "2"] + ["-y", output_path])
 
 
@@ -485,6 +495,8 @@ def copy(
     output_path: Path,
     time_from: str = typer.Option("", "-from"),
     time_to: str = typer.Option("", "-to"),
+    audio: Audio = typer.Option(Audio.copy, "-a", case_sensitive=False),
+    audio_codec: AudioCodec = typer.Option(AudioCodec.flac, "-ac", case_sensitive=False)
 ) -> None:
     cmd = []
     set_timestamps(cmd, time_from, time_to)
@@ -493,9 +505,9 @@ def copy(
     cmd += [
         "-map", "0",
         "-c:v", "copy",
-        "-c:a", "copy",
         "-c:s", "copy",
     ]  # fmt: off
+    set_audio(cmd, audio, audio_codec)
     call_ffmpeg(cmd + ["-y", output_path])
 
 
