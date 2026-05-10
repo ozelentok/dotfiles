@@ -25,13 +25,13 @@ rules = [
     { mime = "inode/empty", fg = "red" },
 
     # Special files
-    { name = "*", is = "orphan", bg = "red" },
-    { name = "*", is = "exec"  , fg = "#00FF00" },
+    { url = "*", is = "orphan", bg = "red" },
+    { url = "*", is = "exec"  , fg = "#00FF00" },
 
     # Dummy files
-    { name = "*", is = "dummy", bg = "red" },
-    { name = "*/", is = "dummy", bg = "red" },
+    { url = "*", is = "dummy", bg = "red" },
+    { url = "*/", is = "dummy", bg = "red" },
 
-    { name = "*", fg = "#FFFFFF" },
-    { name = "*/", fg = "#00B0FF", bold = true }
+    { url = "*", fg = "#FFFFFF" },
+    { url = "*/", fg = "#00B0FF", bold = true }
 ]
