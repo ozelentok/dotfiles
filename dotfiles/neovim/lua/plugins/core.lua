@@ -165,7 +165,7 @@ return {
   {
     'MeanderingProgrammer/render-markdown.nvim',
     opts = {},
-    ft = { 'markdown', 'Avante' },
+    ft = { 'markdown' },
     keys = {
       {
         '<leader>p',

@@ -67,6 +67,9 @@ return {
         NeogitChangeDeleted        = { fg = colors.red, bold = true },
         NeogitChangeAdded          = { fg = colors.green, bold = true },
         NeogitChangeRenamed        = { fg = colors.yellow, italic = true },
+
+        RenderMarkdownCode         = { bg = colors.float_bg },
+        RenderMarkdownH1Bg         = { fg = colors.cyan, bg = '#092939', bold = true }
       }
       for g, hl in pairs(hls) do
         vim.api.nvim_set_hl(0, g, hl);
