@@ -1,4 +1,6 @@
-exec "regreet; swaymsg exit"
+default_border none
+default_floating_border none
+hide_edge_borders both
 
 exec_always swayidle -w \
   timeout 300 'swaymsg "output * power off"' \
@@ -16,4 +18,7 @@ bindsym Mod4+shift+e exec swaynag \
   -b 'Reboot' 'systemctl reboot' \
   -b 'Suspend' 'systemctl suspend'
 
+
 include /etc/sway/config.d/*
+
+exec "regreet; swaymsg exit"
