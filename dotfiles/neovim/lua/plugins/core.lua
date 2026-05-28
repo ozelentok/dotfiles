@@ -110,9 +110,21 @@ return {
     config = function()
       require('project_nvim').setup({
         scope_chdir = 'win',
-        ignore_lsp = { 'lua_ls' },
+        ignore_lsp = { 'lua_ls', 'null-ls' },
         manual_mode = true,
         silent_chdir = false,
+        patterns = {
+          '.git',
+          '.obsidian',
+          'Makefile',
+          'package.json',
+          'pyproject.toml',
+          'setup.py',
+          'Cargo.toml',
+          'go.mod',
+          'meson.build',
+          'README.md',
+        },
       })
     end,
     keys = {
