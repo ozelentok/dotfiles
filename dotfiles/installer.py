@@ -1,7 +1,6 @@
 import getpass
 import inspect
 import os
-import platform
 import shutil
 import subprocess
 import tempfile
@@ -473,19 +472,17 @@ class Installer:
     def samba(self) -> None:
         self._pm.install_packages(["samba"])
         samba_user = input("Enter Samba Username: ")
-        config_dir_path = self._mkdir("samba, /etc")
+        config_dir_path = self._mkdir("samba", "/etc")
         utils.copy_dotfile_as_root("samba/smb.conf", config_dir_path)
         utils.copy_dotfile_as_root("samba/machine.conf", config_dir_path)
+        utils.run_command(
+            ["sudo", "tee", "-a", "/etc/samba/smbusers"],
+            input=f'{getpass.getuser()} = "{samba_user}"\n',
+            text=True,
+            stdout=subprocess.DEVNULL,
+        )
 
-        hostname = platform.uname().node
-        utils.run_command(
-            ["sudo", "sed", "-i", "-e", f"s/HOST_NAME/{hostname}/", "/etc/samba/machine.conf"]
-        )
-        utils.run_command(["sudo", "useradd", samba_user, "-g", "users", "-s", "/bin/nologin"])
         utils.run_command(["sudo", "smbpasswd", "-a", samba_user])
-        utils.run_command(
-            ["sudo", "tee", "-a", "/etc/samba/smbusers"], input=f"{samba_user} = {samba_user}"
-        )
         utils.run_command(["sudo", "systemctl", "enable", "smb"])
 
     def scripts_dependencies(self) -> None:
