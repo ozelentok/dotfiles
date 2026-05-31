@@ -20,11 +20,11 @@ class SystemPackageManager:
 
 
 def run_command(command: list[str], **kwargs) -> None:
-    subprocess.check_call(command, shell=False, cwd=__MOUDLE_PATH, **kwargs)
+    subprocess.run(command, shell=False, cwd=__MOUDLE_PATH, check=True, **kwargs)
 
 
 def run_shell(command: str, **kwargs) -> None:
-    subprocess.check_call(command, shell=True, cwd=__MOUDLE_PATH, **kwargs)
+    subprocess.run(command, shell=True, cwd=__MOUDLE_PATH, check=True, **kwargs)
 
 
 def mkdir(path: Path) -> None:
