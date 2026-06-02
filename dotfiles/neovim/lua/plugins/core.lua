@@ -188,6 +188,30 @@ return {
     },
   },
 
+  {
+    'obsidian-nvim/obsidian.nvim',
+    enabled = vim.uv.fs_stat(vim.fn.expand('~/Sync/Notes')) ~= nil,
+    opts = {
+      legacy_commands = false,
+      daily_notes = {
+        date_format = '%Y-%m',
+        folder = '0-logs',
+      },
+      picker = { name = 'snacks.picker' },
+      ui = { enable = false },
+      workspaces = {
+        { path = '~/Sync/Notes' }
+      },
+    },
+    keys = {
+      {
+        '<leader>o',
+        '<cmd>Obsidian<CR>',
+        noremap = true,
+      }
+    },
+  },
+
   -- OpenSCAD Support With Auto Rendering
   {
     'salkin-mada/openscad.nvim',
