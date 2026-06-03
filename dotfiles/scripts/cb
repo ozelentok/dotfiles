@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+set -eo pipefail
+
+if [ -n "${WAYLAND_DISPLAY}" ] && command -v wl-copy >/dev/null; then
+  exec wl-copy -- "$@"
+fi
+
+if [ $# -gt 0 ]; then
+  encoded=$(printf '%s' "$*" | base64 | tr -d '\n')
+else
+  encoded=$(base64 | tr -d '\n')
+fi
+exec printf '\033]52;c;%s\a' "$encoded" > /dev/tty
