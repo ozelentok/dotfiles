@@ -337,7 +337,7 @@ class Installer:
         utils.symlink_dotfile("mimeapps/mimeapps.list", Path.home() / ".config")
 
     def mpv(self) -> None:
-        self._pm.install_packages(["mpv"])
+        self._pm.install_packages(["mpv", "mpv-mpris"])
         config_dir_path = self._mkdir("mpv")
         utils.symlink_dotfile("mpv/mpv.conf", config_dir_path)
 
