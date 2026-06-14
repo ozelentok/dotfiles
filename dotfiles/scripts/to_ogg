@@ -15,42 +15,43 @@ BIT_RATES = {
     "64k": 64000,
 }
 
+INPUT_EXTENSIONS = [".mp3", ".flac", ".wav", ".wma", ".m4a", ".aac"]
+
 
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("input_dir", type=Path)
     parser.add_argument("bitrate", choices=BIT_RATES.keys())
-    parser.add_argument("--opus", action="store_true", help="Encode as opus instead of vorbis")
+    parser.add_argument("--opus", action="store_true", help="Use Opus codec instead of Vorbis")
 
     args = parser.parse_args()
 
     input_dir: Path = args.input_dir.absolute()
-    output_dir: Path = input_dir.parent / "ogg" / input_dir.name.replace(" ", "_")
+    output_ext = "opus" if args.opus else "ogg"
+    output_codec = "libopus" if args.opus else "libvorbis"
+
+    output_dir: Path = input_dir.parent / output_ext / input_dir.name.replace(" ", "_")
     output_dir.mkdir(parents=True, exist_ok=True)
     output_bitrate = BIT_RATES[args.bitrate]
 
     for p in sorted(input_dir.iterdir(), key=lambda p: p.name):
         file_ext = p.suffix.lower()
-        if file_ext in [".mp3", ".flac", ".wav", ".m4a"]:
-            output_path = output_dir / f"{p.stem}.ogg"
+        if file_ext in INPUT_EXTENSIONS:
+            output_path = output_dir / f"{p.stem}.{output_ext}"
             print(f"Converting {p} to {output_path.name} on {output_bitrate} bitrate")
-            run_ffmpeg(p, output_path, output_bitrate, args.opus)
+            run_ffmpeg(p, output_path, output_bitrate, output_codec)
 
 
-def run_ffmpeg(
-    input_path: Path, output_path: Path, output_bitrate: int, opus: bool = False
-) -> None:
+def run_ffmpeg(input_path: Path, output_path: Path, output_bitrate: int, output_codec: str) -> None:
     try:
         args = [
             "ffmpeg", "-hide_banner",
             "-i", input_path,
             "-map_metadata", "0",
             "-map_metadata", "0:s:a:0",
-            # '-af', 'pan=mono|c0=FR',
-            # '-ar', '48000',
             "-vn",
             "-b:a", str(output_bitrate),
-            "-c:a", "libvorbis" if not opus else "libopus",
+            "-c:a", output_codec,
             "-y", output_path,
         ]  # fmt: off
         subprocess.run(args, check=True)
