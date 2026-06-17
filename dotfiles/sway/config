@@ -5,10 +5,7 @@ font pango: Adwaita Sans SemiBold 13
 hide_edge_borders smart
 focus_follows_mouse no
 
-# Setup environment variables
-exec systemctl --user set-environment XDG_CURRENT_DESKTOP=sway
-exec systemctl --user import-environment DISPLAY SWAYSOCK WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
-exec dbus-update-activation-environment --systemd DISPLAY SWAYSOCK WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
+include /etc/sway/config.d/*
 
 # Change focus
 bindsym --to-code $mod+h focus left
