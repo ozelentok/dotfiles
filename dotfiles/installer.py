@@ -166,7 +166,7 @@ class Installer:
 
     def gimp(self) -> None:
         self._pm.install_packages(["gimp"])
-        self.install_aur_packages(["xsane"])
+        self.install_aur_packages(["xsane-git"])
 
         plugin_dir_path = self._mkdir("GIMP/3.0/plug-ins/xsane")
         utils.symlink_dotfile("gimp/xsane.py", plugin_dir_path)
@@ -178,7 +178,6 @@ class Installer:
 
     def gtk(self) -> None:
         self._pm.install_packages([
-            "gtk2",
             "gtk3",
             "gtk4",
             "polkit-gnome",
