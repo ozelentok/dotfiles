@@ -8,8 +8,7 @@ from pathlib import Path
 
 import pulsectl
 
-MIC_SOURCE = "alsa_input.usb-Jieli_Technology_UACDemoV1.0_FFFFFFFFFFFFFFFF-00.mono-fallback"
-MIC2_SOURCE = "alsa_input.pci-0000_00_1f.3.analog-stereo"
+MIC_SOURCE = "alsa_input.pci-0000_00_1f.3.analog-stereo"
 SOUNDBOARD_SINK = "SoundboardSink"
 VIRTUAL_MIC = "VirtualMic"
 MODULE_IDS_PATH = Path(os.environ["XDG_RUNTIME_DIR"], "virtual-mic-ids")
@@ -36,7 +35,6 @@ class VirtualMicLoader:
         self._load_loopback(SOUNDBOARD_SINK, default_sink, True)
         self._load_loopback(SOUNDBOARD_SINK, VIRTUAL_MIC, True)
         self._load_loopback(MIC_SOURCE, VIRTUAL_MIC)
-        self._load_loopback(MIC2_SOURCE, VIRTUAL_MIC)
 
         with open(MODULE_IDS_PATH, "w") as ids_file:
             json.dump(self._loaded_modules_ids, ids_file)
