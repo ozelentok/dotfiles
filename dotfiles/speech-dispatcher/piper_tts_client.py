@@ -62,7 +62,7 @@ def main():
         "--server",
         type=str,
         help="Piper TTS server URL",
-        default="http://localhost:9010",
+        default="http://localhost:9010/synthesize",
     )
     args = parser.parse_args()
 
