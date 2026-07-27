@@ -170,7 +170,8 @@ bindsym --to-code $mod+Control+l           exec swaylock $swaylock_options
 exec_always swayidle -w \
   timeout 300 'swaymsg "output * power off"' \
     resume 'swaymsg "output * power on"' \
-  timeout 600 'swaylock -f $swaylock_options'
+  timeout 600 'swaylock -f $swaylock_options' \
+  before-sleep 'swaylock -f $swaylock_options'
 
 # Keyboard
 input type:keyboard {
