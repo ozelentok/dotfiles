@@ -1,1 +1,2 @@
-prefix = ${HOME}/.local
+prefix=${HOME}/.local
+min-release-age=3
