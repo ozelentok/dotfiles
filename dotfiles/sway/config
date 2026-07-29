@@ -12,12 +12,20 @@ bindsym --to-code $mod+h focus left
 bindsym --to-code $mod+j focus down
 bindsym --to-code $mod+k focus up
 bindsym --to-code $mod+l focus right
+bindsym --to-code $mod+Left  focus left
+bindsym --to-code $mod+Down  focus down
+bindsym --to-code $mod+Up    focus up
+bindsym --to-code $mod+Right focus right
 
 # Move focused window
 bindsym --to-code $mod+Shift+H move left
 bindsym --to-code $mod+Shift+J move down
 bindsym --to-code $mod+Shift+K move up
 bindsym --to-code $mod+Shift+L move right
+bindsym --to-code $mod+Shift+Left  move left
+bindsym --to-code $mod+Shift+Down  move down
+bindsym --to-code $mod+Shift+Up    move up
+bindsym --to-code $mod+Shift+Right move right
 
 # Split horizontally/vertically
 bindsym --to-code $mod+o split h
@@ -52,9 +60,9 @@ bindsym --to-code $mod+7     workspace 7
 bindsym --to-code $mod+8     workspace 8
 bindsym --to-code $mod+9     workspace 9
 bindsym --to-code $mod+0     workspace 10
-bindsym --to-code $mod+Left  workspace prev
-bindsym --to-code $mod+Right workspace next
 bindsym --to-code $mod+Tab   workspace back_and_forth
+bindsym --to-code $mod+Control+Left  workspace prev
+bindsym --to-code $mod+Control+Right workspace next
 
 # Move focused container to workspace
 bindsym --to-code $mod+Shift+1     move workspace 1
@@ -67,8 +75,6 @@ bindsym --to-code $mod+Shift+7     move workspace 7
 bindsym --to-code $mod+Shift+8     move workspace 8
 bindsym --to-code $mod+Shift+9     move workspace 9
 bindsym --to-code $mod+Shift+0     move workspace 10
-bindsym --to-code $mod+Shift+Left  move workspace prev
-bindsym --to-code $mod+Shift+Right move workspace next
 
 bindsym --to-code $mod+Shift+C reload
 bindsym --to-code $mod+Shift+R restart
