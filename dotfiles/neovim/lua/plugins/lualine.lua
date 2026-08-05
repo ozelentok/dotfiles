@@ -46,7 +46,7 @@ local sections = {
   lualine_b = { 'branch', 'diff', 'diagnostics' },
   lualine_c = { { 'filename', path = 3 }, '%S' },
   lualine_x = { 'encoding', 'fileformat', 'filetype' },
-  lualine_y = { 'progress' },
+  lualine_y = { 'searchcount', 'progress' },
   lualine_z = { 'location',
     {
       function()
