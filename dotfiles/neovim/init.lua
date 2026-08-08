@@ -73,8 +73,10 @@ map_vim('n', '<C-Left>', 'gT')
 -- Date insertion
 map_vim('n', '<F2>', '"=strftime("%Y-%m-%d")<CR>P')
 map_vim('i', '<F2>', '<C-R>=strftime("%Y-%m-%d")<CR>')
-map_vim('n', '<F3>', '"=strftime("%Y-%m-%d %H:%M:%S")<CR>P')
-map_vim('i', '<F3>', '<C-R>=strftime("%Y-%m-%d %H:%M:%S")<CR>')
+map_vim('n', '<F3>', '"=strftime("%Y-%m-%d %A")<CR>P')
+map_vim('i', '<F3>', '<C-R>=strftime("%Y-%m-%d %A")<CR>')
+map_vim('n', '<F4>', '"=strftime("%Y-%m-%d %H:%M:%S")<CR>P')
+map_vim('i', '<F4>', '<C-R>=strftime("%Y-%m-%d %H:%M:%S")<CR>')
 
 -- Diff two open windows
 map_vim('n', '<leader>df', '<cmd>diffthis<CR><C-w><C-w><cmd>diffthis<CR><C-w><C-w>')
