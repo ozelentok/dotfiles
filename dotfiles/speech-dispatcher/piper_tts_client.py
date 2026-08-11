@@ -15,7 +15,7 @@ def available_voices() -> list[str]:
     return [f.stem for f in voices_dir.iterdir() if f.suffix.endswith("onnx")]
 
 
-def send_tts_request(url: str, voice: str, text: str, speed: float):
+def send_tts_request(url: str, output: Path | None, voice: str, text: str, speed: float):
     # Remove surrgate characters
     text = text.encode(errors="ignore").decode()
 
@@ -31,6 +31,11 @@ def send_tts_request(url: str, voice: str, text: str, speed: float):
         if response.getcode() != 200:
             raise ValueError(f"Request failed with status code: {response.getcode()}\n{data}")
 
+        if output:
+            with open(output, "wb") as f:
+                f.write(data)
+            return
+
         p = subprocess.Popen(
             ["pw-play", "--media-role", "Speech", "-P", "media.name=Text-to-Speech", "-"],
             stdin=subprocess.PIPE,
@@ -43,6 +48,7 @@ def send_tts_request(url: str, voice: str, text: str, speed: float):
 def main():
     parser = argparse.ArgumentParser(description="Send text to TTS server")
     parser.add_argument("text", type=str, help="Text to synthesize")
+    parser.add_argument("-o", "--output", type=Path, help="Save audio to wav file", default=None)
     parser.add_argument(
         "-s",
         "--speed",
@@ -67,7 +73,7 @@ def main():
     args = parser.parse_args()
 
     try:
-        send_tts_request(args.server, args.voice, args.text, args.speed)
+        send_tts_request(args.server, args.output, args.voice, args.text, args.speed)
     except Exception as e:
         subprocess.check_call(
             [
