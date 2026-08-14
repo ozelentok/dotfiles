@@ -213,12 +213,13 @@ __zoxide_insert_dir() {
 zle -N __zoxide_insert_dir
 bindkey '^G' __zoxide_insert_dir
 
-flc() {
-  local cd_path
-  cd_path=$(locate -i "$1" | fzf \
+__flc_pick_path() {
+  locate -i -- "$1" | fzf \
     --scheme=path \
     --height '40%' \
-    --header-first --header 'Keymap: Enter(cd), Ctrl-O(rifle), Ctrl-U(doublecmd), Ctrl-E(vim), Ctrl-Y(copy path), Ctrl-H(copy absolute path)' \
+    --header-first \
+    --header 'Ctrl-O(rifle), Ctrl-U(doublecmd), Ctrl-E(vim), Ctrl-Y(copy path), Ctrl-H(copy absolute path)' \
+    --reverse \
     --bind 'ctrl-o:execute(rifle {})+abort' \
     --bind 'ctrl-u:execute-silent(doublecmd -C {} &)+abort' \
     --bind 'ctrl-e:execute(vim {})+abort' \
@@ -226,14 +227,20 @@ flc() {
     --bind 'ctrl-h:execute-silent(echo -n \$(realpath -s {}) | cb)' \
     --bind 'shift-up:preview-page-up,shift-down:preview-page-down' \
     --preview 'fzf-preview {}'
-  )
-  if [ -z "${cd_path}" ]; then
-    return
-  elif [ -d "${cd_path}" ]; then
-    cd -- "${cd_path}" || return
-  else
-    cd -- "$(dirname "${cd_path}")" || return
-  fi
 }
+
+__flc_insert_path() {
+  local keyword selected_path
+  keyword=${LBUFFER##* }
+
+  if selected_path=$(__flc_pick_path "$keyword"); then
+    zle -I
+    LBUFFER="${LBUFFER%${keyword}}${selected_path}"
+  fi
+  zle redisplay
+}
+
+zle -N __flc_insert_path
+bindkey '^B' __flc_insert_path
 
 [[ -f "$HOME/.zshrc_local" ]] && source "$HOME/.zshrc_local"
