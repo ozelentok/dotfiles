@@ -201,12 +201,13 @@ export FZF_COMPLETION_OPTS="--header-first
 export FZF_CTRL_T_OPTS="${FZF_COMPLETION_OPTS}"
 
 eval "$(zoxide init zsh --cmd j)"
-function __zoxide_insert_dir() {
+__zoxide_insert_dir() {
   local dir
-  dir=$(zoxide query -i) || return 1
-
-  LBUFFER+="$dir"
-  zle reset-prompt
+  if dir=$(zoxide query -i); then
+    zle -I
+    LBUFFER+="$dir"
+  fi
+  zle redisplay
 }
 
 zle -N __zoxide_insert_dir
