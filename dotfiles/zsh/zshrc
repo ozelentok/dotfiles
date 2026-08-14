@@ -187,7 +187,9 @@ source /usr/share/fzf/key-bindings.zsh
 source /usr/share/fzf/completion.zsh
 export FZF_COMPLETION_TRIGGER='~~'
 export FZF_ALT_C_OPTS="--walker dir,follow"
-export FZF_COMPLETION_OPTS="--header-first --header 'Keymap: Ctrl-O(rifle), Ctrl-U(doublecmd), Ctrl-E(vim), Ctrl-Y(copy path), Ctrl-H(copy absolute path)'
+export FZF_COMPLETION_OPTS="--header-first
+  --header 'Keymap: Ctrl-O(rifle), Ctrl-U(doublecmd), Ctrl-E(vim), Ctrl-Y(copy path), Ctrl-H(copy absolute path)'
+  --reverse
   --bind 'ctrl-o:execute(rifle {})+abort'
   --bind 'ctrl-u:execute-silent(doublecmd -C {} &)+abort'
   --bind 'ctrl-e:execute(vim {})+abort'
