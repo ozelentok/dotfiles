@@ -74,6 +74,7 @@ return {
       notifier = { enabled = true, style = 'fancy' },
       quickfile = { enabled = true },
       scope = { enabled = true },
+      image = { enabled = true, doc = { inline = false, float = true } },
       scroll = {
         enabled = true,
         animate = { easing = 'inOutCirc' },
