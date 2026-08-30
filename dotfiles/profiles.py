@@ -74,9 +74,6 @@ class Full(Profile):
 
 
 class Minimal(Profile):
-    def zsh(self) -> None:
-        self._installer.zsh(False)
-
     def neovim(self) -> None:
         self._installer.neovim(False, False)
 
@@ -91,7 +88,7 @@ class Minimal(Profile):
 
     def install(self) -> None:
         self._installer.base_packages()
-        self.zsh()
+        self._installer.zsh()
         self._installer.tmux()
         self._installer.mount_utils()
         self._installer.git()
@@ -109,24 +106,9 @@ class Minimal(Profile):
         self._installer.neovim_plugins(False)
 
 
-class ShellOnly(Profile):
-    def zsh(self) -> None:
-        self._installer.zsh(False)
-
-    def neovim(self) -> None:
-        self._installer.neovim(False, False)
-
-    def yazi(self):
-        self._installer.yazi(False)
-
-    def ranger(self) -> None:
-        self._installer.ranger(False)
-
-    def vifm(self) -> None:
-        self._installer.vifm(False)
-
+class ShellOnly(Minimal):
     def install(self) -> None:
-        self.zsh()
+        self._installer.zsh()
 
     def upgrade(self) -> None:
-        pass
+        utils.run_command(["pikaur", "-Syu"])

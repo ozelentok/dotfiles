@@ -584,7 +584,7 @@ class Installer:
     def xnviewmp(self) -> None:
         self.install_aur_packages(["xnviewmp-system-libs"])
 
-    def zsh(self, developer: bool = True) -> None:
+    def zsh(self) -> None:
         self._pm.install_packages([
             "zsh", "zsh-completions", "zsh-syntax-highlighting",
             "fzf",
@@ -600,10 +600,6 @@ class Installer:
         utils.symlink_dotfile("zsh/zprofile", Path.home(), hidden=True)
         utils.symlink_dotfile("zsh/profile", Path.home(), hidden=True)
         utils.symlink_dotfile("zsh/p10k.zsh", Path.home(), hidden=True)
-        if developer:
-            utils.symlink_dotfile("zsh/settings_developer", Path.home() / ".zsh_dotfiles_settings")
-        else:
-            utils.symlink_dotfile("zsh/settings_minimal", Path.home() / ".zsh_dotfiles_settings")
 
         utils.run_shell("sudo usermod -s $(which zsh) ${USER}")
 

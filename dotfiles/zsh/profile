@@ -76,5 +76,4 @@ fi
 
 mkdir -p /tmp/1-imgs $GRIM_DEFAULT_DIR
 
-source "$HOME/.zsh_dotfiles_settings"
 [[ -f "$HOME/.profile_local" ]] && source "$HOME/.profile_local"
