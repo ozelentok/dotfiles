@@ -106,13 +106,18 @@ return {
 
   -- Project Working Directory Management
   {
-    'ahmedkhalf/project.nvim',
+    'DrKJeff16/project.nvim',
     config = function()
-      require('project_nvim').setup({
+      require('project').setup({
         scope_chdir = 'win',
-        ignore_lsp = { 'lua_ls', 'null-ls' },
+        lsp = {
+          ignore_lsp = { 'lua_ls', 'null-ls' },
+        },
         manual_mode = true,
         silent_chdir = false,
+        snacks = {
+          enabled = true,
+        },
         patterns = {
           '.git',
           '.obsidian',
@@ -132,7 +137,7 @@ return {
         '<leader>i',
         function()
           vim.o.autochdir = false
-          require('project_nvim.project').on_buf_enter()
+          require('project.core').on_buf_enter()
           vim.print('ProjectRoot enabled')
         end,
         noremap = true,
@@ -157,7 +162,7 @@ return {
         end,
         noremap = true,
         desc =
-        'Disable auto file workspace directory'
+        'Disable auto file working directory'
       },
     }
   },
