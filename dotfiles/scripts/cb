@@ -2,8 +2,10 @@
 
 set -eo pipefail
 
-if [ -n "${WAYLAND_DISPLAY}" ] && command -v wl-copy >/dev/null; then
-  exec wl-copy -- "$@"
+if [ -n "${VTE_VERSION}" ]; then
+  if [ -n "${WAYLAND_DISPLAY}" ] && command -v wl-copy >/dev/null; then
+    exec wl-copy -- "$@"
+  fi
 fi
 
 if [ $# -gt 0 ]; then
@@ -11,4 +13,4 @@ if [ $# -gt 0 ]; then
 else
   encoded=$(base64 | tr -d '\n')
 fi
-exec printf '\033]52;c;%s\a' "$encoded" > /dev/tty
+exec printf '\033]52;c;%s\a' "${encoded}" > /dev/tty
