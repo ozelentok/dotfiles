@@ -6,6 +6,16 @@ if [ -n "${VTE_VERSION}" ]; then
   if [ -n "${WAYLAND_DISPLAY}" ] && command -v wl-copy >/dev/null; then
     exec wl-copy -- "$@"
   fi
+
+  if [ -n "${DISPLAY}" ] && command -v xsel >/dev/null; then
+    if [ $# -gt 0 ]; then
+      printf '%s' "$*" | xsel -b -i
+    else
+      exec xsel -b -i
+    fi
+  fi
+
+  exit 0
 fi
 
 if [ $# -gt 0 ]; then
