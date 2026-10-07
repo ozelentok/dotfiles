@@ -3,7 +3,7 @@ import shutil
 import subprocess
 from pathlib import Path
 
-__MOUDLE_PATH = Path(os.path.dirname(os.path.abspath(__file__)))
+__MODULE_PATH = Path(os.path.dirname(os.path.abspath(__file__)))
 
 
 class SystemPackageManager:
@@ -20,11 +20,11 @@ class SystemPackageManager:
 
 
 def run_command(command: list[str], **kwargs) -> None:
-    subprocess.run(command, shell=False, cwd=__MOUDLE_PATH, check=True, **kwargs)
+    subprocess.run(command, shell=False, cwd=__MODULE_PATH, check=True, **kwargs)
 
 
 def run_shell(command: str, **kwargs) -> None:
-    subprocess.run(command, shell=True, cwd=__MOUDLE_PATH, check=True, **kwargs)
+    subprocess.run(command, shell=True, cwd=__MODULE_PATH, check=True, **kwargs)
 
 
 def mkdir(path: Path) -> None:
@@ -52,7 +52,7 @@ def symlink_relative(src_path: Path, dst_path: Path, hidden: bool = False) -> No
 
 def symlink_dotfile(dotfile_path: str | Path, dst_path: str | Path, hidden: bool = False) -> None:
     dst_path = Path(dst_path)
-    symlink_relative(__MOUDLE_PATH / dotfile_path, dst_path, hidden)
+    symlink_relative(__MODULE_PATH / dotfile_path, dst_path, hidden)
 
 
 def symlink_dotfile_with_root(
@@ -62,7 +62,7 @@ def symlink_dotfile_with_root(
     dst_path = Path(dst_path)
     if dst_path.is_dir() and not dst_path.is_symlink():
         dst_path /= ("." if hidden else "") + dotfile_path.name
-    src_path = __MOUDLE_PATH / dotfile_path
+    src_path = __MODULE_PATH / dotfile_path
     run_command(["sudo", "ln", "-s", "-f", src_path.as_posix(), dst_path.as_posix()])
 
 
@@ -71,7 +71,7 @@ def copy_dotfile(dotfile_path: str | Path, dst_path: Path, hidden: bool = False)
     if dst_path.is_dir():
         dst_path /= ("." if hidden else "") + Path(dotfile_path).name
 
-    src_path = __MOUDLE_PATH / dotfile_path
+    src_path = __MODULE_PATH / dotfile_path
     if dst_path.exists():
         src_stat = src_path.stat()
         dst_stat = dst_path.stat()
@@ -87,17 +87,17 @@ def copy_dotfile_as_root(
     if dst_path.is_dir():
         dst_path /= ("." if hidden else "") + Path(dotfile_path).name
 
-    src_path = __MOUDLE_PATH / dotfile_path
-    subprocess.check_call(["sudo", "cp", src_path, dst_path], cwd=__MOUDLE_PATH)
+    src_path = __MODULE_PATH / dotfile_path
+    subprocess.check_call(["sudo", "cp", src_path, dst_path], cwd=__MODULE_PATH)
 
 
 def extract_dotfile_tar(dotfile_tar_path: str | Path, dst_dir_path: Path):
-    src_path = __MOUDLE_PATH / dotfile_tar_path
+    src_path = __MODULE_PATH / dotfile_tar_path
     subprocess.check_call(["tar", "-xf", src_path, "-C", dst_dir_path])
 
 
 def extract_dotfile_tar_as_root(dotfile_tar_path: str | Path, dst_dir_path: str | Path):
-    src_path = __MOUDLE_PATH / dotfile_tar_path
+    src_path = __MODULE_PATH / dotfile_tar_path
     subprocess.check_call(
         [
             "sudo",
