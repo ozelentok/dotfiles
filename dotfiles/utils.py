@@ -6,19 +6,6 @@ from pathlib import Path
 __MODULE_PATH = Path(os.path.dirname(os.path.abspath(__file__)))
 
 
-class SystemPackageManager:
-    _pacman_options = "-Syu"
-
-    def __init__(self, skip_upgrade=False):
-        if skip_upgrade:
-            self._pacman_options = "-S"
-
-    def install_packages(self, packages: list[str]) -> None:
-        subprocess.check_call(
-            ["sudo", "pacman", self._pacman_options, "--needed", "--noconfirm"] + packages
-        )
-
-
 def run_command(command: list[str], **kwargs) -> None:
     subprocess.run(command, shell=False, cwd=__MODULE_PATH, check=True, **kwargs)
 
@@ -110,12 +97,3 @@ def extract_dotfile_tar_as_root(dotfile_tar_path: str | Path, dst_dir_path: str 
             dst_dir_path,
         ]
     )
-
-
-def is_installed(package: str) -> bool:
-    result = subprocess.run(
-        ["pacman", "-Q", package],
-        stdout=subprocess.DEVNULL,
-        stderr=subprocess.DEVNULL,
-    )
-    return result.returncode == 0

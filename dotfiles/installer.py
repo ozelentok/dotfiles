@@ -3,15 +3,15 @@ import inspect
 import os
 import shutil
 import subprocess
-import tempfile
 from pathlib import Path
 
 from . import utils
+from .pm import SystemPackageManager
 
 
 class Installer:
     def __init__(self, skip_upgrade=False) -> None:
-        self._pm = utils.SystemPackageManager(skip_upgrade)
+        self._pm = SystemPackageManager(skip_upgrade)
 
     @classmethod
     def list_packages(cls) -> list[str]:
@@ -32,23 +32,11 @@ class Installer:
             utils.run_command(["sudo", "mkdir", "-p", str(dir_path)])
         return dir_path
 
-    def install_aur_packages(self, packages: list[str]) -> None:
-        self.pikaur()
-        packages = [p for p in packages if not utils.is_installed(p)]
-        subprocess.check_call(["pikaur", "-S", "--needed", "--noconfirm"] + packages)
+    def upgrade_packages(self) -> None:
+        self._pm.upgrade()
 
     def pikaur(self) -> None:
-        if utils.is_installed("pikaur"):
-            return
-
-        self._pm.install_packages(["base-devel", "git"])
-        with tempfile.TemporaryDirectory() as tmp_build_path:
-            subprocess.check_call(
-                ["git", "clone", "https://aur.archlinux.org/pikaur.git", tmp_build_path]
-            )
-            subprocess.check_call(
-                ["makepkg", "-scir", "--needed", "--noconfirm"], cwd=tmp_build_path
-            )
+        self._pm.install_pikaur()
 
     def base_packages(self) -> None:
         self._pm.install_packages([
@@ -166,7 +154,7 @@ class Installer:
 
     def gimp(self) -> None:
         self._pm.install_packages(["gimp"])
-        self.install_aur_packages(["xsane-git"])
+        self._pm.install_aur_packages(["xsane-git"])
 
         plugin_dir_path = self._mkdir("GIMP/3.0/plug-ins/xsane")
         utils.symlink_dotfile("gimp/xsane.py", plugin_dir_path)
@@ -317,7 +305,7 @@ class Installer:
         register_voices()
 
     def mcomix(self) -> None:
-        self.install_aur_packages(["mcomix"])
+        self._pm.install_aur_packages(["mcomix"])
 
     def mount_utils(self) -> None:
         self._pm.install_packages(["sshfs", "cifs-utils", "fuse3"])
@@ -582,7 +570,7 @@ class Installer:
         utils.symlink_dotfile("kitty/kitty.conf", config_dir_path)
 
     def xnviewmp(self) -> None:
-        self.install_aur_packages(["xnviewmp-system-libs"])
+        self._pm.install_aur_packages(["xnviewmp-system-libs"])
 
     def zsh(self) -> None:
         self._pm.install_packages([
@@ -594,7 +582,7 @@ class Installer:
             "which",
             "kitty-terminfo",
         ])  # fmt: off
-        self.install_aur_packages(["zsh-theme-powerlevel10k-git"])
+        self._pm.install_aur_packages(["zsh-theme-powerlevel10k-git"])
 
         utils.symlink_dotfile("zsh/zshrc", Path.home(), hidden=True)
         utils.symlink_dotfile("zsh/zprofile", Path.home(), hidden=True)

@@ -1,6 +1,5 @@
 from abc import ABC, abstractmethod
 
-from . import utils
 from .installer import Installer
 
 
@@ -30,7 +29,6 @@ class Full(Profile):
         self._installer.zsh()
         self._installer.tmux()
         self._installer.mount_utils()
-        self._installer.pikaur()
         self._installer.git()
         self._installer.systemd_config()
 
@@ -67,7 +65,7 @@ class Full(Profile):
         self._installer.speech_dispatcher()
 
     def upgrade(self) -> None:
-        utils.run_command(["pikaur", "-Syu"])
+        self._installer.upgrade_packages()
         self._installer.scripts_dependencies()
         self._installer.yt_dlp()
         self._installer.neovim_plugins(True)
@@ -92,7 +90,6 @@ class Minimal(Profile):
         self._installer.tmux()
         self._installer.mount_utils()
         self._installer.git()
-        self._installer.pikaur()
 
         self.neovim()
         self.yazi()
@@ -101,7 +98,7 @@ class Minimal(Profile):
         self._installer.sensors()
 
     def upgrade(self) -> None:
-        utils.run_command(["pikaur", "-Syu"])
+        self._installer.upgrade_packages()
         self._installer.scripts_dependencies()
         self._installer.neovim_plugins(False)
 
@@ -111,4 +108,4 @@ class ShellOnly(Minimal):
         self._installer.zsh()
 
     def upgrade(self) -> None:
-        utils.run_command(["pikaur", "-Syu"])
+        self._installer.upgrade_packages()
