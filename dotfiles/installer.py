@@ -26,7 +26,7 @@ class Installer:
         if dir_path.exists():
             return dir_path
 
-        if os.access(parent_dir, os.W_OK):
+        if os.access(parent_dir, os.W_OK) or dir_path.is_relative_to(Path.home()):
             utils.mkdir(dir_path)
         else:
             utils.run_command(["sudo", "mkdir", "-p", str(dir_path)])
