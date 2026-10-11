@@ -44,18 +44,20 @@ fi
 export PATH="$HOME/.local/bin:$HOME/.cargo/bin:$DOTFILES_ROOT/dotfiles/scripts:$HOME/Code/scripts:$PATH"
 
 # SSH Agent
-if [ -n "$XDG_RUNTIME_DIR" ]; then
-  SSH_AGENT_ENV_PATH="${XDG_RUNTIME_DIR}/ssh-agent-${USER}.env"
-else
-  SSH_AGENT_ENV_PATH="/tmp/ssh-agent-${USER}.env"
-fi
+if [ "$EUID" -ne 0 ]; then
+  if [ -n "$XDG_RUNTIME_DIR" ]; then
+    SSH_AGENT_ENV_PATH="${XDG_RUNTIME_DIR}/ssh-agent-${USER}.env"
+  else
+    SSH_AGENT_ENV_PATH="/tmp/ssh-agent-${USER}.env"
+  fi
 
-if ! pgrep -u "$USER" ssh-agent > /dev/null; then
-  ssh-agent > "$SSH_AGENT_ENV_PATH"
-  chmod 600 "$SSH_AGENT_ENV_PATH"
-fi
-if [ -z "$SSH_AUTH_SOCK" ]; then
-  source "$SSH_AGENT_ENV_PATH" > /dev/null
+  if ! pgrep -u "$USER" ssh-agent > /dev/null; then
+    ssh-agent > "$SSH_AGENT_ENV_PATH"
+    chmod 600 "$SSH_AGENT_ENV_PATH"
+  fi
+  if [ -z "$SSH_AUTH_SOCK" ]; then
+    source "$SSH_AGENT_ENV_PATH" > /dev/null
+  fi
 fi
 
 # Cache tmpfs directories
