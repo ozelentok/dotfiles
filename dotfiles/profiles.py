@@ -3,10 +3,7 @@ from abc import ABC, abstractmethod
 from .installer import Installer
 
 
-class Profile(ABC):
-    def __init__(self, skip_upgrade=False):
-        self._installer = Installer(skip_upgrade)
-
+class Profile(Installer, ABC):
     @abstractmethod
     def install(self) -> None:
         pass
@@ -14,98 +11,93 @@ class Profile(ABC):
     @abstractmethod
     def upgrade(self) -> None:
         pass
-
-    def install_package(self, name: str) -> None:
-        pkg_installer = getattr(self, name, None)
-        if not pkg_installer:
-            pkg_installer = getattr(self._installer, name)
-        pkg_installer()
 
 
 class Full(Profile):
     def install(self) -> None:
-        self._installer.tmpfs_programs_cache()
-        self._installer.base_packages()
-        self._installer.zsh()
-        self._installer.tmux()
-        self._installer.mount_utils()
-        self._installer.git()
-        self._installer.systemd_config()
-
-        self._installer.neovim()
-        self._installer.yazi()
-        self._installer.ranger()
-        self._installer.vifm()
-        self._installer.scripts_dependencies()
-        self._installer.sensors()
-        self._installer.media_processing()
-
-        self._installer.gtk()
-        self._installer.qt()
-        self._installer.theme()
-        self._installer.fontconfig()
-        self._installer.sway()
-        self._installer.greetd()
-        self._installer.kitty()
-
-        self._installer.pipewire()
-        self._installer.bluetooth()
-        self._installer.vmic()
-        self._installer.yt_dlp()
-
-        self._installer.desktop_programs()
-        self._installer.mimeapps()
-        self._installer.qbittorrent()
-        self._installer.doublecmd()
-        self._installer.gimp()
-        self._installer.mcomix()
-        self._installer.mpv()
-        self._installer.smplayer()
-        self._installer.xnviewmp()
-        self._installer.speech_dispatcher()
-
-    def upgrade(self) -> None:
-        self._installer.upgrade_packages()
-        self._installer.scripts_dependencies()
-        self._installer.yt_dlp()
-        self._installer.neovim_plugins(True)
-
-
-class Minimal(Profile):
-    def neovim(self) -> None:
-        self._installer.neovim(False, False)
-
-    def yazi(self):
-        self._installer.yazi(False)
-
-    def ranger(self) -> None:
-        self._installer.ranger(False)
-
-    def vifm(self) -> None:
-        self._installer.vifm(False)
-
-    def install(self) -> None:
-        self._installer.base_packages()
-        self._installer.zsh()
-        self._installer.tmux()
-        self._installer.mount_utils()
-        self._installer.git()
+        self.tmpfs_programs_cache()
+        self.base_packages()
+        self.zsh()
+        self.tmux()
+        self.mount_utils()
+        self.git()
+        self.systemd_config()
 
         self.neovim()
         self.yazi()
         self.ranger()
         self.vifm()
-        self._installer.sensors()
+        self.scripts_dependencies()
+        self.sensors()
+        self.media_processing()
+
+        self.gtk()
+        self.qt()
+        self.theme()
+        self.fontconfig()
+        self.sway()
+        self.greetd()
+        self.kitty()
+
+        self.pipewire()
+        self.bluetooth()
+        self.vmic()
+        self.yt_dlp()
+
+        self.desktop_programs()
+        self.mimeapps()
+        self.qbittorrent()
+        self.doublecmd()
+        self.gimp()
+        self.mcomix()
+        self.mpv()
+        self.smplayer()
+        self.xnviewmp()
+        self.speech_dispatcher()
 
     def upgrade(self) -> None:
-        self._installer.upgrade_packages()
-        self._installer.scripts_dependencies()
-        self._installer.neovim_plugins(False)
+        self.upgrade_packages()
+        self.scripts_dependencies()
+        self.yt_dlp()
+        self.neovim_plugins()
 
 
-class ShellOnly(Minimal):
+class Minimal(Profile):
+    def __init__(self, skip_upgrade=False):
+        super().__init__(skip_upgrade, developer=False, wayland=False, media_preview=False)
+
     def install(self) -> None:
-        self._installer.zsh()
+        self.base_packages()
+        self.zsh()
+        self.tmux()
+        self.mount_utils()
+        self.git()
+
+        self.neovim()
+        self.yazi()
+        self.ranger()
+        self.vifm()
+        self.sensors()
 
     def upgrade(self) -> None:
-        self._installer.upgrade_packages()
+        self.upgrade_packages()
+        self.scripts_dependencies()
+        self.neovim_plugins()
+
+
+class ShellOnly(Profile):
+    def __init__(self, skip_upgrade=False):
+        super().__init__(skip_upgrade, developer=False, wayland=False, media_preview=False)
+
+    def install(self) -> None:
+        self.zsh()
+
+    def upgrade(self) -> None:
+        self.upgrade_packages()
+
+
+PROFILES = {
+    "full": Full,
+    "minimal": Minimal,
+    "shellonly": ShellOnly,
+}

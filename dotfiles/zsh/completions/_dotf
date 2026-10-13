@@ -31,16 +31,18 @@ _dotf() {
 
 _dotf_profile() {
   _values "dotf profile" \
-    "Full" \
-    "Minimal" \
-    "ShellOnly"
+    "full" \
+    "minimal" \
+    "shellonly"
 
   _arguments -s \
+    {-s,--skip-upgrade}"[Skip upgrading existing system packages]" \
     {-h,--help}"[Show help message]"
 }
 
 _dotf_upgrade() {
   _arguments -s \
+    {-s,--skip-upgrade}"[Skip upgrading existing system packages]" \
     {-h,--help}"[Show help message]"
 }
 

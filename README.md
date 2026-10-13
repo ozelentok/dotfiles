@@ -16,13 +16,13 @@ git clone --recursive https://github.com/ozelentok/dotfiles.git ~/.dotfiles && c
 python -m dotfiles profile [PROFILE]
 
 # Install Full profile
-python -m dotfiles profile Full
+python -m dotfiles profile full
 
 # Install Minimal profile
-python -m dotfiles profile Minimal
+python -m dotfiles profile minimal
 
 # Install ShellOnly profile
-python -m dotfiles profile ShellOnly
+python -m dotfiles profile shellonly
 ```
 
 ## Upgrade
