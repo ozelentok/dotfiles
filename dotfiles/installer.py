@@ -12,8 +12,17 @@ USER_CONFIG_DIR = Path.home() / ".config"
 
 
 class Installer:
-    def __init__(self, skip_upgrade=False) -> None:
+    def __init__(
+        self,
+        skip_upgrade: bool = False,
+        developer: bool = True,
+        wayland: bool = True,
+        media_preview: bool = True,
+    ) -> None:
         self._pm = SystemPackageManager(skip_upgrade)
+        self._developer = developer
+        self._wayland = wayland
+        self._media_preview = media_preview
 
     @classmethod
     def list_packages(cls) -> list[str]:
@@ -331,9 +340,9 @@ class Installer:
         config_dir_path = self._mkdir("mpv")
         utils.symlink_dotfile("mpv/mpv.conf", config_dir_path)
 
-    def neovim(self, developer: bool = True, wayland: bool = True) -> None:
+    def neovim(self) -> None:
         packages = ["neovim", "python-neovim", "words"]
-        if developer:
+        if self._developer:
             packages.extend(
                 [
                     "gcc",
@@ -358,7 +367,7 @@ class Installer:
                     "sqlfluff",
                 ]
             )
-        if wayland:
+        if self._wayland:
             packages.append("wl-clipboard")
 
         self._pm.install_packages(packages)
@@ -370,7 +379,7 @@ class Installer:
         utils.symlink_dotfile("neovim/after", config_dir_path)
         utils.symlink_dotfile("neovim/snippets", config_dir_path)
 
-        if developer:
+        if self._developer:
             self.nodejs()
             utils.symlink_dotfile("neovim/globalrc", Path.home(), hidden=True)
             utils.symlink_dotfile("neovim/ctags.conf", Path.home() / ".ctags")
@@ -382,10 +391,10 @@ class Installer:
                 "neovim/settings_minimal.lua", config_dir_path / "dotfiles_settings.lua"
             )
 
-        self.neovim_plugins(developer)
+        self.neovim_plugins()
 
-    def neovim_plugins(self, developer: bool = True) -> None:
-        if developer:
+    def neovim_plugins(self) -> None:
+        if self._developer:
             utils.run_command(
                 [
                     "pip",
@@ -423,17 +432,19 @@ class Installer:
     def qbittorrent(self) -> None:
         self._pm.install_packages(["qbittorrent"])
 
-    def ranger(self, media_preview: bool = True) -> None:
-        self._pm.install_packages(["ranger"] + (["ffmpegthumbnailer"] if media_preview else []))
-        if media_preview:
+    def ranger(self) -> None:
+        self._pm.install_packages(
+            ["ranger"] + (["ffmpegthumbnailer"] if self._media_preview else [])
+        )
+        if self._media_preview:
             self.ueberzugpp()
         config_dir_path = self._mkdir("ranger")
         utils.symlink_dotfile("ranger/rc.conf", config_dir_path)
         utils.symlink_dotfile("ranger/scope.sh", config_dir_path)
 
-    def yazi(self, media_preview: bool = True) -> None:
+    def yazi(self) -> None:
         self._pm.install_packages(["yazi"])
-        if media_preview:
+        if self._media_preview:
             self.ueberzugpp()
         config_dir_path = self._mkdir("yazi")
         utils.symlink_dotfile("yazi/yazi.toml", config_dir_path)
@@ -542,9 +553,9 @@ class Installer:
         config_dir_path = self._mkdir("tmux")
         utils.symlink_dotfile("tmux/tmux.conf", config_dir_path)
 
-    def vifm(self, media_preview: bool = True) -> None:
+    def vifm(self) -> None:
         self._pm.install_packages(["vifm", "python-pygments"])
-        if media_preview:
+        if self._media_preview:
             self.ueberzugpp()
 
         config_dir_path = self._mkdir("vifm")
@@ -558,7 +569,7 @@ class Installer:
             plug_dir_path = self._mkdir(plugin, plugins_dir_path)
             utils.symlink_dotfile(f"vifm/{plugin}.lua", plug_dir_path / "init.lua")
 
-        if media_preview:
+        if self._media_preview:
             bin_dir_path = self._mkdir(".local/bin", Path.home())
             utils.symlink_dotfile("vifm/vifm-ueberzugpp-wrapper", bin_dir_path / "vifm")
 
