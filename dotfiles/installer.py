@@ -8,6 +8,8 @@ from pathlib import Path
 from . import utils
 from .pm import SystemPackageManager
 
+USER_CONFIG_DIR = Path.home() / ".config"
+
 
 class Installer:
     def __init__(self, skip_upgrade=False) -> None:
@@ -21,7 +23,7 @@ class Installer:
             if not m[0].startswith("_")
         ]
 
-    def _mkdir(self, name: str, parent_dir: str | Path = Path.home() / ".config") -> Path:
+    def _mkdir(self, name: str, parent_dir: str | Path = USER_CONFIG_DIR) -> Path:
         dir_path = Path(parent_dir) / name
         if dir_path.exists():
             return dir_path
@@ -276,8 +278,9 @@ class Installer:
                     '-s $RATE -v \\"$VOICE\\" \\"$DATA\\""\n'
                 )
                 f.write(f'DefaultVoice "{default_voice}"\n')
-                for n, v in zip(speech_variants, voices):
-                    f.write(f'AddVoice "en-US" "{n}" "{v}"\n')
+                f.writelines(
+                    f'AddVoice "en-US" "{n}" "{v}"\n' for n, v in zip(speech_variants, voices)
+                )
 
             if not voices:
                 print(
