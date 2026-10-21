@@ -1,0 +1,11 @@
+[Unit]
+Description=Pocket TTS HTTP Server
+After=network.target
+
+[Service]
+ExecStart=%h/.local/bin/pocket-tts serve --host 127.0.0.1 --port 9010
+Type=exec
+StandardOutput=null
+
+[Install]
+WantedBy=default.target
