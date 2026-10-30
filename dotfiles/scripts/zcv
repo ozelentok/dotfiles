@@ -4,7 +4,7 @@ import subprocess
 from datetime import datetime
 from enum import StrEnum, auto
 from pathlib import Path
-from typing import Optional, cast
+from typing import cast
 
 import dateparser
 import humanfriendly
@@ -33,7 +33,7 @@ def extract_duration(input_path: Path) -> float:
     )
 
 
-def time_to_seconds(timestamp: str) -> Optional[float]:
+def time_to_seconds(timestamp: str) -> float | None:
     if not timestamp:
         return None
     delta = cast(datetime, dateparser.parse(timestamp)) - cast(
@@ -67,7 +67,7 @@ def calc_target_bitrate_from_frames(input_path: Path, output_size: str, fps: flo
 
 
 def hardcode_subtitles_filter(
-    video_filter: str, subtitles_path: Optional[Path], force_style: bool
+    video_filter: str, subtitles_path: Path | None, force_style: bool
 ) -> str:
     if not subtitles_path:
         return video_filter
@@ -112,7 +112,7 @@ class VideoTune(StrEnum):
     grain = auto()
 
 
-def add_input(cmd: list, input_path: Optional[Path]):
+def add_input(cmd: list, input_path: Path | None):
     if input_path:
         cmd += ["-i", input_path]
 
@@ -142,7 +142,7 @@ def set_audio(cmd: list, audio: Audio, codec: AudioCodec):
         cmd += ["-c:a", codec.value, "-ar", 48000, "-ac", "2", "-b:a", "128K"]
 
 
-def set_video_tune(cmd: list, tune: Optional[VideoTune]):
+def set_video_tune(cmd: list, tune: VideoTune | None):
     if tune:
         cmd += ["-tune", tune.name]
 
@@ -159,7 +159,7 @@ def x265(
     audio_codec: AudioCodec = typer.Option(AudioCodec.aac, "-ac", case_sensitive=False),
     audio_filter: str = typer.Option("", "-af"),
     preset: Preset = typer.Option(Preset.slow, "-p", case_sensitive=False),
-    tune: Optional[VideoTune] = typer.Option(None, "-t", case_sensitive=False),
+    tune: VideoTune | None = typer.Option(None, "-t", case_sensitive=False),
 ) -> None:
     cmd = []
     set_timestamps(cmd, time_from, time_to)
@@ -192,7 +192,7 @@ def ix265(
     audio_codec: AudioCodec = typer.Option(AudioCodec.aac, "-ac", case_sensitive=False),
     audio_filter: str = typer.Option("", "-af"),
     preset: Preset = typer.Option(Preset.slow, "-p", case_sensitive=False),
-    tune: Optional[VideoTune] = typer.Option(None, "-t", case_sensitive=False),
+    tune: VideoTune | None = typer.Option(None, "-t", case_sensitive=False),
 ) -> None:
     cmd = ["-framerate", fps, "-f", "image2"]
     add_input(cmd, input_path)
@@ -221,10 +221,10 @@ def x264(
     audio: Audio = typer.Option(Audio.none, "-a", case_sensitive=False),
     audio_codec: AudioCodec = typer.Option(AudioCodec.aac, "-ac", case_sensitive=False),
     audio_filter: str = typer.Option("", "-af"),
-    subtitles_path: Optional[Path] = typer.Option(None, "-subs"),
+    subtitles_path: Path | None = typer.Option(None, "-subs"),
     subtitles_force_style: bool = typer.Option(False, "-subs-force-style"),
     preset: Preset = typer.Option(Preset.slow, "-p", case_sensitive=False),
-    tune: Optional[VideoTune] = typer.Option(None, "-t", case_sensitive=False),
+    tune: VideoTune | None = typer.Option(None, "-t", case_sensitive=False),
 ) -> None:
     cmd = []
     set_timestamps(cmd, time_from, time_to)
@@ -259,7 +259,7 @@ def ix264(
     audio_codec: AudioCodec = typer.Option(AudioCodec.aac, "-ac", case_sensitive=False),
     audio_filter: str = typer.Option("", "-af"),
     preset: Preset = typer.Option(Preset.slow, "-p", case_sensitive=False),
-    tune: Optional[VideoTune] = typer.Option(None, "-t", case_sensitive=False),
+    tune: VideoTune | None = typer.Option(None, "-t", case_sensitive=False),
 ) -> None:
     cmd = ["-framerate", fps, "-f", "image2"]
     add_input(cmd, input_path)
