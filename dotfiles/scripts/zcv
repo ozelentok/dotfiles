@@ -4,7 +4,7 @@ import subprocess
 from datetime import datetime
 from enum import StrEnum, auto
 from pathlib import Path
-from typing import cast
+from typing import Annotated, cast
 
 import dateparser
 import humanfriendly
@@ -112,6 +112,20 @@ class VideoTune(StrEnum):
     grain = auto()
 
 
+TimeFrom = Annotated[str, typer.Option(..., "-from")]
+TimeTo = Annotated[str, typer.Option(..., "-to")]
+VideoFilter = Annotated[str, typer.Option(..., "-vf")]
+AudioFilter = Annotated[str, typer.Option(..., "-af")]
+AudioOption = Annotated[Audio, typer.Option(..., "-a", case_sensitive=False)]
+AudioCodecOption = Annotated[AudioCodec, typer.Option(..., "-ac", case_sensitive=False)]
+PresetOption = Annotated[Preset, typer.Option(..., "-p", case_sensitive=False)]
+TuneOption = Annotated[VideoTune | None, typer.Option(..., "-t", case_sensitive=False)]
+AudioPath = Annotated[Path | None, typer.Option(..., "-audio")]
+SubtitlesPath = Annotated[Path | None, typer.Option(..., "-subs")]
+SubtitlesForceStyle = Annotated[bool, typer.Option(..., "-subs-force-style")]
+FpsOption = Annotated[str, typer.Option(..., "-fps")]
+SpeedOption = Annotated[float, typer.Option(..., "-speed")]
+
 def add_input(cmd: list, input_path: Path | None):
     if input_path:
         cmd += ["-i", input_path]
@@ -152,14 +166,14 @@ def x265(
     input_path: Path,
     output_path: Path,
     crf: float,
-    time_from: str = typer.Option("", "-from"),
-    time_to: str = typer.Option("", "-to"),
-    video_filter: str = typer.Option("", "-vf"),
-    audio: Audio = typer.Option(Audio.none, "-a", case_sensitive=False),
-    audio_codec: AudioCodec = typer.Option(AudioCodec.aac, "-ac", case_sensitive=False),
-    audio_filter: str = typer.Option("", "-af"),
-    preset: Preset = typer.Option(Preset.slow, "-p", case_sensitive=False),
-    tune: VideoTune | None = typer.Option(None, "-t", case_sensitive=False),
+    time_from: TimeFrom = "",
+    time_to: TimeTo = "",
+    video_filter: VideoFilter = "",
+    audio: AudioOption = Audio.none,
+    audio_codec: AudioCodecOption = AudioCodec.aac,
+    audio_filter: AudioFilter = "",
+    preset: PresetOption = Preset.slow,
+    tune: TuneOption = None,
 ) -> None:
     cmd = []
     set_timestamps(cmd, time_from, time_to)
@@ -186,13 +200,13 @@ def ix265(
     output_path: Path,
     crf: float,
     fps: float,
-    video_filter: str = typer.Option("", "-vf"),
-    audio_path: Path = typer.Option(None, "-audio"),
-    audio: Audio = typer.Option(Audio.none, "-a", case_sensitive=False),
-    audio_codec: AudioCodec = typer.Option(AudioCodec.aac, "-ac", case_sensitive=False),
-    audio_filter: str = typer.Option("", "-af"),
-    preset: Preset = typer.Option(Preset.slow, "-p", case_sensitive=False),
-    tune: VideoTune | None = typer.Option(None, "-t", case_sensitive=False),
+    video_filter: VideoFilter = "",
+    audio_path: AudioPath = None,
+    audio: AudioOption = Audio.none,
+    audio_codec: AudioCodecOption = AudioCodec.aac,
+    audio_filter: AudioFilter = "",
+    preset: PresetOption = Preset.slow,
+    tune: TuneOption = None,
 ) -> None:
     cmd = ["-framerate", fps, "-f", "image2"]
     add_input(cmd, input_path)
@@ -215,16 +229,16 @@ def x264(
     input_path: Path,
     output_path: Path,
     crf: float,
-    time_from: str = typer.Option("", "-from"),
-    time_to: str = typer.Option("", "-to"),
-    video_filter: str = typer.Option("", "-vf"),
-    audio: Audio = typer.Option(Audio.none, "-a", case_sensitive=False),
-    audio_codec: AudioCodec = typer.Option(AudioCodec.aac, "-ac", case_sensitive=False),
-    audio_filter: str = typer.Option("", "-af"),
-    subtitles_path: Path | None = typer.Option(None, "-subs"),
-    subtitles_force_style: bool = typer.Option(False, "-subs-force-style"),
-    preset: Preset = typer.Option(Preset.slow, "-p", case_sensitive=False),
-    tune: VideoTune | None = typer.Option(None, "-t", case_sensitive=False),
+    time_from: TimeFrom = "",
+    time_to: TimeTo = "",
+    video_filter: VideoFilter = "",
+    audio: AudioOption = Audio.none,
+    audio_codec: AudioCodecOption = AudioCodec.aac,
+    audio_filter: AudioFilter = "",
+    subtitles_path: SubtitlesPath = None,
+    subtitles_force_style: SubtitlesForceStyle = False,
+    preset: PresetOption = Preset.slow,
+    tune: TuneOption = None,
 ) -> None:
     cmd = []
     set_timestamps(cmd, time_from, time_to)
@@ -253,13 +267,13 @@ def ix264(
     output_path: Path,
     crf: float,
     fps: float,
-    video_filter: str = typer.Option("", "-vf"),
-    audio_path: Path = typer.Option(None, "-audio"),
-    audio: Audio = typer.Option(Audio.none, "-a", case_sensitive=False),
-    audio_codec: AudioCodec = typer.Option(AudioCodec.aac, "-ac", case_sensitive=False),
-    audio_filter: str = typer.Option("", "-af"),
-    preset: Preset = typer.Option(Preset.slow, "-p", case_sensitive=False),
-    tune: VideoTune | None = typer.Option(None, "-t", case_sensitive=False),
+    video_filter: VideoFilter = "",
+    audio_path: AudioPath = None,
+    audio: AudioOption = Audio.none,
+    audio_codec: AudioCodecOption = AudioCodec.aac,
+    audio_filter: AudioFilter = "",
+    preset: PresetOption = Preset.slow,
+    tune: TuneOption = None,
 ) -> None:
     cmd = ["-framerate", fps, "-f", "image2"]
     add_input(cmd, input_path)
@@ -285,14 +299,14 @@ def vp9(
     input_path: Path,
     output_path: Path,
     output_size: str,
-    time_from: str = typer.Option("", "-from"),
-    time_to: str = typer.Option("", "-to"),
-    video_filter: str = typer.Option("", "-vf"),
-    audio: Audio = typer.Option(Audio.none, "-a", case_sensitive=False),
-    audio_codec: AudioCodec = typer.Option(AudioCodec.vorbis, "-ac", case_sensitive=False),
-    audio_filter: str = typer.Option("", "-af"),
-    subtitles_path: Path = typer.Option(None, "-subs"),
-    subtitles_force_style: bool = typer.Option(False, "-subs-force-style"),
+    time_from: TimeFrom = "",
+    time_to: TimeTo = "",
+    video_filter: VideoFilter = "",
+    audio: AudioOption = Audio.none,
+    audio_codec: AudioCodecOption = AudioCodec.vorbis,
+    audio_filter: AudioFilter = "",
+    subtitles_path: SubtitlesPath = None,
+    subtitles_force_style: SubtitlesForceStyle = False,
 ) -> None:
     cmd = []
 
@@ -323,11 +337,11 @@ def ivp9(
     output_path: Path,
     output_size: str,
     fps: float,
-    video_filter: str = typer.Option("", "-vf"),
-    audio_path: Path = typer.Option(None, "-audio"),
-    audio: Audio = typer.Option(Audio.none, "-a", case_sensitive=False),
-    audio_codec: AudioCodec = typer.Option(AudioCodec.vorbis, "-ac", case_sensitive=False),
-    audio_filter: str = typer.Option("", "-af"),
+    video_filter: VideoFilter = "",
+    audio_path: AudioPath = None,
+    audio: AudioOption = Audio.none,
+    audio_codec: AudioCodecOption = AudioCodec.vorbis,
+    audio_filter: AudioFilter = "",
 ) -> None:
     cmd = ["-framerate", fps, "-f", "image2"]
     add_input(cmd, input_path)
@@ -355,15 +369,15 @@ def vp8(
     input_path: Path,
     output_path: Path,
     output_size: str,
-    time_from: str = typer.Option("", "-from"),
-    time_to: str = typer.Option("", "-to"),
-    video_filter: str = typer.Option("", "-vf"),
-    audio: Audio = typer.Option(Audio.none, "-a", case_sensitive=False),
-    audio_codec: AudioCodec = typer.Option(AudioCodec.vorbis, "-ac", case_sensitive=False),
-    audio_filter: str = typer.Option("", "-af"),
-    subtitles_path: Path = typer.Option(None, "-subs"),
-    subtitles_force_style: bool = typer.Option(False, "-subs-force-style"),
-    fps: str = typer.Option("", "-fps"),
+    time_from: TimeFrom = "",
+    time_to: TimeTo = "",
+    video_filter: VideoFilter = "",
+    audio: AudioOption = Audio.none,
+    audio_codec: AudioCodecOption = AudioCodec.vorbis,
+    audio_filter: AudioFilter = "",
+    subtitles_path: SubtitlesPath = None,
+    subtitles_force_style: SubtitlesForceStyle = False,
+    fps: FpsOption = "",
 ) -> None:
     cmd = []
     set_timestamps(cmd, time_from, time_to)
@@ -395,11 +409,11 @@ def ivp8(
     output_path: Path,
     output_size: str,
     fps: float,
-    video_filter: str = typer.Option("", "-vf"),
-    audio_path: Path = typer.Option(None, "-audio"),
-    audio: Audio = typer.Option(Audio.none, "-a", case_sensitive=False),
-    audio_codec: AudioCodec = typer.Option(AudioCodec.vorbis, "-ac", case_sensitive=False),
-    audio_filter: str = typer.Option("", "-af"),
+    video_filter: VideoFilter = "",
+    audio_path: AudioPath = None,
+    audio: AudioOption = Audio.none,
+    audio_codec: AudioCodecOption = AudioCodec.vorbis,
+    audio_filter: AudioFilter = "",
 ) -> None:
     cmd = ["-framerate", fps, "-f", "image2"]
     add_input(cmd, input_path)
@@ -422,9 +436,9 @@ def ivp8(
 def images(
     input_path: Path,
     output_path: Path,
-    time_from: str = typer.Option("", "-from"),
-    time_to: str = typer.Option("", "-to"),
-    video_filter: str = typer.Option("", "-vf"),
+    time_from: TimeFrom = "",
+    time_to: TimeTo = "",
+    video_filter: VideoFilter = "",
 ) -> None:
     cmd = []
     set_timestamps(cmd, time_from, time_to)
@@ -443,10 +457,10 @@ def images(
 def gif(
     input_path: Path,
     output_path: Path,
-    speed: float = typer.Option(1.0, "-speed"),
-    time_from: str = typer.Option("", "-from"),
-    time_to: str = typer.Option("", "-to"),
-    video_filter: str = typer.Option("", "-vf"),
+    speed: SpeedOption = 1.0,
+    time_from: TimeFrom = "",
+    time_to: TimeTo = "",
+    video_filter: VideoFilter = "",
 ) -> None:
     cmd = []
     set_timestamps(cmd, time_from, time_to)
@@ -470,8 +484,8 @@ def igif(
     input_path: Path,
     output_path: Path,
     fps: float,
-    speed: float = typer.Option(1.0, "-speed"),
-    video_filter: str = typer.Option("", "-vf"),
+    speed: SpeedOption = 1.0,
+    video_filter: VideoFilter = "",
 ) -> None:
     cmd = ["-framerate", fps, "-f", "image2"]
     add_input(cmd, input_path)
@@ -493,10 +507,10 @@ def igif(
 def copy(
     input_path: Path,
     output_path: Path,
-    time_from: str = typer.Option("", "-from"),
-    time_to: str = typer.Option("", "-to"),
-    audio: Audio = typer.Option(Audio.copy, "-a", case_sensitive=False),
-    audio_codec: AudioCodec = typer.Option(AudioCodec.flac, "-ac", case_sensitive=False)
+    time_from: TimeFrom = "",
+    time_to: TimeTo = "",
+    audio: AudioOption = Audio.copy,
+    audio_codec: AudioCodecOption = AudioCodec.flac
 ) -> None:
     cmd = []
     set_timestamps(cmd, time_from, time_to)
