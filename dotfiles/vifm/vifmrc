@@ -147,15 +147,17 @@ fileviewer *.aac ffprobe -hide_banner -pretty %c 2>&1
 fileviewer <audio/*> soxi
 
 fileviewer <image/*>
-         \ #ueberzugpp#image_no_cache %px %py %pw %ph
+         \ magick '%c[0]' -scale 960x960\> /tmp/vifm-preview.jpg 2>/dev/null &&
+         \ kitten icat --silent --place=%pwx%ph@%pxx%py /tmp/vifm-preview.jpg >/dev/tty </dev/tty %N
          \ %pc
-         \ #ueberzugpp#clear
+         \ kitten icat --clear --silent >/dev/tty </dev/tty %N
          " \ identify %f
 
 fileviewer <video/*>
-         \ #ueberzugpp#video %px %py %pw %ph
+         \ ffmpegthumbnailer -i %c -o /tmp/vifm-preview.jpg -s 960 2>/dev/null &&
+         \ kitten icat --silent --place=%pwx%ph@%pxx%py /tmp/vifm-preview.jpg >/dev/tty </dev/tty %N
          \ %pc
-         \ #ueberzugpp#clear
+         \ kitten icat --clear --silent >/dev/tty </dev/tty %N
          " \ ffprobe -hide_banner -pretty %c 2>&1
 
 fileviewer *.tgz,*.tar.gz tar -tzf %c

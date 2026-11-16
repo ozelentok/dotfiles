@@ -98,7 +98,6 @@ class Installer:
             Path.home() / ".cache/mozilla",
             Path.home() / ".cache/nvim",
             Path.home() / ".cache/thumbnails",
-            Path.home() / ".cache/ueberzugpp",
             Path.home() / ".cache/pikaur/build",
             Path.home() / ".cache/android-studio",
             Path.home() / ".cache/chromium",
@@ -412,16 +411,12 @@ class Installer:
         self._pm.install_packages(
             ["ranger"] + (["ffmpegthumbnailer"] if self._media_preview else [])
         )
-        if self._media_preview:
-            self.ueberzugpp()
         config_dir_path = self._mkdir("ranger")
         utils.symlink_dotfile("ranger/rc.conf", config_dir_path)
         utils.symlink_dotfile("ranger/scope.sh", config_dir_path)
 
     def yazi(self) -> None:
         self._pm.install_packages(["yazi"])
-        if self._media_preview:
-            self.ueberzugpp()
         config_dir_path = self._mkdir("yazi")
         utils.symlink_dotfile("yazi/yazi.toml", config_dir_path)
         utils.symlink_dotfile("yazi/theme.toml", config_dir_path)
@@ -440,11 +435,6 @@ class Installer:
         utils.run_command(
             ["sudo", "systemctl", "enable", f"pre-sleep@{user}", f"post-sleep@{user}"]
         )
-
-    def ueberzugpp(self) -> None:
-        self._pm.install_packages(["ueberzugpp"])
-        config_dir_path = self._mkdir("ueberzugpp")
-        utils.symlink_dotfile("ueberzugpp/config.json", config_dir_path)
 
     def samba(self) -> None:
         self._pm.install_packages(["samba"])
@@ -531,8 +521,6 @@ class Installer:
 
     def vifm(self) -> None:
         self._pm.install_packages(["vifm", "python-pygments"])
-        if self._media_preview:
-            self.ueberzugpp()
 
         config_dir_path = self._mkdir("vifm")
 
@@ -541,13 +529,9 @@ class Installer:
         utils.symlink_dotfile("vifm/dircolors.vifm", colors_dir_path)
 
         plugins_dir_path = self._mkdir("plugins", config_dir_path)
-        for plugin in ["devicons", "ueberzugpp"]:
+        for plugin in ["devicons"]:
             plug_dir_path = self._mkdir(plugin, plugins_dir_path)
             utils.symlink_dotfile(f"vifm/{plugin}.lua", plug_dir_path / "init.lua")
-
-        if self._media_preview:
-            bin_dir_path = self._mkdir(".local/bin", Path.home())
-            utils.symlink_dotfile("vifm/vifm-ueberzugpp-wrapper", bin_dir_path / "vifm")
 
     def wezterm(self) -> None:
         self._pm.install_packages(["wezterm"])
